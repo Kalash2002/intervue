@@ -66,7 +66,7 @@ final class JavaRunner implements Runner {
   }
 
   /** Top-level sources plus the installed kit; starter projects are flat by the layout rule. */
-  private static List<Path> sources(Path workDir) {
+  static List<Path> sources(Path workDir) {
     List<Path> sources = new ArrayList<>();
     for (Path dir : List.of(workDir, workDir.resolve("kit"))) {
       if (!Files.isDirectory(dir)) {
@@ -81,13 +81,17 @@ final class JavaRunner implements Runner {
     return sources;
   }
 
-  private static SourceDiagnostic toDiagnostic(
-      Path workDir, Diagnostic<? extends JavaFileObject> d) {
-    String path =
-        workDir
-            .relativize(Path.of(d.getSource().toUri()))
-            .toString()
-            .replace(File.separatorChar, '/');
+  /** A work file's path relative to the work folder, with forward slashes. */
+  static String relative(Path workDir, Path file) {
+    return workDir
+        .toAbsolutePath()
+        .relativize(file.toAbsolutePath())
+        .toString()
+        .replace(File.separatorChar, '/');
+  }
+
+  static SourceDiagnostic toDiagnostic(Path workDir, Diagnostic<? extends JavaFileObject> d) {
+    String path = relative(workDir, Path.of(d.getSource().toUri()));
     String severity =
         switch (d.getKind()) {
           case ERROR -> "error";

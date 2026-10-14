@@ -17,4 +17,6 @@ public interface LanguagePackage {
   TestKit testKit();
 
   CalibrationBenchmark benchmark();
+
+  EditorSupport editor();
 }

@@ -16,6 +16,8 @@ import si.intervue.engine.content.ContentException;
 import si.intervue.engine.content.ContentStore;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.languages.LanguageRegistry;
+import si.intervue.engine.languages.SourceDiagnostic;
+import si.intervue.engine.languages.SourceSymbol;
 import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionPackage;
 import si.intervue.engine.sections.SectionRegistry;
@@ -23,7 +25,6 @@ import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.edits.EditReply;
 import si.intervue.engine.session.edits.EditStore;
 import si.intervue.engine.session.edits.UndoResult;
-import si.intervue.problemformat.HintLevels;
 import si.intervue.problemformat.ProblemFolder;
 
 /**
@@ -45,6 +46,7 @@ public final class Sessions {
   private final Clock clock;
   private final SessionRuns runs;
   private final SessionEdits edits;
+  private final SessionHints hints;
 
   public Sessions(
       SessionStore store,
@@ -65,6 +67,7 @@ public final class Sessions {
     this.clock = clock;
     this.runs = new SessionRuns(this, store, settings, processes);
     this.edits = new SessionEdits(this, editStore);
+    this.hints = new SessionHints(this, store);
   }
 
   /** A session with everything its rules need. */
@@ -156,6 +159,27 @@ public final class Sessions {
     requireOpen(id).work().create(path);
   }
 
+  /** Declarations in the editable source files, for autocomplete (editor tier 1). */
+  public List<SourceSymbol> symbols(String id) {
+    Context c = context(id);
+    List<String> extensions = c.language().definition().extensions();
+    List<String> editable =
+        c.work().list().stream()
+            .filter(f -> !f.readOnly() && extensions.stream().anyMatch(f.path()::endsWith))
+            .map(FileEntry::path)
+            .toList();
+    return c.language().editor().symbols(c.work().root(), editable);
+  }
+
+  /** Compiler diagnostics for the project's files; the kit's are not the candidate's concern. */
+  public List<SourceDiagnostic> diagnostics(String id) {
+    Context c = context(id);
+    List<String> kit = c.language().testKit().files();
+    return c.language().editor().diagnostics(c.work().root()).stream()
+        .filter(d -> !kit.contains(d.path()))
+        .toList();
+  }
+
   public void saveNotes(String id, String notes) {
     context(id);
     store.setNotes(id, notes, clock.millis());
@@ -173,45 +197,14 @@ public final class Sessions {
     return view(id);
   }
 
-  /**
-   * Reveals the next authored hint level of an unlocked phase. Practice only: Interview mode has no
-   * hints at all, so no hint deductions exist in its score (PLAN.md 2.8).
-   */
+  /** Reveals the next authored hint level of an unlocked phase; Practice only (PLAN.md 2.8). */
   public HintView hint(String id, int phase) {
-    Context c = requireOpen(id);
-    if (c.session().type() != SessionType.PRACTICE) {
-      throw new SessionException("Hints are available in Practice sessions only.");
-    }
-    if (phase < 1 || phase > c.session().unlocked()) {
-      throw new SessionException("Phase " + phase + " is not open yet.");
-    }
-    int level = c.session().hintsUsed().getOrDefault(phase, 0) + 1;
-    if (level > HintLevels.LEVELS) {
-      throw new SessionException("All three hints for phase " + phase + " are already shown.");
-    }
-    String text = hintLevels(c, phase).get(level);
-    Map<Integer, Integer> used = new LinkedHashMap<>(c.session().hintsUsed());
-    used.put(phase, level);
-    store.setHintsUsed(id, used);
-    event(c.session(), "hint", Map.of("phase", phase, "level", level));
-    return new HintView(phase, level, text);
+    return hints.reveal(requireOpen(id), phase);
   }
 
   /** The hint texts already revealed for a phase, level 1 first. */
   public List<String> revealedHints(String id, int phase) {
-    Context c = context(id);
-    int shown = c.session().hintsUsed().getOrDefault(phase, 0);
-    Map<Integer, String> levels = hintLevels(c, phase);
-    List<String> texts = new ArrayList<>();
-    for (int level = 1; level <= shown; level++) {
-      texts.add(levels.get(level));
-    }
-    return texts;
-  }
-
-  private static Map<Integer, String> hintLevels(Context c, int phase) {
-    var p = c.problem().problem().phases().get(phase - 1);
-    return HintLevels.parse(readString(c.problem().dir().resolve(p.hints())));
+    return hints.revealed(context(id), phase);
   }
 
   /** Applies one Write code reply (docs/contracts/edit-protocol.md). */

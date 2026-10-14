@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.List;
 import si.intervue.engine.languages.CalibrationBenchmark;
+import si.intervue.engine.languages.EditorSupport;
 import si.intervue.engine.languages.LanguageDefinition;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.languages.Runner;
@@ -32,6 +33,7 @@ public final class JavaLanguagePackage implements LanguagePackage {
   private final JavaRunner runner = new JavaRunner();
   private final JavaTestKit testKit = new JavaTestKit();
   private final JavaBenchmark benchmark;
+  private final JavaEditorSupport editor = new JavaEditorSupport();
 
   public JavaLanguagePackage() {
     LanguageJson json = readLanguageJson();
@@ -72,5 +74,10 @@ public final class JavaLanguagePackage implements LanguagePackage {
   @Override
   public CalibrationBenchmark benchmark() {
     return benchmark;
+  }
+
+  @Override
+  public EditorSupport editor() {
+    return editor;
   }
 }
