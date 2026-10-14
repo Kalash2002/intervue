@@ -26,17 +26,24 @@ public final class EngineMain {
 
   /**
    * Command-line arguments; {@code problems} is the {@code problems} folder of the content. With
-   * {@code exitOnStdinClose} the engine shuts down cleanly when its parent closes stdin.
+   * {@code exitOnStdinClose} the engine shuts down cleanly when its parent closes stdin. {@code
+   * developerMode} enables the developer-only Claude CLI route (PLAN.md 2.5); release shells never
+   * pass it.
    */
-  record Args(Path data, Path problems, int port, boolean exitOnStdinClose) {
+  record Args(Path data, Path problems, int port, boolean exitOnStdinClose, boolean developerMode) {
     static Args parse(String[] argv) {
       Path data = null;
       Path content = null;
       int port = 0;
       boolean exitOnStdinClose = false;
+      boolean developerMode = false;
       for (int i = 0; i < argv.length; i++) {
         if (argv[i].equals("--exit-on-stdin-close")) {
           exitOnStdinClose = true;
+          continue;
+        }
+        if (argv[i].equals("--developer-mode")) {
+          developerMode = true;
           continue;
         }
         if (i + 1 >= argv.length) {
@@ -51,16 +58,18 @@ public final class EngineMain {
       }
       if (data == null || content == null) {
         throw new IllegalArgumentException(
-            "Usage: --data <dir> --content <dir> [--port <n>] [--exit-on-stdin-close]");
+            "Usage: --data <dir> --content <dir> [--port <n>] [--exit-on-stdin-close]"
+                + " [--developer-mode]");
       }
-      return new Args(data, content.resolve("problems"), port, exitOnStdinClose);
+      return new Args(data, content.resolve("problems"), port, exitOnStdinClose, developerMode);
     }
   }
 
   public static void main(String[] argv) {
     Args args = Args.parse(argv);
     String token = token(System.getenv("INTERVUE_ENGINE_TOKEN"), args.data());
-    Engine engine = Engine.open(args.data(), args.problems(), Clock.systemUTC());
+    Engine engine =
+        Engine.open(args.data(), args.problems(), Clock.systemUTC(), args.developerMode());
     engine.sessions().onStartup();
     LocalApi api = LocalApi.start(engine, token, args.port());
     ScheduledExecutorService heartbeat =

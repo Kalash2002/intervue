@@ -2,6 +2,7 @@ package si.intervue.engine.api;
 
 import java.nio.file.Path;
 import java.time.Clock;
+import si.intervue.engine.ai.AiStatus;
 import si.intervue.engine.content.ContentStore;
 import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.engine.health.Doctor;
@@ -25,15 +26,18 @@ public final class Engine implements AutoCloseable {
   private final ContentStore content;
   private final Sessions sessions;
   private final Doctor doctor;
+  private final boolean developerMode;
 
-  private Engine(Database db, ContentStore content, Sessions sessions, Doctor doctor) {
+  private Engine(
+      Database db, ContentStore content, Sessions sessions, Doctor doctor, boolean developerMode) {
     this.db = db;
     this.content = content;
     this.sessions = sessions;
     this.doctor = doctor;
+    this.developerMode = developerMode;
   }
 
-  public static Engine open(Path dataDir, Path problemsDir, Clock clock) {
+  public static Engine open(Path dataDir, Path problemsDir, Clock clock, boolean developerMode) {
     Database db = Database.open(dataDir.resolve("intervue.db"));
     Settings settings = new Settings(db);
     LanguageRegistry languages = LanguageRegistry.load();
@@ -53,7 +57,7 @@ public final class Engine implements AutoCloseable {
             processes);
     Doctor doctor =
         new Doctor(db, EngineChecks.all(dataDir, settings, languages, sections, processes), clock);
-    return new Engine(db, content, sessions, doctor);
+    return new Engine(db, content, sessions, doctor, developerMode);
   }
 
   ContentStore content() {
@@ -66,6 +70,16 @@ public final class Engine implements AutoCloseable {
 
   Doctor doctor() {
     return doctor;
+  }
+
+  boolean developerMode() {
+    return developerMode;
+  }
+
+  AiStatus aiStatus() {
+    return developerMode
+        ? new AiStatus(true, false, "The Claude CLI route is not wired yet")
+        : AiStatus.off();
   }
 
   @Override

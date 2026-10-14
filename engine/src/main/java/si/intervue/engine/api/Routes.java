@@ -42,7 +42,8 @@ final class Routes {
           engine
               .sessions()
               .create(text(body, "problemId"), SessionType.valueOf(text(body, "type")));
-      case "GET /fake-edits" -> FakeEditSource.ids();
+      case "GET /fake-edits" -> demo(FakeEditSource.ids());
+      case "GET /ai/status" -> engine.aiStatus();
       case "GET /health" -> engine.doctor().lastResults();
       case "POST /health/run" ->
           "true".equals(query.get("fast")) ? engine.doctor().runFast() : engine.doctor().runAll();
@@ -85,7 +86,7 @@ final class Routes {
       case "POST skip" -> s.skip(id);
       case "POST hints" -> s.hint(id, number(body, "phase"));
       case "GET hints" -> s.revealedHints(id, Integer.parseInt(required(query, "phase")));
-      case "POST fake-edits" -> s.applyEdits(id, FakeEditSource.lines(text(body, "id")));
+      case "POST fake-edits" -> s.applyEdits(id, FakeEditSource.lines(demo(text(body, "id"))));
       case "POST reset-file" -> Map.of("text", s.resetFile(id, text(body, "path")));
       case "POST reset-problem" -> {
         s.resetProblem(id);
@@ -94,6 +95,14 @@ final class Routes {
       case "POST finish" -> s.finish(id);
       default -> throw new NotFound("No session route " + route);
     };
+  }
+
+  /** The recorded-reply demo exists only in developer mode; otherwise the route does not exist. */
+  private <T> T demo(T value) {
+    if (!engine.developerMode()) {
+      throw new NotFound("No such route");
+    }
+    return value;
   }
 
   private List<ProblemSummary> problems() {

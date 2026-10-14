@@ -35,7 +35,18 @@ class LocalApiTest {
   void start() throws Exception {
     Path problems = root.resolve("problems");
     copyTree(Path.of(getClass().getResource("/problems/tiny").toURI()), problems.resolve("tiny"));
-    engine = Engine.open(root.resolve("data"), problems, Clock.systemUTC());
+    open(false);
+  }
+
+  /** End users run without developer mode; tests that need it reopen the engine with it on. */
+  private void open(boolean developerMode) {
+    if (api != null) {
+      api.stop();
+      engine.close();
+    }
+    engine =
+        Engine.open(
+            root.resolve("data"), root.resolve("problems"), Clock.systemUTC(), developerMode);
     api = LocalApi.start(engine, TOKEN, 0);
   }
 
@@ -150,6 +161,7 @@ class LocalApiTest {
 
   @Test
   void onlyBundledFakeEditStreamsReplay() throws Exception {
+    open(true);
     JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
     String s = "/sessions/" + session.get("id").asString();
 
@@ -160,6 +172,25 @@ class LocalApiTest {
     assertThat(call("POST", s + "/replies/" + replyId + "/undo", null).isArray()).isTrue();
     assertThat(send("POST", s + "/fake-edits", "{\"id\":\"../../etc\"}", TOKEN).statusCode())
         .isEqualTo(400);
+  }
+
+  @Test
+  void withoutDeveloperModeTheAssistantIsUnavailableAndTheDemoIsHidden() throws Exception {
+    JsonNode status = call("GET", "/ai/status", null);
+
+    assertThat(status.get("developer").asBoolean()).isFalse();
+    assertThat(status.get("available").asBoolean()).isFalse();
+    assertThat(status.get("reason").asString())
+        .isEqualTo("Assistant unavailable: sign-in arrives in Phase 1b");
+    assertThat(send("GET", "/fake-edits", null, TOKEN).statusCode()).isEqualTo(404);
+  }
+
+  @Test
+  void developerModeIsReportedAndShowsTheDemo() throws Exception {
+    open(true);
+
+    assertThat(call("GET", "/ai/status", null).get("developer").asBoolean()).isTrue();
+    assertThat(call("GET", "/fake-edits", null).isArray()).isTrue();
   }
 
   @Test
