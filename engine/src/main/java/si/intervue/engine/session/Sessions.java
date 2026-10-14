@@ -355,7 +355,8 @@ public final class Sessions {
   }
 
   /** Intro, then each phase's brief while unlocked (all of them after finish). */
-  private static List<String> brief(Context c) {
+  /** The intro, then each phase's brief, null while that phase is locked. */
+  static List<String> brief(Context c) {
     List<String> parts = new ArrayList<>();
     Path dir = c.problem().dir();
     parts.add(readString(dir.resolve("brief/intro.md")));

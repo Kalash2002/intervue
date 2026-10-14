@@ -78,6 +78,19 @@ final class WorkFolder implements EditableFiles {
     return readString(file);
   }
 
+  /** A project file's bytes, for hashing exactly what the edit applier will compare. */
+  byte[] readBytes(String rel) {
+    Path file = resolve(rel);
+    if (!Files.isRegularFile(file) || isKit(rel)) {
+      throw new SessionException("No such file: " + rel);
+    }
+    try {
+      return Files.readAllBytes(file);
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+  }
+
   void write(String rel, String content) {
     Path file = resolve(rel);
     requireEditable(rel);

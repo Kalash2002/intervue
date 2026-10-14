@@ -210,7 +210,8 @@ public final class EditApplier {
     }
   }
 
-  static String hash(byte[] bytes) {
+  /** The base hash the edit protocol carries: {@code sha256:} and the hex digest of the bytes. */
+  public static String hash(byte[] bytes) {
     try {
       return "sha256:"
           + HexFormat.of().formatHex(MessageDigest.getInstance("SHA-256").digest(bytes));
