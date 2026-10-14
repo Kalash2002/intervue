@@ -2,7 +2,7 @@
 
 ## Context to read first
 
-`CLAUDE.md`; `docs/plan/PLAN.md` sections 2.2 (local store, clock rule), 2.6 (entities, interfaces), 3.1, 3.2 and 3.3 (stack, Tauri packaging, the Tauri decision), 4 (runtime, run protocol, calibration), 5.2 and 5.3 (layout, layers), 6.4 (health checks), 7.1 (problem format); `docs/process/*`; `docs/learning/phase-1a.md` (the human does this sprint before the run); `prototype/` for the behaviour to preserve (`server/Server.java`, `web/app.js`, `kit/`).
+`CLAUDE.md`; `docs/plan/PLAN.md` sections 2.2 (local store, clock rule), 2.6 (entities, interfaces), 3.1, 3.2 and 3.3 (stack, Tauri packaging, the Tauri decision), 4 (runtime, run protocol, calibration), 5.2 and 5.3 (layout, layers), 6.4 (health checks), 7.1 (problem format); `docs/process/*`; `docs/learning/phase-1a.md` (the human does this sprint before the run); `docs/adr/0001-payments-mock-then-gateway.md` (two free problems) and `docs/discovery/phase-0-review.md` (checkpoint before the engine rewrite); `prototype/` for the behaviour to preserve (`server/Server.java`, `web/app.js`, `kit/`).
 
 ## Goal
 
@@ -16,7 +16,7 @@ A desktop app a tester can install from a zip and use offline: dashboard, sessio
 - React UI in `packages/ui`: start screen choosing Interview or Practice; dashboard with "Interview", "Interview, assisted" and "Practice" labels and solved counting only unassisted interviews; room (file tree, CodeMirror 6 editor with autocomplete, inline diagnostics and AI-edit decorations with Undo, output, brief, Hint control in Practice, timeline strip showing edit and hint events, phase chips, run target picker, reset file and reset problem); result page (score with its label, per-phase results, hints used, edits applied and undone, walkthrough, follow-ups, notes). Assistant panel shows the Ask and Write code controls disabled with "Available after sign-in in a later phase".
 - `packages/editor`: CodeMirror 6 with `@codemirror/autocomplete` (keywords, project symbols from the engine, snippets), `@codemirror/lint` fed by compiler diagnostics, read-only and AI-edit decorations; an `lsp/` folder with the `@codemirror/lsp-client` bridge stubbed for Phase 2.
 - Tauri 2 shell in Rust: window, engine launcher that starts `runtime/bin/java -jar engine.jar` from the bundled jlink runtime in `bundle.resources` through the shell plugin and passes the port and per-launch token to the UI through a command, capabilities limited to what the shell needs, unsigned dev bundles (`cargo tauri build`) for Windows and macOS. No updater yet. The React UI runs in the system webview unchanged from `packages/ui`.
-- Content: migrate the three prototype problems to the new format under `content/problems/` and write their `hints/phase<N>.md` with three levels each; author seven more from PLAN.md 7.3 pack A (Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup) with hints; every problem verified three ways with `content/tools verify`, which also checks the hints; `content/free/free.json` points at Hold Exposure.
+- Content: migrate the three prototype problems to the new format under `content/problems/` and write their `hints/phase<N>.md` with three levels each; author seven more from PLAN.md 7.3 pack A (Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup) with hints; every problem verified three ways with `content/tools verify`, which also checks the hints; `content/free/free.json` lists the two free problems, Hold Exposure and Corridor Router (ADR 0001).
 
 ## Out of scope
 
@@ -33,7 +33,7 @@ Backend, accounts, entitlements, packs, encryption, payments, live AI calls (Ask
 ## Exit criteria
 
 1. `pnpm dev` on Windows and macOS launches the shell, the engine answers `GET /local/ping`, and the dashboard lists 10 problems.
-2. A full Interview session on the free problem: start, edit, run phase tests, unlock by passing, skip, finish, result page with score equal to the prototype's for the same inputs, walkthrough shown. A full Practice session: stopwatch, three hint levels revealed and recorded, Practice label, not counted as solved.
+2. A full Interview session on a free problem: start, edit, run phase tests, unlock by passing, skip, finish, result page with score equal to the prototype's for the same inputs, walkthrough shown. A full Practice session: stopwatch, three hint levels revealed and recorded, Practice label, not counted as solved.
 2b. The edit applier passes every rule test of PLAN.md 2.8; a replayed edit stream applies, shows decorations, undoes, and marks the session assisted when a run follows; "reset problem" restores the source copy.
 2c. Autocomplete offers project symbols and the editor shows a compile error inline after a save.
 3. The Doctor screen shows every Phase 1a check green on a clean machine; calibration factor stored.
