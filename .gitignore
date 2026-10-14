@@ -1,0 +1,87 @@
+# Dryrun .gitignore
+# Policy (CONTRIBUTING.md, "What is committed"): commit code, content, contracts, the plan, the process layer,
+# the phase prompts, the status board, ADRs, runbooks, retros and learning files. Do not commit secrets,
+# build output, user data, or working documents a phase produces and discards.
+# gitignore has no inline comments: every comment is on its own line.
+
+# ---- secrets: never, anywhere ----
+.env
+.env.*
+!.env.example
+*.p12
+*.pfx
+*.pem
+*.key
+*.jks
+*.keystore
+secrets/
+**/secrets/
+.tauri/
+docs/legal/private/
+
+# ---- working documents produced and discarded by a phase ----
+# step plans written by the pipeline (step 3); the PR carries the outcome
+docs/plans/
+# per-phase research notes (step 2); findings land in code, ADRs or the plan
+docs/research/
+# raw price and policy research behind PLAN.md; the plan carries the citations
+docs/plan/research/
+docs/plan/PLANNING-PROMPT.md
+# interview notes contain personal data of interviewees; only the review is committed
+docs/discovery/*
+!docs/discovery/phase-0-review.md
+docs/**/draft-*.md
+*.local.md
+scratch/
+tmp/
+
+# ---- Claude Code local state ----
+.claude/settings.local.json
+.claude/*.local.*
+.claude/cache/
+
+# ---- Java / Gradle ----
+build/
+.gradle/
+out/
+*.class
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
+*.log
+hs_err_pid*
+
+# ---- TypeScript / pnpm / Vite ----
+node_modules/
+dist/
+coverage/
+.pnpm-store/
+*.tsbuildinfo
+.vite/
+
+# ---- Rust / Tauri ----
+target/
+desktop/src-tauri/gen/schemas/
+
+# ---- built artefacts and runtimes ----
+# jlink output, rebuilt by scripts/jlink
+desktop/resources/runtime/
+desktop/resources/toolchains/
+# built packs are published to R2, never committed
+*.drp
+content/.build/
+**/.verify/
+
+# ---- user data from running the app or the prototype ----
+engine/sessions/
+prototype/sessions/*
+!prototype/sessions/README.txt
+*.db
+*.db-journal
+
+# ---- IDE and OS ----
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+desktop.ini

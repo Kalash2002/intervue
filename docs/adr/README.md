@@ -1,0 +1,20 @@
+# Architecture decision records
+
+One file per decision, numbered, never edited after acceptance; a later ADR supersedes. Template:
+
+```
+# NNNN: title
+
+Date: YYYY-MM-DD. Status: proposed | accepted | superseded by NNNN.
+
+## Context
+What forces are at play, with links to PLAN.md sections and research.
+
+## Decision
+One paragraph.
+
+## Consequences
+What becomes easier, what becomes harder, what must change elsewhere (contracts, versions).
+```
+
+Planned first entries: 0001 payments mock now and gateway later; 0002 entity and GST position after the accountant; 0003 Electron shell; 0004 SQLite local store; 0005 run protocol.

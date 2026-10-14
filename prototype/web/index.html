@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dryrun</title>
+<link rel="stylesheet" href="/vendor/codemirror.css">
+<link rel="stylesheet" href="/app.css">
+</head>
+<body>
+
+<!-- Dashboard: progress, problems by category, history -->
+<main id="home" hidden>
+  <header class="home-head">
+    <div class="wordmark">Dryrun</div>
+    <button class="ghost" id="themeHome" type="button">Light theme</button>
+  </header>
+  <section class="home-intro">
+    <h1>Rehearse the AI-assisted coding round.</h1>
+    <p>One project you did not write, a chat assistant that cannot touch your files, and sixty minutes. Fix the bug, build the feature, then make it hold up on large inputs.</p>
+    <p class="status" id="envStatus"></p>
+  </section>
+  <section>
+    <h2>Your progress</h2>
+    <dl class="stats" id="stats"></dl>
+  </section>
+  <section>
+    <h2>Problems by category</h2>
+    <div id="problemList"></div>
+  </section>
+  <section>
+    <h2>Session history</h2>
+    <div id="sessionList" class="rows"></div>
+  </section>
+</main>
+
+<!-- Result: opens after Finish -->
+<main id="result" hidden>
+  <header class="topbar">
+    <button class="ghost back" id="resultHome" type="button" title="Back to the dashboard">Dryrun</button>
+    <div class="title" id="resultTitle"></div>
+    <div class="spacer"></div>
+    <button class="ghost" id="themeResult" type="button">Light theme</button>
+    <button class="ghost" id="resultOpen" type="button">Open the workspace</button>
+    <button class="primary" id="resultAgain" type="button">Try again</button>
+  </header>
+  <div class="result-body">
+    <section class="scoreline" id="scoreline"></section>
+    <div class="strip framed" aria-label="Session timeline">
+      <div class="strip-track" id="resultStrip"></div>
+      <div class="strip-legend">
+        <span><i class="mark run pass"></i>run, all passing</span>
+        <span><i class="mark run fail"></i>run with failures</span>
+        <span><i class="mark prompt"></i>prompt</span>
+      </div>
+    </div>
+    <div class="tabs side result-tabs" id="resultTabs" role="tablist">
+      <button class="tab active" data-rtab="phases" type="button">Result by phase</button>
+      <button class="tab" data-rtab="walkthrough" type="button">What a strong round looks like</button>
+      <button class="tab" data-rtab="feedback" type="button">Follow-ups and feedback</button>
+    </div>
+    <div id="rtab-phases"></div>
+    <div id="rtab-walkthrough" hidden></div>
+    <div id="rtab-feedback" hidden></div>
+  </div>
+</main>
+
+<!-- Room: the three-panel workspace -->
+<div id="room" hidden>
+  <header class="topbar">
+    <button class="ghost back" id="backHome" type="button" title="Back to the problem list">Dryrun</button>
+    <div class="title" id="roomTitle"></div>
+    <ol class="phases" id="phaseChips"></ol>
+    <div class="spacer"></div>
+    <div class="clock" id="clock" title="Time left"></div>
+    <button class="ghost" id="themeRoom" type="button">Light theme</button>
+    <button class="primary" id="finishBtn" type="button">Finish</button>
+  </header>
+
+  <div class="strip" id="strip" aria-label="Session timeline">
+    <div class="strip-track" id="stripTrack"></div>
+    <div class="strip-legend">
+      <span><i class="mark run pass"></i>run, all passing</span>
+      <span><i class="mark run fail"></i>run with failures</span>
+      <span><i class="mark prompt"></i>prompt</span>
+    </div>
+  </div>
+
+  <div class="work" id="work">
+    <nav class="files" aria-label="Files">
+      <div class="pane-head">
+        <span>Files</span>
+        <span>
+          <button class="icon" id="resetFileBtn" type="button" title="Restore the open file to its original content">&#8634;</button>
+          <button class="icon" id="newFileBtn" type="button" title="New file">+</button>
+        </span>
+      </div>
+      <ul id="fileTree"></ul>
+    </nav>
+
+    <section class="center">
+      <div class="tabs" id="tabs" role="tablist"></div>
+      <div class="editor-wrap" id="editorWrap">
+        <div class="empty" id="editorEmpty">Pick a file on the left to start reading.</div>
+      </div>
+      <div class="hsplit" id="outSplit" title="Drag to resize"></div>
+      <div class="output" id="outputPane">
+        <div class="pane-head">
+          <span>Output</span>
+          <div class="run-controls">
+            <select id="runTarget" aria-label="What to run"></select>
+            <button class="primary small" id="runBtn" type="button" title="Save and run (Ctrl+Enter)">Run</button>
+            <button class="ghost small" id="clearOut" type="button">Clear</button>
+          </div>
+        </div>
+        <pre id="output" tabindex="0"><span class="dim">Nothing has run yet. Ctrl+S saves and runs; Ctrl+Enter runs.</span>
+</pre>
+      </div>
+    </section>
+
+    <div class="vsplit" id="rightSplit" title="Drag to resize"></div>
+
+    <aside class="right">
+      <div class="tabs side" id="sideTabs" role="tablist">
+        <button class="tab active" data-side="brief" type="button">Brief</button>
+        <button class="tab" data-side="chat" type="button">Assistant</button>
+      </div>
+      <div class="side-body" id="side-brief"><div class="md" id="brief"></div></div>
+      <div class="side-body chat" id="side-chat" hidden>
+        <div class="chat-log" id="chatLog"></div>
+        <form class="chat-form" id="chatForm">
+          <div class="chat-options">
+            <label>Model
+              <select id="chatModel">
+                <option value="sonnet">Sonnet</option>
+                <option value="opus">Opus</option>
+                <option value="haiku">Haiku</option>
+              </select>
+            </label>
+            <label>Behaviour
+              <select id="chatMode">
+                <option value="interview">Interview mode</option>
+                <option value="helpful">Helpful mode</option>
+              </select>
+            </label>
+          </div>
+          <p class="hint" id="modeHint"></p>
+          <textarea id="chatInput" rows="3" placeholder="Say what you want and why. Enter sends, Shift+Enter adds a line."></textarea>
+          <div class="chat-send">
+            <span class="hint">The assistant sees your saved files. It cannot edit them.</span>
+            <button class="primary small" id="chatSend" type="submit">Send</button>
+          </div>
+        </form>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="toast" id="toast" hidden></div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box" role="dialog" aria-modal="true">
+    <h3 id="modalTitle"></h3>
+    <p id="modalText"></p>
+    <input id="modalInput" type="text" hidden>
+    <div class="modal-actions">
+      <button class="ghost" id="modalCancel" type="button">Cancel</button>
+      <button class="primary" id="modalOk" type="button">OK</button>
+    </div>
+  </div>
+</div>
+
+<script src="/vendor/codemirror.js"></script>
+<script src="/vendor/clike.js"></script>
+<script src="/vendor/matchbrackets.js"></script>
+<script src="/vendor/closebrackets.js"></script>
+<script src="/vendor/active-line.js"></script>
+<script src="/vendor/searchcursor.js"></script>
+<script src="/vendor/comment.js"></script>
+<script src="/app.js"></script>
+</body>
+</html>

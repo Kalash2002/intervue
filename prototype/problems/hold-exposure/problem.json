@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "id": "hold-exposure",
+  "title": "Hold Exposure",
+  "difficulty": "Easy",
+  "category": "Intervals",
+  "minutes": 60,
+  "summary": "A risk service totals the authorisation holds on each account. Fix a wrong total, add peak and limit-breach queries, then make them fast for very busy books.",
+  "main": "Main",
+  "readOnly": [
+    "Phase1Tests.java",
+    "Phase2Tests.java",
+    "Phase3Tests.java",
+    "Datasets.java",
+    "data/holds.csv"
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "title": "Fix the bug",
+      "tests": "Phase1Tests",
+      "timeoutSec": 30
+    },
+    {
+      "id": 2,
+      "title": "Peak and breach",
+      "tests": "Phase2Tests",
+      "timeoutSec": 30
+    },
+    {
+      "id": 3,
+      "title": "Busy books",
+      "tests": "Phase3Tests",
+      "timeoutSec": 40
+    }
+  ],
+  "followUps": [
+    "Why did the original code compile without a warning even though it lost data?",
+    "Two holds touch: one ends at minute 10 and the next starts at minute 10. Walk through how your code avoids counting both.",
+    "What is the cost of peak for an account with n holds, and of peakByAccount for the whole book?",
+    "Holds arrive and are released while risk queries run. What would you change to make HoldBook safe under concurrent use?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ]
+}

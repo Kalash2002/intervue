@@ -1,0 +1,44 @@
+{
+  "version": 1,
+  "id": "merchant-suggest",
+  "title": "Merchant Suggest",
+  "difficulty": "Hard",
+  "category": "Prefix search",
+  "minutes": 60,
+  "summary": "The \"Pay to\" box suggests merchants as the customer types. Fix a lookup that misses merchants, build the suggestions, then make them fast enough to answer on every keystroke.",
+  "main": "Main",
+  "readOnly": [
+    "Phase1Tests.java",
+    "Phase2Tests.java",
+    "Phase3Tests.java",
+    "Datasets.java",
+    "data/merchants.txt"
+  ],
+  "phases": [
+    {
+      "id": 1,
+      "title": "Fix the bug",
+      "tests": "Phase1Tests",
+      "timeoutSec": 30
+    },
+    {
+      "id": 2,
+      "title": "Suggestions",
+      "tests": "Phase2Tests",
+      "timeoutSec": 30
+    },
+    {
+      "id": 3,
+      "title": "Every keystroke",
+      "tests": "Phase3Tests",
+      "timeoutSec": 60
+    }
+  ],
+  "followUps": [
+    "What does one call to suggest cost now, and what does building your index cost in time and memory?",
+    "The three phase 3 tests were slow for different reasons. Name each reason and the change that addressed it.",
+    "If you remember answers between calls, when are they thrown away? What would a customer see if you forgot to do that?",
+    "The directory changes all day in production, not only at night. Would you still rebuild the whole index on every change? What would you do instead?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ]
+}
