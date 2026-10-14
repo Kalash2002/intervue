@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -14,8 +15,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Executors;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import si.intervue.engine.ai.AiUnavailableException;
 import si.intervue.engine.content.ContentException;
 import si.intervue.engine.session.SessionException;
 import tools.jackson.core.JacksonException;
@@ -56,11 +59,13 @@ public final class LocalApi {
   private final HttpServer server;
   private final byte[] token;
   private final Routes routes;
+  private final Engine engine;
 
-  private LocalApi(HttpServer server, String token, Routes routes) {
+  private LocalApi(HttpServer server, String token, Routes routes, Engine engine) {
     this.server = server;
     this.token = token.getBytes(StandardCharsets.UTF_8);
     this.routes = routes;
+    this.engine = engine;
   }
 
   /** Binds 127.0.0.1 on {@code port} (0 picks a free one) and starts serving. */
@@ -71,11 +76,11 @@ public final class LocalApi {
     } catch (IOException e) {
       throw new UncheckedIOException("Cannot bind 127.0.0.1:" + port, e);
     }
-    LocalApi api = new LocalApi(server, token, new Routes(engine));
+    LocalApi api = new LocalApi(server, token, new Routes(engine), engine);
     server.createContext("/", api::handle);
-    // ponytail: one thread serialises every call over the single SQLite connection, so a long run
-    // or the Doctor holds up other calls; move to per-session locks if the UI needs to stay live.
-    server.setExecutor(Executors.newSingleThreadExecutor());
+    // Several threads so a streaming model reply never blocks other calls; the engine lock still
+    // serialises every store and file operation (a long run or the Doctor holds that lock).
+    server.setExecutor(Executors.newFixedThreadPool(8));
     server.start();
     return api;
   }
@@ -120,7 +125,11 @@ public final class LocalApi {
               .toList();
       Map<String, String> query = Routes.query(exchange.getRequestURI().getRawQuery());
       JsonNode body = readBody(exchange.getRequestBody());
-      Object result = routes.handle(method, path, query, body);
+      Object result = engine.locked(() -> routes.handle(method, path, query, body));
+      if (result instanceof Routes.Streamed streamed) {
+        stream(exchange, streamed);
+        return;
+      }
       send(exchange, 200, result == null ? Map.of("ok", true) : result);
     } catch (NotFound e) {
       send(exchange, 404, Map.of("error", e.getMessage()));
@@ -134,6 +143,39 @@ public final class LocalApi {
       LOG.log(
           Level.WARNING, "Request failed: " + method + " " + exchange.getRequestURI().getPath(), e);
       send(exchange, 500, Map.of("error", "The engine hit an internal error; see its log."));
+    }
+  }
+
+  /**
+   * Streams NDJSON: {@code {"t":"delta","text":...}} lines while the model answers, then one {@code
+   * {"t":"done","result":...}} or {@code {"t":"error","reason":...}}. Runs outside the engine lock;
+   * the assistant takes it only around store work.
+   */
+  private static void stream(HttpExchange exchange, Routes.Streamed streamed) throws IOException {
+    exchange.getResponseHeaders().add("Content-Type", "application/x-ndjson; charset=utf-8");
+    exchange.sendResponseHeaders(200, 0);
+    OutputStream out = exchange.getResponseBody();
+    Consumer<Object> line =
+        value -> {
+          try {
+            out.write(JSON.writeValueAsBytes(value));
+            out.write('\n');
+            out.flush();
+          } catch (IOException e) {
+            throw new UncheckedIOException(e);
+          }
+        };
+    try {
+      Object result =
+          streamed.body().apply(text -> line.accept(Map.of("t", "delta", "text", text)));
+      line.accept(Map.of("t", "done", "result", result));
+    } catch (AiUnavailableException | SessionException | BadRequest e) {
+      line.accept(Map.of("t", "error", "reason", String.valueOf(e.getMessage())));
+    } catch (UncheckedIOException e) {
+      LOG.log(Level.FINE, "The client went away during a stream", e);
+    } catch (RuntimeException e) {
+      LOG.log(Level.WARNING, "Streaming request failed", e);
+      line.accept(Map.of("t", "error", "reason", "The engine hit an internal error; see its log."));
     }
   }
 

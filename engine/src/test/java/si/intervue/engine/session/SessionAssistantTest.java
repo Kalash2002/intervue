@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,7 +30,7 @@ class SessionAssistantTest {
     engine = new EngineFixture(root);
     sessions = engine.sessions;
     ai = new RecordedAi();
-    assistant = new SessionAssistant(sessions, engine.db, ai, Runnable::run);
+    assistant = new SessionAssistant(sessions, engine.db, ai, Runnable::run, new ReentrantLock());
   }
 
   @AfterEach

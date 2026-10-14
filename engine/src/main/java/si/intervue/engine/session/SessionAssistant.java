@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Executor;
+import java.util.concurrent.locks.Lock;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
@@ -47,13 +48,29 @@ public final class SessionAssistant {
   private final AiClient ai;
   private final Executor reviews;
   private final Set<String> reviewing = ConcurrentHashMap.newKeySet();
+  private final Lock lock;
 
-  public SessionAssistant(Sessions sessions, Database db, AiClient ai, Executor reviews) {
+  /**
+   * {@code lock} is the engine's store lock: it is held to read and write the session, and released
+   * while the model answers, so a slow reply never blocks the rest of the engine.
+   */
+  public SessionAssistant(
+      Sessions sessions, Database db, AiClient ai, Executor reviews, Lock lock) {
     this.sessions = sessions;
     this.store = new SessionStore(db);
     this.records = new AssistantStore(db);
     this.ai = ai;
     this.reviews = reviews;
+    this.lock = lock;
+  }
+
+  private <T> T locked(Supplier<T> work) {
+    lock.lock();
+    try {
+      return work.get();
+    } finally {
+      lock.unlock();
+    }
   }
 
   public AiStatus status() {
@@ -61,42 +78,51 @@ public final class SessionAssistant {
   }
 
   public List<Turn> chat(String id) {
-    sessions.context(id);
-    return records.turns(id);
+    return locked(
+        () -> {
+          sessions.context(id);
+          return records.turns(id);
+        });
   }
 
   public String ask(String id, String message, String rules, Consumer<String> deltas) {
-    Context c = sessions.requireOpen(id);
-    AiRequest request = PromptBuilder.ask(c, rules(c, rules), history(c), message);
+    Context c = locked(() -> sessions.requireOpen(id));
+    AiRequest request = locked(() -> PromptBuilder.ask(c, rules(c, rules), history(c), message));
     AiReply reply = call("chat", c, () -> ai.chat(request, deltas));
-    remember(c, message, reply.text(), reply);
+    locked(() -> remember(c, message, reply.text(), reply));
     return reply.text();
   }
 
   public EditReply write(String id, String message, String rules) {
-    Context c = sessions.requireOpen(id);
-    String replyId = "w" + (count(c, "edit") + 1);
-    AiRequest request = PromptBuilder.write(c, rules(c, rules), history(c), message, replyId);
+    Context c = locked(() -> sessions.requireOpen(id));
+    String replyId = locked(() -> "w" + (count(c, "edit") + 1));
+    AiRequest request =
+        locked(() -> PromptBuilder.write(c, rules(c, rules), history(c), message, replyId));
     AiReply reply = call("edit", c, () -> ai.edit(request, d -> {}));
-    EditReply applied = sessions.applyEdits(id, protocolLines(replyId, reply.text()));
-    remember(c, message, summary(applied), reply);
-    return applied;
+    return locked(
+        () -> {
+          EditReply applied = sessions.applyEdits(id, protocolLines(replyId, reply.text()));
+          remember(c, message, summary(applied), reply);
+          return applied;
+        });
   }
 
   /** Practice only, and only for a level the candidate has already revealed. */
   public String explainHint(String id, int phase, Consumer<String> deltas) {
-    Context c = sessions.requireOpen(id);
+    Context c = locked(() -> sessions.requireOpen(id));
     if (c.session().type() != SessionType.PRACTICE) {
       throw new SessionException("Hints are for Practice sessions.");
     }
-    List<String> revealed = sessions.revealedHints(id, phase);
+    List<String> revealed = locked(() -> sessions.revealedHints(id, phase));
     if (revealed.isEmpty()) {
       throw new SessionException("Reveal a hint for phase " + phase + " first.");
     }
     int level = revealed.size();
-    AiRequest request = PromptBuilder.hint(c, history(c), phase, level, revealed.get(level - 1));
+    AiRequest request =
+        locked(() -> PromptBuilder.hint(c, history(c), phase, level, revealed.get(level - 1)));
     AiReply reply = call("hint", c, () -> ai.hintExplain(request, deltas));
-    remember(c, "Explain hint level " + level + " of phase " + phase + ".", reply.text(), reply);
+    String asked = "Explain hint level " + level + " of phase " + phase + ".";
+    locked(() -> remember(c, asked, reply.text(), reply));
     return reply.text();
   }
 
@@ -108,12 +134,13 @@ public final class SessionAssistant {
     reviews.execute(
         () -> {
           try {
-            Context c = sessions.context(id);
-            AiRequest request = PromptBuilder.feedback(c, history(c), store.events(id));
+            Context c = locked(() -> sessions.context(id));
+            AiRequest request =
+                locked(() -> PromptBuilder.feedback(c, history(c), store.events(id)));
             AiReply reply = call("feedback", c, () -> ai.feedback(request, d -> {}));
-            records.setReview(id, json(new Review("ready", reply.text(), null)));
+            locked(() -> store(id, new Review("ready", reply.text(), null)));
           } catch (AiUnavailableException e) {
-            records.setReview(id, json(new Review("unavailable", null, e.getMessage())));
+            locked(() -> store(id, new Review("unavailable", null, e.getMessage())));
           } finally {
             reviewing.remove(id);
           }
@@ -121,8 +148,12 @@ public final class SessionAssistant {
   }
 
   public Review review(String id) {
-    sessions.context(id);
-    String stored = records.review(id);
+    String stored =
+        locked(
+            () -> {
+              sessions.context(id);
+              return records.review(id);
+            });
     return stored == null
         ? new Review("pending", null, null)
         : JSON.readValue(stored, Review.class);
@@ -161,20 +192,31 @@ public final class SessionAssistant {
               "outputTokens", u.outputTokens(),
               "durationMs", u.durationMs(),
               "ok", true);
-      sessions.event(c.session(), "aiCall", data);
+      locked(() -> event(c, data));
       LOG.info(() -> "aiCall " + data);
       return reply;
     } catch (AiUnavailableException e) {
-      sessions.event(c.session(), "aiCall", Map.of("kind", kind, "ok", false));
+      locked(() -> event(c, Map.of("kind", kind, "ok", false)));
       LOG.info(() -> "aiCall kind=" + kind + " ok=false");
       throw e;
     }
   }
 
-  private void remember(Context c, String message, String answer, AiReply reply) {
+  private Void event(Context c, Map<String, Object> data) {
+    sessions.event(c.session(), "aiCall", data);
+    return null;
+  }
+
+  private Void store(String id, Review review) {
+    records.setReview(id, JSON.writeValueAsString(review));
+    return null;
+  }
+
+  private Void remember(Context c, String message, String answer, AiReply reply) {
     long now = sessions.activeMs(c.session(), store.events(c.session().id()));
     records.appendTurn(c.session().id(), "user", message, null, now);
     records.appendTurn(c.session().id(), "assistant", answer, reply.usage().model(), now);
+    return null;
   }
 
   private int count(Context c, String kind) {
@@ -205,9 +247,5 @@ public final class SessionAssistant {
       s.append(')');
     }
     return s.toString();
-  }
-
-  private static String json(Review review) {
-    return JSON.writeValueAsString(review);
   }
 }

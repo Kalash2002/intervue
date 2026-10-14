@@ -5,9 +5,13 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 import si.intervue.engine.api.LocalApi.BadRequest;
 import si.intervue.engine.api.LocalApi.NotFound;
 import si.intervue.engine.sections.SessionType;
+import si.intervue.engine.session.SessionAssistant;
+import si.intervue.engine.session.SessionView;
 import si.intervue.engine.session.Sessions;
 import si.intervue.engine.session.edits.FakeEditSource;
 import si.intervue.problemformat.Problem;
@@ -18,6 +22,12 @@ import tools.jackson.databind.JsonNode;
  * Returned values become the JSON body; {@code null} means {@code {"ok":true}}.
  */
 final class Routes {
+
+  /**
+   * A response that streams: {@code body} gets a sink for text deltas and returns the final result.
+   * Routes only build it; LocalApi runs it outside the engine lock.
+   */
+  record Streamed(Function<Consumer<String>, Object> body) {}
 
   /** One dashboard row; the full problem is only read when a session starts. */
   record ProblemSummary(
@@ -92,7 +102,19 @@ final class Routes {
         s.resetProblem(id);
         yield null;
       }
-      case "POST finish" -> s.finish(id);
+      case "POST finish" -> {
+        SessionView finished = s.finish(id);
+        engine.assistant().requestReview(id);
+        yield finished;
+      }
+      case "GET chat" -> engine.assistant().chat(id);
+      case "GET review" -> engine.assistant().review(id);
+      case "POST ask" ->
+          new Streamed(d -> engine.assistant().ask(id, text(body, "message"), rules(body), d));
+      case "POST write" ->
+          new Streamed(d -> engine.assistant().write(id, text(body, "message"), rules(body)));
+      case "POST hints/explain" ->
+          new Streamed(d -> engine.assistant().explainHint(id, number(body, "phase"), d));
       default -> throw new NotFound("No session route " + route);
     };
   }
@@ -115,6 +137,12 @@ final class Routes {
   private static ProblemSummary summary(Problem p) {
     return new ProblemSummary(
         p.id(), p.title(), p.summary(), p.difficulty(), p.minutes(), p.phases().size());
+  }
+
+  /** Practice rules: Helpful unless the room asks for Interview rules. */
+  private static String rules(JsonNode body) {
+    JsonNode rules = body.get("rules");
+    return rules != null && rules.isString() ? rules.asString() : SessionAssistant.HELPFUL;
   }
 
   private static String text(JsonNode body, String field) {
