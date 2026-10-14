@@ -137,10 +137,16 @@ public final class Sessions {
         phasesPassed(events),
         s.hintsUsed(),
         store.activeEdits(id),
+        count(events, "aiEdit"),
+        count(events, "aiEditUndo"),
         brief(c),
         s.notes(),
         events.stream().map(e -> new EventView(e.seq(), e.tMs(), e.type(), e.data())).toList(),
         runs.result(c));
+  }
+
+  private static int count(List<StoredEvent> events, String type) {
+    return (int) events.stream().filter(e -> e.type().equals(type)).count();
   }
 
   public List<FileEntry> files(String id) {

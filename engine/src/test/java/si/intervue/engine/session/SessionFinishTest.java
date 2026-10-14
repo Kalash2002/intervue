@@ -82,16 +82,18 @@ class SessionFinishTest {
   }
 
   @Test
-  void anActiveAiEditAtFinishMakesTheInterviewAssistedAndNotSolved() {
+  void anAssistedInterviewThatPassesStillCountsAsSolved() {
     String id = solvedSession(SessionType.INTERVIEW);
     SessionRunsTest.insertActiveEdit(engine, id);
 
     SessionView view = sessions.finish(id);
 
-    assertThat(view.result().score().label()).isEqualTo("Interview, assisted");
+    // ADR 0006: assisted is recorded and shown, but never changes the label or solved.
+    assertThat(view.assisted()).isTrue();
+    assertThat(view.result().score().label()).isEqualTo("Interview");
     assertThat(sessions.history())
         .filteredOn(s -> s.id().equals(id))
-        .allMatch(s -> !s.countsAsSolved());
+        .allMatch(SessionSummary::countsAsSolved);
   }
 
   @Test
@@ -108,7 +110,7 @@ class SessionFinishTest {
   }
 
   @Test
-  void onlyAnUnassistedSolvedInterviewCountsAsSolved() {
+  void aSolvedInterviewCountsAsSolved() {
     String id = solvedSession(SessionType.INTERVIEW);
     sessions.finish(id);
 

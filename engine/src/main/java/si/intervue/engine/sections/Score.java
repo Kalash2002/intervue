@@ -3,8 +3,8 @@ package si.intervue.engine.sections;
 import java.util.List;
 
 /**
- * A session's score. {@code label} is "Interview", "Interview, assisted" or "Practice"; {@code
- * solved} means every phase passed in the final run, whether or not the session counts as solved.
+ * A session's score. {@code label} is "Interview" or "Practice" (ADR 0006); {@code solved} means
+ * every phase passed in the final run, whether or not the session counts as solved.
  */
 public record Score(long total, String band, boolean solved, String label, List<ScorePart> parts) {
 

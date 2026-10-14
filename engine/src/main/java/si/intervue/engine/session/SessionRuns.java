@@ -137,7 +137,8 @@ final class SessionRuns {
           s.id(), s.problemId(), s.type(), s.startedAt(), false, null, null, false, false);
     }
     Score score = SessionStore.JSON.readValue(s.scoreJson(), Score.class);
-    boolean counts = s.type() == SessionType.INTERVIEW && !s.assisted() && score.solved();
+    // ADR 0006: every passing Interview session is solved, with or without AI edits.
+    boolean counts = s.type() == SessionType.INTERVIEW && score.solved();
     return new SessionSummary(
         s.id(),
         s.problemId(),

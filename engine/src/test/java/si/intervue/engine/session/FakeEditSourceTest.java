@@ -43,6 +43,12 @@ class FakeEditSourceTest {
     assertThat(reply.note()).contains("long");
     assertThat(run.newlyPassed()).containsExactly(1);
     assertThat(sessions.view(id).assisted()).isTrue();
+    assertThat(sessions.view(id).aiEditsApplied()).isEqualTo(1);
+    assertThat(sessions.view(id).aiEditsUndone()).isZero();
+
+    sessions.undoEdit(id, reply.outcomes().get(0).id());
+
+    assertThat(sessions.view(id).aiEditsUndone()).isEqualTo(1);
   }
 
   @Test
