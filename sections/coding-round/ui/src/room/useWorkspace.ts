@@ -38,14 +38,11 @@ function useEditorTools(sessionId: string) {
   return { symbols, diagnostics, setDiagnostics, refreshTools };
 }
 
-export function useWorkspace(sessionId: string) {
-  const { client, notify } = useApp();
-  const [files, setFiles] = useState<FileEntry[]>([]);
+/** Per-file state: open documents with their unsaved text, and AI-edit marks. */
+function useDocs(sessionId: string) {
+  const { client } = useApp();
   const [docs, setDocs] = useState<Record<string, Doc>>({});
-  const [active, setActive] = useState<string | null>(null);
-  const { symbols, diagnostics, setDiagnostics, refreshTools } = useEditorTools(sessionId);
   const [marks, setMarks] = useState<Record<string, AiEditMark[]>>({});
-
   const load = useCallback(
     async (path: string) => {
       const { text } = await client.readFile(sessionId, path);
@@ -54,6 +51,19 @@ export function useWorkspace(sessionId: string) {
     },
     [client, sessionId],
   );
+  const edit = useCallback(
+    (path: string, text: string) => setDocs((d) => ({ ...d, [path]: { ...d[path], text } })),
+    [],
+  );
+  return { docs, setDocs, load, edit, marks, setMarks };
+}
+
+export function useWorkspace(sessionId: string) {
+  const { client, notify } = useApp();
+  const [files, setFiles] = useState<FileEntry[]>([]);
+  const { docs, setDocs, load, edit, marks, setMarks } = useDocs(sessionId);
+  const [active, setActive] = useState<string | null>(null);
+  const { symbols, diagnostics, setDiagnostics, refreshTools } = useEditorTools(sessionId);
 
   useEffect(() => {
     client
@@ -76,8 +86,18 @@ export function useWorkspace(sessionId: string) {
       setDocs((all) => markSaved(all, dirty));
       if (refresh) await refreshTools();
     },
-    [client, docs, refreshTools, sessionId],
+    [client, docs, setDocs, refreshTools, sessionId],
   );
+
+  /** Re-reads the file list and every open file after the engine changed files (AI edits, undo, reset). */
+  const resync = useCallback(async () => {
+    const list = await client.files(sessionId);
+    const exists = (path: string) => list.some((f) => f.path === path);
+    setFiles(list);
+    setDocs((d) => Object.fromEntries(Object.entries(d).filter(([path]) => exists(path))));
+    await Promise.all(Object.keys(docs).filter(exists).map(load));
+    if (active && !exists(active)) setActive(null);
+  }, [client, sessionId, docs, setDocs, active, load]);
 
   return useMemo(
     () => ({
@@ -92,10 +112,10 @@ export function useWorkspace(sessionId: string) {
       load,
       saveAll,
       open: (path: string) => (docs[path] ? Promise.resolve() : load(path)).then(() => setActive(path)),
-      edit: (path: string, text: string) => setDocs((d) => ({ ...d, [path]: { ...d[path], text } })),
-      reloadOpen: () => Promise.all(Object.keys(docs).map(load)),
+      edit,
+      resync,
     }),
-    [files, docs, active, symbols, diagnostics, setDiagnostics, marks, load, saveAll],
+    [files, docs, active, symbols, diagnostics, setDiagnostics, marks, setMarks, load, saveAll, resync, edit],
   );
 }
 

@@ -1,6 +1,7 @@
 package si.intervue.engine.api;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,27 +24,36 @@ public final class EngineMain {
 
   private EngineMain() {}
 
-  /** Command-line arguments; {@code problems} is the {@code problems} folder of the content. */
-  record Args(Path data, Path problems, int port) {
+  /**
+   * Command-line arguments; {@code problems} is the {@code problems} folder of the content. With
+   * {@code exitOnStdinClose} the engine shuts down cleanly when its parent closes stdin.
+   */
+  record Args(Path data, Path problems, int port, boolean exitOnStdinClose) {
     static Args parse(String[] argv) {
       Path data = null;
       Path content = null;
       int port = 0;
-      for (int i = 0; i < argv.length; i += 2) {
+      boolean exitOnStdinClose = false;
+      for (int i = 0; i < argv.length; i++) {
+        if (argv[i].equals("--exit-on-stdin-close")) {
+          exitOnStdinClose = true;
+          continue;
+        }
         if (i + 1 >= argv.length) {
           throw new IllegalArgumentException("Missing value for " + argv[i]);
         }
         switch (argv[i]) {
-          case "--data" -> data = Path.of(argv[i + 1]);
-          case "--content" -> content = Path.of(argv[i + 1]);
-          case "--port" -> port = Integer.parseInt(argv[i + 1]);
+          case "--data" -> data = Path.of(argv[++i]);
+          case "--content" -> content = Path.of(argv[++i]);
+          case "--port" -> port = Integer.parseInt(argv[++i]);
           default -> throw new IllegalArgumentException("Unknown argument " + argv[i]);
         }
       }
       if (data == null || content == null) {
-        throw new IllegalArgumentException("Usage: --data <dir> --content <dir> [--port <n>]");
+        throw new IllegalArgumentException(
+            "Usage: --data <dir> --content <dir> [--port <n>] [--exit-on-stdin-close]");
       }
-      return new Args(data, content.resolve("problems"), port);
+      return new Args(data, content.resolve("problems"), port, exitOnStdinClose);
     }
   }
 
@@ -64,11 +74,33 @@ public final class EngineMain {
                 () -> {
                   heartbeat.shutdownNow();
                   api.stop();
+                  // A run still going (an endless main, a slow test JVM) must not outlive us.
+                  ProcessHandle.current().descendants().forEach(ProcessHandle::destroyForcibly);
                   engine.sessions().onShutdown();
                   engine.close();
                 }));
     System.out.println(READY + api.port());
     System.out.flush();
+    if (args.exitOnStdinClose()) {
+      exitWhenStdinCloses();
+    }
+  }
+
+  // The shell can only kill a process outright on Windows; closing our stdin asks us to stop, so
+  // the shutdown hook pauses sessions and ends child processes first.
+  private static void exitWhenStdinCloses() {
+    Thread.ofPlatform()
+        .name("stdin-watch")
+        .daemon()
+        .start(
+            () -> {
+              try {
+                System.in.transferTo(OutputStream.nullOutputStream());
+              } catch (IOException e) {
+                // A broken pipe means the parent is gone, which is the same signal.
+              }
+              System.exit(0);
+            });
   }
 
   /**

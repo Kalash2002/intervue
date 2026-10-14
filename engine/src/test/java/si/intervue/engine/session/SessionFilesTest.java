@@ -85,7 +85,10 @@ class SessionFilesTest {
           "kit/Check.java",
           "Nope.java",
           "../x.java",
-          "/etc/passwd"
+          "/etc/passwd",
+          "./Phase1Tests.java",
+          "data//numbers.txt",
+          "./kit/Check.java"
         }) {
       assertThatThrownBy(() -> sessions.writeFile(id, path, "x"))
           .as(path)
@@ -106,6 +109,12 @@ class SessionFilesTest {
         .isInstanceOf(SessionException.class);
     assertThatThrownBy(() -> sessions.createFile(id, "kit/Evil.java"))
         .isInstanceOf(SessionException.class);
+    // Projects are flat: the runner compiles top-level sources only.
+    for (String path : new String[] {"./kit/Evil.java", "util/Parser.java", "./New.java"}) {
+      assertThatThrownBy(() -> sessions.createFile(id, path))
+          .as(path)
+          .isInstanceOf(SessionException.class);
+    }
   }
 
   @Test

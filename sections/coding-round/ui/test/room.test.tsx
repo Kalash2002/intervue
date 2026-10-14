@@ -1,4 +1,5 @@
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { EditorView } from '@codemirror/view';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import { timed } from '@intervue/ui';
 import { describe, expect, it, vi } from 'vitest';
@@ -79,6 +80,48 @@ describe('the assistant panel', () => {
 
     await waitFor(() => expect(client.undoEdit).toHaveBeenCalledWith('s1', 'r1:e1'));
     await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('n + n + 1'));
+  });
+});
+
+describe('the workspace', () => {
+  it('saves unsaved typing before an undo reloads files', async () => {
+    const client = roomClient();
+    const { container } = renderWith(<SessionRoom session={timed(view())} />, client);
+    await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('n + n + 1'));
+    fireEvent.click(screen.getByRole('tab', { name: 'Assistant' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Replay' }));
+    const undo = await waitFor(() => {
+      const button = container.querySelector<HTMLButtonElement>('.cm-ai-undo');
+      expect(button).not.toBeNull();
+      return button as HTMLButtonElement;
+    });
+
+    const editor = EditorView.findFromDOM(container.querySelector('.cm-editor') as HTMLElement);
+    act(() => editor?.dispatch({ changes: { from: 0, insert: '// mine\n' } }));
+    fireEvent.click(undo);
+
+    await waitFor(() => expect(client.undoEdit).toHaveBeenCalled());
+    expect(client.writeFile).toHaveBeenCalledWith('s1', 'Calc.java', expect.stringContaining('// mine'));
+  });
+
+  it('lists files the engine created after a replay', async () => {
+    let created = false;
+    const client = roomClient({
+      files: vi.fn(async () => [
+        { path: 'Calc.java', readOnly: false },
+        ...(created ? [{ path: 'Helper.java', readOnly: false }] : []),
+      ]),
+      replayFakeEdits: vi.fn(async () => {
+        created = true;
+        return { replyId: 'r1', note: '', outcomes: [] };
+      }),
+    });
+    renderWith(<SessionRoom session={timed(view())} />, client);
+
+    fireEvent.click(await screen.findByRole('tab', { name: 'Assistant' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Replay' }));
+
+    expect(await screen.findByRole('button', { name: /Helper\.java/ })).toBeInTheDocument();
   });
 });
 

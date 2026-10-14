@@ -26,7 +26,8 @@ import si.intervue.runprotocol.TestStatus;
 class TestKitTest {
 
   private static final List<String> FIXTURES =
-      List.of("MixedTests", "SlowTests", "ScaledTests", "ExitTests");
+      List.of(
+          "MixedTests", "SlowTests", "ScaledTests", "ExitTests", "NoisyTests", "BrokenInitTests");
 
   @TempDir static Path work;
   static Path classes;
@@ -126,6 +127,35 @@ class TestKitTest {
 
     assertThat(results.tests().get(0).status()).isEqualTo(TestStatus.ERROR);
     assertThat(results.tests()).hasSize(4);
+    assertThat(results.summary()).isPresent();
+  }
+
+  @Test
+  void candidateOutputCannotChangeTheCounts() throws Exception {
+    RunResults results = run("1.0", "NoisyTests");
+
+    assertThat(results.tests())
+        .extracting(TestResult::name, TestResult::status)
+        .containsExactly(
+            tuple("printsWithoutNewline", TestStatus.PASS),
+            tuple("printsAFakeFailLine", TestStatus.PASS),
+            tuple("plainPass", TestStatus.PASS));
+    assertThat(results.summary().get().passed()).isEqualTo(3);
+    assertThat(results.summary().get().failed()).isZero();
+  }
+
+  @Test
+  void aClassThatFailsToInitialiseIsAnErrorAndLaterSuitesStillRun() throws Exception {
+    RunResults results = run("1.0", "BrokenInitTests", "NoisyTests");
+
+    assertThat(results.tests())
+        .filteredOn(t -> t.suite().equals("BrokenInitTests"))
+        .extracting(TestResult::status)
+        .containsOnly(TestStatus.ERROR);
+    assertThat(results.tests())
+        .filteredOn(t -> t.suite().equals("NoisyTests"))
+        .extracting(TestResult::status)
+        .containsOnly(TestStatus.PASS);
     assertThat(results.summary()).isPresent();
   }
 }

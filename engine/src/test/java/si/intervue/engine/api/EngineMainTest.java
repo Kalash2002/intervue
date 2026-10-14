@@ -35,6 +35,12 @@ class EngineMainTest {
     assertThat(args.data()).isEqualTo(Path.of("d"));
     assertThat(args.problems()).isEqualTo(Path.of("c", "problems"));
     assertThat(args.port()).isEqualTo(4100);
+    assertThat(args.exitOnStdinClose()).isFalse();
+    assertThat(
+            EngineMain.Args.parse(
+                    new String[] {"--exit-on-stdin-close", "--data", "d", "--content", "c"})
+                .exitOnStdinClose())
+        .isTrue();
     assertThatThrownBy(() -> EngineMain.Args.parse(new String[] {"--data"}))
         .isInstanceOf(IllegalArgumentException.class);
   }

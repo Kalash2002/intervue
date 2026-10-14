@@ -116,6 +116,9 @@ public final class ProblemValidator {
   }
 
   private static void checkVariants(ProblemFolder folder, List<String> errors) {
+    if (nullToEmpty(folder.problem().languages()).isEmpty()) {
+      errors.add("a problem needs at least one language");
+    }
     for (String language : nullToEmpty(folder.problem().languages())) {
       Variant variant = folder.variants().get(language);
       if (variant == null) {

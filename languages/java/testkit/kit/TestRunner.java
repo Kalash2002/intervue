@@ -113,16 +113,17 @@ public final class TestRunner {
   }
 
   private static ChildCounts runClass(Options options, String className) throws Exception {
-    Class<?> type;
+    List<Method> tests;
     try {
-      type = Class.forName(className);
-    } catch (ClassNotFoundException e) {
+      // Not initialised here: static initialisers run candidate code, which belongs in the child.
+      tests = tests(Class.forName(className, false, TestRunner.class.getClassLoader()));
+    } catch (ClassNotFoundException | LinkageError e) {
+      String detail = e instanceof ClassNotFoundException ? "test class not found" : "test class could not be loaded: " + e;
       write(options, "{\"t\":\"suite\",\"name\":" + quote(className) + ",\"tests\":0}");
-      writeTest(options, className, className, "error", 0, "test class not found", null, null);
-      System.out.println("FAIL  " + className + ": test class not found");
+      writeTest(options, className, className, "error", 0, detail, null, null);
+      System.out.println("FAIL  " + className + ": " + detail);
       return new ChildCounts(0, 1, 0);
     }
-    List<Method> tests = tests(type);
     write(options, "{\"t\":\"suite\",\"name\":" + quote(className) + ",\"tests\":" + tests.size() + "}");
     System.out.println("== " + className + " (" + tests.size() + " tests)");
     int passed = 0;
@@ -160,12 +161,14 @@ public final class TestRunner {
       budgetMs += options.scaled(test.getAnnotation(Test.class).timeoutMs());
     }
     System.out.flush();
+    long resultsBefore = Files.exists(options.results()) ? Files.size(options.results()) : 0;
     Process child = new ProcessBuilder(childCommand(options, className, from)).redirectErrorStream(true).start();
     child.getOutputStream().close();
     AtomicBoolean killed = new AtomicBoolean();
     Thread watchdog = startWatchdog(child, budgetMs, killed);
-    int[] counts = relayChildOutput(child);
+    relayChildOutput(child);
     child.waitFor();
+    int[] counts = countChildResults(options, resultsBefore);
     watchdog.interrupt();
     ChildCounts reported = new ChildCounts(counts[0], counts[1], counts[2]);
     int current = from + reported.reported();
@@ -217,24 +220,34 @@ public final class TestRunner {
     return watchdog;
   }
 
-  /** Relays child output; returns {passed, failed, timeouts, endedOnTimeout}. */
-  private static int[] relayChildOutput(Process child) throws IOException {
-    int[] counts = new int[4];
+  /** Relays child output to ours; it is for people only, since the candidate's prints are in it too. */
+  private static void relayChildOutput(Process child) throws IOException {
     try (BufferedReader reader = new BufferedReader(new InputStreamReader(child.getInputStream(), outputCharset()))) {
       String line;
       while ((line = reader.readLine()) != null) {
         System.out.println(line);
-        if (line.startsWith("PASS  ")) {
-          counts[0]++;
-          counts[3] = 0;
-        } else if (line.startsWith("FAIL  ")) {
-          counts[1]++;
-          counts[3] = 0;
-        } else if (line.startsWith("TIMEOUT ")) {
-          counts[2]++;
-          counts[3] = 1;
-        }
       }
+    }
+  }
+
+  /**
+   * Counts the test lines the child appended to the results file: {passed, failed, timeouts,
+   * endedOnTimeout}. Only the kit writes that file, so candidate output cannot skew the counts.
+   */
+  private static int[] countChildResults(Options options, long from) throws IOException {
+    int[] counts = new int[4];
+    if (!Files.exists(options.results())) {
+      return counts;
+    }
+    byte[] all = Files.readAllBytes(options.results());
+    String appended = new String(all, (int) from, all.length - (int) from, StandardCharsets.UTF_8);
+    for (String line : appended.split("\n")) {
+      if (!line.startsWith("{\"t\":\"test\"")) {
+        continue;
+      }
+      boolean timeout = line.contains("\"status\":\"timeout\"");
+      counts[line.contains("\"status\":\"pass\"") ? 0 : timeout ? 2 : 1]++;
+      counts[3] = timeout ? 1 : 0;
     }
     return counts;
   }

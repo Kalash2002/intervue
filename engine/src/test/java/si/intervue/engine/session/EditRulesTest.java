@@ -133,12 +133,20 @@ class EditRulesTest {
   @Test
   void neverEditsReadOnlyKitDataOrEscapingPaths() {
     for (String path :
-        List.of("Phase1Tests.java", "kit/Check.java", "data/numbers.txt", "../outside.java")) {
+        List.of(
+            "Phase1Tests.java",
+            "kit/Check.java",
+            "data/numbers.txt",
+            "../outside.java",
+            "./Phase1Tests.java",
+            "kit//Check.java")) {
       EditOutcome outcome =
           only(apply(start("r-" + path.length()), replace("e1", path, "sha256:x", "a", "b")));
       assertThat(outcome.status()).as(path).isEqualTo(EditStatus.NOT_ALLOWED);
     }
     assertThat(only(apply(start("r9"), create("e1", "notes.txt", "x"))).status())
+        .isEqualTo(EditStatus.NOT_ALLOWED);
+    assertThat(only(apply(start("r10"), create("e1", "util/Parser.java", "class P {}"))).status())
         .isEqualTo(EditStatus.NOT_ALLOWED);
   }
 

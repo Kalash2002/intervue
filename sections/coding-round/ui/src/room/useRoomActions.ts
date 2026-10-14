@@ -65,7 +65,7 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     resetProblem: guarded(async () => {
       await client.resetProblem(id);
       ws.setMarks({});
-      await ws.reloadOpen();
+      await ws.resync();
       await reload();
     }),
   };
@@ -89,6 +89,7 @@ async function replayEdits({ client, id, ws, reload, setReply }: EditContext, st
   const before = Object.fromEntries(await Promise.all(editable.map(async (p) => [p, await ws.load(p)] as const)));
   const result = await client.replayFakeEdits(id, streamId);
   setReply(result);
+  await ws.resync();
   const marks: Record<string, AiEditMark[]> = {};
   for (const o of result.outcomes.filter((x) => x.status === 'APPLIED')) {
     // ponytail: one changed block per file, shared by its edits; per-hunk ranges if users ask.
@@ -101,12 +102,14 @@ async function replayEdits({ client, id, ws, reload, setReply }: EditContext, st
 
 /** A refused undo (the file changed since) shows the engine's diff instead of touching the file. */
 async function undoEdit({ client, id, ws, reload, setOutput }: EditContext, editId: string) {
+  // Undo re-reads files from disk, so unsaved typing is written first or it would be lost.
+  await ws.saveAll(false);
   const result = await client.undoEdit(id, editId);
   if (!result.undone) {
     setOutput((o) => [...o, { header: 'Not undone: the file changed after this edit', text: result.diff ?? '' }]);
     return;
   }
   ws.setMarks((m) => Object.fromEntries(Object.entries(m).map(([p, l]) => [p, l.filter((x) => x.editId !== editId)])));
-  await ws.reloadOpen();
+  await ws.resync();
   await reload();
 }

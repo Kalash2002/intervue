@@ -7,7 +7,7 @@ export type ProblemState = 'solved' | 'progress' | 'attempted' | 'new';
 export interface ProblemProgress {
   state: ProblemState;
   attempts: number;
-  /** Best finished total, or null when nothing is finished. */
+  /** Best total of an unassisted Interview session, or null when there is none. */
   best: number | null;
   openId: string | null;
   lastFinishedId: string | null;
@@ -16,7 +16,8 @@ export interface ProblemProgress {
 export function progressFor(problem: ProblemSummary, history: readonly SessionSummary[]): ProblemProgress {
   const mine = history.filter((s) => s.problemId === problem.id);
   const finished = mine.filter((s) => s.finished);
-  const totals = finished.map((s) => s.total ?? 0);
+  // Best score, like solved, counts unassisted Interview sessions only (PLAN.md 2.8).
+  const totals = finished.filter((s) => s.type === 'INTERVIEW' && s.label === 'Interview').map((s) => s.total ?? 0);
   const open = mine.find((s) => !s.finished);
   const solved = finished.some((s) => s.countsAsSolved);
   const state: ProblemState = solved ? 'solved' : open ? 'progress' : finished.length ? 'attempted' : 'new';

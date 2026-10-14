@@ -89,9 +89,9 @@ final class WorkFolder implements EditableFiles {
 
   void create(String rel) {
     Path file = resolve(rel);
-    if (isKit(rel) || rel.startsWith("data/")) {
-      throw new SessionException(
-          "New files cannot go in " + rel.substring(0, rel.indexOf('/') + 1));
+    // Projects are flat (problem-format layout rule) and the runner compiles top-level sources.
+    if (rel.contains("/")) {
+      throw new SessionException("New files go at the top of the project, not in a folder.");
     }
     String extension = rel.contains(".") ? rel.substring(rel.lastIndexOf('.')) : "";
     boolean source = sourceExtensions.contains(extension);
@@ -142,7 +142,8 @@ final class WorkFolder implements EditableFiles {
 
   @Override
   public boolean isEditable(String rel) {
-    return !readOnly.contains(rel) && !isKit(rel) && !rel.startsWith("data/");
+    // Editable files are top-level sources; folders hold the kit and read-only data.
+    return !rel.contains("/") && !readOnly.contains(rel) && !isKit(rel);
   }
 
   private void requireEditable(String rel) {
@@ -166,7 +167,9 @@ final class WorkFolder implements EditableFiles {
       throw new SessionException("That file name is not allowed.");
     }
     Path file = work.resolve(rel).normalize();
-    if (!file.startsWith(work.normalize())) {
+    // Only the canonical spelling is accepted, so "./X" or "a//b" cannot slip past the rules above.
+    if (!file.startsWith(work.normalize())
+        || !work.normalize().relativize(file).toString().replace('\\', '/').equals(rel)) {
       throw new SessionException("That file name is not allowed.");
     }
     return file;

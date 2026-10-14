@@ -6,12 +6,13 @@ use std::ffi::OsString;
 use std::fs::File;
 use std::io::{BufRead, BufReader};
 use std::path::{Path, PathBuf};
-use std::process::{Child, ChildStdout, Command, Stdio};
+use std::process::{Child, ChildStdin, ChildStdout, Command, Stdio};
 use std::sync::mpsc;
 use std::time::Duration;
 
 pub const READY_PREFIX: &str = "INTERVUE_ENGINE_READY port=";
 const START_TIMEOUT: Duration = Duration::from_secs(60);
+const STOP_GRACE: Duration = Duration::from_secs(5);
 
 /// Where the runtime, the engine, the content and the user's data live.
 #[derive(Debug, Clone, PartialEq, Eq)]
@@ -31,6 +32,8 @@ pub struct Connection {
 
 pub struct Engine {
     child: Child,
+    /// Held open while the engine runs; closing it asks the engine to shut down cleanly.
+    stdin: Option<ChildStdin>,
     pub connection: Connection,
 }
 
@@ -79,6 +82,7 @@ pub fn engine_args(paths: &EnginePaths) -> Vec<OsString> {
         paths.data.clone().into(),
         "--content".into(),
         paths.content.clone().into(),
+        "--exit-on-stdin-close".into(),
     ]
 }
 
@@ -106,7 +110,7 @@ impl Engine {
         command
             .args(engine_args(paths))
             .env("INTERVUE_ENGINE_TOKEN", &token)
-            .stdin(Stdio::null())
+            .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(log);
         hide_console(&mut command);
@@ -114,9 +118,11 @@ impl Engine {
             .spawn()
             .map_err(|e| format!("Cannot start {}: {e}", paths.java.display()))?;
         let stdout = child.stdout.take().ok_or("The engine has no output pipe")?;
+        let stdin = child.stdin.take();
         match wait_ready(stdout) {
             Ok(port) => Ok(Engine {
                 child,
+                stdin,
                 connection: Connection { port, token },
             }),
             Err(message) => {
@@ -127,8 +133,17 @@ impl Engine {
         }
     }
 
-    /// Ends the engine. Its sessions' clocks close the gap at the next start (heartbeat rule).
+    /// Asks the engine to stop by closing its stdin, so it pauses sessions and ends its own child
+    /// processes; kills it if it has not exited within a few seconds.
     pub fn stop(mut self) {
+        drop(self.stdin.take());
+        let deadline = std::time::Instant::now() + STOP_GRACE;
+        while std::time::Instant::now() < deadline {
+            if let Ok(Some(_)) = self.child.try_wait() {
+                return;
+            }
+            std::thread::sleep(Duration::from_millis(50));
+        }
         let _ = self.child.kill();
         let _ = self.child.wait();
     }
@@ -206,6 +221,7 @@ mod tests {
         assert_eq!(args[2], "--data");
         assert_eq!(args[4], "--content");
         assert_eq!(PathBuf::from(&args[5]), p.content);
+        assert_eq!(args[6], "--exit-on-stdin-close");
     }
 
     #[test]

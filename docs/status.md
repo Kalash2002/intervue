@@ -4,7 +4,7 @@ Updated by the `status-diagnoser` subagent at the start of every phase run and b
 
 ## Current phase
 
-Phase 0 review written (`docs/discovery/phase-0-review.md`): **go to Phase 1a with adjustments**. Exit criteria not met yet (1 waitlist entry, likely a test; 0 interviews, testers or survey responses), so validation continues in parallel with the Phase 1a learning sprint. Checkpoint at the end of the sprint, about 2026-11-19: 25 sign-ups or 5 "would pay" at ₹1,500 a month or ₹3,500 a quarter, and 3 tester sessions; if not met, adjust before the engine rewrite. Engineering starts with `docs/prompts/phase-1a-base-app.md`.
+Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-round section, ten verified problems, UI, editor and the Tauri shell. Automated gates green on Windows. Waiting on the human checks: macOS run and build, CI on a remote, clean-machine Doctor, and an outside tester (exit criteria 1 on macOS, 3 clean machine, 4 and 5 on CI, 7). Phase 0 validation continues alongside; checkpoint about 2026-11-19.
 
 ## Done
 
@@ -19,6 +19,8 @@ Phase 0 review written (`docs/discovery/phase-0-review.md`): **go to Phase 1a wi
 - 2026-10-14: Phase 0 landing page built in `web/` (days 3 to 5 of PLAN.md section 13): page, waitlist form to KV through a Pages function, PostHog events, Pages config. Live at https://intervue-web.pages.dev with screenshots, KV and PostHog.
 - 2026-10-14: prototype verified (`java tools/Verify.java`: starter fails, reference passes, naive times out in phase 3, for all three problems) and published as `web/public/downloads/intervue-prototype.zip` with `RUN.md`, linked as "early prototype" on the landing page.
 - 2026-10-14: Phase 0 review written; ADR 0001 (mock and manual UPI first, gateway later; ₹1,500 monthly and ₹3,500 quarterly; two free problems at launch: Hold Exposure and Corridor Router, confirmed) and ADR 0002 (individual, no GST registration until a CA review before the first real payment) accepted; PLAN.md updated for two free problems (launch pack of 8) and the new "would pay" metric.
+
+- 2026-10-14: Phase 1a: monorepo build and gates; contracts and ADRs 0003 to 0005; run protocol and problem format libraries; Java package with test kit, runner, calibration, health checks and editor support; coding-round section with the prototype score; SQLite store; sessions with the pause rule, Practice hints and the AI edit applier; Doctor; local HTTP API with a per-launch token and engine.jar; typed client, CodeMirror editor, app UI and coding-round UI; Tauri 2 shell; three problems migrated and seven written, all ten verified three ways.
 
 ## In progress
 
@@ -37,3 +39,12 @@ Phase 0 review written (`docs/discovery/phase-0-review.md`): **go to Phase 1a wi
 - The gate `pnpm -r lint typecheck test` in `CLAUDE.md` and `definition-of-done.md` runs only `lint` (pnpm passes the other names as arguments); the working form is `pnpm -r lint && pnpm -r typecheck && pnpm -r test`.
 
 - Prototype `Json` parser is replaced by Jackson in the engine; nothing to carry over.
+
+- Phase 1a review follow-ups (not blocking): engine returns the changed line range of each applied AI edit, so the UI stops diffing files and per-edit Undo marks are exact; `FileEntry` says "editable" by the engine's real rule (kit and `data/` included) and the variant names the first file to open; one editor-tools endpoint with a single javac pass for symbols and diagnostics; dashboard progress computed by the engine; share one tree copy/delete helper between `engine`, `content/tools` and tests; pass the engine's `ProcessControl` to package health checks (SPI change, needs an ADR).
+- The shell starts the engine inside Tauri `setup`, so the window appears only once the engine is ready (1 to 3 s); start it on a thread and let `engine_connection` wait.
+- The engine's HTTP server runs on one thread over the single SQLite connection, so a long run or the Doctor holds other calls; move to per-session locks if the UI needs to stay live during runs.
+- `java.runtime` health check compares versions only; add the `lib/modules` hash once the jlink step records a reference hash.
+- The installer bundles every problem folder including `reference/` and `naive/`; Phase 1b packs and encryption replace this.
+- The app icon is a placeholder square from `desktop/resources/icon.png`.
+- `CLAUDE.md` and `definition-of-done.md` name the verify gate as `java content/tools/Verify.java`; the working command is `./gradlew :content:tools:verify`.
+- The section UI is wired directly (`App` takes one `SectionUi`); add a registry by section id when the second section lands.

@@ -169,6 +169,12 @@ class ProblemValidatorTest {
   }
 
   @Test
+  void refusesAProblemWithoutALanguage() throws IOException {
+    replaceInProblem("\"languages\":[\"java\"]", "\"languages\":[]");
+    assertThat(errors()).anyMatch(e -> e.contains("at least one language"));
+  }
+
+  @Test
   void refusesAMissingWalkthroughOrGradingNotes() throws IOException {
     Files.delete(dir.resolve("walkthrough.md"));
     Files.delete(dir.resolve("grading/NOTES.md"));
