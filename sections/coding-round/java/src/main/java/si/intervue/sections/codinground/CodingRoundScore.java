@@ -53,8 +53,8 @@ final class CodingRoundScore implements ScoringRule {
                     + " minutes without a run, 4 for not skipping a phase"
                 : "Counted once phase 1 passes"));
     long total = Math.round(correctness + time + rhythm);
-    String label = input.assisted() ? "Interview, assisted" : "Interview";
-    return new Score(total, band(total, solved), solved, label, parts);
+    // ADR 0006: using the assistant never changes the label; assisted is shown on its own.
+    return new Score(total, band(total, solved), solved, "Interview", parts);
   }
 
   /** All-or-nothing phases score only when every test passes; others in proportion. */

@@ -93,12 +93,13 @@ class CodingRoundScoreTest {
   }
 
   @Test
-  void labelsInterviewsAndAssistedInterviews() {
+  void anAssistedInterviewIsStillLabelledInterview() {
     List<PhaseResult> all = List.of(phase(1, 3, 0), phase(2, 3, 0), phase(3, 3, 0));
 
     assertThat(rule.score(interview(all, 30 * 60_000, false)).label()).isEqualTo("Interview");
     Score assisted = rule.score(interview(all, 30 * 60_000, true));
-    assertThat(assisted.label()).isEqualTo("Interview, assisted");
+    // ADR 0006: using the assistant never changes the label.
+    assertThat(assisted.label()).isEqualTo("Interview");
     assertThat(assisted.total()).isEqualTo(100);
   }
 
