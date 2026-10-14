@@ -1,3 +1,7 @@
-# Every TypeScript part of the monorepo; add packages/* and desktop when they exist.
+# Every TypeScript part of the monorepo (PLAN.md 5.2).
 packages:
   - web
+  - desktop
+  - packages/*
+  - sections/*/ui
+  - languages/*/editor
