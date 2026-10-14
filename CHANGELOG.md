@@ -4,6 +4,11 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- engine: developer-mode assistant on the Claude CLI (`--developer-mode`): Ask, Write code through the edit applier, Explain this hint and a written review at finish, streamed to the UI; prompts built from the section's prompt files; every call logs an `aiCall` event with route, model, tokens and latency, never text; Doctor check "Claude CLI found and signed in" in developer mode; with developer mode off no `claude` process is started (2026-10-15)
+- engine: ADR 0006 scoring: every passing Interview session counts as solved, labels are Interview or Practice, the view carries AI edits applied and undone; timed Practice and `endedEarly` (V2 migration) (2026-10-15)
+- sections/coding-round: point-and-explain rules for Interview mode and the Write code scope, with recorded-transcript tests per rule (2026-10-15)
+- packages/ui, sections/coding-round/ui: live assistant panel (rules switch in Practice, outcomes with Undo, Write code counter, demo behind developer mode), Explain this hint, written review tab, set-up screen, session overview, phase intro card, Guide tab with passing pill, progress dots, end-session dialog (2026-10-15)
+- packages/ui: visual refresh: stylesheet split into tokens, base, room, timeline, panel, pages and result; one calm accent, dark and light themes, problem cards and progress tiles; the saved theme applies at start (2026-10-15)
 - packages/ui: the room's center column no longer reserves a row for a tabs bar that is not rendered; the editor fills its column instead of being squeezed to two lines above a blank splitter (2026-10-14)
 - docs: ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), PLAN.md 2.8 and the section and edit-protocol contracts updated, Phase 1ab prompt added (2026-10-14)
 - desktop: Tauri 2 shell that starts the engine from Rust with a per-launch token, hands port and token to the UI, stops it on exit; jlink runtime script; NSIS and DMG bundle config (2026-10-14)

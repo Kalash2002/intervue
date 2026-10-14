@@ -32,7 +32,7 @@ public interface SectionPackage {
 | Item | Value |
 |---|---|
 | `runnerKind` / `graderKind` / `uiMode` | `code-tests` / `tests` / `editor` |
-| `channels()` | `ASK`, `WRITE_CODE` (disabled in the UI until Phase 1b) |
+| `channels()` | `ASK`, `WRITE_CODE` (enabled on the developer-mode CLI route from Phase 1ab; for end users from Phase 1b) |
 | `supportsHints()` | `true` |
 | Interview score | Correctness 70 by phase weights (an all-or-nothing phase scores only when all its tests pass; others in proportion), time 10, rhythm 20; the prototype's formula with weights read from `problem.json` |
 | Practice score | Correctness and phase results only, labelled Practice; never counts as solved |

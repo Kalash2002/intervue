@@ -1,6 +1,6 @@
 # Edit protocol, version 1
 
-How the Write code channel returns edits and how the engine applies them (PLAN.md 2.8). The engine's `EditApplier` is the only code that writes them. Phase 1a feeds it from `FakeEditSource` (recorded streams); Phase 1b from the backend. Non-additive changes bump `protocol` and need an ADR.
+How the Write code channel returns edits and how the engine applies them (PLAN.md 2.8). The engine's `EditApplier` is the only code that writes them. Phase 1a feeds it from `FakeEditSource` (recorded streams, kept for tests and the developer-mode demo); Phase 1ab from the Claude CLI on the developer route; Phase 1b from the backend. Non-additive changes bump `protocol` and need an ADR.
 
 ## Stream
 

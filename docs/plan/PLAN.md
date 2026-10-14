@@ -245,6 +245,8 @@ Swapping out the CLI path: `Chat.chat` and `Chat.feedback` in the prototype call
 
 Every call logs the route it took, the usage reported and the reason for any switch. The remaining allowance is the open point: the interactive `/usage` screen shows a percentage, but no documented non-interactive command or output field for it was found when this was written, and the streamed `result` message reports the call's tokens and cost, not the remaining allowance. Until the `researcher` step verifies a way to read it, the engine keeps a local budget: it sums the CLI's reported usage per rolling window against a configurable budget (`ai.cliWindowBudgetTokens`, `ai.cliWindowHours`) and treats a usage-limit error as zero remaining, so "50% left" means 50% of that local budget. Whether the CLI accepts an effort setting non-interactively is also unverified; if it does not, only the backend route is guaranteed low effort. Both facts are on the Phase 1b research list.
 
+Recorded in Phase 1ab (CLI 2.1.299): `claude auth status` reports sign-in without spending tokens and replaces the one-token probe; `--effort low` is accepted non-interactively with `-p`; the CLI runs with no tools (`--tools ""`, MCP disallowed, one turn, no session persistence) and the prompt on stdin. Phase 1ab uses the CLI route whenever `developer.mode` is on and the CLI is signed in; the remaining-allowance rule and the local budget stay open for Phase 1b.
+
 ### 2.6 Extensibility model
 
 Entities and fields:

@@ -6,7 +6,7 @@ Updated by the `status-diagnoser` subagent at the start of every phase run and b
 
 Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-round section, ten verified problems, UI, editor and the Tauri shell. Automated gates green on Windows. Waiting on the human checks: macOS run and build, CI on a remote, clean-machine Doctor, and an outside tester (exit criteria 1 on macOS, 3 clean machine, 4 and 5 on CI, 7). Phase 0 validation continues alongside; checkpoint about 2026-11-19.
 
-Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 after the first hands-on run: the assistant live on the developer-mode CLI route, ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), and the room refresh along the Hello Interview flow. The blank-editor CSS bug found in that run is already fixed on `phase-1a`.
+Phase 1ab (assistant and room) built on branch `phase-1ab` (2026-10-15): developer-mode Claude CLI assistant, ADR 0006 scoring, point-and-explain prompts, guided room flow and the visual refresh. Automated gates green on Windows. Waiting on the human checks: exit criterion 1 (live CLI session on a free problem, event log and dashboard screenshot) and 6 (room flow and both themes in the desktop shell).
 
 ## Done
 
@@ -23,6 +23,8 @@ Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 a
 - 2026-10-14: Phase 0 review written; ADR 0001 (mock and manual UPI first, gateway later; ₹1,500 monthly and ₹3,500 quarterly; two free problems at launch: Hold Exposure and Corridor Router, confirmed) and ADR 0002 (individual, no GST registration until a CA review before the first real payment) accepted; PLAN.md updated for two free problems (launch pack of 8) and the new "would pay" metric.
 
 - 2026-10-14: Phase 1a: monorepo build and gates; contracts and ADRs 0003 to 0005; run protocol and problem format libraries; Java package with test kit, runner, calibration, health checks and editor support; coding-round section with the prototype score; SQLite store; sessions with the pause rule, Practice hints and the AI edit applier; Doctor; local HTTP API with a per-launch token and engine.jar; typed client, CodeMirror editor, app UI and coding-round UI; Tauri 2 shell; three problems migrated and seven written, all ten verified three ways.
+
+- 2026-10-15: Phase 1ab: `AiClient` with `CliModelClient` behind `developer.mode`, `PromptBuilder`, streamed Ask, Write code, Explain this hint and review, `aiCall` events, Doctor CLI check; ADR 0006 scoring; point-and-explain prompts with recorded-transcript tests; set-up screen, overview, phase card, Guide tab, progress dots, end-session dialog; stylesheet split with new tokens and dashboard cards.
 
 ## In progress
 
@@ -52,4 +54,6 @@ Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 a
 - The app icon is a placeholder square from `desktop/resources/icon.png`.
 - `CLAUDE.md` and `definition-of-done.md` name the verify gate as `java content/tools/Verify.java`; the working command is `./gradlew :content:tools:verify`.
 - `definition-of-done.md` names coverage packages `*.domain` and `*.application`, which the engine does not have; the enforced rule (engine/build.gradle.kts) covers the use-case packages `session`, `session.edits`, `health`, `content` and `store` at 80% lines. Update the DoD wording when the process docs are next touched.
+- Phase 1ab: the developer route has no allowance rule or local budget yet (PLAN.md 2.5); Phase 1b decides it with the backend route.
+- Phase 1ab: the timeline's first tick label overlaps the session-start marker at the left edge; cosmetic.
 - The section UI is wired directly (`App` takes one `SectionUi`); add a registry by section id when the second section lands.

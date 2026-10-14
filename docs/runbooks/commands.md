@@ -17,6 +17,39 @@ pnpm -C web format                                           # Prettier --write 
 ./gradlew spotlessApply                                      # format Java
 ```
 
+## Phase 1ab: assistant on the developer route and the room flow
+
+### Developer mode
+
+```sh
+pnpm -C desktop dev                                          # debug shell passes --developer-mode to the engine; release builds never do
+pnpm -C desktop engine:dev                                   # browser mode engine, already started with --developer-mode
+java -jar engine/build/engine/engine.jar --data <dir> --content content --developer-mode   # the engine alone with the CLI route on
+```
+
+The engine finds the Claude CLI through `INTERVUE_CLAUDE` (path to `claude` or `claude.exe`), then `PATH` (an npm shim resolves to its bundled `claude.exe`). Sign in once with `claude auth login`; `claude auth status` shows the account. Without `--developer-mode` the assistant shows "Assistant unavailable: sign-in arrives in Phase 1b" and no `claude` process starts.
+
+### Check the CLI and read the calls
+
+```sh
+TOKEN=$(cat desktop/.dev-data/dev-token)
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:4100/ai/status                  # {developer, available, reason}
+curl -X POST -H "Authorization: Bearer $TOKEN" http://127.0.0.1:4100/health/run          # includes ai.cli "Claude CLI found and signed in" (warning only)
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:4100/sessions/<id>/chat          # chat turns of a session
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:4100/sessions/<id>/review        # the written review (requested at finish)
+curl -H "Authorization: Bearer $TOKEN" http://127.0.0.1:4100/sessions/<id>               # events of type aiCall: kind, route, model, tokens, durationMs; never text
+```
+
+`POST /sessions/<id>/ask`, `/write` and `/hints/explain` stream NDJSON lines `{"t":"delta"|"done"|"error"}`. `POST /sessions/<id>/finish` takes `{"early": true}` to record ending early.
+
+### Tests
+
+```sh
+./gradlew :sections:coding-round:java:test --tests '*PointAndExplainTranscriptTest'   # recorded-transcript tests per prompt rule (no model calls)
+./gradlew :engine:test --tests '*DeveloperModeTest'                             # no claude process with developer mode off (fake CLI)
+pnpm -C sections/coding-round/ui test                                           # room flow, assistant panel, layout guard
+```
+
 ## Phase 1a: base app (`engine/`, `desktop/`, `packages/`, `content/`)
 
 ### Run the app
