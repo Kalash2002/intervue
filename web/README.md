@@ -20,7 +20,7 @@ Drop three PNGs into `public/screens/` named `screen-1.png`, `screen-2.png`, `sc
 
 ## Environment
 
-Copy `.env.example` to `.env.local`. In Cloudflare, set the same variables under the Pages project's settings for Production and Preview. All are optional: without `VITE_POSTHOG_KEY` analytics stay off, and without `VITE_PROTOTYPE_URL` the prototype download line is hidden.
+Copy `.env.example` to `.env.local`. In Cloudflare, set the same variables under the Pages project's settings for Production and Preview. Both are optional: without `VITE_POSTHOG_KEY` analytics stay off.
 
 PostHog events: `$pageview` (automatic), `waitlist_joined` with role, language and pay (no email), and `prototype_download_clicked`.
 

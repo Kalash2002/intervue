@@ -15,7 +15,8 @@ const SCREENS = [
   { src: '/screens/screen-3.png', caption: 'A score from the tests and a written review of how you worked.' },
 ];
 
-const prototypeUrl = import.meta.env.VITE_PROTOTYPE_URL;
+// Built from prototype/ with the command in docs/runbooks/commands.md; never edited by hand.
+const PROTOTYPE_ZIP = '/downloads/intervue-prototype.zip';
 
 function Screens() {
   return (
@@ -72,15 +73,13 @@ export default function App() {
           Four quick questions and your email. We use your email only to tell you when Intervue opens.
         </Typography>
         <WaitlistForm />
-        {prototypeUrl && (
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 4 }}>
-            Have a JDK installed?{' '}
-            <Link href={prototypeUrl} onClick={() => posthog.capture('prototype_download_clicked')}>
-              Download the early prototype
-            </Link>{' '}
-            and try a session today.
-          </Typography>
-        )}
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 4 }}>
+          Have JDK 17 or newer? Try the{' '}
+          <Link href={PROTOTYPE_ZIP} download onClick={() => posthog.capture('prototype_download_clicked')}>
+            early prototype
+          </Link>{' '}
+          today: unzip it and follow RUN.md inside.
+        </Typography>
       </Box>
     </Container>
   );

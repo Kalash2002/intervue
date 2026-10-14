@@ -49,6 +49,15 @@ pnpm exec wrangler kv key delete --binding WAITLIST --remote "signup:<email>"   
 
 Drop `--remote` and add `--local` to read the local dev store instead.
 
+### Prototype download (from the repository root)
+
+```sh
+(cd prototype && java tools/Verify.java)                     # all three problems must print OK before a new zip
+git -c core.autocrlf=false archive --format=zip --prefix=intervue-prototype/ --add-file=web/prototype/RUN.md -o web/public/downloads/intervue-prototype.zip HEAD:prototype
+```
+
+The zip holds the committed `prototype/` (never local sessions) plus `RUN.md` at its root. Keep `core.autocrlf=false`: without it Git on Windows writes CRLF into `run.sh` and it breaks on macOS and Linux. Rebuild after any prototype commit, then deploy.
+
 ### Stop a stuck local server (Windows, PowerShell)
 
 ```powershell
