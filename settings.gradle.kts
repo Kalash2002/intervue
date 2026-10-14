@@ -2,3 +2,4 @@
 rootProject.name = "intervue"
 
 include("engine")
+include("shared-java:run-protocol")

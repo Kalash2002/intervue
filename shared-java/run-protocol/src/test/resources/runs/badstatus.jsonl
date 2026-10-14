@@ -1,0 +1,2 @@
+{"protocol":1,"t":"start","runner":"java-kit/2.0","language":"java"}
+{"t":"test","suite":"S","name":"x","status":"exploded","ms":1}
