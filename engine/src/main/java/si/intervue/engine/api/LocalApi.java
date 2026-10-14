@@ -125,7 +125,11 @@ public final class LocalApi {
               .toList();
       Map<String, String> query = Routes.query(exchange.getRequestURI().getRawQuery());
       JsonNode body = readBody(exchange.getRequestBody());
-      Object result = engine.locked(() -> routes.handle(method, path, query, body));
+      // The assistant status may start the CLI probe; it reads no store, so it skips the lock.
+      Object result =
+          path.equals(List.of("ai", "status"))
+              ? routes.handle(method, path, query, body)
+              : engine.locked(() -> routes.handle(method, path, query, body));
       if (result instanceof Routes.Streamed streamed) {
         stream(exchange, streamed);
         return;

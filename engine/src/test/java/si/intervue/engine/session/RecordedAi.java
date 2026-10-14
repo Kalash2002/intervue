@@ -26,6 +26,14 @@ final class RecordedAi implements AiClient {
     return this;
   }
 
+  private RuntimeException crash;
+
+  /** The next calls throw this, as a broken database or a closed client stream would. */
+  RecordedAi crash(RuntimeException e) {
+    this.crash = e;
+    return this;
+  }
+
   RecordedAi unavailable(String reason) {
     this.unavailable = reason;
     return this;
@@ -38,6 +46,9 @@ final class RecordedAi implements AiClient {
   private AiReply answer(String kind, AiRequest request, Consumer<String> deltas) {
     if (unavailable != null) {
       throw new AiUnavailableException(unavailable);
+    }
+    if (crash != null) {
+      throw crash;
     }
     calls.add(new Call(kind, request));
     String text = replies.isEmpty() ? "" : replies.poll();

@@ -152,5 +152,15 @@ class PromptBuilderTest {
     assertThat(r.rules()).contains("## Verdict").contains("## Follow-up answers");
     assertThat(r.rules()).doesNotContain("{{");
     assertThat(r.prompt()).contains("1:00 hint").contains("1:30 aiEdit");
+    // The task is in the section's feedback prompt; no request text is written in code.
+    assertThat(r.prompt()).doesNotContain("# Message");
+  }
+
+  @Test
+  void aHintExplanationTakesItsTaskFromTheHintPromptOnly() {
+    AiRequest r = PromptBuilder.hint(context(SessionType.PRACTICE), List.of(), 1, 1, "Look here.");
+
+    assertThat(r.rules()).contains("Look here.");
+    assertThat(r.prompt()).doesNotContain("# Message");
   }
 }

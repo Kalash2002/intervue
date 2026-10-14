@@ -67,9 +67,7 @@ final class PromptBuilder {
             c.section().prompts().template("hint-explain"),
             Map.of(
                 "phase", String.valueOf(phase), "level", String.valueOf(level), "hintText", text));
-    return new AiRequest(
-        rules(c, Rules.HELPFUL) + "\n\n" + channel,
-        userTurn(c, history, "Explain the revealed hint further."));
+    return new AiRequest(rules(c, Rules.HELPFUL) + "\n\n" + channel, userTurn(c, history, null));
   }
 
   /** The written review: the grader notes, the whole timeline and the chat are its evidence. */
@@ -91,7 +89,7 @@ final class PromptBuilder {
     String finals = c.session().finalResultsJson();
     section(p, "Final test results", finals == null ? "Not finished." : finals);
     section(p, "Candidate notes", c.session().notes());
-    p.append(userTurn(c, history, "Write the review."));
+    p.append(userTurn(c, history, null));
     return new AiRequest(rules, p.toString());
   }
 
@@ -107,6 +105,7 @@ final class PromptBuilder {
     return system.strip() + "\n\n" + c.section().prompts().template(mode).strip();
   }
 
+  /** {@code message} is null when the channel's prompt file states the task (hints, review). */
   private static String userTurn(Sessions.Context c, List<Entry> history, String message) {
     StringBuilder p = new StringBuilder();
     StringBuilder brief = new StringBuilder();
@@ -136,7 +135,9 @@ final class PromptBuilder {
     StringBuilder h = new StringBuilder();
     ordered.forEach(e -> h.append(e.line()).append('\n'));
     section(p, "Conversation so far", h.isEmpty() ? "(none)" : h.toString());
-    section(p, "Message", message);
+    if (message != null) {
+      section(p, "Message", message);
+    }
     return p.toString();
   }
 

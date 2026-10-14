@@ -38,6 +38,8 @@ public final class SessionAssistant {
   /** {@code status} is pending, ready (with text) or unavailable (with reason). */
   public record Review(String status, String text, String reason) {}
 
+  static final String REVIEW_FAILED = "The review could not be written. See the engine log.";
+
   private static final Logger LOG = Logger.getLogger(SessionAssistant.class.getName());
   private static final JsonMapper JSON = JsonMapper.builder().build();
 
@@ -176,6 +178,11 @@ public final class SessionAssistant {
             locked(() -> store(id, new Review("ready", reply.text(), null)));
           } catch (AiUnavailableException e) {
             locked(() -> store(id, new Review("unavailable", null, e.getMessage())));
+          } catch (RuntimeException e) {
+            // Stored, so the result page stops polling instead of starting a call every few
+            // seconds.
+            LOG.warning(() -> "review failed: " + e.getClass().getSimpleName());
+            locked(() -> store(id, new Review("unavailable", null, REVIEW_FAILED)));
           } finally {
             reviewing.remove(id);
           }
@@ -237,7 +244,8 @@ public final class SessionAssistant {
       locked(() -> event(c, data));
       LOG.info(() -> "aiCall " + data);
       return reply;
-    } catch (AiUnavailableException e) {
+    } catch (RuntimeException e) {
+      // Any failure, the route's or a closed client stream's, is still a call to account for.
       locked(() -> event(c, Map.of("kind", kind, "ok", false)));
       LOG.info(() -> "aiCall kind=" + kind + " ok=false");
       throw e;

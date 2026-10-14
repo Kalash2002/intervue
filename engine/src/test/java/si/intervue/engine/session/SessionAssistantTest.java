@@ -218,6 +218,41 @@ class SessionAssistantTest {
   }
 
   @Test
+  void aReviewThatFailsForAnyOtherReasonIsStoredAsUnavailableAndNotRetriedByPolling() {
+    String id = start(SessionType.INTERVIEW);
+    ai.crash(new IllegalStateException("database is locked"));
+
+    assistant.finish(id, false);
+
+    assertThat(assistant.review(id).status()).isEqualTo("unavailable");
+    assertThat(assistant.review(id).reason()).doesNotContain("database");
+  }
+
+  @Test
+  void aStreamThatBreaksStillLeavesAFailedAiCallEvent() {
+    String id = start(SessionType.INTERVIEW);
+    ai.reply("a long reply");
+
+    assertThatThrownBy(
+            () ->
+                assistant.ask(
+                    id,
+                    "hi",
+                    SessionAssistant.HELPFUL,
+                    d -> {
+                      throw new java.io.UncheckedIOException(new java.io.IOException("closed"));
+                    }))
+        .isInstanceOf(java.io.UncheckedIOException.class);
+
+    assertThat(sessions.view(id).events())
+        .anySatisfy(
+            e -> {
+              assertThat(e.type()).isEqualTo("aiCall");
+              assertThat(e.data()).containsEntry("ok", false);
+            });
+  }
+
+  @Test
   void aReviewWithNoRouteSaysWhy() {
     String id = start(SessionType.INTERVIEW);
     ai.unavailable("Assistant unavailable: sign-in arrives in Phase 1b");

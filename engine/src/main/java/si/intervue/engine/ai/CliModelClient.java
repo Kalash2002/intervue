@@ -81,11 +81,12 @@ public final class CliModelClient implements AiClient {
 
   private AiReply run(AiRequest request, Consumer<String> deltas) {
     Path dir = null;
+    Process process = null;
     try {
       dir = Files.createTempDirectory("intervue-ai");
       Path rules =
           Files.writeString(dir.resolve("rules.md"), request.rules(), StandardCharsets.UTF_8);
-      Process process =
+      process =
           new ProcessBuilder(command(rules))
               .directory(dir.toFile())
               .redirectError(ProcessBuilder.Redirect.DISCARD)
@@ -115,6 +116,10 @@ public final class CliModelClient implements AiClient {
       Thread.currentThread().interrupt();
       throw new AiUnavailableException("The call was interrupted.");
     } finally {
+      // A reader that stopped early (the client closed the stream) must not leave claude running.
+      if (process != null && process.isAlive()) {
+        ProcessControl.waitOrKill(process, 0);
+      }
       deleteQuietly(dir);
     }
   }

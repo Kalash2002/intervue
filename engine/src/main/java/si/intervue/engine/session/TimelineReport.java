@@ -38,10 +38,13 @@ public record TimelineReport(
           lastRun = e.tMs();
           streak = 0;
         }
-        case "chat" -> {
-          prompts++;
-          firstPrompt = firstPrompt < 0 ? e.tMs() : firstPrompt;
-          longestStreak = Math.max(longestStreak, ++streak);
+        // The candidate's own assistant calls are prompts; the review at finish is not.
+        case "aiCall" -> {
+          if (!"feedback".equals(e.data().get("kind"))) {
+            prompts++;
+            firstPrompt = firstPrompt < 0 ? e.tMs() : firstPrompt;
+            longestStreak = Math.max(longestStreak, ++streak);
+          }
         }
         case "skip" -> skipped++;
         default -> {
