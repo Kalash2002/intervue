@@ -20,6 +20,9 @@ import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionPackage;
 import si.intervue.engine.sections.SectionRegistry;
 import si.intervue.engine.sections.SessionType;
+import si.intervue.engine.session.edits.EditReply;
+import si.intervue.engine.session.edits.EditStore;
+import si.intervue.engine.session.edits.UndoResult;
 import si.intervue.problemformat.HintLevels;
 import si.intervue.problemformat.ProblemFolder;
 
@@ -41,9 +44,11 @@ public final class Sessions {
   private final Path sessionsRoot;
   private final Clock clock;
   private final SessionRuns runs;
+  private final SessionEdits edits;
 
   public Sessions(
       SessionStore store,
+      EditStore editStore,
       Settings settings,
       ContentStore content,
       LanguageRegistry languages,
@@ -59,6 +64,7 @@ public final class Sessions {
     this.sessionsRoot = sessionsRoot;
     this.clock = clock;
     this.runs = new SessionRuns(this, store, settings, processes);
+    this.edits = new SessionEdits(this, editStore);
   }
 
   /** A session with everything its rules need. */
@@ -206,6 +212,28 @@ public final class Sessions {
   private static Map<Integer, String> hintLevels(Context c, int phase) {
     var p = c.problem().problem().phases().get(phase - 1);
     return HintLevels.parse(readString(c.problem().dir().resolve(p.hints())));
+  }
+
+  /** Applies one Write code reply (docs/contracts/edit-protocol.md). */
+  public EditReply applyEdits(String id, List<String> lines) {
+    return edits.apply(requireOpen(id), lines);
+  }
+
+  public UndoResult undoEdit(String id, String editId) {
+    return edits.undo(requireOpen(id), editId);
+  }
+
+  public List<UndoResult> undoReply(String id, String replyId) {
+    return edits.undoReply(requireOpen(id), replyId);
+  }
+
+  /** Copies one file back from the problem's source; edits it overwrote can no longer be undone. */
+  public String resetFile(String id, String path) {
+    return edits.resetFile(requireOpen(id), path);
+  }
+
+  public void resetProblem(String id) {
+    edits.resetProblem(requireOpen(id));
   }
 
   public RunView run(String id, String target) {

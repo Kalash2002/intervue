@@ -12,12 +12,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import si.intervue.engine.session.edits.EditableFiles;
 
 /**
  * A session's copy of the project. Owns every rule about which paths exist, which are read-only,
  * and how files are restored from the problem's starter; the starter itself is never written.
  */
-final class WorkFolder {
+final class WorkFolder implements EditableFiles {
 
   private static final Pattern SAFE_PATH = Pattern.compile("[A-Za-z0-9_./-]{1,120}");
   private static final Set<String> TEXT_EXTENSIONS = Set.of(".txt", ".md", ".csv");
@@ -41,8 +42,14 @@ final class WorkFolder {
     this.sourceExtensions = sourceExtensions;
   }
 
-  Path root() {
+  @Override
+  public Path root() {
     return work;
+  }
+
+  @Override
+  public List<String> sourceExtensions() {
+    return sourceExtensions;
   }
 
   void createFromStarter() {
@@ -133,7 +140,8 @@ final class WorkFolder {
     }
   }
 
-  boolean isEditable(String rel) {
+  @Override
+  public boolean isEditable(String rel) {
     return !readOnly.contains(rel) && !isKit(rel) && !rel.startsWith("data/");
   }
 
@@ -149,7 +157,8 @@ final class WorkFolder {
   }
 
   /** Resolves a path the user sent, refusing anything that could leave the work folder. */
-  Path resolve(String rel) {
+  @Override
+  public Path resolve(String rel) {
     if (rel == null
         || !SAFE_PATH.matcher(rel).matches()
         || rel.contains("..")

@@ -11,6 +11,7 @@ import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.engine.languages.LanguageRegistry;
 import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionRegistry;
+import si.intervue.engine.session.edits.EditStore;
 import si.intervue.engine.store.Database;
 
 /** Builds the session module over a temp folder with the tiny fixture problem and a test clock. */
@@ -34,6 +35,7 @@ final class EngineFixture implements AutoCloseable {
     this.sessions =
         new Sessions(
             store,
+            new EditStore(db),
             settings,
             new PlainFolderSource(problems),
             LanguageRegistry.load(),
