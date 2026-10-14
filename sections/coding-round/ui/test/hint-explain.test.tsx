@@ -1,4 +1,4 @@
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { HintControl } from '../src/room/HintControl.tsx';
 import { renderWith, view } from './fixtures.tsx';
@@ -27,7 +27,8 @@ describe('explain this hint', () => {
 
     fireEvent.click(await screen.findByRole('button', { name: 'Explain this hint' }));
 
-    expect(await screen.findByText('Look where the total is built.')).toBeInTheDocument();
+    // The streamed text is replaced by its rendered Markdown when the call ends.
+    await waitFor(() => expect(screen.getByText('Look where the total is built.')).toBeInTheDocument());
     expect(explainHint).toHaveBeenCalledWith('s1', 2, expect.any(Function));
   });
 

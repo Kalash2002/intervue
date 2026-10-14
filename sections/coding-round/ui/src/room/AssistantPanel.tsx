@@ -26,7 +26,7 @@ export function AssistantPanel({
     <>
       {status.available ? (
         <>
-          <ChatLog turns={chat.turns} />
+          <ChatLog turns={chat.turns} streaming={chat.busy} />
           <Composer view={view} chat={chat} actions={actions} />
           <Outcomes reply={actions.reply} onUndo={actions.undo} />
         </>
@@ -38,7 +38,8 @@ export function AssistantPanel({
   );
 }
 
-function ChatLog({ turns }: { turns: ShownTurn[] }) {
+/** The reply still streaming shows as plain text; Markdown renders once it is complete. */
+function ChatLog({ turns, streaming }: { turns: ShownTurn[]; streaming: boolean }) {
   if (turns.length === 0) {
     return <p className="hint">Say what you want and why. Name the file or method when you want code.</p>;
   }
@@ -47,7 +48,11 @@ function ChatLog({ turns }: { turns: ShownTurn[] }) {
       {turns.map((t, i) => (
         <div key={i} className={`msg ${t.role}${t.error ? ' error' : ''}`}>
           <div className="who">{t.role === 'user' ? 'You' : 'Assistant'}</div>
-          {t.role === 'user' || t.error ? <div className="body">{t.text}</div> : <Markdown source={t.text || '…'} />}
+          {t.role === 'user' || t.error || (streaming && i === turns.length - 1) ? (
+            <div className="body">{t.text || '…'}</div>
+          ) : (
+            <Markdown source={t.text} />
+          )}
         </div>
       ))}
     </div>

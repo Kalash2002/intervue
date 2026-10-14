@@ -57,7 +57,8 @@ describe('the assistant panel', () => {
     type('fix it');
     fireEvent.click(screen.getByRole('button', { name: 'Ask' }));
 
-    expect(await screen.findByText('Look at line 15.')).toBeInTheDocument();
+    // The streamed text is replaced by its rendered Markdown when the call ends.
+    await waitFor(() => expect(screen.getByText('Look at line 15.')).toBeInTheDocument());
     expect(screen.getByText('fix it')).toBeInTheDocument();
     expect(c.ask).toHaveBeenCalledWith('s1', 'fix it', 'interview', expect.any(Function));
   });

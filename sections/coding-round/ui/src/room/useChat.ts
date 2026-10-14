@@ -1,7 +1,7 @@
 // The chat log of a session: earlier turns from the engine, plus the reply streaming in now.
 import { useEffect, useState } from 'react';
 import type { AiStatus, ChatTurn, RulesChoice } from '@intervue/local-engine-client';
-import { failed, useApp } from '@intervue/ui';
+import { errorText, failed, useApp } from '@intervue/ui';
 
 export interface ShownTurn {
   role: 'user' | 'assistant';
@@ -24,8 +24,11 @@ export function useChat(sessionId: string, onDone: () => void) {
       .catch(failed(notify));
   }, [client, notify, sessionId]);
 
-  /** Shows the message at once, then the reply as it streams; a failure shows its reason inline. */
-  const send = async (message: string, call: (onDelta: (text: string) => void) => Promise<unknown>) => {
+  /**
+   * Shows the message at once, then the reply as it streams; a failure shows its reason inline.
+   * Write code already reloads the session after applying, so it refreshes here only on failure.
+   */
+  const send = async (message: string, call: (onDelta: (text: string) => void) => Promise<unknown>, refresh = true) => {
     setBusy(true);
     setTurns((t) => [...t, { role: 'user', text: message }, { role: 'assistant', text: '' }]);
     const replaceLast = (update: (last: ShownTurn) => ShownTurn) =>
@@ -35,12 +38,13 @@ export function useChat(sessionId: string, onDone: () => void) {
     } catch (error) {
       replaceLast(() => ({
         role: 'assistant',
-        text: error instanceof Error ? error.message : String(error),
+        text: errorText(error),
         error: true,
       }));
+      refresh = true;
     } finally {
       setBusy(false);
-      onDone();
+      if (refresh) onDone();
     }
   };
 
@@ -52,9 +56,13 @@ export function useChat(sessionId: string, onDone: () => void) {
       send(message, (onDelta) => client.ask(sessionId, message, rules, onDelta)),
     /** Write code shows its note as the reply; the outcomes come from the room's reply state. */
     write: (message: string, run: () => Promise<{ note: string } | null>) =>
-      send(message, async (onDelta) => {
-        const reply = await run();
-        onDelta(reply?.note || 'No changes.');
-      }),
+      send(
+        message,
+        async (onDelta) => {
+          const reply = await run();
+          onDelta(reply?.note || 'No changes.');
+        },
+        false,
+      ),
   };
 }

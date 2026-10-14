@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
-import { failed, Markdown, useApp } from '@intervue/ui';
+import { errorText, failed, Markdown, useApp } from '@intervue/ui';
 
 const LEVELS = 3;
 
@@ -80,7 +80,7 @@ function Explain({
       await client.explainHint(sessionId, phase, (d) => setText((t) => t + d));
       onDone(await client.session(sessionId));
     } catch (e) {
-      setError(e instanceof Error ? e.message : String(e));
+      setError(errorText(e));
     } finally {
       setBusy(false);
     }
@@ -91,7 +91,8 @@ function Explain({
         Explain this hint
       </button>
       {error && <p className="assistant-off">{error}</p>}
-      {text && <Markdown source={text} />}
+      {/* Plain text while streaming: re-rendering Markdown per delta grows with the reply squared. */}
+      {text && (busy ? <div className="body">{text}</div> : <Markdown source={text} />)}
     </div>
   );
 }
