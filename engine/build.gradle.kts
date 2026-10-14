@@ -4,5 +4,7 @@ dependencies {
     api(project(":shared-java:problem-format"))
     // The section SPI grades RunResults.
     api(project(":shared-java:run-protocol"))
+    implementation(libs.sqlite.jdbc)
+    implementation(libs.jackson.databind)
     testImplementation(libs.archunit)
 }

@@ -1,0 +1,2 @@
+CREATE TABLE half_done (id INTEGER);
+THIS IS NOT SQL;
