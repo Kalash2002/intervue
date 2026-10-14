@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "node scripts/engine.ts && tauri dev",
     "dev:browser": "node scripts/engine.ts && vite",
-    "engine:dev": "java -jar ../engine/build/engine/engine.jar --data .dev-data --content ../content --port 4100",
+    "engine:dev": "java -jar ../engine/build/engine/engine.jar --data .dev-data --content ../content --port 4100 --developer-mode",
     "vite": "vite",
     "build": "node scripts/engine.ts && node scripts/jlink.ts && tauri build --config src-tauri/tauri.bundle.json",
     "build:renderer": "tsc --noEmit && vite build",

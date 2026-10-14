@@ -74,8 +74,9 @@ pub fn validate(paths: &EnginePaths) -> Result<(), String> {
     Ok(())
 }
 
-pub fn engine_args(paths: &EnginePaths) -> Vec<OsString> {
-    vec![
+/// `developer` turns on the engine's developer-only Claude CLI route; release builds never pass it.
+pub fn engine_args(paths: &EnginePaths, developer: bool) -> Vec<OsString> {
+    let mut args: Vec<OsString> = vec![
         "-jar".into(),
         paths.jar.clone().into(),
         "--data".into(),
@@ -83,7 +84,11 @@ pub fn engine_args(paths: &EnginePaths) -> Vec<OsString> {
         "--content".into(),
         paths.content.clone().into(),
         "--exit-on-stdin-close".into(),
-    ]
+    ];
+    if developer {
+        args.push("--developer-mode".into());
+    }
+    args
 }
 
 pub fn parse_ready(line: &str) -> Option<u16> {
@@ -99,7 +104,7 @@ pub fn new_token() -> Result<String, String> {
 }
 
 impl Engine {
-    pub fn start(paths: &EnginePaths) -> Result<Engine, String> {
+    pub fn start(paths: &EnginePaths, developer: bool) -> Result<Engine, String> {
         validate(paths)?;
         std::fs::create_dir_all(&paths.data)
             .map_err(|e| format!("Cannot create {}: {e}", paths.data.display()))?;
@@ -108,7 +113,7 @@ impl Engine {
         let token = new_token()?;
         let mut command = Command::new(&paths.java);
         command
-            .args(engine_args(paths))
+            .args(engine_args(paths, developer))
             .env("INTERVUE_ENGINE_TOKEN", &token)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
@@ -210,10 +215,24 @@ mod tests {
         assert_eq!(parse_ready("Picked up JAVA_TOOL_OPTIONS"), None);
     }
 
+    fn args_of(p: &EnginePaths, developer: bool) -> Vec<String> {
+        engine_args(p, developer)
+            .iter()
+            .map(|a| a.to_string_lossy().into_owned())
+            .collect()
+    }
+
+    #[test]
+    fn developer_mode_only_when_asked() {
+        let p = paths(Path::new("r"));
+        assert!(!args_of(&p, false).contains(&"--developer-mode".to_string()));
+        assert!(args_of(&p, true).contains(&"--developer-mode".to_string()));
+    }
+
     #[test]
     fn passes_jar_data_and_content_in_that_order() {
         let p = paths(Path::new("r"));
-        let args: Vec<String> = engine_args(&p)
+        let args: Vec<String> = engine_args(&p, false)
             .iter()
             .map(|a| a.to_string_lossy().into_owned())
             .collect();

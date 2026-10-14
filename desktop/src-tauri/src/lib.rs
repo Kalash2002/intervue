@@ -48,7 +48,10 @@ fn stop_engine(app: &AppHandle) {
 pub fn run() {
     let app = tauri::Builder::default()
         .setup(|app| {
-            let started = engine_paths(app.handle()).and_then(|paths| Engine::start(&paths));
+            // Developer mode (the Claude CLI route, PLAN.md 2.5) exists only in debug builds.
+            let developer = cfg!(debug_assertions);
+            let started =
+                engine_paths(app.handle()).and_then(|paths| Engine::start(&paths, developer));
             app.manage(EngineState(Mutex::new(started)));
             Ok(())
         })
