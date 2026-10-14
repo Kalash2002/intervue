@@ -33,7 +33,7 @@ export interface Score {
   total: number;
   band: string;
   solved: boolean;
-  /** "Interview", "Interview, assisted" or "Practice". */
+  /** "Interview" or "Practice"; using the assistant never changes it (ADR 0006). */
   label: string;
   parts: ScorePart[];
 }
@@ -82,6 +82,8 @@ export interface SessionView {
   /** Phase id to the highest hint level revealed. */
   hintsUsed: Record<string, number>;
   aiEditsActive: number;
+  aiEditsApplied: number;
+  aiEditsUndone: number;
   /** The intro, then one entry per phase; null while that phase is locked. */
   brief: (string | null)[];
   notes: string;

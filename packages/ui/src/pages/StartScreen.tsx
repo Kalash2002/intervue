@@ -41,8 +41,8 @@ export function StartScreen({ problem }: { problem: ProblemSummary }) {
         <button className="choice" type="button" disabled={busy} onClick={() => start('INTERVIEW')}>
           <h2>Interview</h2>
           <p>
-            {problem.minutes} minutes on the clock, no hints. Scored like the real round; a pass without applied AI
-            edits counts as solved.
+            {problem.minutes} minutes on the clock, no hints. Scored like the real round; a pass counts as solved, and
+            using the assistant well is part of it.
           </p>
         </button>
         <button className="choice" type="button" disabled={busy} onClick={() => start('PRACTICE')}>

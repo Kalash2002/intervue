@@ -68,7 +68,7 @@ function Stats({ problems, history }: { problems: ProblemSummary[]; history: Ses
         <Stat value={s.averageBest === null ? '–' : `${s.averageBest} / 100`} label="Average of best scores" />
         <Stat value={String(s.finishedSessions)} label="Finished sessions" />
       </dl>
-      <p className="hint">Only Interview sessions without applied AI edits count as solved.</p>
+      <p className="hint">An Interview session that passes every phase counts as solved. Practice never does.</p>
     </section>
   );
 }

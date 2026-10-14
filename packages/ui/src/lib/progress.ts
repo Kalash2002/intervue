@@ -1,5 +1,5 @@
 // Dashboard numbers worked out from the session history, as the prototype's progressFor did. A
-// problem is solved only by an unassisted Interview session that passed every phase (PLAN.md 2.8).
+// problem is solved by an Interview session that passed every phase, with or without AI edits (ADR 0006).
 import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
 
 export type ProblemState = 'solved' | 'progress' | 'attempted' | 'new';
@@ -7,7 +7,7 @@ export type ProblemState = 'solved' | 'progress' | 'attempted' | 'new';
 export interface ProblemProgress {
   state: ProblemState;
   attempts: number;
-  /** Best total of an unassisted Interview session, or null when there is none. */
+  /** Best total of an Interview session, or null when there is none. */
   best: number | null;
   openId: string | null;
   lastFinishedId: string | null;
@@ -16,7 +16,7 @@ export interface ProblemProgress {
 export function progressFor(problem: ProblemSummary, history: readonly SessionSummary[]): ProblemProgress {
   const mine = history.filter((s) => s.problemId === problem.id);
   const finished = mine.filter((s) => s.finished);
-  // Best score, like solved, counts unassisted Interview sessions only (PLAN.md 2.8).
+  // Best score, like solved, counts Interview sessions only; Practice never does (PLAN.md 2.8, ADR 0006).
   const totals = finished.filter((s) => s.type === 'INTERVIEW' && s.label === 'Interview').map((s) => s.total ?? 0);
   const open = mine.find((s) => !s.finished);
   const solved = finished.some((s) => s.countsAsSolved);

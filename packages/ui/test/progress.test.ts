@@ -17,18 +17,18 @@ const finished = (total: number, type: SessionSummary['type'], label: string): S
 });
 
 describe('progress', () => {
-  it('takes the best score from unassisted interviews only (PLAN.md 2.8)', () => {
+  it('takes the best score from Interview sessions, assisted or not, never Practice (ADR 0006)', () => {
     const history = [
-      finished(92, 'INTERVIEW', 'Interview, assisted'),
+      finished(92, 'INTERVIEW', 'Interview'),
       finished(98, 'PRACTICE', 'Practice'),
       finished(60, 'INTERVIEW', 'Interview'),
     ];
 
-    expect(progressFor(problem, history).best).toBe(60);
-    expect(dashboardStats([problem], history).averageBest).toBe(60);
+    expect(progressFor(problem, history).best).toBe(92);
+    expect(dashboardStats([problem], history).averageBest).toBe(92);
   });
 
-  it('has no best score without an unassisted interview', () => {
+  it('has no best score without an Interview session', () => {
     expect(progressFor(problem, [finished(98, 'PRACTICE', 'Practice')]).best).toBeNull();
   });
 });

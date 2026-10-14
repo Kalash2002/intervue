@@ -66,11 +66,11 @@ const section: SectionUi = {
 const renderApp = (client: EngineClient) => render(<App client={client} section={section} languages={[]} />);
 
 describe('dashboard', () => {
-  it('counts only unassisted interviews as solved and labels every session', async () => {
+  it('counts solved interviews and labels every session Interview or Practice', async () => {
     const client = fakeClient({
       history: vi.fn(async () => [
         summary({ id: 'a', problemId: 'hold-exposure', label: 'Interview', total: 82 }),
-        summary({ id: 'b', problemId: 'corridor-router', label: 'Interview, assisted', countsAsSolved: false }),
+        summary({ id: 'b', problemId: 'corridor-router', label: 'Interview', solved: false, countsAsSolved: false }),
         summary({ id: 'c', problemId: 'corridor-router', type: 'PRACTICE', label: 'Practice', countsAsSolved: false }),
       ]),
     });
@@ -80,8 +80,9 @@ describe('dashboard', () => {
     const stats = await screen.findByLabelText('Your progress');
     expect(within(stats).getByText('Solved').previousSibling).toHaveTextContent('1 of 2');
     const history = screen.getByLabelText('Session history');
-    expect(within(history).getByText('Interview')).toBeInTheDocument();
-    expect(within(history).getByText('Interview, assisted')).toBeInTheDocument();
+    expect(within(history).getAllByText('Interview')).toHaveLength(2);
+    expect(screen.queryByText(/Interview, assisted/)).toBeNull();
+    expect(screen.queryByText(/without applied AI edits/)).toBeNull();
     expect(within(history).getByText('Practice')).toBeInTheDocument();
   });
 });
