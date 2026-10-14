@@ -42,13 +42,9 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
   const replay = (streamId: string) =>
     guarded(() => applyReply(edits, () => client.replayFakeEdits(id, streamId)).then(() => undefined))();
   /** Write code; errors reach the caller so the chat can show the reason. */
-  const writeCode = async (message: string, rules: RulesChoice) => {
+  const writeCode = (message: string, rules: RulesChoice) => {
     setBusy(true);
-    try {
-      return await applyReply(edits, () => client.write(id, message, rules));
-    } finally {
-      setBusy(false);
-    }
+    return applyReply(edits, () => client.write(id, message, rules)).finally(() => setBusy(false));
   };
   const undo = (editId: string) => guarded(() => undoEdit(edits, editId))();
 
@@ -62,6 +58,7 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     writeCode,
     undo,
     save: guarded(() => ws.saveAll()),
+    saveFiles: () => ws.saveAll(false), // before assistant calls, so prompts read the code on screen
     skip: guarded(() => client.skip(id).then(refresh)),
     finish: (early: boolean) =>
       guarded(() =>

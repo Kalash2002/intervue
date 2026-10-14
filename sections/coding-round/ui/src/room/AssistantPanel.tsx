@@ -77,7 +77,9 @@ function Composer({
   const submit = (kind: 'ask' | 'write') => {
     const text = message.trim();
     setMessage('');
-    return kind === 'ask' ? chat.ask(text, effective) : chat.write(text, () => actions.writeCode(text, effective));
+    return kind === 'ask'
+      ? chat.ask(text, effective, actions.saveFiles)
+      : chat.write(text, () => actions.writeCode(text, effective));
   };
   return (
     <div className="chat-form">

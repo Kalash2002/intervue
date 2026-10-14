@@ -52,8 +52,11 @@ export function useChat(sessionId: string, onDone: () => void) {
     status,
     turns,
     busy,
-    ask: (message: string, rules: RulesChoice) =>
-      send(message, (onDelta) => client.ask(sessionId, message, rules, onDelta)),
+    ask: (message: string, rules: RulesChoice, beforeSend: () => Promise<void>) =>
+      send(message, async (onDelta) => {
+        await beforeSend();
+        return client.ask(sessionId, message, rules, onDelta);
+      }),
     /** Write code shows its note as the reply; the outcomes come from the room's reply state. */
     write: (message: string, run: () => Promise<{ note: string } | null>) =>
       send(

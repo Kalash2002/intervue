@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown } from '@intervue/ui';
 import type { RoomActions } from './useRoomActions.ts';
@@ -36,8 +35,17 @@ function firstSentence(markdown: string | null): string {
  * the phase text, the tests that must pass with a passing pill, and Run tests with its output here
  * as well as in the output pane.
  */
-export function GuidePanel({ view, actions }: { view: SessionView; actions: RoomActions }) {
-  const [started, setStarted] = useState<Set<number>>(new Set());
+export function GuidePanel({
+  view,
+  actions,
+  started,
+  onStart,
+}: {
+  view: SessionView;
+  actions: RoomActions;
+  started: ReadonlySet<number>;
+  onStart: (phase: number) => void;
+}) {
   const phase = currentPhase(view);
   const title = view.phaseTitles[phase - 1] ?? `Phase ${phase}`;
   const ran = view.events.some((e) => e.type === 'run' && e.data.target === `phase:${phase}`);
@@ -49,7 +57,7 @@ export function GuidePanel({ view, actions }: { view: SessionView; actions: Room
         </p>
         <h2>{title}</h2>
         <p>{firstSentence(view.brief[phase])}</p>
-        <button className="primary" type="button" onClick={() => setStarted(new Set(started).add(phase))}>
+        <button className="primary" type="button" onClick={() => onStart(phase)}>
           Start
         </button>{' '}
         {phase < view.phases && (

@@ -43,9 +43,7 @@ export function TimelineStrip({ view, activeMs }: { view: SessionView; activeMs:
           <span>{m}m</span>
         </div>
       ))}
-      {view.type === 'INTERVIEW' && span > limit && (
-        <div className="limit" style={{ left: pos(limit) }} title="Time limit" />
-      )}
+      {view.timed && span > limit && <div className="limit" style={{ left: pos(limit) }} title="Time limit" />}
       {view.events.map((e) => mark(e, pos))}
       {!view.finished && <div className="now" style={{ left: pos(activeMs) }} />}
     </div>

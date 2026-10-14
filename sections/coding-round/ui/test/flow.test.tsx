@@ -60,6 +60,17 @@ describe('the phase intro card', () => {
     await waitFor(() => expect(c.skip).toHaveBeenCalledWith('s1'));
   });
 
+  it('stays dismissed after switching tabs and back', async () => {
+    renderWith(<SessionRoom session={timed(view())} />, client());
+
+    const card = await screen.findByRole('region', { name: 'Phase 1: Fix' });
+    fireEvent.click(within(card).getByRole('button', { name: 'Start' }));
+    fireEvent.click(screen.getByRole('tab', { name: 'Brief' }));
+    fireEvent.click(screen.getByRole('tab', { name: 'Guide' }));
+
+    expect(screen.queryByRole('region', { name: 'Phase 1: Fix' })).toBeNull();
+  });
+
   it('is not shown again once the phase has a run', async () => {
     const v = view({
       events: [event(1, 'run', 1000, { target: 'phase:1', passed: 2, failed: 1, compileError: false })],

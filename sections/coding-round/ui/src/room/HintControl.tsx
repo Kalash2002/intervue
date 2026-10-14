@@ -11,12 +11,15 @@ export function HintControl({
   used,
   disabled = false,
   onRevealed,
+  beforeExplain = async () => {},
 }: {
   sessionId: string;
   phase: number;
   used: number;
   disabled?: boolean;
   onRevealed: (view: SessionView) => void;
+  /** Saves unsaved typing so the explanation reads the code on screen. */
+  beforeExplain?: () => Promise<void>;
 }) {
   const { client, notify } = useApp();
   const [texts, setTexts] = useState<string[]>([]);
@@ -43,7 +46,9 @@ export function HintControl({
           <Markdown source={text} />
         </div>
       ))}
-      {texts.length > 0 && <Explain sessionId={sessionId} phase={phase} onDone={onRevealed} />}
+      {texts.length > 0 && (
+        <Explain sessionId={sessionId} phase={phase} onDone={onRevealed} beforeExplain={beforeExplain} />
+      )}
       {next <= LEVELS ? (
         <button className="ghost small" type="button" disabled={disabled} onClick={reveal}>
           Show hint level {next} of {LEVELS}
@@ -63,10 +68,12 @@ function Explain({
   sessionId,
   phase,
   onDone,
+  beforeExplain,
 }: {
   sessionId: string;
   phase: number;
   onDone: (view: SessionView) => void;
+  beforeExplain: () => Promise<void>;
 }) {
   const { client } = useApp();
   const [text, setText] = useState('');
@@ -77,6 +84,7 @@ function Explain({
     setText('');
     setError(null);
     try {
+      await beforeExplain();
       await client.explainHint(sessionId, phase, (d) => setText((t) => t + d));
       onDone(await client.session(sessionId));
     } catch (e) {

@@ -48,6 +48,12 @@ describe('result parts', () => {
     expect(within(screen.getByLabelText('Score')).getByText(label)).toBeInTheDocument();
   });
 
+  it('give a timed Practice session its limit, not the stopwatch', () => {
+    renderWith(<ResultParts session={{ ...finished('Practice'), timed: true }} />, { saveNotes: vi.fn() });
+
+    expect(screen.getByText(/of 10:00/)).toBeInTheDocument();
+  });
+
   it('count pauses, hints and AI edits applied and undone', () => {
     renderWith(<ResultParts session={finished('Practice')} />, { saveNotes: vi.fn() });
 

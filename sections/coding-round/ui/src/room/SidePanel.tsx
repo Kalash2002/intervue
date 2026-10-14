@@ -18,6 +18,8 @@ export function SidePanel({
   onChange: (v: SessionView) => void;
 }) {
   const [tab, setTab] = useState<Tab>('Guide');
+  // Kept here, not in the Guide tab: the tab unmounts on every switch.
+  const [started, setStarted] = useState<ReadonlySet<number>>(new Set());
   // Hints exist only in Practice (PLAN.md 2.8); an Interview room never offers the tab.
   const tabs: Tab[] =
     view.type === 'PRACTICE' ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
@@ -38,9 +40,16 @@ export function SidePanel({
         ))}
       </div>
       <div className="side-body" role="tabpanel" aria-label={tab}>
-        {tab === 'Guide' && <GuidePanel view={view} actions={actions} />}
+        {tab === 'Guide' && (
+          <GuidePanel
+            view={view}
+            actions={actions}
+            started={started}
+            onStart={(phase) => setStarted(new Set(started).add(phase))}
+          />
+        )}
         {tab === 'Brief' && <Brief view={view} onSkip={actions.skip} />}
-        {tab === 'Hints' && <Hints view={view} onChange={onChange} />}
+        {tab === 'Hints' && <Hints view={view} onChange={onChange} beforeExplain={actions.saveFiles} />}
         {tab === 'Assistant' && <AssistantPanel view={view} actions={actions} onChange={onChange} />}
       </div>
     </aside>
@@ -69,7 +78,15 @@ function Brief({ view, onSkip }: { view: SessionView; onSkip: () => void }) {
   );
 }
 
-function Hints({ view, onChange }: { view: SessionView; onChange: (v: SessionView) => void }) {
+function Hints({
+  view,
+  onChange,
+  beforeExplain,
+}: {
+  view: SessionView;
+  onChange: (v: SessionView) => void;
+  beforeExplain: () => Promise<void>;
+}) {
   const phases = Array.from({ length: view.unlocked }, (_, i) => i + 1);
   return (
     <>
@@ -83,6 +100,7 @@ function Hints({ view, onChange }: { view: SessionView; onChange: (v: SessionVie
             used={view.hintsUsed[String(phase)] ?? 0}
             disabled={view.finished}
             onRevealed={onChange}
+            beforeExplain={beforeExplain}
           />
         </section>
       ))}

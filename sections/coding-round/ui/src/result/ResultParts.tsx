@@ -63,7 +63,7 @@ function ScoreLine({ session, result }: { session: SessionView; result: SessionR
         </h1>
         <p>
           Active time {clockText(session.activeMs)}
-          {session.type === 'INTERVIEW' ? ` of ${session.minutes}:00` : ' on the stopwatch'}.
+          {session.timed ? ` of ${session.minutes}:00` : ' on the stopwatch'}.
         </p>
         <p className="hint">
           {session.type === 'PRACTICE'

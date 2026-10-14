@@ -27,6 +27,7 @@ function actions(over: Partial<RoomActions> = {}): RoomActions {
     busy: false,
     reply: null,
     writeCode: vi.fn(async () => {}),
+    saveFiles: vi.fn(async () => {}),
     undo: vi.fn(),
     replay: vi.fn(),
     ...over,
@@ -47,6 +48,19 @@ describe('the assistant panel', () => {
     expect(screen.queryByRole('button', { name: 'Ask' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Write code' })).toBeNull();
     expect(screen.queryByRole('button', { name: 'Replay' })).toBeNull();
+  });
+
+  it('saves the open files before Ask, so the prompt has the code on screen', async () => {
+    const order: string[] = [];
+    const c = client({ ask: vi.fn(async () => (order.push('ask'), 'ok')) });
+    const saveFiles = vi.fn(async () => void order.push('save'));
+    renderWith(<AssistantPanel view={view()} actions={actions({ saveFiles })} onChange={vi.fn()} />, c);
+
+    await screen.findByRole('button', { name: 'Ask' });
+    type('is the visited check right?');
+    fireEvent.click(screen.getByRole('button', { name: 'Ask' }));
+
+    await waitFor(() => expect(order).toEqual(['save', 'ask']));
   });
 
   it('streams an Ask reply into the chat log', async () => {
