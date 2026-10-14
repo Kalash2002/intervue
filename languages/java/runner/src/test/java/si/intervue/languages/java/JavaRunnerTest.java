@@ -125,6 +125,23 @@ class JavaRunnerTest {
   }
 
   @Test
+  void relativeWorkAndOutFoldersStillWork() throws IOException {
+    // Relative to the test's working directory (the project), which may be on another drive than
+    // the temp folder.
+    Path base = Path.of("build", "relative-run-" + System.nanoTime());
+    work = Files.createDirectories(base.resolve("work"));
+    out = base.resolve("out");
+    for (String name : FIXTURES) {
+      Files.copy(session.resolve("work").resolve(name + ".java"), work.resolve(name + ".java"));
+    }
+    java.testKit().install(work);
+
+    RunOutput output = run("phase:1", "Main", LIMITS);
+
+    assertThat(RunProtocolParser.parse(output.resultsFile()).tests()).hasSize(1);
+  }
+
+  @Test
   void theMainTargetShowsProgramOutputAndHasNoResults() {
     RunOutput output = run("main", "Main", LIMITS);
 

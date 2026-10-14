@@ -117,8 +117,10 @@ final class JavaRunner implements Runner {
         new ArrayList<>(List.of(javaExecutable(), "-Xmx" + request.limits().memoryMb() + "m"));
     command.addAll(
         List.of("-Dfile.encoding=UTF-8", "-Dstdout.encoding=UTF-8", "-Dstderr.encoding=UTF-8"));
-    command.addAll(List.of("-cp", request.outDir().toString()));
-    Path results = request.outDir().resolve(RESULTS);
+    // The child runs inside the work folder, so a relative out folder would resolve against it.
+    Path outDir = request.outDir().toAbsolutePath();
+    command.addAll(List.of("-cp", outDir.toString()));
+    Path results = outDir.resolve(RESULTS);
     if (isMain) {
       command.add(request.variant().main());
     } else {
