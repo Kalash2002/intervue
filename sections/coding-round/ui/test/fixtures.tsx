@@ -20,6 +20,8 @@ export function view(over: Partial<SessionView> = {}): SessionView {
     phasesPassed: {},
     hintsUsed: {},
     aiEditsActive: 0,
+    aiEditsApplied: 0,
+    aiEditsUndone: 0,
     brief: ['# Intro', '## Phase 1', null],
     notes: '',
     events: [],

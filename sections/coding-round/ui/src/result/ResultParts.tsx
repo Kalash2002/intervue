@@ -113,7 +113,7 @@ function HowYouWorked({ session, result }: { session: SessionView; result: Sessi
         {fact('Longest stretch without a run', clockText(r.longestGapWithoutRunMs))}
         {fact('Phases opened without passing', String(r.phasesSkipped))}
         {fact('Hints revealed', String(hints))}
-        {fact('AI edits applied', `${count('aiEdit')}, ${count('aiEditUndo')} undone`)}
+        {fact('AI edits applied', `${session.aiEditsApplied}, ${session.aiEditsUndone} undone`)}
         {fact('Pauses (app closed)', String(count('pause')))}
       </dl>
     </section>

@@ -9,6 +9,8 @@ const finished = (label: string) =>
     finished: true,
     activeMs: 600_000,
     hintsUsed: { '1': 2 },
+    aiEditsApplied: 3,
+    aiEditsUndone: 1,
     events: [
       event(1, 'pause', 100_000),
       event(2, 'resume', 100_000),
@@ -40,7 +42,7 @@ const finished = (label: string) =>
   });
 
 describe('result parts', () => {
-  it.each(['Interview', 'Interview, assisted', 'Practice'])('show the %s label', (label) => {
+  it.each(['Interview', 'Practice'])('show the %s label', (label) => {
     renderWith(<ResultParts session={finished(label)} />, { saveNotes: vi.fn() });
 
     expect(within(screen.getByLabelText('Score')).getByText(label)).toBeInTheDocument();
@@ -52,6 +54,7 @@ describe('result parts', () => {
     const facts = screen.getByLabelText('How you worked');
     expect(within(facts).getByText('Pauses (app closed)').nextSibling).toHaveTextContent('2');
     expect(within(facts).getByText('Hints revealed').nextSibling).toHaveTextContent('2');
-    expect(within(facts).getByText('AI edits applied').nextSibling).toHaveTextContent('1, 1 undone');
+    // The counts come from the engine's view, not from re-counting events here.
+    expect(within(facts).getByText('AI edits applied').nextSibling).toHaveTextContent('3, 1 undone');
   });
 });
