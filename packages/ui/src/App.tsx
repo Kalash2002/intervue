@@ -43,11 +43,19 @@ export function App({ client, section, languages }: AppProps) {
   );
 
   // First launch: no stored health results yet, so the Doctor runs before anything else.
+  // A second answer (StrictMode runs effects twice) can arrive after the Doctor stored results and
+  // would skip it, so only the live effect may choose the screen.
   useEffect(() => {
+    let live = true;
     client
       .health()
-      .then((results) => setScreen(results.length ? { name: 'dashboard' } : { name: 'doctor', firstRun: true }))
+      .then((results) => {
+        if (live) setScreen(results.length ? { name: 'dashboard' } : { name: 'doctor', firstRun: true });
+      })
       .catch((error: Error) => setToast({ text: `The engine is not answering: ${error.message}`, tone: 'bad' }));
+    return () => {
+      live = false;
+    };
   }, [client]);
 
   return (

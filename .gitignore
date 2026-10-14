@@ -75,6 +75,8 @@ content/.build/
 
 # ---- user data from running the app or the prototype ----
 engine/sessions/
+# the engine's data folder in browser dev mode, with its dev token
+desktop/.dev-data/
 prototype/sessions/*
 !prototype/sessions/README.txt
 *.db

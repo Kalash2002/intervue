@@ -1,0 +1,18 @@
+[package]
+name = "intervue"
+version = "0.1.0"
+description = "Intervue desktop shell: starts the local engine and hosts the UI"
+edition = "2021"
+publish = false
+
+[lib]
+name = "intervue_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2.12", features = [] }
+serde = { version = "1", features = ["derive"] }
+getrandom = "0.3"

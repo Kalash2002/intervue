@@ -1,0 +1,7 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "The main window needs only the core defaults; the engine is started from Rust, so no shell permission.",
+  "windows": ["main"],
+  "permissions": ["core:default"]
+}

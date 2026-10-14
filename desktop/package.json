@@ -1,0 +1,38 @@
+{
+  "name": "@intervue/desktop",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/engine.ts && tauri dev",
+    "dev:browser": "node scripts/engine.ts && vite",
+    "engine:dev": "java -jar ../engine/build/engine/engine.jar --data .dev-data --content ../content --port 4100",
+    "vite": "vite",
+    "build": "node scripts/engine.ts && node scripts/jlink.ts && tauri build --config src-tauri/tauri.bundle.json",
+    "build:renderer": "tsc --noEmit && vite build",
+    "tauri": "tauri",
+    "lint": "eslint . && prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@intervue/coding-round-ui": "workspace:^",
+    "@intervue/lang-java-editor": "workspace:^",
+    "@intervue/local-engine-client": "workspace:^",
+    "@intervue/ui": "workspace:^",
+    "@tauri-apps/api": "^2.12.3",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.12.2",
+    "@types/node": "^26.6.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "eslint": "^10.12.0",
+    "prettier": "^3.9.10",
+    "typescript": "~6.0.3",
+    "vite": "^8.3.4",
+    "vitest": "^5.0.4"
+  }
+}
