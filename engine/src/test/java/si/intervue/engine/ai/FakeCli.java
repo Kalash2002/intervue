@@ -5,10 +5,10 @@ import java.nio.file.Path;
 import java.util.List;
 
 /** The command that runs {@code FakeClaude.java} for one scenario, writing into {@code dir}. */
-final class FakeCli {
+public final class FakeCli {
   private FakeCli() {}
 
-  static List<String> command(String scenario, Path dir) {
+  public static List<String> command(String scenario, Path dir) {
     return List.of(java(), source().toString(), scenario, dir.toString());
   }
 

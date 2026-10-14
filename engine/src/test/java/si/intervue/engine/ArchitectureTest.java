@@ -45,4 +45,19 @@ class ArchitectureTest {
           .should()
           .dependOnClassesThat()
           .resideInAnyPackage("si.intervue.engine.session..", "si.intervue.engine.store..");
+
+  // The Claude CLI route is developer-only (PLAN.md 2.5): only the composition root may reach it.
+  @ArchTest
+  static final ArchRule onlyTheCompositionRootReachesTheCli =
+      noClasses()
+          .that()
+          .resideOutsideOfPackage("si.intervue.engine.ai..")
+          .and()
+          .doNotHaveFullyQualifiedName("si.intervue.engine.api.Engine")
+          .should()
+          .dependOnClassesThat()
+          .haveFullyQualifiedName("si.intervue.engine.ai.ClaudeCli")
+          .orShould()
+          .dependOnClassesThat()
+          .haveFullyQualifiedName("si.intervue.engine.ai.CliModelClient");
 }

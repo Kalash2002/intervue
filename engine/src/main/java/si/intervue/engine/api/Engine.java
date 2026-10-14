@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -68,7 +69,17 @@ public final class Engine implements AutoCloseable {
   }
 
   public static Engine open(Path dataDir, Path problemsDir, Clock clock, boolean developerMode) {
-    return open(dataDir, problemsDir, clock, developerMode, route(developerMode));
+    return open(dataDir, problemsDir, clock, developerMode, ClaudeCli::find);
+  }
+
+  /** {@code cli} finds the Claude CLI; it is asked only in developer mode (DeveloperModeTest). */
+  public static Engine open(
+      Path dataDir,
+      Path problemsDir,
+      Clock clock,
+      boolean developerMode,
+      Supplier<Optional<ClaudeCli>> cli) {
+    return open(dataDir, problemsDir, clock, developerMode, route(developerMode, cli));
   }
 
   /** {@code ai} is the assistant's route; tests pass a recorded one instead of a model. */
@@ -105,11 +116,12 @@ public final class Engine implements AutoCloseable {
   }
 
   /** End users have no route before Phase 1b; developers get the CLI when it is installed. */
-  private static AiClient route(boolean developerMode) {
+  private static AiClient route(boolean developerMode, Supplier<Optional<ClaudeCli>> finder) {
     if (!developerMode) {
       return new UnavailableAiClient(AiStatus.off());
     }
-    return ClaudeCli.find()
+    return finder
+        .get()
         .<AiClient>map(cli -> new CliModelClient(cli, CliModelClient.TIMEOUT_MS))
         .orElseGet(
             () ->
