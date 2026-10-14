@@ -232,10 +232,7 @@ mod tests {
     #[test]
     fn passes_jar_data_and_content_in_that_order() {
         let p = paths(Path::new("r"));
-        let args: Vec<String> = engine_args(&p, false)
-            .iter()
-            .map(|a| a.to_string_lossy().into_owned())
-            .collect();
+        let args = args_of(&p, false);
         assert_eq!(args[0], "-jar");
         assert_eq!(args[2], "--data");
         assert_eq!(args[4], "--content");
