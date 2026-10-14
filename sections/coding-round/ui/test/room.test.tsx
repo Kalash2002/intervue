@@ -10,9 +10,19 @@ import { renderWith, view } from './fixtures.tsx';
 const BEFORE = 'public class Calc {\n  int twice(int n) {\n    return n + n + 1;\n  }\n}\n';
 const AFTER = 'public class Calc {\n  int twice(int n) {\n    return n + n;\n  }\n}\n';
 
+/** The demo button is disabled until its recorded streams have loaded. */
+async function clickReplay() {
+  const replay = await screen.findByRole('button', { name: 'Replay' });
+  await waitFor(() => expect(replay).toBeEnabled());
+  fireEvent.click(replay);
+}
+
 function roomClient(over: Partial<EngineClient> = {}): Partial<EngineClient> {
   let calc = BEFORE;
   return {
+    // Developer mode with no CLI: the panel shows the reason and the recorded-reply demo.
+    aiStatus: vi.fn(async () => ({ developer: true, available: false, reason: 'The Claude CLI was not found.' })),
+    chat: vi.fn(async () => []),
     session: vi.fn(async () => view()),
     files: vi.fn(async () => [
       { path: 'Calc.java', readOnly: false },
@@ -52,23 +62,13 @@ function roomClient(over: Partial<EngineClient> = {}): Partial<EngineClient> {
 }
 
 describe('the assistant panel', () => {
-  it('shows Ask and Write code disabled until sign-in exists', async () => {
-    renderWith(<SessionRoom session={timed(view())} />, roomClient());
-
-    fireEvent.click(await screen.findByRole('tab', { name: 'Assistant' }));
-
-    expect(screen.getByRole('button', { name: 'Ask' })).toBeDisabled();
-    expect(screen.getByRole('button', { name: 'Write code' })).toBeDisabled();
-    expect(screen.getAllByText(/Available after sign-in in a later phase/).length).toBeGreaterThan(0);
-  });
-
   it('replays a recorded reply, marks the edit and undoes it through the engine', async () => {
     const client = roomClient();
     const { container } = renderWith(<SessionRoom session={timed(view())} />, client);
     await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('n + n + 1'));
 
     fireEvent.click(screen.getByRole('tab', { name: 'Assistant' }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Replay' }));
+    await clickReplay();
 
     const undo = await waitFor(() => {
       const button = container.querySelector<HTMLButtonElement>('.cm-ai-undo');
@@ -89,7 +89,7 @@ describe('the workspace', () => {
     const { container } = renderWith(<SessionRoom session={timed(view())} />, client);
     await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('n + n + 1'));
     fireEvent.click(screen.getByRole('tab', { name: 'Assistant' }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Replay' }));
+    await clickReplay();
     const undo = await waitFor(() => {
       const button = container.querySelector<HTMLButtonElement>('.cm-ai-undo');
       expect(button).not.toBeNull();
@@ -119,7 +119,7 @@ describe('the workspace', () => {
     renderWith(<SessionRoom session={timed(view())} />, client);
 
     fireEvent.click(await screen.findByRole('tab', { name: 'Assistant' }));
-    fireEvent.click(await screen.findByRole('button', { name: 'Replay' }));
+    await clickReplay();
 
     expect(await screen.findByRole('button', { name: /Helper\.java/ })).toBeInTheDocument();
   });

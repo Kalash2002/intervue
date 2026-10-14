@@ -38,7 +38,7 @@ export function SidePanel({
       <div className="side-body">
         {tab === 'Brief' && <Brief view={view} onSkip={actions.skip} />}
         {tab === 'Hints' && <Hints view={view} onChange={onChange} />}
-        {tab === 'Assistant' && <AssistantPanel finished={view.finished} actions={actions} />}
+        {tab === 'Assistant' && <AssistantPanel view={view} actions={actions} onChange={onChange} />}
       </div>
     </aside>
   );

@@ -2,7 +2,7 @@
 // the session view so the clock, timeline, chips and brief follow the engine's record.
 import { useState } from 'react';
 import { changedRange, type AiEditMark } from '@intervue/editor';
-import type { EditReply, EngineClient, SessionView } from '@intervue/local-engine-client';
+import type { EditReply, EngineClient, RulesChoice, SessionView } from '@intervue/local-engine-client';
 import { clockText, failed, useApp } from '@intervue/ui';
 import type { Workspace } from './useWorkspace.ts';
 
@@ -39,7 +39,17 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     })();
 
   const edits = { client, id, ws, reload, setOutput, setReply };
-  const replay = (streamId: string) => guarded(() => replayEdits(edits, streamId))();
+  const replay = (streamId: string) =>
+    guarded(() => applyReply(edits, () => client.replayFakeEdits(id, streamId)).then(() => undefined))();
+  /** Write code; errors reach the caller so the chat can show the reason. */
+  const writeCode = async (message: string, rules: RulesChoice) => {
+    setBusy(true);
+    try {
+      return await applyReply(edits, () => client.write(id, message, rules));
+    } finally {
+      setBusy(false);
+    }
+  };
   const undo = (editId: string) => guarded(() => undoEdit(edits, editId))();
 
   return {
@@ -49,25 +59,15 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     clearOutput: () => setOutput([]),
     run,
     replay,
+    writeCode,
     undo,
     save: guarded(() => ws.saveAll()),
     skip: guarded(() => client.skip(id).then(refresh)),
     finish: guarded(() =>
       ws.saveAll(false).then(() => client.finish(id).then((v) => go({ name: 'result', session: v }))),
     ),
-    resetFile: (path: string) =>
-      guarded(async () => {
-        await client.resetFile(id, path);
-        ws.setMarks((m) => ({ ...m, [path]: [] }));
-        await ws.load(path);
-        await reload();
-      })(),
-    resetProblem: guarded(async () => {
-      await client.resetProblem(id);
-      ws.setMarks({});
-      await ws.resync();
-      await reload();
-    }),
+    resetFile: (path: string) => guarded(() => resetFile(edits, path))(),
+    resetProblem: guarded(() => resetProblem(edits)),
   };
 }
 
@@ -82,12 +82,15 @@ interface EditContext {
   setReply: (reply: EditReply) => void;
 }
 
-/** Applies a recorded reply, then marks each applied edit on the lines it changed. */
-async function replayEdits({ client, id, ws, reload, setReply }: EditContext, streamId: string) {
+/**
+ * Gets an edit reply (a live Write code call or the recorded demo), then marks each applied edit on
+ * the lines it changed so its Undo shows in the editor.
+ */
+async function applyReply({ ws, reload, setReply }: EditContext, fetchReply: () => Promise<EditReply>) {
   await ws.saveAll(false);
   const editable = ws.files.filter((f) => !f.readOnly).map((f) => f.path);
   const before = Object.fromEntries(await Promise.all(editable.map(async (p) => [p, await ws.load(p)] as const)));
-  const result = await client.replayFakeEdits(id, streamId);
+  const result = await fetchReply();
   setReply(result);
   await ws.resync();
   const marks: Record<string, AiEditMark[]> = {};
@@ -98,6 +101,7 @@ async function replayEdits({ client, id, ws, reload, setReply }: EditContext, st
   }
   ws.setMarks((m) => ({ ...m, ...marks }));
   await reload();
+  return result;
 }
 
 /** A refused undo (the file changed since) shows the engine's diff instead of touching the file. */
@@ -110,6 +114,21 @@ async function undoEdit({ client, id, ws, reload, setOutput }: EditContext, edit
     return;
   }
   ws.setMarks((m) => Object.fromEntries(Object.entries(m).map(([p, l]) => [p, l.filter((x) => x.editId !== editId)])));
+  await ws.resync();
+  await reload();
+}
+
+/** Copies one file back from the problem; its AI-edit marks go with the text they marked. */
+async function resetFile({ client, id, ws, reload }: EditContext, path: string) {
+  await client.resetFile(id, path);
+  ws.setMarks((m) => ({ ...m, [path]: [] }));
+  await ws.load(path);
+  await reload();
+}
+
+async function resetProblem({ client, id, ws, reload }: EditContext) {
+  await client.resetProblem(id);
+  ws.setMarks({});
   await ws.resync();
   await reload();
 }
