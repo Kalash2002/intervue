@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "id": "duplicate-order-detector",
+  "version": 1,
+  "section": "coding-round",
+  "title": "Duplicate Order Detector",
+  "summary": "A shop's checkout sometimes submits the same basket twice. Fix the repeat finder, flag likely double submissions within a time window, then keep it fast on a sale-day order log.",
+  "difficulty": "Easy",
+  "techniques": ["hashing", "arrays"],
+  "domain": "e-commerce",
+  "minutes": 45,
+  "phases": [
+    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
+    { "id": 2, "title": "Suspected duplicates", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
+    { "id": 3, "title": "Sale day", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+  ],
+  "followUps": [
+    "Why did the code compile and run without any warning when the set never found a repeat?",
+    "What contract must equals and hashCode keep together, and what breaks in a HashSet when only one of them is right?",
+    "What is the cost of suspectedDuplicates for n orders, and how much memory does it need?",
+    "Orders arrive from two checkout servers whose clocks differ by a few seconds. What would you change?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": ["java"]
+}
