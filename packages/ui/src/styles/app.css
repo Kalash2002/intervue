@@ -502,7 +502,7 @@ select {
 .center {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 34px minmax(0, 1fr) 5px var(--out-h, 240px);
+  grid-template-rows: minmax(0, 1fr) 5px var(--out-h, 240px);
   min-width: 0;
   min-height: 0;
   overflow: hidden;
@@ -992,7 +992,7 @@ select {
     border-bottom: 1px solid var(--line);
   }
   .center {
-    grid-template-rows: 34px 60vh 5px 260px;
+    grid-template-rows: 60vh 5px 260px;
   }
   .right {
     min-height: 70vh;

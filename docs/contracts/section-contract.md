@@ -36,4 +36,4 @@ public interface SectionPackage {
 | `supportsHints()` | `true` |
 | Interview score | Correctness 70 by phase weights (an all-or-nothing phase scores only when all its tests pass; others in proportion), time 10, rhythm 20; the prototype's formula with weights read from `problem.json` |
 | Practice score | Correctness and phase results only, labelled Practice; never counts as solved |
-| Assisted | An Interview session with `aiEditsActive > 0` at any run or at finish; labelled "Interview, assisted"; listed with its own best and never counted as solved |
+| Assisted | An Interview session with `aiEditsActive > 0` at any run or at finish; recorded and shown as an AI edit count; changes neither the label, solved nor the best score (ADR 0006) |

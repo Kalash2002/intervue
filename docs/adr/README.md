@@ -17,4 +17,4 @@ One paragraph.
 What becomes easier, what becomes harder, what must change elsewhere (contracts, versions).
 ```
 
-Accepted: 0001 payments mock now and gateway later, with launch prices and two free problems; 0002 entity and GST, interim until a CA review; 0003 Tauri shell with the engine started from Rust; 0004 SQLite local store; 0005 run protocol v1.
+Accepted: 0001 payments mock now and gateway later, with launch prices and two free problems; 0002 entity and GST, interim until a CA review; 0003 Tauri shell with the engine started from Rust; 0004 SQLite local store; 0005 run protocol v1; 0006 AI use never blocks solved, the reviewer grades control of the AI.

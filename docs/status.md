@@ -6,6 +6,8 @@ Updated by the `status-diagnoser` subagent at the start of every phase run and b
 
 Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-round section, ten verified problems, UI, editor and the Tauri shell. Automated gates green on Windows. Waiting on the human checks: macOS run and build, CI on a remote, clean-machine Doctor, and an outside tester (exit criteria 1 on macOS, 3 clean machine, 4 and 5 on CI, 7). Phase 0 validation continues alongside; checkpoint about 2026-11-19.
 
+Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 after the first hands-on run: the assistant live on the developer-mode CLI route, ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), and the room refresh along the Hello Interview flow. The blank-editor CSS bug found in that run is already fixed on `phase-1a`.
+
 ## Done
 
 - 2026-10-14: prototype fixed (data files read-only, finish records first-time passes, naive solutions and `tools/Verify.java`, per-class child JVM test runner, heap cap, version fields). Three problems verified three ways.
@@ -31,6 +33,8 @@ Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-rou
 - None.
 
 ## Later (out of scope findings to revisit)
+
+- From the first hands-on run (2026-10-14): a code-comprehension phase (questions about the codebase answered by text or voice, graded) and per-phase countdowns as Hello Interview does; both need a plan change, revisit after Phase 1ab.
 
 - CA review (ADR 0002): book a CA during Phase 1b; it blocks the first real payment in Phase 1c. Questions in `docs/discovery/ca-questions.md` (local).
 

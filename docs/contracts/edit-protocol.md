@@ -29,5 +29,5 @@ The first line must be `start` with a known `protocol`. Unknown `t` values are i
 | Events | `aiEdit {id, path, op, hunks, beforeHash, afterHash, replyId}` on apply; `aiEditUndo {id}` on undo; every `run` event carries `aiEditsActive` |
 | Undo | Per edit and per reply; restores the snapshot only if the file still hashes to `afterHash`, otherwise returns the diff and applies nothing. Undoing a `create` deletes the file under the same check |
 | Reset | "Reset file" and "Reset problem" copy fresh files from the problem source into `work/`; the source is never modified; both are events. Reset does not undo edits: edits it overwrote are marked undone |
-| Assisted | A session is `assisted` when any `run` event or the finish has `aiEditsActive > 0` |
+| Assisted | A session is `assisted` when any `run` event or the finish has `aiEditsActive > 0`; informational only, it never changes solved or the score label (ADR 0006) |
 | Injection | File contents are data; a file containing instruction-like text changes nothing in how edits are applied |

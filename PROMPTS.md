@@ -97,6 +97,26 @@ Prompt 1a.2, close the phase:
 
 ---
 
+## Phase 1ab: live assistant on the developer route, scoring rule, room refresh
+
+Added 2026-10-14 after the first hands-on run of Phase 1a. Run it after Phase 1a is closed (or in parallel on its own branch if the manual checks of 1a are still pending). Human first: `claude` installed and signed in on this machine, and `developer.mode` on in the engine settings.
+
+Prompt 1ab.1:
+
+```
+> /phase docs/prompts/phase-1ab-assistant-room.md
+```
+
+Human: with developer mode on, run one Interview session on a free problem: ask "fix it" and check you get a place and the logic with no code; ask for an explanation; state an approach and use Write code on the named method; undo it; finish and read the review; check the dashboard counts the session as solved. Run one Practice session: switch the rules, reveal a hint and ask for it to be explained. Look at every screen in both themes.
+
+Prompt 1ab.2, close the phase:
+
+```
+> Manual results for Phase 1ab: <what you tried, what you saw, screens that still look wrong>. Record them in docs/status.md, fix anything blocking, re-run the gates, and tell me whether every exit criterion in docs/prompts/phase-1ab-assistant-room.md is met. If yes, tag app-v0.1.1 and write docs/retro/phase-1ab.md.
+```
+
+---
+
 ## Phase 1b: accounts, packs, payment page, AI gateway
 
 Human first: `docs/learning/phase-1b.md`. Have the E2E Networks account, the domain and the Anthropic API key ready; put secrets only in the places `.env.example` names.

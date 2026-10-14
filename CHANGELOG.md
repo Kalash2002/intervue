@@ -4,6 +4,8 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- packages/ui: the room's center column no longer reserves a row for a tabs bar that is not rendered; the editor fills its column instead of being squeezed to two lines above a blank splitter (2026-10-14)
+- docs: ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), PLAN.md 2.8 and the section and edit-protocol contracts updated, Phase 1ab prompt added (2026-10-14)
 - desktop: Tauri 2 shell that starts the engine from Rust with a per-launch token, hands port and token to the UI, stops it on exit; jlink runtime script; NSIS and DMG bundle config (2026-10-14)
 - packages/ui, sections/coding-round/ui: start screen (Interview or Practice), dashboard counting only unassisted interviews as solved, room (editor, output, brief, Practice hints, timeline strip, phase chips, resets, assistant panel disabled until sign-in with a recorded-reply demo), result page with label, pauses, hints and AI edits, Doctor screen with copy report (2026-10-14)
 - packages/editor, languages/java/editor: CodeMirror 6 with symbol, keyword and snippet completion, inline compiler diagnostics, locked ranges, AI-edit highlights with Undo; Java binding (2026-10-14)

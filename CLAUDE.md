@@ -13,7 +13,7 @@ Intervue is a desktop practice room for AI-assisted coding interviews. The plan 
 - Content PRs touch only `content/problems/<id>/` and `pack.json`. New language or section packages never touch `engine/`, `desktop/` or `web/`.
 - Prompts for the AI assistant are data in `sections/*/prompts/`, never strings in code. The assistant has two channels, Ask and Write code; Write code returns edits in the protocol of PLAN.md section 2.8 and the engine's `EditApplier` is the only code that writes them, under the rules there (editable files only, base hash, exact match, snapshot, undo). The problem source is never modified; sessions work on a copy.
 - The Claude CLI is a development route only (PLAN.md 2.5): `CliModelClient` is reachable solely when `developer.mode` is on, chosen by the remaining-allowance rule; end-user builds call the backend.
-- Sessions are Interview or Practice (PLAN.md 2.8). Hints exist only in Practice and only as pack content in `hints/phase<N>.md`; a session with AI edits applied at a run or at finish is `assisted`.
+- Sessions are Interview or Practice (PLAN.md 2.8). Hints exist only in Practice and only as pack content in `hints/phase<N>.md`. A session with AI edits applied at a run or at finish is `assisted`, which is recorded and shown but never changes the score label, solved or the best score (ADR 0006); in Interview sessions the assistant follows the point-and-explain rules of 2.8.
 
 ## Coding standards (details in `docs/process/code-standards.md`)
 
