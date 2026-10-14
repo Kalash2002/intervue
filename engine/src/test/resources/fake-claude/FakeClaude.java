@@ -11,8 +11,9 @@ import java.util.List;
  * receives {@code args.txt} and {@code stdin.txt} so tests can check exactly what was sent.
  *
  * <p>Scenarios: {@code ok} (signed in; {@code -p} replays {@code <dir>/stream.jsonl}), {@code
- * signed-out}, {@code broken} (every command fails), {@code marker} (writes {@code <dir>/ran} and
- * exits; used to prove a route never starts the CLI).
+ * signed-out}, {@code broken} (every command fails), {@code hang} ({@code -p} never answers), {@code
+ * marker} (writes {@code <dir>/ran} and exits; used to prove a route never starts the CLI). The
+ * {@code --system-prompt-file} content is copied to {@code <dir>/system.txt}.
  */
 public class FakeClaude {
   public static void main(String[] argv) throws IOException {
@@ -40,6 +41,17 @@ public class FakeClaude {
     if (args.contains("-p")) {
       byte[] prompt = System.in.readAllBytes();
       Files.write(dir.resolve("stdin.txt"), prompt);
+      int file = args.indexOf("--system-prompt-file");
+      if (file >= 0) {
+        Files.copy(Path.of(args.get(file + 1)), dir.resolve("system.txt"));
+      }
+      if (scenario.equals("hang")) {
+        try {
+          Thread.sleep(60_000);
+        } catch (InterruptedException e) {
+          Thread.currentThread().interrupt();
+        }
+      }
       Path stream = dir.resolve("stream.jsonl");
       System.out.print(Files.readString(stream, StandardCharsets.UTF_8));
       System.out.flush();
