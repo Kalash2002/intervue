@@ -1,6 +1,7 @@
 {
   "name": "intervue",
   "private": true,
+  "type": "module",
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "eslint": "^10.12.0",

@@ -18,6 +18,8 @@ export default tseslint.config(
       'max-lines-per-function': ['error', 60],
     },
   },
+  // A describe block is a list of cases, not one function to split.
+  { files: ['**/test/**', '**/*.test.{ts,tsx}'], rules: { 'max-lines-per-function': 'off' } },
   // pages -> features -> components -> api
   { files: ['**/src/features/**'], rules: { 'no-restricted-imports': layerRule(['pages']) } },
   { files: ['**/src/components/**'], rules: { 'no-restricted-imports': layerRule(['pages', 'features']) } },
