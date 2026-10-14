@@ -3,3 +3,4 @@ rootProject.name = "intervue"
 
 include("engine")
 include("shared-java:run-protocol")
+include("shared-java:problem-format")
