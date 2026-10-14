@@ -76,12 +76,7 @@ public final class EngineMain {
         Executors.newSingleThreadScheduledExecutor(
             Thread.ofPlatform().name("heartbeat").daemon().factory());
     heartbeat.scheduleAtFixedRate(
-        () ->
-            engine.locked(
-                () -> {
-                  engine.sessions().heartbeat();
-                  return null;
-                }),
+        () -> engine.locked(() -> engine.sessions().heartbeat()),
         HEARTBEAT_SECONDS,
         HEARTBEAT_SECONDS,
         TimeUnit.SECONDS);
@@ -93,11 +88,7 @@ public final class EngineMain {
                   api.stop();
                   // A run still going (an endless main, a slow test JVM) must not outlive us.
                   ProcessHandle.current().descendants().forEach(ProcessHandle::destroyForcibly);
-                  engine.locked(
-                      () -> {
-                        engine.sessions().onShutdown();
-                        return null;
-                      });
+                  engine.locked(() -> engine.sessions().onShutdown());
                   engine.close();
                 }));
     System.out.println(READY + api.port());

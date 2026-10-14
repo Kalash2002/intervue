@@ -10,10 +10,10 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 import java.util.stream.Stream;
+import si.intervue.engine.runners.ProcessControl;
 
 /**
  * The developer-only route (PLAN.md 2.5): one {@code claude -p} process per call, text only, with
@@ -25,8 +25,14 @@ public final class CliModelClient implements AiClient {
   public static final String MODEL = "claude-sonnet-5-5";
   public static final long TIMEOUT_MS = 240_000;
 
+  // ponytail: a fixed one-minute cache; the probe starts two processes and the Assistant tab asks
+  // on every open. A failed call drops it so the next status shows the new reason.
+  private static final long STATUS_TTL_MS = 60_000;
+
   private final ClaudeCli cli;
   private final long timeoutMs;
+  private volatile AiStatus known;
+  private volatile long knownAt;
 
   public CliModelClient(ClaudeCli cli, long timeoutMs) {
     this.cli = cli;
@@ -55,10 +61,25 @@ public final class CliModelClient implements AiClient {
 
   @Override
   public AiStatus status() {
-    return cli.probe();
+    AiStatus s = known;
+    if (s == null || System.currentTimeMillis() - knownAt > STATUS_TTL_MS) {
+      s = cli.probe();
+      knownAt = System.currentTimeMillis();
+      known = s;
+    }
+    return s;
   }
 
   private AiReply call(AiRequest request, Consumer<String> deltas) {
+    try {
+      return run(request, deltas);
+    } catch (AiUnavailableException e) {
+      known = null;
+      throw e;
+    }
+  }
+
+  private AiReply run(AiRequest request, Consumer<String> deltas) {
     Path dir = null;
     try {
       dir = Files.createTempDirectory("intervue-ai");
@@ -128,18 +149,7 @@ public final class CliModelClient implements AiClient {
     Thread.ofPlatform()
         .daemon()
         .name("claude-watchdog")
-        .start(
-            () -> {
-              try {
-                if (!process.waitFor(timeoutMs, TimeUnit.MILLISECONDS)) {
-                  timedOut.set(true);
-                  process.descendants().forEach(ProcessHandle::destroyForcibly);
-                  process.destroyForcibly();
-                }
-              } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-              }
-            });
+        .start(() -> timedOut.set(!ProcessControl.waitOrKill(process, timeoutMs)));
     return timedOut;
   }
 

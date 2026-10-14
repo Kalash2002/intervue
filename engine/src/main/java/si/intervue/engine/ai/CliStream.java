@@ -99,7 +99,7 @@ final class CliStream {
 
   private String reason(int exitCode) {
     if (signedOut) {
-      return "The Claude CLI is signed out. Run claude once in a terminal to sign in.";
+      return ClaudeCli.SIGNED_OUT;
     }
     if (usageLimit) {
       return "The Claude CLI hit its usage limit. Try again later.";

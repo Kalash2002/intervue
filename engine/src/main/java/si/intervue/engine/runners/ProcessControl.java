@@ -47,7 +47,8 @@ public final class ProcessControl {
     }
   }
 
-  private static boolean waitOrKill(Process process, long wallMs) {
+  /** Waits up to {@code wallMs}, then kills the process tree; returns whether it ended in time. */
+  public static boolean waitOrKill(Process process, long wallMs) {
     try {
       if (process.waitFor(wallMs, TimeUnit.MILLISECONDS)) {
         return true;

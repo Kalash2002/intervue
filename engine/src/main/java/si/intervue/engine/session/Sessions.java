@@ -258,7 +258,7 @@ public final class Sessions {
     if (early && !c.session().finished()) {
       event(c.session(), "endedEarly", Map.of());
     }
-    runs.finish(context(id));
+    runs.finish(c);
     return view(id);
   }
 
@@ -371,7 +371,6 @@ public final class Sessions {
         pkg.definition().extensions());
   }
 
-  /** Intro, then each phase's brief while unlocked (all of them after finish). */
   /** The intro, then each phase's brief, null while that phase is locked. */
   static List<String> brief(Context c) {
     List<String> parts = new ArrayList<>();

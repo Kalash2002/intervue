@@ -188,6 +188,36 @@ class SessionAssistantTest {
   }
 
   @Test
+  void finishingTwiceAsksForOneReview() {
+    String id = start(SessionType.INTERVIEW);
+    ai.reply("## Verdict\nHire.");
+
+    assistant.finish(id, false);
+    assistant.finish(id, false);
+
+    assertThat(ai.calls).hasSize(1);
+    assertThat(assistant.review(id).status()).isEqualTo("ready");
+  }
+
+  @Test
+  void aFinishedSessionWithNoReviewGetsOneWhenTheReviewIsRead() {
+    String id = start(SessionType.INTERVIEW);
+    sessions.finish(id);
+    ai.reply("## Verdict\nHire.");
+
+    assertThat(assistant.review(id).status()).isEqualTo("ready");
+    assertThat(ai.last().kind()).isEqualTo("feedback");
+  }
+
+  @Test
+  void anOpenSessionHasNoReviewAndAsksForNone() {
+    String id = start(SessionType.INTERVIEW);
+
+    assertThat(assistant.review(id).status()).isEqualTo("pending");
+    assertThat(ai.calls).isEmpty();
+  }
+
+  @Test
   void aReviewWithNoRouteSaysWhy() {
     String id = start(SessionType.INTERVIEW);
     ai.unavailable("Assistant unavailable: sign-in arrives in Phase 1b");

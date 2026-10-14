@@ -60,14 +60,18 @@ public final class ClaudeCli {
     return Optional.empty();
   }
 
+  public static final String NOT_FOUND =
+      "The Claude CLI was not found. Install Claude Code, then restart Intervue.";
+  public static final String SIGNED_OUT =
+      "The Claude CLI is signed out. Run claude once in a terminal to sign in.";
+
   /** Found, starts, and signed in; reasons are mapped categories, never the CLI's own output. */
   public AiStatus probe() {
     ProcessControl.Result version;
     try {
       version = run("--version");
     } catch (UncheckedIOException e) {
-      return unavailable(
-          "The Claude CLI was not found. Install Claude Code, then restart Intervue.");
+      return unavailable(NOT_FOUND);
     }
     if (version.timedOut() || version.exitCode() != 0) {
       return unavailable("The Claude CLI did not start (exit code " + version.exitCode() + ").");
@@ -75,7 +79,7 @@ public final class ClaudeCli {
     ProcessControl.Result auth = run("auth", "status");
     if (auth.exitCode() != 0
         || !auth.output().replaceAll("\\s", "").contains("\"loggedIn\":true")) {
-      return unavailable("The Claude CLI is signed out. Run claude once in a terminal to sign in.");
+      return unavailable(SIGNED_OUT);
     }
     return new AiStatus(true, true, null);
   }

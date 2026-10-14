@@ -123,14 +123,7 @@ public final class Engine implements AutoCloseable {
     return finder
         .get()
         .<AiClient>map(cli -> new CliModelClient(cli, CliModelClient.TIMEOUT_MS))
-        .orElseGet(
-            () ->
-                new UnavailableAiClient(
-                    new AiStatus(
-                        true,
-                        false,
-                        "The Claude CLI was not found. Install Claude Code, then restart"
-                            + " Intervue.")));
+        .orElseGet(() -> new UnavailableAiClient(new AiStatus(true, false, ClaudeCli.NOT_FOUND)));
   }
 
   ContentStore content() {
@@ -154,7 +147,7 @@ public final class Engine implements AutoCloseable {
   }
 
   AiStatus aiStatus() {
-    return developerMode ? ai.status() : AiStatus.off();
+    return ai.status();
   }
 
   /** Runs {@code work} holding the store lock; every request does, except model streaming. */
@@ -162,6 +155,15 @@ public final class Engine implements AutoCloseable {
     lock.lock();
     try {
       return work.get();
+    } finally {
+      lock.unlock();
+    }
+  }
+
+  void locked(Runnable work) {
+    lock.lock();
+    try {
+      work.run();
     } finally {
       lock.unlock();
     }

@@ -101,4 +101,28 @@ class CliModelClientTest {
     assertThat(client("ok", 60_000).status().available()).isTrue();
     assertThat(client("signed-out", 60_000).status().reason()).contains("signed out");
   }
+
+  @Test
+  void statusIsProbedOnceAndKeptForAWhile() throws IOException {
+    CliModelClient client = client("marker", 60_000);
+    client.status();
+    Files.delete(dir.resolve("ran"));
+
+    client.status();
+
+    assertThat(dir.resolve("ran")).doesNotExist();
+  }
+
+  @Test
+  void aFailedCallProbesAgain() throws IOException {
+    CliModelClient client = client("broken", 60_000);
+    client.status();
+    assertThatThrownBy(() -> client.chat(new AiRequest("rules", "prompt"), d -> {}))
+        .isInstanceOf(AiUnavailableException.class);
+    assertThat(args()).contains("-p");
+
+    client.status();
+
+    assertThat(args()).containsExactly("--version");
+  }
 }

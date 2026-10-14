@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import si.intervue.engine.ai.AiRequest;
+import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.edits.EditApplier;
 import si.intervue.problemformat.Variant;
 
@@ -73,7 +74,7 @@ final class PromptBuilder {
 
   /** The written review: the grader notes, the whole timeline and the chat are its evidence. */
   static AiRequest feedback(Sessions.Context c, List<Entry> history, List<StoredEvent> events) {
-    String label = c.session().type().name().equals("INTERVIEW") ? "Interview" : "Practice";
+    String label = c.session().type() == SessionType.INTERVIEW ? "Interview" : "Practice";
     String rules =
         fill(
             c.section().prompts().template("feedback"),

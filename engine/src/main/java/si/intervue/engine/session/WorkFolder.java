@@ -71,11 +71,7 @@ final class WorkFolder implements EditableFiles {
   }
 
   String read(String rel) {
-    Path file = resolve(rel);
-    if (!Files.isRegularFile(file) || isKit(rel)) {
-      throw new SessionException("No such file: " + rel);
-    }
-    return readString(file);
+    return new String(readBytes(rel), StandardCharsets.UTF_8);
   }
 
   /** A project file's bytes, for hashing exactly what the edit applier will compare. */

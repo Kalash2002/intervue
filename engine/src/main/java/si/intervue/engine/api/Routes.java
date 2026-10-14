@@ -11,7 +11,6 @@ import si.intervue.engine.api.LocalApi.BadRequest;
 import si.intervue.engine.api.LocalApi.NotFound;
 import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.SessionAssistant;
-import si.intervue.engine.session.SessionView;
 import si.intervue.engine.session.Sessions;
 import si.intervue.engine.session.edits.FakeEditSource;
 import si.intervue.problemformat.Problem;
@@ -105,11 +104,7 @@ final class Routes {
         s.resetProblem(id);
         yield null;
       }
-      case "POST finish" -> {
-        SessionView finished = s.finish(id, flag(body, "early"));
-        engine.assistant().requestReview(id);
-        yield finished;
-      }
+      case "POST finish" -> engine.assistant().finish(id, flag(body, "early"));
       case "GET chat" -> engine.assistant().chat(id);
       case "GET review" -> engine.assistant().review(id);
       case "POST ask" ->
