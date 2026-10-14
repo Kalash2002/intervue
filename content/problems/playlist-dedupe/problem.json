@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "id": "playlist-dedupe",
+  "version": 1,
+  "section": "coding-round",
+  "title": "Playlist Dedupe",
+  "summary": "A streaming app shows the same song twice in playlists. Fix song matching, then rank artists by listeners and compare playlists, fast enough for a busy day of plays.",
+  "difficulty": "Medium",
+  "techniques": ["hashing", "strings"],
+  "domain": "streaming",
+  "minutes": 60,
+  "phases": [
+    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
+    { "id": 2, "title": "Listeners and similarity", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
+    { "id": 3, "title": "A busy day", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+  ],
+  "followUps": [
+    "Why did the normaliser compile and run without complaint while doing nothing to the case?",
+    "Which other String methods have the same trap, and how would you spot it in review?",
+    "What is the cost of similarity for playlists of n and m tracks, and of topArtists for p plays?",
+    "Users want 'Live' versions treated as different songs but 'Remastered' ones as the same. Where does that rule live, and how would you test it?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": ["java"]
+}
