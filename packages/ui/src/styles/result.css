@@ -28,12 +28,6 @@
   border-radius: var(--radius-s);
   padding: 8px 10px;
 }
-.feedback-controls {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin: 10px 0 14px;
-}
 .result {
   min-height: 100vh;
 }

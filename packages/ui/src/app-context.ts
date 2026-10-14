@@ -28,7 +28,12 @@ export function useApp(): AppServices {
   return services;
 }
 
+/** The text to show for a failed call; the engine's errors already carry a mapped reason. */
+export function errorText(error: unknown): string {
+  return error instanceof Error ? error.message : String(error);
+}
+
 /** Reports a failed engine call through the toast instead of an unhandled rejection. */
 export function failed(notify: AppServices['notify']) {
-  return (error: unknown) => notify(error instanceof Error ? error.message : String(error), 'bad');
+  return (error: unknown) => notify(errorText(error), 'bad');
 }

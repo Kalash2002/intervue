@@ -8,7 +8,7 @@ import './styles/pages.css';
 import './styles/result.css';
 
 export { App, type AppProps } from './App.tsx';
-export { AppContext, failed, useApp, type AppServices, type Screen } from './app-context.ts';
+export { AppContext, errorText, failed, useApp, type AppServices, type Screen } from './app-context.ts';
 export { Markdown } from './components/Markdown.tsx';
 export { ConfirmButton, ThemeButton, TopBar } from './components/TopBar.tsx';
 export { clockText, dateText, plural } from './lib/format.ts';

@@ -22,10 +22,12 @@ describe('progress', () => {
       finished(92, 'INTERVIEW', 'Interview'),
       finished(98, 'PRACTICE', 'Practice'),
       finished(60, 'INTERVIEW', 'Interview'),
+      // Stored before ADR 0006 with the old label; still an Interview session.
+      finished(95, 'INTERVIEW', 'Interview, assisted'),
     ];
 
-    expect(progressFor(problem, history).best).toBe(92);
-    expect(dashboardStats([problem], history).averageBest).toBe(92);
+    expect(progressFor(problem, history).best).toBe(95);
+    expect(dashboardStats([problem], history).averageBest).toBe(95);
   });
 
   it('has no best score without an Interview session', () => {

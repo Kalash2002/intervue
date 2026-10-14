@@ -17,7 +17,7 @@ export function progressFor(problem: ProblemSummary, history: readonly SessionSu
   const mine = history.filter((s) => s.problemId === problem.id);
   const finished = mine.filter((s) => s.finished);
   // Best score, like solved, counts Interview sessions only; Practice never does (PLAN.md 2.8, ADR 0006).
-  const totals = finished.filter((s) => s.type === 'INTERVIEW' && s.label === 'Interview').map((s) => s.total ?? 0);
+  const totals = finished.filter((s) => s.type === 'INTERVIEW').map((s) => s.total ?? 0);
   const open = mine.find((s) => !s.finished);
   const solved = finished.some((s) => s.countsAsSolved);
   const state: ProblemState = solved ? 'solved' : open ? 'progress' : finished.length ? 'attempted' : 'new';
