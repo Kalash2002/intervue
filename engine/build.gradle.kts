@@ -8,3 +8,9 @@ dependencies {
     implementation(libs.jackson.databind)
     testImplementation(libs.archunit)
 }
+
+tasks.test {
+    // Content tests read the real problems in content/; they are inputs so content changes re-run them.
+    systemProperty("intervue.content", rootProject.file("content").absolutePath)
+    inputs.dir(rootProject.file("content/problems")).withPropertyName("problems")
+}

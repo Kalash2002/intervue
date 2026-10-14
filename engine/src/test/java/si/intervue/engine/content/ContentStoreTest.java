@@ -1,0 +1,71 @@
+package si.intervue.engine.content;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
+import java.util.stream.Stream;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.io.TempDir;
+
+class ContentStoreTest {
+
+  private static final Path CONTENT = Path.of(System.getProperty("intervue.content"));
+  private static final Path PROBLEMS = CONTENT.resolve("problems");
+  private static final Path FREE = CONTENT.resolve("free/free.json");
+
+  @TempDir Path temp;
+
+  private static void copyTree(Path from, Path to) throws IOException {
+    try (Stream<Path> walk = Files.walk(from)) {
+      for (Path p : walk.toList()) {
+        Path target = to.resolve(from.relativize(p).toString());
+        if (Files.isDirectory(p)) {
+          Files.createDirectories(target);
+        } else {
+          Files.copy(p, target, StandardCopyOption.REPLACE_EXISTING);
+        }
+      }
+    }
+  }
+
+  @Test
+  void thePlainFolderListsEveryValidProblemInIdOrder() {
+    ContentStore store = new PlainFolderSource(PROBLEMS);
+
+    assertThat(store.ids()).containsExactly("corridor-router", "hold-exposure", "merchant-suggest");
+    assertThat(store.load("hold-exposure").problem().title()).isEqualTo("Hold Exposure");
+  }
+
+  @Test
+  void theFreeSourceOffersOnlyTheProblemsInFreeJson() {
+    ContentStore store = new FreeProblemSource(FREE, PROBLEMS);
+
+    assertThat(store.ids()).containsExactly("hold-exposure", "corridor-router");
+    assertThatThrownBy(() -> store.load("merchant-suggest")).isInstanceOf(ContentException.class);
+  }
+
+  @Test
+  void anInvalidProblemIsLeftOutAndExplainsWhyWhenAskedFor() throws IOException {
+    copyTree(PROBLEMS.resolve("hold-exposure"), temp.resolve("hold-exposure"));
+    copyTree(PROBLEMS.resolve("corridor-router"), temp.resolve("corridor-router"));
+    Files.delete(temp.resolve("corridor-router/hints/phase2.md"));
+    ContentStore store = new PlainFolderSource(temp);
+
+    assertThat(store.ids()).containsExactly("hold-exposure");
+    assertThatThrownBy(() -> store.load("corridor-router"))
+        .isInstanceOf(ContentException.class)
+        .hasMessageContaining("hints/phase2.md");
+  }
+
+  @Test
+  void refusesAnIdThatTriesToLeaveTheContentFolder() {
+    ContentStore store = new PlainFolderSource(PROBLEMS);
+
+    assertThatThrownBy(() -> store.load("../free")).isInstanceOf(ContentException.class);
+    assertThatThrownBy(() -> store.load("no-such-problem")).isInstanceOf(ContentException.class);
+  }
+}
