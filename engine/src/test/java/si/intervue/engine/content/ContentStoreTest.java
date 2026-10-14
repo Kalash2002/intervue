@@ -36,7 +36,18 @@ class ContentStoreTest {
   void thePlainFolderListsEveryValidProblemInIdOrder() {
     ContentStore store = new PlainFolderSource(PROBLEMS);
 
-    assertThat(store.ids()).containsExactly("corridor-router", "hold-exposure", "merchant-suggest");
+    assertThat(store.ids())
+        .containsExactly(
+            "build-log-bracket-checker",
+            "corridor-router",
+            "courier-load-balancer",
+            "duplicate-order-detector",
+            "friend-suggestion",
+            "hold-exposure",
+            "merchant-suggest",
+            "playlist-dedupe",
+            "rate-limiter-audit",
+            "shift-roster-lookup");
     assertThat(store.load("hold-exposure").problem().title()).isEqualTo("Hold Exposure");
   }
 

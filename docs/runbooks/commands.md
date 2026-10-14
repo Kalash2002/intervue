@@ -10,6 +10,58 @@ pnpm -r lint && pnpm -r typecheck && pnpm -r test            # TypeScript gates;
 pnpm -C web format                                           # Prettier --write on web/
 ```
 
+## Every phase: Java gates
+
+```sh
+./gradlew check                                              # compile, Spotless, tests, ArchUnit, JaCoCo
+./gradlew spotlessApply                                      # format Java
+```
+
+## Phase 1a: base app (`engine/`, `desktop/`, `packages/`, `content/`)
+
+### Run the app
+
+```sh
+pnpm -C desktop dev                                          # build engine.jar, start the Tauri shell (shell starts the engine)
+pnpm -C desktop engine:dev                                   # browser mode, terminal 1: engine on 127.0.0.1:4100, data in desktop/.dev-data
+pnpm -C desktop dev:browser                                  # browser mode, terminal 2: UI on http://localhost:1420, proxy adds the dev token
+./gradlew :engine:engineDist                                 # engine.jar plus lib/ in engine/build/engine
+java -jar engine/build/engine/engine.jar --data <dir> --content content [--port <n>]   # the engine alone; prints INTERVUE_ENGINE_READY port=<n>
+```
+
+Without `INTERVUE_ENGINE_TOKEN` the engine writes a fresh token to `<data>/dev-token`. Every request needs `Authorization: Bearer <token>`:
+
+```sh
+curl -H "Authorization: Bearer $(cat desktop/.dev-data/dev-token)" http://127.0.0.1:4100/local/ping
+curl -X POST -H "Authorization: Bearer $(cat desktop/.dev-data/dev-token)" http://127.0.0.1:4100/health/run   # all Doctor checks
+```
+
+### Content
+
+```sh
+./gradlew :content:tools:verify                              # verify every problem three ways (starter fails, reference 5x headroom, naive times out at 3x)
+./gradlew :content:tools:verify -Pids=hold-exposure          # one or more problems, comma-separated
+```
+
+### Build installers
+
+```sh
+node desktop/scripts/jlink.ts                                # desktop/resources/runtime from JAVA_HOME (or the java on PATH)
+pnpm -C desktop build                                        # engine.jar, runtime, then tauri build with resources: NSIS on Windows, DMG on macOS
+```
+
+Unsigned builds: Windows SmartScreen and macOS Gatekeeper warn on first start; signing is Phase 1c.
+
+### Shell gates (from `desktop/src-tauri`)
+
+```sh
+cargo fmt --check && cargo clippy --all-targets -- -D warnings && cargo test
+```
+
+### Data on this machine
+
+The app data folder holds `intervue.db` (SQLite), `sessions/<id>/work` and `engine.log`. Delete the folder to start fresh; the next launch runs the Doctor again.
+
 ## Phase 0: landing page and waitlist (`web/`)
 
 ### Run locally
