@@ -1,0 +1,10 @@
+# Cloudflare Pages project for the website. `wrangler pages dev` and `wrangler pages deploy` read this file.
+name = "dryrun-web"
+pages_build_output_dir = "./dist"
+compatibility_date = "2026-10-01"
+
+# Waitlist signups, one key per email (functions/api/waitlist.ts).
+# Replace the id with the one printed by `wrangler kv namespace create WAITLIST`; local dev ignores it.
+[[kv_namespaces]]
+binding = "WAITLIST"
+id = "00000000000000000000000000000000"

@@ -57,6 +57,8 @@ coverage/
 .pnpm-store/
 *.tsbuildinfo
 .vite/
+# wrangler's local state, including local KV with test signups
+.wrangler/
 
 # ---- Rust / Tauri ----
 target/
