@@ -21,12 +21,13 @@ function passingPill(view: SessionView, phase: number): string {
   return `${passed} of ${passed + Number(last.data.failed ?? 0)} passing`;
 }
 
-/** The brief's first sentence, without its heading, for the intro card. */
+/** The brief's first sentence as plain text, without its heading or emphasis and code marks. */
 function firstSentence(markdown: string | null): string {
   const text = (markdown ?? '')
     .split('\n')
     .filter((l) => l.trim() !== '' && !l.startsWith('#'))
-    .join(' ');
+    .join(' ')
+    .replace(/\*\*|`/g, '');
   return text.split(/(?<=[.!?])\s/)[0] ?? '';
 }
 
@@ -62,9 +63,6 @@ export function GuidePanel({ view, actions }: { view: SessionView; actions: Room
   const last = actions.output.at(-1);
   return (
     <div className="guide">
-      <h3>
-        Phase {phase}: {title}
-      </h3>
       <Markdown source={view.brief[phase] ?? ''} />
       <p className="guide-tests">
         <span>Phase {phase} tests must pass</span> <span className="pill">{passingPill(view, phase)}</span>

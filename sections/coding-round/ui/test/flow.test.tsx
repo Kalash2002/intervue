@@ -43,6 +43,14 @@ describe('the phase intro card', () => {
     expect(screen.getByText('Phase 1 tests must pass')).toBeInTheDocument();
   });
 
+  it('shows the sentence as plain text, without Markdown marks', async () => {
+    const v = view({ brief: ['# Intro', '## Phase 1\n\nTwice adds **one** too `many`. More.', null] });
+    renderWith(<SessionRoom session={timed(v)} />, client());
+
+    const card = await screen.findByRole('region', { name: 'Phase 1: Fix' });
+    expect(within(card).getByText('Twice adds one too many.')).toBeInTheDocument();
+  });
+
   it('skips the phase through the engine', async () => {
     const c = client();
     renderWith(<SessionRoom session={timed(view())} />, c);
