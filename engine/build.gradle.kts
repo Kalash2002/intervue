@@ -7,6 +7,9 @@ dependencies {
     implementation(libs.sqlite.jdbc)
     implementation(libs.jackson.databind)
     testImplementation(libs.archunit)
+    // Session tests run real code through the real packages; main code never sees them (ArchitectureTest).
+    testRuntimeOnly(project(":languages:java:runner"))
+    testRuntimeOnly(project(":sections:coding-round:java"))
 }
 
 tasks.test {
