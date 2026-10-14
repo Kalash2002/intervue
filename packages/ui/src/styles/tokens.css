@@ -1,0 +1,62 @@
+/* Design tokens: fonts, the palette for both themes, radii and the spacing scale. One accent
+   (primary actions and progress); pass, fail, warn and prompt carry meaning, not decoration. */
+@font-face {
+  font-family: 'Hanken Grotesk';
+  src: url('../assets/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'JetBrains Mono';
+  src: url('../assets/fonts/jetbrains-mono-latin-wght-normal.woff2') format('woff2');
+  font-weight: 100 800;
+  font-display: swap;
+}
+
+:root {
+  --bg: #12151c;
+  --panel: #191d27;
+  --panel-2: #212634;
+  --line: #2c3343;
+  --text: #e3e7ef;
+  --muted: #949db0;
+  --accent: #7c9ef0;
+  --accent-ink: #0c1428;
+  --accent-soft: rgba(124, 158, 240, 0.13);
+  --pass: #5cc49e;
+  --fail: #ec7f73;
+  --warn: #dcb062;
+  --prompt: #b19df2;
+  --link: var(--accent);
+  --select: rgba(124, 158, 240, 0.22);
+  --backdrop: rgba(6, 9, 15, 0.62);
+  --radius: 12px;
+  --radius-s: 8px;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 40px;
+  --ui: 'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
+  --mono: 'JetBrains Mono', Consolas, 'Cascadia Mono', monospace;
+  color-scheme: dark;
+}
+:root[data-theme='light'] {
+  --bg: #f4f5f8;
+  --panel: #ffffff;
+  --panel-2: #eef0f5;
+  --line: #dce0e8;
+  --text: #1a1f2c;
+  --muted: #586276;
+  --accent: #2f58c9;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(47, 88, 201, 0.09);
+  --pass: #127a57;
+  --fail: #bd3b2e;
+  --warn: #8d5b00;
+  --prompt: #6449cc;
+  --select: rgba(47, 88, 201, 0.15);
+  --backdrop: rgba(26, 31, 44, 0.38);
+  color-scheme: light;
+}

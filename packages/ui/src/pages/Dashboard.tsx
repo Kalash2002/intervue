@@ -86,16 +86,16 @@ function Problems({ problems, history }: { problems: ProblemSummary[]; history: 
   return (
     <section aria-label="Problems">
       <h2>Problems</h2>
-      <div className="rows">
+      <div className="cards">
         {problems.map((p) => (
-          <ProblemRow key={p.id} problem={p} history={history} />
+          <ProblemCard key={p.id} problem={p} history={history} />
         ))}
       </div>
     </section>
   );
 }
 
-function ProblemRow({ problem: p, history }: { problem: ProblemSummary; history: SessionSummary[] }) {
+function ProblemCard({ problem: p, history }: { problem: ProblemSummary; history: SessionSummary[] }) {
   const { go } = useApp();
   const { open, result } = useOpeners();
   const { state, best, attempts, openId, lastFinishedId } = progressFor(p, history);
@@ -104,20 +104,17 @@ function ProblemRow({ problem: p, history }: { problem: ProblemSummary; history:
     .filter(Boolean)
     .join(', ');
   return (
-    <div className="row">
-      <div>
-        <h3>
-          {p.title}
-          <span className="level">
-            {p.difficulty}, {p.minutes} min
-          </span>
-        </h3>
-        <p className={`state ${state}`}>
-          <span aria-hidden="true">{icon}</span> {label}
-          {facts && <span className="facts-inline">{facts}</span>}
-        </p>
-        <p>{p.summary}</p>
-      </div>
+    <article className="card" aria-labelledby={`problem-${p.id}`}>
+      <h3 id={`problem-${p.id}`}>{p.title}</h3>
+      <p className="tags">
+        <span className={`pill ${p.difficulty.toLowerCase()}`}>{p.difficulty}</span>
+        <span className="pill">{p.minutes} min</span>
+      </p>
+      <p className={`state ${state}`}>
+        <span aria-hidden="true">{icon}</span> {label}
+        {facts && <span className="facts-inline">{facts}</span>}
+      </p>
+      <p className="summary">{p.summary}</p>
       <div className="actions">
         {openId && (
           <button className="ghost" type="button" onClick={() => open(openId)}>
@@ -133,7 +130,7 @@ function ProblemRow({ problem: p, history }: { problem: ProblemSummary; history:
           Start
         </button>
       </div>
-    </div>
+    </article>
   );
 }
 

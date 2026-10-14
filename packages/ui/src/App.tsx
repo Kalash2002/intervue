@@ -3,6 +3,7 @@ import type { EngineClient } from '@intervue/local-engine-client';
 import type { LanguageEditor } from '@intervue/editor';
 import { AppContext, type AppServices, type Screen } from './app-context.ts';
 import { Dashboard } from './pages/Dashboard.tsx';
+import { applyTheme, storedTheme } from './components/TopBar.tsx';
 import { DoctorPage } from './pages/DoctorPage.tsx';
 import { OverviewPage } from './pages/OverviewPage.tsx';
 import { ResultPage } from './pages/ResultPage.tsx';
@@ -46,6 +47,8 @@ export function App({ client, section, languages }: AppProps) {
   // First launch: no stored health results yet, so the Doctor runs before anything else.
   // A second answer (StrictMode runs effects twice) can arrive after the Doctor stored results and
   // would skip it, so only the live effect may choose the screen.
+  useEffect(() => applyTheme(storedTheme()), []);
+
   useEffect(() => {
     let live = true;
     client

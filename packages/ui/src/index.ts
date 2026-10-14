@@ -1,5 +1,11 @@
 // The app's screens, shared parts and the contract a section UI fills (PLAN.md 5.2, packages/ui).
-import './styles/app.css';
+import './styles/tokens.css';
+import './styles/base.css';
+import './styles/room.css';
+import './styles/timeline.css';
+import './styles/panel.css';
+import './styles/pages.css';
+import './styles/result.css';
 
 export { App, type AppProps } from './App.tsx';
 export { AppContext, failed, useApp, type AppServices, type Screen } from './app-context.ts';

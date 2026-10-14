@@ -72,6 +72,18 @@ const section: SectionUi = {
 
 const renderApp = (client: EngineClient) => render(<App client={client} section={section} languages={[]} />);
 
+describe('theme', () => {
+  it('applies the saved theme when the app starts', async () => {
+    localStorage.setItem('intervue.theme', 'light');
+    renderApp(fakeClient());
+
+    await screen.findByRole('button', { name: 'Dark theme' });
+    expect(document.documentElement.dataset.theme).toBe('light');
+    localStorage.clear();
+    delete document.documentElement.dataset.theme;
+  });
+});
+
 describe('dashboard', () => {
   it('counts solved interviews and labels every session Interview or Practice', async () => {
     const client = fakeClient({
@@ -91,6 +103,20 @@ describe('dashboard', () => {
     expect(screen.queryByText(/Interview, assisted/)).toBeNull();
     expect(screen.queryByText(/without applied AI edits/)).toBeNull();
     expect(within(history).getByText('Practice')).toBeInTheDocument();
+  });
+
+  it('shows each problem as a card with its difficulty, minutes and status', async () => {
+    const client = fakeClient({ history: vi.fn(async () => [summary({ problemId: 'hold-exposure' })]) });
+
+    renderApp(client);
+
+    const card = await screen.findByRole('article', { name: 'Hold Exposure' });
+    expect(within(card).getByText('Medium')).toHaveClass('pill');
+    expect(within(card).getByText('60 min')).toBeInTheDocument();
+    expect(within(card).getByText(/Solved/)).toBeInTheDocument();
+    expect(
+      within(screen.getByRole('article', { name: 'Corridor Router' })).getByText(/Not started/),
+    ).toBeInTheDocument();
   });
 });
 

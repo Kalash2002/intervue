@@ -1,0 +1,112 @@
+/* The rhythm strip: the session drawn on a time axis (room header and result page). */
+.strip {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 0 14px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--line);
+}
+.strip-track {
+  position: relative;
+  flex: 1;
+  height: 38px;
+  margin-right: 26px;
+  min-width: 0;
+}
+.strip-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 17px;
+  height: 2px;
+  background: var(--line);
+}
+.strip-track .tick {
+  position: absolute;
+  top: 14px;
+  width: 1px;
+  height: 8px;
+  background: var(--line);
+}
+.strip-track .tick span {
+  position: absolute;
+  top: 11px;
+  left: 3px;
+  font: 10px var(--mono);
+  color: var(--muted);
+}
+.strip-track .limit {
+  position: absolute;
+  top: 2px;
+  bottom: 12px;
+  width: 0;
+  border-left: 1px dashed var(--fail);
+}
+.strip-track .run {
+  position: absolute;
+  top: 11px;
+  width: 3px;
+  height: 14px;
+  border-radius: 1px;
+  margin-left: -1px;
+  background: var(--pass);
+}
+.strip-track .run.fail {
+  background: var(--fail);
+}
+.strip-track .run.broken {
+  background: var(--muted);
+}
+.strip-track .prompt {
+  position: absolute;
+  top: 1px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-left: -3px;
+  background: var(--prompt);
+}
+.strip-track .flag {
+  position: absolute;
+  top: 0;
+  height: 26px;
+  border-left: 2px solid var(--pass);
+  padding-left: 9px;
+  font: 600 10px/10px var(--mono);
+  color: var(--text);
+  white-space: nowrap;
+}
+.strip-track .now {
+  position: absolute;
+  top: 8px;
+  width: 2px;
+  height: 20px;
+  background: var(--accent);
+  margin-left: -1px;
+}
+.strip-track .hint {
+  position: absolute;
+  top: 1px;
+  width: 7px;
+  height: 7px;
+  margin-left: -3px;
+  background: var(--warn);
+  transform: rotate(45deg);
+}
+.strip-track .edit {
+  position: absolute;
+  top: 27px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  margin-left: -3px;
+  background: var(--prompt);
+}
+.strip-track .pause {
+  position: absolute;
+  top: 6px;
+  height: 24px;
+  border-left: 2px dotted var(--muted);
+}

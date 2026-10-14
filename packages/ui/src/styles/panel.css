@@ -1,0 +1,143 @@
+/* The side panel: Guide, Brief, Hints and Assistant tabs. */
+.side-body {
+  overflow: auto;
+  min-height: 0;
+  padding: 16px 18px 28px;
+}
+.chat-log {
+  overflow: auto;
+  padding: 14px 16px;
+}
+.msg {
+  margin: 0 0 16px;
+}
+.msg .who {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.msg.user .body {
+  border-left: 3px solid var(--prompt);
+  padding: 2px 0 2px 10px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.msg.error .body {
+  color: var(--fail);
+}
+.chat-form {
+  border-top: 1px solid var(--line);
+  padding: 10px 14px 12px;
+  background: var(--panel);
+}
+.chat-options {
+  display: flex;
+  gap: 14px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.chat-send {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-top: 6px;
+}
+.locked-phase {
+  color: var(--muted);
+  border-top: 1px solid var(--line);
+  margin-top: 22px;
+  padding-top: 14px;
+}
+.locked-phase button {
+  margin-top: 8px;
+}
+.hint-level {
+  border-left: 3px solid var(--warn);
+  padding: 2px 0 2px 10px;
+  margin: 0 0 12px;
+}
+.assistant-off {
+  color: var(--muted);
+}
+.assistant-off button {
+  margin-right: 8px;
+}
+.outcomes {
+  list-style: none;
+  padding: 0;
+  font-size: 13px;
+}
+.outcomes li {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--line);
+}
+.chat-log {
+  padding: 0;
+  overflow: visible;
+}
+.chat-form {
+  margin: var(--space-4) 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  background: var(--panel-2);
+}
+.chat-options {
+  margin-bottom: var(--space-2);
+}
+.outcomes li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.outcomes li button {
+  margin-left: auto;
+}
+.hint-explain {
+  margin: 0 0 var(--space-4);
+}
+.demo {
+  margin-top: var(--space-5);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 13px;
+}
+.demo summary {
+  cursor: pointer;
+  margin-bottom: var(--space-2);
+}
+.phase-card {
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel-2);
+}
+.phase-card h2 {
+  font-size: 20px;
+  margin-bottom: var(--space-2);
+}
+.phase-card p:not(.eyebrow) {
+  color: var(--muted);
+  margin: 0 0 var(--space-4);
+}
+/* The brief opens with its own phase heading; it heads the tab, so no rule above it. */
+.guide .md > :first-child {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.guide-tests {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: var(--space-4) 0 10px;
+  font-weight: 600;
+}
+.guide-output {
+  max-height: 260px;
+  margin-top: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+}

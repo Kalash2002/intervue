@@ -2,15 +2,18 @@ import { useState, type ReactNode } from 'react';
 
 type Theme = 'dark' | 'light';
 
-function applyTheme(theme: Theme) {
+/** The theme saved by the last switch; dark when none was saved. */
+export function storedTheme(): Theme {
+  return localStorage.getItem('intervue.theme') === 'light' ? 'light' : 'dark';
+}
+
+export function applyTheme(theme: Theme) {
   document.documentElement.dataset.theme = theme;
   localStorage.setItem('intervue.theme', theme);
 }
 
 export function ThemeButton() {
-  const [theme, setTheme] = useState<Theme>(() =>
-    localStorage.getItem('intervue.theme') === 'light' ? 'light' : 'dark',
-  );
+  const [theme, setTheme] = useState<Theme>(storedTheme);
   const next: Theme = theme === 'dark' ? 'light' : 'dark';
   return (
     <button

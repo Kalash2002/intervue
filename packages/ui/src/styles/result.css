@@ -1,0 +1,204 @@
+/* The result page: score line, per-phase verdicts and tests, review tabs and notes. */
+.facts {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 6px 16px;
+  margin: 10px 0 4px;
+}
+.facts dt {
+  color: var(--muted);
+}
+.facts dd {
+  margin: 0;
+  font-family: var(--mono);
+  text-align: right;
+}
+.facts dd.good {
+  color: var(--pass);
+}
+.facts dd.bad {
+  color: var(--fail);
+}
+.notes {
+  width: 100%;
+  min-height: 90px;
+  resize: vertical;
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-s);
+  padding: 8px 10px;
+}
+.feedback-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin: 10px 0 14px;
+}
+.result {
+  min-height: 100vh;
+}
+.result .topbar {
+  height: 48px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.result-body {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 28px 24px 90px;
+}
+.scoreline {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+.score {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.score .num {
+  font-size: 84px;
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+}
+.score .of {
+  font-size: 20px;
+  color: var(--muted);
+}
+.score-text h1 {
+  font-size: 24px;
+}
+.score-text p {
+  margin: 6px 0 0;
+  color: var(--muted);
+  max-width: 70ch;
+}
+.score-text .hint {
+  font-size: 13px;
+}
+.strip.framed {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  height: 56px;
+  padding: 0 16px;
+}
+.result-tabs {
+  margin-top: 26px;
+  background: transparent;
+}
+.result-tabs .tab {
+  border-right: 0;
+  font-size: 14px;
+}
+.result-tabs .tab.active {
+  background: transparent;
+}
+.phase-result {
+  padding: 22px 0 6px;
+  border-bottom: 1px solid var(--line);
+}
+.phase-result h2 {
+  font-size: 18px;
+  display: flex;
+  gap: 14px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.phase-result p {
+  color: var(--muted);
+  max-width: 80ch;
+  margin: 8px 0 12px;
+}
+.verdict {
+  font-size: 13px;
+  font-weight: 600;
+}
+table.tests {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 0 0 14px;
+  font-size: 13px;
+}
+table.tests td {
+  padding: 6px 14px 6px 0;
+  border-top: 1px solid var(--line);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+table.tests td:first-child {
+  white-space: nowrap;
+  font-weight: 600;
+  width: 1%;
+}
+table.tests td:nth-child(2) {
+  white-space: nowrap;
+  width: 1%;
+}
+table.tests td:nth-child(3) {
+  color: var(--muted);
+}
+table.tests td.points {
+  font-family: var(--mono);
+  color: var(--text);
+}
+table.tests code {
+  font: 12.5px var(--mono);
+}
+.phase-result .facts {
+  max-width: 520px;
+}
+.rtab {
+  padding-top: 22px;
+}
+.md.wide {
+  max-width: 82ch;
+}
+.md.wide h1 {
+  font-size: 26px;
+  margin-bottom: 14px;
+}
+.md.wide h2 {
+  font-size: 20px;
+  margin-top: 34px;
+  padding-top: 22px;
+}
+.md.wide h2.first {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+.md.wide h3 {
+  font-size: 15px;
+  margin-top: 22px;
+  color: var(--muted);
+}
+.md.wide p,
+.md.wide li {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.md.wide pre code {
+  font-size: 13px;
+}
+.md.wide pre {
+  background: var(--panel);
+}
+.md.wide td code,
+.md.wide th code {
+  white-space: normal;
+}
+.rtab .notes {
+  max-width: 82ch;
+  display: block;
+}
+.md.wide pre code {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
