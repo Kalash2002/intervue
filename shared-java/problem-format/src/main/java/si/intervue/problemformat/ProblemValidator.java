@@ -12,7 +12,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -25,7 +24,6 @@ public final class ProblemValidator {
   private static final int CORRECTNESS_POINTS = 70;
   private static final Set<String> DIFFICULTIES = Set.of("Easy", "Medium", "Hard");
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
-  private static final Pattern LEVEL = Pattern.compile("(?m)^## Level ([1-3])[ \\t]*$");
 
   private ProblemValidator() {}
 
@@ -107,18 +105,12 @@ public final class ProblemValidator {
     if (text.contains("```")) {
       errors.add(name + " contains a code fence; hints must not contain code");
     }
-    String[] bodies = LEVEL.split(text, -1);
-    Matcher heading = LEVEL.matcher(text);
-    List<String> found = new ArrayList<>();
-    for (int i = 1; heading.find(); i++) {
-      found.add(heading.group(1));
-      if (bodies[i].isBlank()) {
-        errors.add(name + " has an empty Level " + heading.group(1));
-      }
-    }
-    for (String level : List.of("1", "2", "3")) {
-      if (!found.contains(level)) {
+    Map<Integer, String> levels = HintLevels.parse(text);
+    for (int level = 1; level <= HintLevels.LEVELS; level++) {
+      if (!levels.containsKey(level)) {
         errors.add(name + " is missing ## Level " + level);
+      } else if (levels.get(level).isBlank()) {
+        errors.add(name + " has an empty Level " + level);
       }
     }
   }

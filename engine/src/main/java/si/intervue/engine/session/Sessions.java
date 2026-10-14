@@ -20,6 +20,7 @@ import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionPackage;
 import si.intervue.engine.sections.SectionRegistry;
 import si.intervue.engine.sections.SessionType;
+import si.intervue.problemformat.HintLevels;
 import si.intervue.problemformat.ProblemFolder;
 
 /**
@@ -164,6 +165,47 @@ public final class Sessions {
       event(c.session(), "skip", Map.of("phase", next));
     }
     return view(id);
+  }
+
+  /**
+   * Reveals the next authored hint level of an unlocked phase. Practice only: Interview mode has no
+   * hints at all, so no hint deductions exist in its score (PLAN.md 2.8).
+   */
+  public HintView hint(String id, int phase) {
+    Context c = requireOpen(id);
+    if (c.session().type() != SessionType.PRACTICE) {
+      throw new SessionException("Hints are available in Practice sessions only.");
+    }
+    if (phase < 1 || phase > c.session().unlocked()) {
+      throw new SessionException("Phase " + phase + " is not open yet.");
+    }
+    int level = c.session().hintsUsed().getOrDefault(phase, 0) + 1;
+    if (level > HintLevels.LEVELS) {
+      throw new SessionException("All three hints for phase " + phase + " are already shown.");
+    }
+    String text = hintLevels(c, phase).get(level);
+    Map<Integer, Integer> used = new LinkedHashMap<>(c.session().hintsUsed());
+    used.put(phase, level);
+    store.setHintsUsed(id, used);
+    event(c.session(), "hint", Map.of("phase", phase, "level", level));
+    return new HintView(phase, level, text);
+  }
+
+  /** The hint texts already revealed for a phase, level 1 first. */
+  public List<String> revealedHints(String id, int phase) {
+    Context c = context(id);
+    int shown = c.session().hintsUsed().getOrDefault(phase, 0);
+    Map<Integer, String> levels = hintLevels(c, phase);
+    List<String> texts = new ArrayList<>();
+    for (int level = 1; level <= shown; level++) {
+      texts.add(levels.get(level));
+    }
+    return texts;
+  }
+
+  private static Map<Integer, String> hintLevels(Context c, int phase) {
+    var p = c.problem().problem().phases().get(phase - 1);
+    return HintLevels.parse(readString(c.problem().dir().resolve(p.hints())));
   }
 
   public RunView run(String id, String target) {
