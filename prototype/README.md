@@ -1,4 +1,4 @@
-# Dryrun
+# Intervue
 
 A local practice room for the structured AI-assisted coding interview: a multi-file Java project you did not write, a chat assistant that cannot edit your files, a 60-minute clock and three phases (fix a bug, build a feature, handle large inputs).
 
@@ -85,9 +85,9 @@ Unzip a new version over the old folder, or copy your old `sessions` folder into
 | Symptom | Fix |
 | --- | --- |
 | "Java was not found" | Install a JDK and reopen the terminal. A JRE alone is not enough; `javac` is needed. |
-| Assistant says the CLI was not found | Make sure `claude --version` works in a new terminal, then restart Dryrun. Or set the environment variable `DRYRUN_CLAUDE` to the full path of the `claude` program. |
+| Assistant says the CLI was not found | Make sure `claude --version` works in a new terminal, then restart Intervue. Or set the environment variable `INTERVUE_CLAUDE` to the full path of the `claude` program. |
 | Assistant says it is not signed in | Run `claude` in a terminal and sign in. |
-| "Port 4477 is already in use" | Dryrun is probably already running. Otherwise start with `--port 4488`. |
+| "Port 4477 is already in use" | Intervue is probably already running. Otherwise start with `--port 4488`. |
 | A phase 3 test times out on the reference solution | The time limits assume a reasonably recent laptop. Raise `timeoutMs` in that problem's `starter/Phase3Tests.java`. |
 
-Dryrun listens on 127.0.0.1 only and refuses requests from other sites.
+Intervue listens on 127.0.0.1 only and refuses requests from other sites.

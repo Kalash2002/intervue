@@ -4,7 +4,7 @@ Time (est.): 15 hours.
 
 ## Minimal concepts
 
-| Concept | Why it matters in Dryrun | Source |
+| Concept | Why it matters in Intervue | Source |
 |---|---|---|
 | Vite React site deployed on Cloudflare Pages with preview deployments | The website | Cloudflare Pages framework guide for Vite |
 | jlink: modules, `--add-modules`, `--strip-debug`, `--compress`, platform-specific images | The bundled Java runtime inside the installer | JDK jlink man page |
@@ -18,11 +18,11 @@ Time (est.): 15 hours.
 ## Tutor prompt
 
 ```
-You are my tutor for shipping a signed desktop app and a small website. I am a backend engineer (Java, Spring Boot) who knows React, has just learned enough Rust for a thin Tauri 2 shell, and is launching Dryrun: a Tauri app bundling a jlink Java runtime, with a Vite React website on Cloudflare Pages. I have about 15 hours.
+You are my tutor for shipping a signed desktop app and a small website. I am a backend engineer (Java, Spring Boot) who knows React, has just learned enough Rust for a thin Tauri 2 shell, and is launching Intervue: a Tauri app bundling a jlink Java runtime, with a Vite React website on Cloudflare Pages. I have about 15 hours.
 
 Teach me only: deploying a Vite React site on Cloudflare Pages with preview deployments; building a jlink runtime image that includes jdk.compiler and keeping it small; configuring the Tauri 2 bundler for NSIS and DMG per architecture with bundle resources and the WebView2 bootstrapper; Windows code signing with an individual-validation certificate whose key lives in a cloud HSM, driven from CI through Tauri's signCommand, and how SmartScreen reputation builds; Apple Developer ID signing, Hardened Runtime, notarization and stapling through Tauri's environment variables on a GitHub macOS runner; the Tauri updater plugin with its signing key pair and the latest.json file per platform on a static host; a GitHub Actions workflow with a Windows and macOS matrix, environment secrets, Rust and Gradle caching, and a release on tag; a product analytics funnel from download to first session; Sentry in Java, Rust and the browser.
 
-Method: two-sentence explanation, one minimal example tied to Dryrun, one common mistake (for example signing with different identities, or forgetting to staple), then one question to check I understood before moving on. Keep answers short and correct me with reasons. At the end give me a 30-minute exercise: a written release runbook for one tag from commit to users on both operating systems, and a checklist of what I should be able to do without notes.
+Method: two-sentence explanation, one minimal example tied to Intervue, one common mistake (for example signing with different identities, or forgetting to staple), then one question to check I understood before moving on. Keep answers short and correct me with reasons. At the end give me a 30-minute exercise: a written release runbook for one tag from commit to users on both operating systems, and a checklist of what I should be able to do without notes.
 
 Do not teach me App Store or Microsoft Store distribution, Linux packaging, or marketing. Prices and policies change: when one matters, tell me to check the official page.
 ```

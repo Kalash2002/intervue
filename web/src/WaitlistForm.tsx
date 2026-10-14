@@ -59,7 +59,7 @@ export default function WaitlistForm() {
   }
 
   if (status.kind === 'done') {
-    return <Alert severity="success">You are on the list. We will email you when Dryrun opens.</Alert>;
+    return <Alert severity="success">You are on the list. We will email you when Intervue opens.</Alert>;
   }
 
   return (

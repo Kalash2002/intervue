@@ -1,4 +1,4 @@
-# Dryrun .gitignore
+# Intervue .gitignore
 # Policy (CONTRIBUTING.md, "What is committed"): commit code, content, contracts, the plan, the process layer,
 # the phase prompts, the status board, ADRs, runbooks, retros and learning files. Do not commit secrets,
 # build output, user data, or working documents a phase produces and discards.

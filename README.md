@@ -1,4 +1,4 @@
-# Dryrun
+# Intervue
 
 A desktop practice room for AI-assisted coding interviews. Start with `CLAUDE.md`, then `docs/plan/PLAN.md`.
 

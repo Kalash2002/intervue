@@ -1,4 +1,4 @@
-# Contributing to Dryrun
+# Contributing to Intervue
 
 These rules let a second developer or an AI coding agent work in this repository without breaking its boundaries. They are the rules of PLAN.md section 5.12 plus the commit policy.
 

@@ -245,17 +245,17 @@ select {
 .CodeMirror-activeline-background { background: var(--panel); }
 .CodeMirror-selected, .CodeMirror-focused .CodeMirror-selected { background: var(--select); }
 .CodeMirror-matchingbracket { color: var(--accent) !important; font-weight: 700; }
-.cm-s-dryrun .cm-keyword { color: #c792ea; }
-.cm-s-dryrun .cm-def, .cm-s-dryrun .cm-variable-2 { color: var(--link); }
-.cm-s-dryrun .cm-type, .cm-s-dryrun .cm-variable-3 { color: #7fd1c7; }
-.cm-s-dryrun .cm-string { color: #c3d98a; }
-.cm-s-dryrun .cm-number, .cm-s-dryrun .cm-atom { color: #f2a977; }
-.cm-s-dryrun .cm-comment { color: var(--muted); font-style: italic; }
-.cm-s-dryrun .cm-meta { color: var(--accent); }
-:root[data-theme="light"] .cm-s-dryrun .cm-keyword { color: #7a3fb8; }
-:root[data-theme="light"] .cm-s-dryrun .cm-type, :root[data-theme="light"] .cm-s-dryrun .cm-variable-3 { color: #0b7468; }
-:root[data-theme="light"] .cm-s-dryrun .cm-string { color: #4f7a12; }
-:root[data-theme="light"] .cm-s-dryrun .cm-number, :root[data-theme="light"] .cm-s-dryrun .cm-atom { color: #b3541e; }
+.cm-s-intervue .cm-keyword { color: #c792ea; }
+.cm-s-intervue .cm-def, .cm-s-intervue .cm-variable-2 { color: var(--link); }
+.cm-s-intervue .cm-type, .cm-s-intervue .cm-variable-3 { color: #7fd1c7; }
+.cm-s-intervue .cm-string { color: #c3d98a; }
+.cm-s-intervue .cm-number, .cm-s-intervue .cm-atom { color: #f2a977; }
+.cm-s-intervue .cm-comment { color: var(--muted); font-style: italic; }
+.cm-s-intervue .cm-meta { color: var(--accent); }
+:root[data-theme="light"] .cm-s-intervue .cm-keyword { color: #7a3fb8; }
+:root[data-theme="light"] .cm-s-intervue .cm-type, :root[data-theme="light"] .cm-s-intervue .cm-variable-3 { color: #0b7468; }
+:root[data-theme="light"] .cm-s-intervue .cm-string { color: #4f7a12; }
+:root[data-theme="light"] .cm-s-intervue .cm-number, :root[data-theme="light"] .cm-s-intervue .cm-atom { color: #b3541e; }
 .readonly-note {
   position: absolute; right: 14px; top: 8px; z-index: 5;
   background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;

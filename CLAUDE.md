@@ -1,10 +1,10 @@
-# Dryrun: instructions for AI coding agents and humans
+# Intervue: instructions for AI coding agents and humans
 
 Read this first, then `docs/plan/PLAN.md` for the part you touch, then `docs/process/`.
 
 ## What this repository is
 
-Dryrun is a desktop practice room for AI-assisted coding interviews. The plan in `docs/plan/PLAN.md` is the source of truth for scope, architecture and phases. Work happens one phase at a time from a prompt file in `docs/prompts/`; the `/phase` skill runs that prompt through the pipeline in `docs/process/pipeline.md`.
+Intervue is a desktop practice room for AI-assisted coding interviews. The plan in `docs/plan/PLAN.md` is the source of truth for scope, architecture and phases. Work happens one phase at a time from a prompt file in `docs/prompts/`; the `/phase` skill runs that prompt through the pipeline in `docs/process/pipeline.md`.
 
 ## Layout and boundaries (summary of PLAN.md section 5)
 

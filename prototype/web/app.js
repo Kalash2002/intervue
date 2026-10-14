@@ -7,7 +7,7 @@ const $ = (id) => document.getElementById(id);
 async function api(method, path, body) {
   const res = await fetch("/api/" + path, {
     method,
-    headers: { "X-Dryrun": "1", "Content-Type": "application/json" },
+    headers: { "X-Intervue": "1", "Content-Type": "application/json" },
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   let data = {};
@@ -20,7 +20,7 @@ async function api(method, path, body) {
 async function stream(path, body, onDelta) {
   const res = await fetch("/api/" + path, {
     method: "POST",
-    headers: { "X-Dryrun": "1", "Content-Type": "application/json" },
+    headers: { "X-Intervue": "1", "Content-Type": "application/json" },
     body: JSON.stringify(body),
   });
   if (!res.ok) {
@@ -180,7 +180,7 @@ document.addEventListener("click", (e) => {
 
 function applyTheme(theme) {
   document.documentElement.dataset.theme = theme;
-  try { localStorage.setItem("dryrun-theme", theme); } catch (e) { /* private mode */ }
+  try { localStorage.setItem("intervue-theme", theme); } catch (e) { /* private mode */ }
   const label = theme === "light" ? "Dark theme" : "Light theme";
   for (const id of ["themeHome", "themeRoom", "themeResult"]) $(id).textContent = label;
 }
@@ -188,7 +188,7 @@ function toggleTheme() {
   applyTheme(document.documentElement.dataset.theme === "light" ? "dark" : "light");
 }
 let savedTheme = "dark";
-try { savedTheme = localStorage.getItem("dryrun-theme") || "dark"; } catch (e) { /* private mode */ }
+try { savedTheme = localStorage.getItem("intervue-theme") || "dark"; } catch (e) { /* private mode */ }
 applyTheme(savedTheme);
 $("themeHome").onclick = toggleTheme;
 $("themeRoom").onclick = toggleTheme;
@@ -353,7 +353,7 @@ function ensureEditor() {
   if (editor) return;
   editor = CodeMirror($("editorWrap"), {
     mode: "text/x-java",
-    theme: "dryrun",
+    theme: "intervue",
     lineNumbers: true,
     indentUnit: 4,
     tabSize: 4,
@@ -676,7 +676,7 @@ function messageHtml(turn) {
 function renderChat() {
   const log = $("chatLog");
   let html = "";
-  if (env && !env.claude.available) html += '<div class="notice">' + esc(env.claude.problem || "The assistant is unavailable.") + " Install Claude Code, run <code>claude</code> once in a terminal to sign in, then restart Dryrun.</div>";
+  if (env && !env.claude.available) html += '<div class="notice">' + esc(env.claude.problem || "The assistant is unavailable.") + " Install Claude Code, run <code>claude</code> once in a terminal to sign in, then restart Intervue.</div>";
   if (!session.chat.length) {
     html += '<p class="empty-chat">Nothing asked yet. Read the code first, decide what you want, then ask for that specific thing. Say your plan aloud before you send it.</p>';
   }
@@ -941,6 +941,6 @@ window.addEventListener("beforeunload", (e) => {
       await showHome();
     }
   } catch (err) {
-    document.body.innerHTML = '<p style="padding:40px;font:16px sans-serif">Dryrun could not reach its server. Start it with run.bat (or run.sh) and reload this page.<br><br>' + esc(err.message) + "</p>";
+    document.body.innerHTML = '<p style="padding:40px;font:16px sans-serif">Intervue could not reach its server. Start it with run.bat (or run.sh) and reload this page.<br><br>' + esc(err.message) + "</p>";
   }
 })();

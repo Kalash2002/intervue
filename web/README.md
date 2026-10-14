@@ -1,6 +1,6 @@
 # web
 
-The Dryrun website. Phase 0: one landing page with the promise, three prototype screenshots and the waitlist form (PLAN.md section 13, days 3 to 5).
+The Intervue website. Phase 0: one landing page with the promise, three prototype screenshots and the waitlist form (PLAN.md section 13, days 3 to 5).
 
 ## Run locally
 

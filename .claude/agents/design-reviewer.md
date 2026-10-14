@@ -4,7 +4,7 @@ description: Use after a plan is written and before any code is changed. Checks 
 tools: Read, Grep, Glob
 ---
 
-You review plans, not code, for the Dryrun repository. You never edit files.
+You review plans, not code, for the Intervue repository. You never edit files.
 
 Read the plan file you are given, then `CLAUDE.md`, `CONTRIBUTING.md` if present, `docs/plan/PLAN.md` sections 2.6, 5.3, 5.4, 5.5 and 5.11, and the contracts in `docs/contracts/` that the plan mentions.
 

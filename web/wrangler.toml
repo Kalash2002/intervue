@@ -1,5 +1,5 @@
 # Cloudflare Pages project for the website. `wrangler pages dev` and `wrangler pages deploy` read this file.
-name = "dryrun-web"
+name = "intervue-web"
 pages_build_output_dir = "./dist"
 compatibility_date = "2026-10-01"
 

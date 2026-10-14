@@ -11,7 +11,7 @@ Conventions: lines starting with `>` are things you type into Claude Code. Lines
 Human: create the GitHub repository, protect `main` with required status checks, and do the first commit yourself.
 
 ```
-$ cd D:\projects\AICoding\dryrun
+$ cd D:\projects\AICoding\intervue
 $ git init -b main
 $ git add -A --dry-run
 ```

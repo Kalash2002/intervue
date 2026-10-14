@@ -1,5 +1,5 @@
 {
-  "name": "@dryrun/web",
+  "name": "@intervue/web",
   "private": true,
   "type": "module",
   "scripts": {

@@ -30,7 +30,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.stream.Stream;
 
 /**
- * Dryrun: a local practice room for AI-assisted coding interviews.
+ * Intervue: a local practice room for AI-assisted coding interviews.
  *
  * Single file, no dependencies. Start it with:  java server/Server.java [--port 4477]
  * It serves the interface in web/, keeps each practice session in sessions/, compiles and runs
@@ -57,7 +57,7 @@ public class Server {
         }
         if (!Files.isDirectory(root.resolve("problems")) || !Files.isDirectory(root.resolve("web"))) {
             System.err.println("Cannot find the problems/ and web/ folders in " + root);
-            System.err.println("Start the server from the Dryrun folder (use run.bat or run.sh).");
+            System.err.println("Start the server from the Intervue folder (use run.bat or run.sh).");
             System.exit(2);
         }
         Files.createDirectories(root.resolve("sessions"));
@@ -67,7 +67,7 @@ public class Server {
         try {
             server = HttpServer.create(new InetSocketAddress(InetAddress.getLoopbackAddress(), port), 0);
         } catch (java.net.BindException e) {
-            System.err.println("Port " + port + " is already in use. Dryrun may already be running: open http://localhost:" + port);
+            System.err.println("Port " + port + " is already in use. Intervue may already be running: open http://localhost:" + port);
             System.err.println("To use another port, start with:  --port 4488");
             System.exit(3);
             return;
@@ -75,7 +75,7 @@ public class Server {
         server.setExecutor(Executors.newCachedThreadPool());
         server.createContext("/", Server::handle);
         server.start();
-        System.out.println("Dryrun is running. Open http://localhost:" + port + " in your browser.");
+        System.out.println("Intervue is running. Open http://localhost:" + port + " in your browser.");
         System.out.println("Java: " + System.getProperty("java.version") + "   Claude Code CLI: "
                 + (Boolean.TRUE.equals(claudeInfo.get("available")) ? claudeInfo.get("version") : "not found (chat is disabled)"));
         System.out.println("Press Ctrl+C to stop.");
@@ -106,7 +106,7 @@ public class Server {
                 return;
             }
             // Requests that change anything must come from this page, not from another site.
-            if (!method.equals("GET") && !"1".equals(ex.getRequestHeaders().getFirst("X-Dryrun"))) {
+            if (!method.equals("GET") && !"1".equals(ex.getRequestHeaders().getFirst("X-Intervue"))) {
                 send(ex, 403, "text/plain", "Forbidden");
                 return;
             }
@@ -965,9 +965,9 @@ public class Server {
             return info;
         }
 
-        /** DRYRUN_CLAUDE wins; otherwise the first claude executable on PATH or in the usual install folders. */
+        /** INTERVUE_CLAUDE wins; otherwise the first claude executable on PATH or in the usual install folders. */
         static String locate() {
-            String override = System.getenv("DRYRUN_CLAUDE");
+            String override = System.getenv("INTERVUE_CLAUDE");
             if (override != null && !override.isBlank()) {
                 return override;
             }
@@ -1029,7 +1029,7 @@ public class Server {
          */
         static String ask(String prompt, String model, Sink sink) throws IOException {
             if (!Boolean.TRUE.equals(claudeInfo.get("available"))) {
-                throw new UserError(str(claudeInfo, "problem") + " Install Claude Code, sign in once by running `claude` in a terminal, then restart Dryrun.");
+                throw new UserError(str(claudeInfo, "problem") + " Install Claude Code, sign in once by running `claude` in a terminal, then restart Intervue.");
             }
             String exe = str(claudeInfo, "path");
             Path scratch = root.resolve("sessions").resolve(".assistant-scratch");
@@ -1132,7 +1132,7 @@ public class Server {
                 return "Claude Code is not signed in. Run `claude` in a terminal, sign in, then try again. (" + firstLine(raw) + ")";
             }
             if (lower.contains("unknown option") || lower.contains("unknown argument")) {
-                return "This version of Claude Code does not accept an option Dryrun uses. Update it with `claude update`. (" + firstLine(raw) + ")";
+                return "This version of Claude Code does not accept an option Intervue uses. Update it with `claude update`. (" + firstLine(raw) + ")";
             }
             if (lower.contains("limit")) {
                 return "Claude Code reports a usage limit. (" + firstLine(raw) + ")";

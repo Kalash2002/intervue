@@ -21,7 +21,7 @@ import java.util.stream.Stream;
  * Checks a problem three ways: the starter fails its first phase, the reference solution passes every
  * test, and the naive solution passes every phase but the last and times out there.
  *
- * Run from the Dryrun folder:  java tools/Verify.java [problem-id ...]   (default: every problem)
+ * Run from the Intervue folder:  java tools/Verify.java [problem-id ...]   (default: every problem)
  * Exit code 0 when every problem checked out.
  */
 public class Verify {
@@ -31,7 +31,7 @@ public class Verify {
 
     public static void main(String[] args) throws Exception {
         if (!Files.isDirectory(ROOT.resolve("problems")) || !Files.isDirectory(ROOT.resolve("kit"))) {
-            System.err.println("Run this from the Dryrun folder: java tools/Verify.java");
+            System.err.println("Run this from the Intervue folder: java tools/Verify.java");
             System.exit(2);
         }
         List<String> ids = new ArrayList<>(List.of(args));

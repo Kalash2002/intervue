@@ -1,6 +1,6 @@
 ---
 name: phase
-description: Run one Dryrun roadmap phase end to end from its prompt file in docs/prompts/, through diagnose, research, plan, design review, test-first implementation, simplify, code review, gates and report. Use when the user says "/phase <file>" or "run phase X".
+description: Run one Intervue roadmap phase end to end from its prompt file in docs/prompts/, through diagnose, research, plan, design review, test-first implementation, simplify, code review, gates and report. Use when the user says "/phase <file>" or "run phase X".
 ---
 
 # Run a phase

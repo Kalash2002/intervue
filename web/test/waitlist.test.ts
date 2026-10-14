@@ -21,7 +21,7 @@ function fakeKv(failWith?: Error) {
 }
 
 async function post(body: string, kv: KVNamespace, headers: Record<string, string> = {}) {
-  const request = new Request('https://dryrun.test/api/waitlist', { method: 'POST', body, headers });
+  const request = new Request('https://intervue.test/api/waitlist', { method: 'POST', body, headers });
   const context = { request, env: { WAITLIST: kv } } as unknown as Parameters<typeof onRequestPost>[0];
   const response = await onRequestPost(context);
   return { status: response.status, json: (await response.json()) as Record<string, unknown> };

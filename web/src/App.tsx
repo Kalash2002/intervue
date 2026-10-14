@@ -45,7 +45,7 @@ export default function App() {
     <Container maxWidth="lg" component="main" sx={{ py: { xs: 6, md: 10 } }}>
       <Stack spacing={3} sx={{ maxWidth: 760, mb: 8 }}>
         <Typography variant="overline" color="primary">
-          Dryrun
+          Intervue
         </Typography>
         <Typography variant="h2" component="h1" sx={{ fontWeight: 700, fontSize: { xs: '2.2rem', md: '3.4rem' } }}>
           Rehearse the real AI-assisted interview on your own machine.
@@ -69,7 +69,7 @@ export default function App() {
           Join the waitlist
         </Typography>
         <Typography color="text.secondary" sx={{ mb: 3 }}>
-          Four quick questions and your email. We use your email only to tell you when Dryrun opens.
+          Four quick questions and your email. We use your email only to tell you when Intervue opens.
         </Typography>
         <WaitlistForm />
         {prototypeUrl && (
