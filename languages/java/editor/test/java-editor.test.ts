@@ -4,6 +4,7 @@ import { javaEditor } from '../src/index.ts';
 describe('Java editor support', () => {
   it('is keyed by the language id the engine uses', () => {
     expect(javaEditor.id).toBe('java');
+    expect(javaEditor.extensions).toEqual(['.java']);
   });
 
   it('completes the keywords a candidate types most', () => {

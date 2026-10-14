@@ -4,3 +4,4 @@ export { showDiagnostics, toDiagnostics } from './diagnostics.ts';
 export { lockedRanges, setLockedRanges, type Range } from './locked.ts';
 export { editorExtensions, type EditorOptions } from './setup.ts';
 export { languageServer } from './lsp/index.ts';
+export { languageFor, type LanguageEditor } from './language.ts';

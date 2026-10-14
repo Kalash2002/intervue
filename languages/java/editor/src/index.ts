@@ -2,7 +2,7 @@
 // snippets. Project symbols come from the engine's symbol extractor, not from here.
 import { snippetCompletion, type Completion } from '@codemirror/autocomplete';
 import { java } from '@codemirror/lang-java';
-import type { Extension } from '@codemirror/state';
+import type { LanguageEditor } from '@intervue/editor';
 
 const KEYWORDS = [
   'abstract', 'boolean', 'break', 'byte', 'case', 'catch', 'char', 'class', 'continue', 'default', 'do',
@@ -21,14 +21,9 @@ const SNIPPETS: Completion[] = [
   snippetCompletion('List<${T}> ${list} = new ArrayList<>();', { label: 'arraylist', detail: 'new ArrayList' }),
 ].map((s) => ({ ...s, type: 'text' }));
 
-export interface LanguageEditor {
-  id: string;
-  language: () => Extension;
-  words: readonly Completion[];
-}
-
 export const javaEditor: LanguageEditor = {
   id: 'java',
+  extensions: ['.java'],
   language: java,
   words: [...KEYWORDS.map((label): Completion => ({ label, type: 'keyword' })), ...SNIPPETS],
 };
