@@ -63,9 +63,10 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     undo,
     save: guarded(() => ws.saveAll()),
     skip: guarded(() => client.skip(id).then(refresh)),
-    finish: guarded(() =>
-      ws.saveAll(false).then(() => client.finish(id).then((v) => go({ name: 'result', session: v }))),
-    ),
+    finish: (early: boolean) =>
+      guarded(() =>
+        ws.saveAll(false).then(() => client.finish(id, early).then((v) => go({ name: 'result', session: v }))),
+      )(),
     resetFile: (path: string) => guarded(() => resetFile(edits, path))(),
     resetProblem: guarded(() => resetProblem(edits)),
   };

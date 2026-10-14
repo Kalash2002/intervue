@@ -1,31 +1,21 @@
 import type { SessionView } from '@intervue/local-engine-client';
 import { clockText } from '@intervue/ui';
 
-export function PhaseChips({ view }: { view: SessionView }) {
+/** One dot per phase in the header: filled when passed, ringed when open, hollow when locked. */
+export function ProgressDots({ view }: { view: SessionView }) {
   return (
-    <ol className="phases">
+    <ol className="dots" aria-label="Phase progress">
       {Array.from({ length: view.phases }, (_, i) => i + 1).map((n) => {
         const passedAt = view.phasesPassed[String(n)];
         const state = passedAt !== undefined ? 'passed' : n <= view.unlocked ? 'open' : 'locked';
-        const tip =
-          passedAt !== undefined
-            ? `Passed at ${clockText(passedAt)}`
-            : state === 'open'
-              ? 'Open'
-              : 'Opens when the phase before it passes';
-        return (
-          <li key={n} className={state} title={tip}>
-            <span className="n">{n}</span>
-            Phase {n}
-            {passedAt !== undefined && ' ✓'}
-          </li>
-        );
+        const tip = passedAt !== undefined ? `passed at ${clockText(passedAt)}` : state;
+        return <li key={n} className={state} aria-label={`Phase ${n}: ${state}`} title={`Phase ${n}: ${tip}`} />;
       })}
     </ol>
   );
 }
 
-/** Interview counts down from the limit and runs over in red; Practice is a stopwatch. */
+/** A timed session counts down from the limit and runs over in red; an untimed one is a stopwatch. */
 export function RoomClock({ view, activeMs }: { view: SessionView; activeMs: number }) {
   const limit = view.minutes * 60_000;
   if (view.finished) {
@@ -35,7 +25,7 @@ export function RoomClock({ view, activeMs }: { view: SessionView; activeMs: num
       </div>
     );
   }
-  if (view.type === 'PRACTICE') {
+  if (!view.timed) {
     return (
       <div className="clock" title="Practice stopwatch">
         {clockText(activeMs)}

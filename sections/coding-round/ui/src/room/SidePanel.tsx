@@ -2,10 +2,11 @@ import { useState } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown } from '@intervue/ui';
 import { AssistantPanel } from './AssistantPanel.tsx';
+import { GuidePanel } from './GuidePanel.tsx';
 import { HintControl } from './HintControl.tsx';
 import type { RoomActions } from './useRoomActions.ts';
 
-type Tab = 'Brief' | 'Hints' | 'Assistant';
+type Tab = 'Guide' | 'Brief' | 'Hints' | 'Assistant';
 
 export function SidePanel({
   view,
@@ -16,9 +17,10 @@ export function SidePanel({
   actions: RoomActions;
   onChange: (v: SessionView) => void;
 }) {
-  const [tab, setTab] = useState<Tab>('Brief');
+  const [tab, setTab] = useState<Tab>('Guide');
   // Hints exist only in Practice (PLAN.md 2.8); an Interview room never offers the tab.
-  const tabs: Tab[] = view.type === 'PRACTICE' ? ['Brief', 'Hints', 'Assistant'] : ['Brief', 'Assistant'];
+  const tabs: Tab[] =
+    view.type === 'PRACTICE' ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
   return (
     <aside className="right">
       <div className="tabs side" role="tablist">
@@ -35,7 +37,8 @@ export function SidePanel({
           </button>
         ))}
       </div>
-      <div className="side-body">
+      <div className="side-body" role="tabpanel" aria-label={tab}>
+        {tab === 'Guide' && <GuidePanel view={view} actions={actions} />}
         {tab === 'Brief' && <Brief view={view} onSkip={actions.skip} />}
         {tab === 'Hints' && <Hints view={view} onChange={onChange} />}
         {tab === 'Assistant' && <AssistantPanel view={view} actions={actions} onChange={onChange} />}
