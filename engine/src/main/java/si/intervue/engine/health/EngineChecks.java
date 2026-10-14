@@ -8,6 +8,8 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.function.Supplier;
+import si.intervue.engine.ai.AiStatus;
 import si.intervue.engine.languages.CalibrationBenchmark;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.languages.LanguageRegistry;
@@ -118,6 +120,25 @@ public final class EngineChecks {
             return HealthResult.fail(
                 "A firewall or antivirus is blocking Intervue's local connection", e.getMessage());
           }
+        });
+  }
+
+  /**
+   * Developer mode only (PLAN.md 6.4): whether the assistant route can answer. A warning, because
+   * sessions run without the assistant; fast, because it only asks the route, which never spends
+   * tokens to answer.
+   */
+  public static HealthCheck assistant(Supplier<AiStatus> status) {
+    return new HealthCheck(
+        "ai.cli",
+        "Claude CLI found and signed in",
+        false,
+        true,
+        () -> {
+          AiStatus s = status.get();
+          return s.available()
+              ? HealthResult.pass("The assistant can answer through the Claude CLI", "signed in")
+              : HealthResult.warn(s.reason(), "unavailable");
         });
   }
 

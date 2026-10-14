@@ -198,6 +198,8 @@ class LocalApiTest {
     JsonNode report = call("POST", "/health/run?fast=true", null);
 
     assertThat(report.get("results").findValuesAsString("id")).contains("os", "data-folder");
+    // The developer-only CLI check does not exist for end users.
+    assertThat(report.get("results").findValuesAsString("id")).doesNotContain("ai.cli");
     assertThat(call("GET", "/health", null).findValuesAsString("id")).contains("port");
   }
 

@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import si.intervue.engine.ai.AiStatus;
 import si.intervue.engine.health.HealthResult.Status;
 import si.intervue.engine.languages.CalibrationBenchmark;
 import si.intervue.engine.languages.LanguageRegistry;
@@ -112,5 +113,18 @@ class EngineChecksTest {
               "java.encoding",
               "java.calibration");
     }
+  }
+
+  @Test
+  void theAssistantRouteCheckIsAWarningThatCarriesTheReason() {
+    HealthCheck ok = EngineChecks.assistant(() -> new AiStatus(true, true, null));
+    HealthCheck out =
+        EngineChecks.assistant(() -> new AiStatus(true, false, "The Claude CLI is signed out."));
+
+    assertThat(ok.id()).isEqualTo("ai.cli");
+    assertThat(ok.blocking()).isFalse();
+    assertThat(ok.run().status()).isEqualTo(Status.PASS);
+    assertThat(out.run().status()).isEqualTo(Status.WARN);
+    assertThat(out.run().message()).contains("signed out");
   }
 }

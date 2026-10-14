@@ -221,4 +221,12 @@ class AssistantApiTest {
     assertThat(review.get("status").asString()).isEqualTo("ready");
     assertThat(review.get("text").asString()).startsWith("## Verdict");
   }
+
+  @Test
+  void developerModeAddsTheCliCheckToTheDoctor() throws Exception {
+    // PLAN.md 6.4 marks it fast: it also runs before every session.
+    JsonNode fast = call("POST", "/health/run?fast=true", null);
+
+    assertThat(fast.get("results").findValuesAsString("id")).contains("ai.cli");
+  }
 }

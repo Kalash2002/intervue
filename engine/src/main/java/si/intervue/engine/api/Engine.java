@@ -2,6 +2,8 @@ package si.intervue.engine.api;
 
 import java.nio.file.Path;
 import java.time.Clock;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.locks.ReentrantLock;
@@ -15,6 +17,7 @@ import si.intervue.engine.content.ContentStore;
 import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.engine.health.Doctor;
 import si.intervue.engine.health.EngineChecks;
+import si.intervue.engine.health.HealthCheck;
 import si.intervue.engine.languages.LanguageRegistry;
 import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionRegistry;
@@ -88,8 +91,12 @@ public final class Engine implements AutoCloseable {
             dataDir.resolve("sessions"),
             clock,
             processes);
-    Doctor doctor =
-        new Doctor(db, EngineChecks.all(dataDir, settings, languages, sections, processes), clock);
+    List<HealthCheck> checks =
+        new ArrayList<>(EngineChecks.all(dataDir, settings, languages, sections, processes));
+    if (developerMode) {
+      checks.add(EngineChecks.assistant(ai::status));
+    }
+    Doctor doctor = new Doctor(db, checks, clock);
     ReentrantLock lock = new ReentrantLock();
     ExecutorService reviews =
         Executors.newSingleThreadExecutor(Thread.ofPlatform().name("review").daemon().factory());
