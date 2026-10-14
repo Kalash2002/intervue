@@ -1,0 +1,18 @@
+# Content verification (docs/contracts/problem-format.md): every problem three ways, plus the timing rules.
+name: content
+on:
+  pull_request:
+    paths: ['content/**', 'languages/**', 'shared-java/**', 'engine/src/main/java/si/intervue/engine/languages/**']
+  push:
+    branches: [main]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v6
+      - run: ./gradlew :content:tools:verify --console=plain

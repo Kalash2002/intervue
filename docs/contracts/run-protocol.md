@@ -26,7 +26,7 @@ The user's program output streams to the UI as plain text. Structured results go
 |---|---|---|
 | `start` | `protocol` (integer, first line only), `runner`, `language` | `factor` |
 | `suite` | `name`, `tests` (count) | |
-| `test` | `suite`, `name`, `status`, `ms` | `detail`, `at`, `limitMs` (timeouts) |
+| `test` | `suite`, `name`, `status`, `ms` | `detail`, `at`, `limitMs` (the scaled limit this test ran under; the Java kit writes it on every test line) |
 | `summary` | `passed`, `failed`, `timeouts`, `compileError`, `wallMs` | |
 
 `status` is `pass`, `fail`, `timeout`, or `error` (the harness failed, not the test).

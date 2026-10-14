@@ -271,13 +271,13 @@ public final class TestRunner {
     }
     Throwable t = error.get();
     if (t == null) {
-      writeTest(options, suite, test.getName(), "pass", tookMs, null, null, null);
+      writeTest(options, suite, test.getName(), "pass", tookMs, null, null, limitMs);
       System.out.println("PASS  " + test.getName() + " (" + tookMs + " ms)");
       return Outcome.PASS;
     }
     String detail = (t instanceof AssertionError ? "" : t.getClass().getSimpleName() + ": ") + t.getMessage();
     String at = firstCandidateFrame(t);
-    writeTest(options, suite, test.getName(), "fail", tookMs, detail, at, null);
+    writeTest(options, suite, test.getName(), "fail", tookMs, detail, at, limitMs);
     System.out.println("FAIL  " + test.getName() + ": " + detail);
     if (at != null) {
       System.out.println("        at " + at);

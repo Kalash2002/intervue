@@ -102,7 +102,7 @@ class TestKitTest {
         .extracting(TestResult::name, TestResult::status, TestResult::limitMs)
         .containsExactly(
             tuple("sleepsPastItsLimit", TestStatus.TIMEOUT, 300L),
-            tuple("runsAfterTheTimeoutInAFreshJvm", TestStatus.PASS, null));
+            tuple("runsAfterTheTimeoutInAFreshJvm", TestStatus.PASS, 2000L));
     assertThat(TimeUnit.NANOSECONDS.toSeconds(System.nanoTime() - start)).isLessThan(30);
   }
 
