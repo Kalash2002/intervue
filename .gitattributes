@@ -1,0 +1,5 @@
+# LF everywhere so formatters agree on every OS (docs/process/code-standards.md, Formatting).
+* text=auto eol=lf
+*.jar binary
+*.png binary
+*.zip binary
