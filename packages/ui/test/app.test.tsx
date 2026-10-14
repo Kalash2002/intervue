@@ -42,7 +42,14 @@ const check = (over: Partial<CheckResult>): CheckResult => ({
   ...over,
 });
 
-const session = { id: 'new-1', problemId: 'hold-exposure', type: 'PRACTICE' } as SessionView;
+const session = {
+  id: 'new-1',
+  problemId: 'hold-exposure',
+  type: 'PRACTICE',
+  minutes: 60,
+  phases: 3,
+  phaseTitles: ['Fix the bug', 'Peak and breach', 'Busy books'],
+} as SessionView;
 
 function fakeClient(over: Partial<EngineClient> = {}): EngineClient {
   return {
@@ -88,16 +95,37 @@ describe('dashboard', () => {
 });
 
 describe('start screen', () => {
-  it('starts a Practice session after the fast checks pass', async () => {
+  it('sets up a timed Practice session, shows the overview, then opens the room', async () => {
     const client = fakeClient();
     renderApp(client);
 
     fireEvent.click((await screen.findAllByRole('button', { name: 'Start' }))[0]);
-    fireEvent.click(screen.getByRole('button', { name: /Practice/ }));
+    expect(screen.getByRole('heading', { name: 'Set up your session' })).toBeInTheDocument();
+    expect(screen.getByRole('combobox', { name: 'Language' })).toHaveValue('java');
+    expect(screen.queryByRole('checkbox', { name: /Timed/ })).toBeNull();
+    fireEvent.click(screen.getByRole('radio', { name: /Practice/ }));
+    fireEvent.click(screen.getByRole('checkbox', { name: /Timed/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
 
-    expect(await screen.findByText('room for new-1')).toBeInTheDocument();
+    expect(await screen.findByText('3 phases, 60 minutes')).toBeInTheDocument();
+    expect(screen.getByText('Peak and breach')).toBeInTheDocument();
     expect(client.runHealth).toHaveBeenCalledWith(true);
-    expect(client.createSession).toHaveBeenCalledWith('hold-exposure', 'PRACTICE');
+    expect(client.createSession).toHaveBeenCalledWith('hold-exposure', 'PRACTICE', true);
+
+    fireEvent.click(screen.getByRole('button', { name: 'Start phase 1' }));
+    expect(await screen.findByText('room for new-1')).toBeInTheDocument();
+  });
+
+  it('starts an Interview with the limit always on', async () => {
+    const client = fakeClient();
+    renderApp(client);
+
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Start' }))[0]);
+    fireEvent.click(screen.getByRole('radio', { name: /Interview/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
+
+    await screen.findByText('3 phases, 60 minutes');
+    expect(client.createSession).toHaveBeenCalledWith('hold-exposure', 'INTERVIEW', true);
   });
 
   it('refuses to start when a blocking check fails and says which', async () => {
@@ -110,7 +138,8 @@ describe('start screen', () => {
     renderApp(client);
 
     fireEvent.click((await screen.findAllByRole('button', { name: 'Start' }))[0]);
-    fireEvent.click(screen.getByRole('button', { name: /Interview/ }));
+    fireEvent.click(screen.getByRole('radio', { name: /Interview/ }));
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
 
     expect(await screen.findByText(/Intervue cannot write to X/)).toBeInTheDocument();
     expect(client.createSession).not.toHaveBeenCalled();

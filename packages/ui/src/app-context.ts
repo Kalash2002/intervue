@@ -7,6 +7,7 @@ export type Screen =
   | { name: 'loading' }
   | { name: 'dashboard' }
   | { name: 'start'; problem: ProblemSummary }
+  | { name: 'overview'; session: TimedSession }
   | { name: 'room'; session: TimedSession }
   | { name: 'result'; session: SessionView }
   | { name: 'doctor'; firstRun: boolean };

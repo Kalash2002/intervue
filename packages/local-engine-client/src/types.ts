@@ -72,11 +72,15 @@ export interface SessionView {
   title: string;
   type: SessionType;
   minutes: number;
+  /** The limit applies: always for Interview, chosen for Practice. */
+  timed: boolean;
   activeMs: number;
   finished: boolean;
   assisted: boolean;
   unlocked: number;
   phases: number;
+  /** Every phase's title, for the overview and the phase cards. */
+  phaseTitles: string[];
   /** Phase id (as a JSON key) to the active ms when it first passed. */
   phasesPassed: Record<string, number>;
   /** Phase id to the highest hint level revealed. */

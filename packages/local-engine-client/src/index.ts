@@ -83,8 +83,8 @@ export function createEngineClient({ baseUrl, token }: EngineConnection) {
     ping: () => call<{ ok: boolean }>('GET', '/local/ping'),
     problems: () => call<ProblemSummary[]>('GET', '/problems'),
     history: () => call<SessionSummary[]>('GET', '/sessions'),
-    createSession: (problemId: string, type: SessionType) =>
-      call<SessionView>('POST', '/sessions', { problemId, type }),
+    createSession: (problemId: string, type: SessionType, timed = false) =>
+      call<SessionView>('POST', '/sessions', { problemId, type, timed }),
     session: (id: string) => call<SessionView>('GET', s(id)),
     files: (id: string) => call<FileEntry[]>('GET', `${s(id)}/files`),
     readFile: (id: string, path: string) => call<{ text: string }>('GET', `${s(id)}/file?path=${enc(path)}`),
@@ -104,7 +104,8 @@ export function createEngineClient({ baseUrl, token }: EngineConnection) {
     undoReply: (id: string, replyId: string) => call<UndoResult[]>('POST', `${s(id)}/replies/${enc(replyId)}/undo`),
     resetFile: (id: string, path: string) => call<{ text: string }>('POST', `${s(id)}/reset-file`, { path }),
     resetProblem: (id: string) => call<{ ok: boolean }>('POST', `${s(id)}/reset-problem`),
-    finish: (id: string) => call<SessionView>('POST', `${s(id)}/finish`),
+    /** `early` records that the candidate ended with phases still open. */
+    finish: (id: string, early = false) => call<SessionView>('POST', `${s(id)}/finish`, { early }),
     health: () => call<CheckResult[]>('GET', '/health'),
     runHealth: (fast: boolean) => call<DoctorReport>('POST', `/health/run${fast ? '?fast=true' : ''}`),
   };

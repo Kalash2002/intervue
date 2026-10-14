@@ -57,7 +57,7 @@ describe('engine client', () => {
     const session = await createEngineClient({ baseUrl }).createSession('tiny', 'PRACTICE');
 
     expect(seen[0]).toMatchObject({ method: 'POST', url: '/sessions' });
-    expect(JSON.parse(seen[0].body)).toEqual({ problemId: 'tiny', type: 'PRACTICE' });
+    expect(JSON.parse(seen[0].body)).toEqual({ problemId: 'tiny', type: 'PRACTICE', timed: false });
     expect(session.id).toBe('s1');
   });
 

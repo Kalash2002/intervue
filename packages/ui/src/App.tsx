@@ -4,6 +4,7 @@ import type { LanguageEditor } from '@intervue/editor';
 import { AppContext, type AppServices, type Screen } from './app-context.ts';
 import { Dashboard } from './pages/Dashboard.tsx';
 import { DoctorPage } from './pages/DoctorPage.tsx';
+import { OverviewPage } from './pages/OverviewPage.tsx';
 import { ResultPage } from './pages/ResultPage.tsx';
 import { StartScreen } from './pages/StartScreen.tsx';
 import type { SectionUi } from './section.ts';
@@ -74,6 +75,8 @@ function CurrentScreen({ screen, section }: { screen: Screen; section: SectionUi
       return <Dashboard />;
     case 'start':
       return <StartScreen problem={screen.problem} />;
+    case 'overview':
+      return <OverviewPage session={screen.session} />;
     case 'room':
       return <section.Room key={screen.session.view.id} session={screen.session} />;
     case 'result':
