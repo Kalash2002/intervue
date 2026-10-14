@@ -6,7 +6,7 @@ Updated by the `status-diagnoser` subagent at the start of every phase run and b
 
 Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-round section, ten verified problems, UI, editor and the Tauri shell. Automated gates green on Windows. Waiting on the human checks: macOS run and build, CI on a remote, clean-machine Doctor, and an outside tester (exit criteria 1 on macOS, 3 clean machine, 4 and 5 on CI, 7). Phase 0 validation continues alongside; checkpoint about 2026-11-19.
 
-Phase 1ab (assistant and room) built on branch `phase-1ab` (2026-10-15): developer-mode Claude CLI assistant, ADR 0006 scoring, point-and-explain prompts, guided room flow and the visual refresh. Automated gates green on Windows. Waiting on the human checks: exit criterion 1 (live CLI session on a free problem, event log and dashboard screenshot) and 6 (room flow and both themes in the desktop shell).
+Phase 1ab (assistant and room) built on branch `phase-1ab` (2026-10-15): developer-mode Claude CLI assistant, ADR 0006 scoring, point-and-explain prompts, guided room flow and the visual refresh. Automated gates green on Windows, content verify included. Exit criterion 1 run live on 2026-10-15 through the local API (Hold Exposure Interview solved; CLI duration 5.2 s, 5.1 s and 3.2 s for chat, chat and edit, 47.8 s for the review). The room flow was checked in both themes with headless Edge screenshots. Still waiting on the human checks: the same flow by hand inside the Tauri shell, both themes, plus macOS and CI.
 
 ## Done
 
