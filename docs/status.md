@@ -47,4 +47,5 @@ Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-rou
 - The installer bundles every problem folder including `reference/` and `naive/`; Phase 1b packs and encryption replace this.
 - The app icon is a placeholder square from `desktop/resources/icon.png`.
 - `CLAUDE.md` and `definition-of-done.md` name the verify gate as `java content/tools/Verify.java`; the working command is `./gradlew :content:tools:verify`.
+- `definition-of-done.md` names coverage packages `*.domain` and `*.application`, which the engine does not have; the enforced rule (engine/build.gradle.kts) covers the use-case packages `session`, `session.edits`, `health`, `content` and `store` at 80% lines. Update the DoD wording when the process docs are next touched.
 - The section UI is wired directly (`App` takes one `SectionUi`); add a registry by section id when the second section lands.

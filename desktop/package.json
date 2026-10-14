@@ -12,7 +12,7 @@
     "tauri": "tauri",
     "lint": "eslint . && prettier --check .",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run"
   },
   "dependencies": {
     "@intervue/coding-round-ui": "workspace:^",

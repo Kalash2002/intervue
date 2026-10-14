@@ -45,3 +45,26 @@ tasks.register<Sync>("engineDist") {
     from(engineLibs) { into("lib") }
     into(layout.buildDirectory.dir("engine"))
 }
+
+// DoD coverage rule: at least 80% of lines in the use-case packages. The engine has no `domain` or
+// `application` packages by those names; these are their equivalents (api and runners are adapters).
+tasks.jacocoTestCoverageVerification {
+    dependsOn(tasks.test)
+    violationRules {
+        rule {
+            element = "PACKAGE"
+            includes = listOf(
+                "si.intervue.engine.session",
+                "si.intervue.engine.session.edits",
+                "si.intervue.engine.health",
+                "si.intervue.engine.content",
+                "si.intervue.engine.store",
+            )
+            limit {
+                counter = "LINE"
+                minimum = "0.80".toBigDecimal()
+            }
+        }
+    }
+}
+tasks.check { dependsOn(tasks.jacocoTestCoverageVerification) }
