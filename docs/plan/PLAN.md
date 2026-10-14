@@ -349,6 +349,8 @@ Added 2026-10-14 after your request for a Hello Interview style assistant with "
 
 The session type is chosen on the start screen and recorded in `sessions.session_type`; it cannot change after the clock starts.
 
+**Clock and pauses (decided 2026-10-14).** The clock pauses whenever the app is closed, in both session types, and resumes when the app starts again. The engine records `lastAliveAt` every 15 seconds while it runs; at start it closes the gap for every unfinished session with a `pause` event at `lastAliveAt` and a `resume` event at the current time. A clean shutdown writes the `pause` directly. `active_ms` is wall time minus paused gaps, and the Interview limit and time score use `active_ms`. Accepted trade-off: closing the app stops an Interview clock; the result page lists every pause, so a reviewer sees it.
+
 #### Assistant channels
 
 - **Ask**: today's chat. Receives the brief, the files, the history and the message; replies in text.
@@ -437,7 +439,7 @@ Language servers are downloaded on demand like toolchains, hash-verified, starte
 
 ### 3.2 Desktop packaging (decision 10)
 
-**Bundled runtime.** Eclipse Temurin 21 (LTS until at least December 2029, GPLv2 with Classpath Exception, free to bundle; source: [adoptium.net/docs/faq](https://adoptium.net/docs/faq/), checked 2026-10-14) trimmed with `jlink --add-modules java.base,jdk.compiler,java.management,jdk.management,java.sql,jdk.crypto.ec --strip-debug --no-header-files --no-man-pages --compress zip-6`. A `java.base` plus `jdk.compiler` image measured 42.3 MiB compressed on Windows x64 with Oracle JDK 21.0.2 (local measurement, not a published figure); the extra modules above add a few MB (est.). The runtime runs the engine and compiles the user's Java, which satisfies decision 10. Do not bundle Oracle JDK: its no-fee licence forbids bundling with a product that charges fees ([oracle.com no-fee licence](https://www.oracle.com/downloads/licenses/no-fee-license.html), checked 2026-10-14). Ship the Temurin licence and notice files inside the app.
+**Bundled runtime.** Eclipse Temurin 21 (LTS until at least December 2029, GPLv2 with Classpath Exception, free to bundle; source: [adoptium.net/docs/faq](https://adoptium.net/docs/faq/), checked 2026-10-14) trimmed with `jlink --add-modules java.base,jdk.compiler,jdk.httpserver,java.management,jdk.management,java.sql,jdk.crypto.ec --strip-debug --no-header-files --no-man-pages --compress zip-6`. A `java.base` plus `jdk.compiler` image measured 42.3 MiB compressed on Windows x64 with Oracle JDK 21.0.2 (local measurement, not a published figure); the extra modules above add a few MB (est.). The runtime runs the engine and compiles the user's Java, which satisfies decision 10. The engine starts as `java -jar engine.jar` with its libraries on the class path: putting sqlite-jdbc or Jackson on the module path would also require `java.sql.rowset` and `java.xml` (measured in Phase 1a research). Do not bundle Oracle JDK: its no-fee licence forbids bundling with a product that charges fees ([oracle.com no-fee licence](https://www.oracle.com/downloads/licenses/no-fee-license.html), checked 2026-10-14). Ship the Temurin licence and notice files inside the app.
 
 **Tool: the Tauri 2 bundler**, not jpackage. jpackage produces installers but does not notarize for macOS and needs WiX on Windows ([jpackage man page](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jpackage.html), checked 2026-10-14), and it gives no auto-update. Tauri's bundler produces NSIS and MSI installers on Windows and `.app` and `.dmg` on macOS, signs and notarizes macOS builds from environment variables, signs Windows builds through a configurable `signCommand`, and the updater plugin reads a signed static JSON file per platform from any static host such as R2 ([Tauri updater plugin](https://v2.tauri.app/plugin/updater/), [Tauri macOS signing](https://v2.tauri.app/distribute/sign/macos/), [Tauri Windows signing](https://v2.tauri.app/distribute/sign/windows/), checked 2026-10-14). The Java runtime ships as a bundle resource folder and the shell starts the engine with the shell plugin; Tauri's `externalBin` sidecar mechanism expects single binaries with a target-triple suffix ([Tauri sidecar docs](https://v2.tauri.app/develop/sidecar/)), which does not fit a JDK image, so it is not used.
 
@@ -1094,7 +1096,7 @@ Target catalogue: 10 problems in the base app and at launch (2 free plus a launc
 | Tries | **Merchant Suggest (fintech, existing)**; Command palette (developer tools) | 0 / 0 / 2 | Launch pack A; Phase 3 |
 | Heap and priority queue | ER triage queue (healthcare); Matchmaking lobby (gaming) | 0 / 1 / 1 | Launch pack B; Phase 3 |
 | Backtracking | Shift assignment solver (healthcare); Loot table generator (gaming) | 0 / 1 / 1 | Phase 3; Phase 7 |
-| Graphs | **Corridor Router (fintech, existing)**; Friend suggestion (social) | 0 / 2 / 0 | Launch pack A; Phase 3 |
+| Graphs | **Corridor Router (fintech, existing, free)**; Friend suggestion (social) | 0 / 2 / 0 | Free; Launch pack A |
 | Advanced graphs | Dependency installer order (developer tools); Cheapest flight with stops (travel) | 0 / 1 / 1 | Phase 3; Phase 7 |
 | 1-D dynamic programming | Coupon stacking (e-commerce); Streaming bitrate ladder (streaming) | 0 / 1 / 1 | Launch pack B; Phase 7 |
 | 2-D dynamic programming | Warehouse path with obstacles (logistics); Text diff for code review (developer tools) | 0 / 1 / 1 | Phase 3; Phase 7 |
@@ -1103,7 +1105,7 @@ Target catalogue: 10 problems in the base app and at launch (2 free plus a launc
 | Math and geometry | Delivery zone geofence (logistics); Game camera clamp (gaming) | 1 / 1 / 0 | Phase 3; Phase 7 |
 | Bit manipulation | Feature flag bitsets (developer tools); Permission masks (social) | 1 / 1 / 0 | Launch pack B; Phase 7 |
 
-Base app and launch (Phases 1a to 1c): free Hold Exposure plus the launch pack of 9 (Merchant Suggest, Corridor Router, Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup). That is 10. Phase 2 adds pack B of 6 (Org chart permissions, ER triage queue, Coupon stacking, Feature flag bitsets, Command palette, Meeting room booker) for 16. Phase 3 adds 20 across every group (36). Phase 7 adds the remaining hard problems (60).
+Base app and launch (Phases 1a to 1c): free Hold Exposure and Corridor Router (ADR 0001) plus the launch pack of 8 (Merchant Suggest, Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup). That is 10. Phase 2 adds pack B of 6 (Org chart permissions, ER triage queue, Coupon stacking, Feature flag bitsets, Command palette, Meeting room booker) for 16. Phase 3 adds 20 across every group (36). Phase 7 adds the remaining hard problems (60).
 
 ### 7.4 Authoring pipeline
 

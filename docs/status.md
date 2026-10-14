@@ -37,4 +37,3 @@ Phase 0 review written (`docs/discovery/phase-0-review.md`): **go to Phase 1a wi
 - The gate `pnpm -r lint typecheck test` in `CLAUDE.md` and `definition-of-done.md` runs only `lint` (pnpm passes the other names as arguments); the working form is `pnpm -r lint && pnpm -r typecheck && pnpm -r test`.
 
 - Prototype `Json` parser is replaced by Jackson in the engine; nothing to carry over.
-- Clock pause rule (PLAN.md 2.2) to be implemented in Phase 1a with the session module.
