@@ -1,0 +1,20 @@
+# name|category|payments in the last 30 days
+Amazon Pay|shopping|982000
+Big Bazaar|grocery|310000
+BigBasket|grocery|455000
+Blue Tokai Coffee|cafe|41000
+Cafe Coffee Day|cafe|128000
+Chai Point|cafe|77000
+Coffee Culture|cafe|9000
+Domino's Pizza|food|266000
+DMart|grocery|512000
+Flipkart|shopping|870000
+IRCTC|travel|640000
+Paytm Mall|shopping|150000
+Pizza Hut|food|143000
+Starbucks Coffee|cafe|128000
+Swiggy|food|905000
+Third Wave Coffee|cafe|52000
+Uber|travel|433000
+Zepto|grocery|298000
+Zomato|food|911000
