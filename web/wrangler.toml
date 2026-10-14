@@ -7,4 +7,4 @@ compatibility_date = "2026-10-01"
 # Replace the id with the one printed by `wrangler kv namespace create WAITLIST`; local dev ignores it.
 [[kv_namespaces]]
 binding = "WAITLIST"
-id = "00000000000000000000000000000000"
+id = "cd93acd604de49f09473569fbebbe362"
