@@ -1,0 +1,9 @@
+{
+  "id": "coding-round",
+  "name": "Coding round",
+  "version": 1,
+  "spiVersion": 1,
+  "runnerKind": "code-tests",
+  "graderKind": "tests",
+  "uiMode": "editor"
+}
