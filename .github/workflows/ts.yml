@@ -1,0 +1,21 @@
+# TypeScript gates. `pnpm -r lint typecheck test` would run only lint, so the three run separately.
+name: ts
+on:
+  pull_request:
+    paths: ['web/**', 'desktop/**', 'packages/**', 'sections/*/ui/**', 'languages/*/editor/**', 'package.json', 'pnpm-*.yaml', 'eslint.config.base.js']
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm -r lint
+      - run: pnpm -r typecheck
+      - run: pnpm -r test
