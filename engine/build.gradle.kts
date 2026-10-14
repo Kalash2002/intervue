@@ -17,3 +17,31 @@ tasks.test {
     systemProperty("intervue.content", rootProject.file("content").absolutePath)
     inputs.dir(rootProject.file("content/problems")).withPropertyName("problems")
 }
+
+// The distributable engine the shell starts with `java -jar engine.jar`: engine.jar plus lib/ holding
+// every dependency and the installed packages, found through the manifest Class-Path. A separate
+// jar task, because the packages depend on the engine's own jar.
+val bundledPackages by configurations.creating
+dependencies {
+    bundledPackages(project(":languages:java:runner"))
+    bundledPackages(project(":sections:coding-round:java"))
+}
+val engineLibs = files(configurations.runtimeClasspath, bundledPackages)
+    .filter { !it.startsWith(layout.buildDirectory.get().asFile) }
+val engineJar by tasks.registering(Jar::class) {
+    archiveFileName = "engine.jar"
+    destinationDirectory = layout.buildDirectory.dir("engine-jar")
+    from(sourceSets.main.get().output)
+    inputs.files(engineLibs)
+    doFirst {
+        manifest.attributes(
+            "Main-Class" to "si.intervue.engine.api.EngineMain",
+            "Class-Path" to engineLibs.joinToString(" ") { "lib/" + it.name },
+        )
+    }
+}
+tasks.register<Sync>("engineDist") {
+    from(engineJar)
+    from(engineLibs) { into("lib") }
+    into(layout.buildDirectory.dir("engine"))
+}

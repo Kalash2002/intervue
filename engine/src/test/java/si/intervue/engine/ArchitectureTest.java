@@ -23,4 +23,26 @@ class ArchitectureTest {
           .dependOnClassesThat()
           .resideInAPackage("si.intervue.engine.api..")
           .allowEmptyShould(true);
+
+  // Packages are found through the SPI at run time; the engine never names one.
+  @ArchTest
+  static final ArchRule engineNeverNamesAPackage =
+      noClasses()
+          .should()
+          .dependOnClassesThat()
+          .resideInAnyPackage("si.intervue.languages..", "si.intervue.sections..");
+
+  // The SPIs, the content port and the process runner sit below the use cases and the store.
+  @ArchTest
+  static final ArchRule contentAndLanguagesStayBelowSessions =
+      noClasses()
+          .that()
+          .resideInAnyPackage(
+              "si.intervue.engine.content..",
+              "si.intervue.engine.languages..",
+              "si.intervue.engine.sections..",
+              "si.intervue.engine.runners..")
+          .should()
+          .dependOnClassesThat()
+          .resideInAnyPackage("si.intervue.engine.session..", "si.intervue.engine.store..");
 }
