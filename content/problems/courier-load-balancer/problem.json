@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "id": "courier-load-balancer",
+  "version": 1,
+  "section": "coding-round",
+  "title": "Courier Load Balancer",
+  "summary": "A delivery hub splits the day's parcels between couriers. Fix an unfair tie-break, respect van capacity, then plan a festival-week hub with tens of thousands of couriers.",
+  "difficulty": "Medium",
+  "techniques": ["greedy", "heap"],
+  "domain": "logistics",
+  "minutes": 60,
+  "phases": [
+    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
+    { "id": 2, "title": "Van capacity", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
+    { "id": 3, "title": "Festival week", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+  ],
+  "followUps": [
+    "Why did the plans look reasonable even with the wrong tie-break, and what did the drivers notice?",
+    "Heaviest first is a heuristic. Give a small input where the greedy plan is not the best possible, and how far from best it can be.",
+    "What is the cost of balance for n parcels and m couriers, before and after your change?",
+    "Couriers now have different van sizes. Does 'give it to the least-loaded courier' still work? What would you do instead?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": ["java"]
+}
