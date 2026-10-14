@@ -24,18 +24,25 @@ async function* lines(body: ReadableStream<Uint8Array>): AsyncGenerator<string> 
   }
 }
 
-/** Calls `onDelta` for each delta, resolves with the done result, rejects with the error reason. */
+/**
+ * Calls `onDelta` for each delta, resolves with the done result, rejects with the error reason. A
+ * refused call (a 4xx before any streaming) is a plain JSON error and keeps its status.
+ */
 export async function readStream<T>(
   response: Response,
   onDelta: (text: string) => void,
-  fail: (reason: string) => Error,
+  fail: (status: number, reason: string) => Error,
 ): Promise<T> {
-  if (!response.body) throw fail('The engine sent no stream.');
+  if (!response.ok) {
+    const body = (await response.json().catch(() => ({}))) as { error?: string };
+    throw fail(response.status, body.error ?? response.statusText);
+  }
+  if (!response.body) throw fail(response.status, 'The engine sent no stream.');
   for await (const raw of lines(response.body)) {
     const line = JSON.parse(raw) as StreamLine;
-    if (line.t === 'error') throw fail(line.reason ?? 'The assistant call failed.');
+    if (line.t === 'error') throw fail(response.status, line.reason ?? 'The assistant call failed.');
     if (line.t === 'done') return line.result as T;
     onDelta(line.text ?? '');
   }
-  throw fail('The assistant reply ended early.');
+  throw fail(response.status, 'The assistant reply ended early.');
 }

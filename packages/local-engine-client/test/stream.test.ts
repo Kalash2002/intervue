@@ -8,6 +8,7 @@ let baseUrl: string;
 let lines: unknown[] = [];
 let seenBody = '';
 let seenUrl = '';
+let status = 200;
 
 // Writes each queued NDJSON line with a pause, the way the engine streams a model reply.
 beforeAll(async () => {
@@ -17,6 +18,11 @@ beforeAll(async () => {
     req.on('data', (c) => (body += c));
     req.on('end', async () => {
       seenBody = body;
+      if (status !== 200) {
+        res.writeHead(status, { 'Content-Type': 'application/json' });
+        res.end(JSON.stringify({ error: 'Hints are for Practice sessions.' }));
+        return;
+      }
       res.writeHead(200, { 'Content-Type': 'application/x-ndjson' });
       for (const line of lines) {
         res.write(`${JSON.stringify(line)}\n`);
@@ -76,6 +82,16 @@ describe('streaming assistant calls', () => {
     expect(await createEngineClient({ baseUrl }).explainHint('s1', 2, (d) => deltas.push(d))).toBe('Where.');
     expect(JSON.parse(seenBody)).toEqual({ phase: 2 });
     expect(deltas).toEqual(['Where.']);
+  });
+
+  it('rejects a refused call with the engine status and message, not a stream error', async () => {
+    status = 400;
+
+    const call = createEngineClient({ baseUrl }).explainHint('s1', 1, () => {});
+
+    await expect(call).rejects.toThrow('Hints are for Practice sessions.');
+    await expect(call).rejects.toMatchObject({ status: 400 });
+    status = 200;
   });
 
   it('treats a stream that ends without done as an error', async () => {

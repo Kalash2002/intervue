@@ -49,7 +49,7 @@ type Request = (method: string, path: string, body?: unknown) => Promise<Respons
 /** The assistant's streaming calls; replies arrive as deltas, then the final result. */
 function assistantCalls(request: Request, s: (id: string) => string) {
   const stream = async <T>(path: string, body: unknown, onDelta: (text: string) => void) =>
-    readStream<T>(await request('POST', path, body), onDelta, (reason) => new EngineError(200, reason));
+    readStream<T>(await request('POST', path, body), onDelta, (status, reason) => new EngineError(status, reason));
   return {
     ask: (id: string, message: string, rules: RulesChoice, onDelta: (text: string) => void) =>
       stream<string>(`${s(id)}/ask`, { message, rules }, onDelta),
