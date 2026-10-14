@@ -1,11 +1,16 @@
 // Typed client for the local engine's HTTP API (engine/src/main/java/si/intervue/engine/api/Routes.java).
+import { readStream } from './stream.ts';
 import type {
+  AiStatus,
+  ChatTurn,
   CheckResult,
   DoctorReport,
   EditReply,
   FileEntry,
   HintView,
   ProblemSummary,
+  Review,
+  RulesChoice,
   RunView,
   SessionSummary,
   SessionType,
@@ -39,16 +44,31 @@ export type EngineClient = ReturnType<typeof createEngineClient>;
 
 const enc = encodeURIComponent;
 
+type Request = (method: string, path: string, body?: unknown) => Promise<Response>;
+
+/** The assistant's streaming calls; replies arrive as deltas, then the final result. */
+function assistantCalls(request: Request, s: (id: string) => string) {
+  const stream = async <T>(path: string, body: unknown, onDelta: (text: string) => void) =>
+    readStream<T>(await request('POST', path, body), onDelta, (reason) => new EngineError(200, reason));
+  return {
+    ask: (id: string, message: string, rules: RulesChoice, onDelta: (text: string) => void) =>
+      stream<string>(`${s(id)}/ask`, { message, rules }, onDelta),
+    write: (id: string, message: string, rules: RulesChoice) =>
+      stream<EditReply>(`${s(id)}/write`, { message, rules }, () => {}),
+    explainHint: (id: string, phase: number, onDelta: (text: string) => void) =>
+      stream<string>(`${s(id)}/hints/explain`, { phase }, onDelta),
+  };
+}
+
 export function createEngineClient({ baseUrl, token }: EngineConnection) {
-  async function call<T>(method: string, path: string, body?: unknown): Promise<T> {
+  const request: Request = (method, path, body) => {
     const headers: Record<string, string> = {};
     if (token) headers.Authorization = `Bearer ${token}`;
     if (body !== undefined) headers['Content-Type'] = 'application/json';
-    const response = await fetch(baseUrl + path, {
-      method,
-      headers,
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
+    return fetch(baseUrl + path, { method, headers, body: body === undefined ? undefined : JSON.stringify(body) });
+  };
+  async function call<T>(method: string, path: string, body?: unknown): Promise<T> {
+    const response = await request(method, path, body);
     const parsed = await response.json().catch(() => ({ error: response.statusText }));
     if (!response.ok) throw new EngineError(response.status, parsed.error ?? response.statusText);
     return parsed as T;
@@ -56,6 +76,10 @@ export function createEngineClient({ baseUrl, token }: EngineConnection) {
   const s = (id: string) => `/sessions/${enc(id)}`;
 
   return {
+    ...assistantCalls(request, s),
+    aiStatus: () => call<AiStatus>('GET', '/ai/status'),
+    chat: (id: string) => call<ChatTurn[]>('GET', `${s(id)}/chat`),
+    review: (id: string) => call<Review>('GET', `${s(id)}/review`),
     ping: () => call<{ ok: boolean }>('GET', '/local/ping'),
     problems: () => call<ProblemSummary[]>('GET', '/problems'),
     history: () => call<SessionSummary[]>('GET', '/sessions'),

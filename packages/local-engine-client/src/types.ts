@@ -169,6 +169,29 @@ export interface UndoResult {
   diff: string | null;
 }
 
+/** Whether the assistant can answer; `reason` says why not (PLAN.md 2.5, Phase 1ab). */
+export interface AiStatus {
+  developer: boolean;
+  available: boolean;
+  reason: string | null;
+}
+
+/** Practice may pick the rules; Interview sessions always get interview rules. */
+export type RulesChoice = 'helpful' | 'interview';
+
+export interface ChatTurn {
+  role: 'user' | 'assistant';
+  text: string;
+  tMs: number;
+}
+
+/** The written review: pending until it lands, then ready (text) or unavailable (reason). */
+export interface Review {
+  status: 'pending' | 'ready' | 'unavailable';
+  text: string | null;
+  reason: string | null;
+}
+
 export interface CheckResult {
   id: string;
   title: string;
