@@ -11,7 +11,7 @@ Reply only with JSON lines, one object per line, in this order:
 
 Rules:
 
-- {{scope}}
+- Edit only the file, class or method the candidate named; if they named none, every editable file is in scope.
 - `search` must be copied exactly from the current file and occur exactly once; include enough surrounding lines to make it unique.
 - Never edit a file listed as read-only, anything under `data/`, or a path outside the project. New files use the extension `{{extension}}`.
 - Keep each edit as small as the change allows. Do not reformat code you are not changing.
