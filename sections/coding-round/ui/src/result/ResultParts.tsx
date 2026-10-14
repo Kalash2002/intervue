@@ -4,8 +4,9 @@ import { useState } from 'react';
 import type { SessionResult, SessionView } from '@intervue/local-engine-client';
 import { clockText, failed, Markdown, plural, useApp, type SectionResultProps } from '@intervue/ui';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
+import { WrittenReview } from './WrittenReview.tsx';
 
-type Tab = 'Phases' | 'Walkthrough' | 'Follow-ups and notes';
+type Tab = 'Phases' | 'Written review' | 'Walkthrough' | 'Follow-ups and notes';
 
 export function ResultParts({ session }: SectionResultProps) {
   const [tab, setTab] = useState<Tab>('Phases');
@@ -18,7 +19,7 @@ export function ResultParts({ session }: SectionResultProps) {
         <TimelineStrip view={session} activeMs={session.activeMs} />
       </div>
       <div className="tabs side result-tabs" role="tablist">
-        {(['Phases', 'Walkthrough', 'Follow-ups and notes'] as const).map((t) => (
+        {(['Phases', 'Written review', 'Walkthrough', 'Follow-ups and notes'] as const).map((t) => (
           <button
             key={t}
             role="tab"
@@ -32,6 +33,11 @@ export function ResultParts({ session }: SectionResultProps) {
         ))}
       </div>
       {tab === 'Phases' && <Phases session={session} result={result} />}
+      {tab === 'Written review' && (
+        <div className="rtab">
+          <WrittenReview sessionId={session.id} />
+        </div>
+      )}
       {tab === 'Walkthrough' && (
         <div className="rtab">
           <Markdown source={result.walkthrough || 'No walkthrough yet.'} wide />
