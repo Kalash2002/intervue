@@ -43,6 +43,7 @@ export function HintControl({
           <Markdown source={text} />
         </div>
       ))}
+      {texts.length > 0 && <Explain sessionId={sessionId} phase={phase} onDone={onRevealed} />}
       {next <= LEVELS ? (
         <button className="ghost small" type="button" disabled={disabled} onClick={reveal}>
           Show hint level {next} of {LEVELS}
@@ -50,6 +51,47 @@ export function HintControl({
       ) : (
         <p className="hint">All three levels shown.</p>
       )}
+    </div>
+  );
+}
+
+/**
+ * Practice only (PLAN.md 2.8): the assistant explains the highest revealed level, going no further;
+ * the reply streams in under the hints. When no route can answer, its reason shows instead.
+ */
+function Explain({
+  sessionId,
+  phase,
+  onDone,
+}: {
+  sessionId: string;
+  phase: number;
+  onDone: (view: SessionView) => void;
+}) {
+  const { client } = useApp();
+  const [text, setText] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [busy, setBusy] = useState(false);
+  const explain = async () => {
+    setBusy(true);
+    setText('');
+    setError(null);
+    try {
+      await client.explainHint(sessionId, phase, (d) => setText((t) => t + d));
+      onDone(await client.session(sessionId));
+    } catch (e) {
+      setError(e instanceof Error ? e.message : String(e));
+    } finally {
+      setBusy(false);
+    }
+  };
+  return (
+    <div className="hint-explain">
+      <button className="ghost small" type="button" disabled={busy} onClick={explain}>
+        Explain this hint
+      </button>
+      {error && <p className="assistant-off">{error}</p>}
+      {text && <Markdown source={text} />}
     </div>
   );
 }
