@@ -42,6 +42,7 @@ public final class ProblemVerifier {
   private static final RunLimits LIMITS = new RunLimits(900_000, HeapPolicy.defaultMb(), 400_000);
   private static final int HEADROOM = 5;
   private static final int NAIVE_MARGIN = 3;
+  private static final int REFERENCE_RUNS = 3;
 
   private final Path scratch;
   private final double factor;
@@ -89,12 +90,23 @@ public final class ProblemVerifier {
             run(pkg, dir, variant, null, "all", factor),
             r -> starterRule(r, first),
             lines);
-    ok &=
-        check(
-            "reference",
-            run(pkg, dir, variant, "reference", "all", factor),
-            this::referenceRule,
-            lines);
+    Outcome reference = run(pkg, dir, variant, "reference", "all", factor);
+    List<RunResults> referenceRuns = new ArrayList<>();
+    if (reference.results() != null) {
+      referenceRuns.add(reference.results());
+    }
+    // Re-run only when every test passed but one looks short of headroom; noise adds time.
+    while (!referenceRuns.isEmpty()
+        && referenceRuns.size() < REFERENCE_RUNS
+        && referenceRule(referenceRuns) != null
+        && allPassed(referenceRuns.get(0))) {
+      Outcome again = run(pkg, dir, variant, "reference", "all", factor);
+      if (again.results() == null) {
+        break;
+      }
+      referenceRuns.add(again.results());
+    }
+    ok &= check("reference", reference, r -> referenceRule(referenceRuns), lines);
     if (!Files.isDirectory(dir.resolve("naive"))) {
       lines.add("  naive      FAIL  missing naive/ with a correct but slow solution");
       return false;
@@ -173,19 +185,35 @@ public final class ProblemVerifier {
         : "the first phase must have a failing test";
   }
 
-  private String referenceRule(RunResults r) {
-    if (r.tests().stream().anyMatch(t -> t.status() != TestStatus.PASS)
-        || r.suites().stream().anyMatch(s -> r.notRun(s.name()) > 0)) {
+  private static boolean allPassed(RunResults r) {
+    return r.tests().stream().allMatch(t -> t.status() == TestStatus.PASS)
+        && r.suites().stream().allMatch(suite -> r.notRun(suite.name()) == 0);
+  }
+
+  /**
+   * Every test passes in the first run, and every test's fastest time across the runs fits its
+   * limit {@value #HEADROOM} times over. The fastest run is used because noise only adds time.
+   */
+  static String referenceRule(List<RunResults> runs) {
+    RunResults first = runs.get(0);
+    if (!allPassed(first)) {
       return "every test must pass";
     }
-    for (TestResult t : r.tests()) {
-      if (t.limitMs() != null && t.ms() * HEADROOM > t.limitMs()) {
+    for (TestResult t : first.tests()) {
+      long fastest =
+          runs.stream()
+              .flatMap(r -> r.tests().stream())
+              .filter(o -> o.suite().equals(t.suite()) && o.name().equals(t.name()))
+              .mapToLong(TestResult::ms)
+              .min()
+              .orElse(t.ms());
+      if (t.limitMs() != null && fastest * HEADROOM > t.limitMs()) {
         return t.suite()
             + "."
             + t.name()
             + " took "
-            + t.ms()
-            + " ms; its "
+            + fastest
+            + " ms at best; its "
             + t.limitMs()
             + " ms limit needs "
             + HEADROOM
