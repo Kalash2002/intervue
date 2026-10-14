@@ -135,4 +135,17 @@ class SessionFilesTest {
 
     assertThat(sessions.view(id).notes()).isEqualTo("remember the overflow");
   }
+
+  @Test
+  void theViewNamesEveryPhaseForTheOverview() {
+    assertThat(sessions.create("tiny", SessionType.INTERVIEW).phaseTitles())
+        .containsExactly("Fix", "Grow");
+  }
+
+  @Test
+  void practiceIsUntimedUnlessAskedAndInterviewIsAlwaysTimed() {
+    assertThat(sessions.create("tiny", SessionType.PRACTICE).timed()).isFalse();
+    assertThat(sessions.create("tiny", SessionType.PRACTICE, true).timed()).isTrue();
+    assertThat(sessions.create("tiny", SessionType.INTERVIEW, false).timed()).isTrue();
+  }
 }

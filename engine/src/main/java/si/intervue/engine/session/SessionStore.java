@@ -34,7 +34,7 @@ public final class SessionStore {
   void insert(SessionRecord s) {
     String sql =
         "INSERT INTO sessions(id, problem_id, problem_version, variant_lang, section_id, session_type,"
-            + " started_at, minutes, unlocked) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            + " started_at, minutes, unlocked, timed) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     try (PreparedStatement ps = db.connection().prepareStatement(sql)) {
       ps.setString(1, s.id());
       ps.setString(2, s.problemId());
@@ -45,6 +45,7 @@ public final class SessionStore {
       ps.setLong(7, s.startedAt());
       ps.setInt(8, s.minutes());
       ps.setInt(9, s.unlocked());
+      ps.setInt(10, s.timed() ? 1 : 0);
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot create session " + s.id(), e);
@@ -168,6 +169,7 @@ public final class SessionStore {
         rs.getLong("started_at"),
         finishedAt,
         rs.getInt("minutes"),
+        rs.getInt("timed") == 1,
         rs.getLong("active_ms"),
         rs.getInt("unlocked"),
         rs.getInt("assisted") == 1,

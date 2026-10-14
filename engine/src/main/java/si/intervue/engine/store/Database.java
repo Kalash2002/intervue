@@ -25,7 +25,7 @@ public final class Database implements AutoCloseable {
    * Migrations in order, as classpath resources under {@code db/migration/}; version N is the Nth
    * entry. Append only: a shipped migration is never edited or reordered.
    */
-  public static final List<String> MIGRATIONS = List.of("V1__init.sql");
+  public static final List<String> MIGRATIONS = List.of("V1__init.sql", "V2__timed.sql");
 
   private final Connection connection;
 

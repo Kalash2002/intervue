@@ -80,6 +80,11 @@ public final class Sessions {
       WorkFolder work) {}
 
   public SessionView create(String problemId, SessionType type) {
+    return create(problemId, type, false);
+  }
+
+  /** {@code timed} lets Practice run against the clock; Interview is always timed (PLAN.md 2.8). */
+  public SessionView create(String problemId, SessionType type, boolean timed) {
     ProblemFolder problem;
     try {
       problem = content.load(problemId);
@@ -109,6 +114,7 @@ public final class Sessions {
             clock.millis(),
             null,
             problem.problem().minutes(),
+            timed || type == SessionType.INTERVIEW,
             0,
             1,
             false,
@@ -129,11 +135,13 @@ public final class Sessions {
         c.problem().problem().title(),
         s.type(),
         s.minutes(),
+        s.timed(),
         activeMs(s, events),
         s.finished(),
         s.assisted(),
         s.unlocked(),
         c.problem().problem().phases().size(),
+        c.problem().problem().phases().stream().map(p -> p.title()).toList(),
         phasesPassed(events),
         s.hintsUsed(),
         store.activeEdits(id),
@@ -241,6 +249,15 @@ public final class Sessions {
   }
 
   public SessionView finish(String id) {
+    return finish(id, false);
+  }
+
+  /** {@code early} records that the candidate ended with phases still open (end-session dialog). */
+  public SessionView finish(String id, boolean early) {
+    Context c = context(id);
+    if (early && !c.session().finished()) {
+      event(c.session(), "endedEarly", Map.of());
+    }
     runs.finish(context(id));
     return view(id);
   }

@@ -110,6 +110,16 @@ class SessionFinishTest {
   }
 
   @Test
+  void endingEarlyIsRecordedOnTheTimeline() {
+    String id = sessions.create("tiny", SessionType.INTERVIEW).id();
+
+    SessionView view = sessions.finish(id, true);
+
+    assertThat(view.finished()).isTrue();
+    assertThat(view.events()).extracting(EventView::type).contains("endedEarly");
+  }
+
+  @Test
   void aSolvedInterviewCountsAsSolved() {
     String id = solvedSession(SessionType.INTERVIEW);
     sessions.finish(id);

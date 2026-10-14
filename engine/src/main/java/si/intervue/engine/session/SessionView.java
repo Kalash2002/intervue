@@ -7,7 +7,9 @@ import si.intervue.engine.sections.SessionType;
 /**
  * Everything the room and the result page show about one session. {@code brief} holds the intro
  * then one entry per phase, null while that phase is locked; {@code result} is null until finish.
- * {@code aiEditsApplied} and {@code aiEditsUndone} count the edit events (ADR 0006 shows them).
+ * {@code timed} is true when the limit applies (always for Interview); {@code phaseTitles} name
+ * every phase for the overview. {@code aiEditsApplied} and {@code aiEditsUndone} count the edit
+ * events (ADR 0006 shows them).
  */
 public record SessionView(
     String id,
@@ -15,11 +17,13 @@ public record SessionView(
     String title,
     SessionType type,
     int minutes,
+    boolean timed,
     long activeMs,
     boolean finished,
     boolean assisted,
     int unlocked,
     int phases,
+    List<String> phaseTitles,
     Map<Integer, Long> phasesPassed,
     Map<Integer, Integer> hintsUsed,
     int aiEditsActive,

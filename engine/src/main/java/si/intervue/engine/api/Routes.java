@@ -51,7 +51,10 @@ final class Routes {
       case "POST /sessions" ->
           engine
               .sessions()
-              .create(text(body, "problemId"), SessionType.valueOf(text(body, "type")));
+              .create(
+                  text(body, "problemId"),
+                  SessionType.valueOf(text(body, "type")),
+                  flag(body, "timed"));
       case "GET /fake-edits" -> demo(FakeEditSource.ids());
       case "GET /ai/status" -> engine.aiStatus();
       case "GET /health" -> engine.doctor().lastResults();
@@ -103,7 +106,7 @@ final class Routes {
         yield null;
       }
       case "POST finish" -> {
-        SessionView finished = s.finish(id);
+        SessionView finished = s.finish(id, flag(body, "early"));
         engine.assistant().requestReview(id);
         yield finished;
       }
@@ -143,6 +146,12 @@ final class Routes {
   private static String rules(JsonNode body) {
     JsonNode rules = body.get("rules");
     return rules != null && rules.isString() ? rules.asString() : SessionAssistant.HELPFUL;
+  }
+
+  /** An optional true/false field; absent means false. */
+  private static boolean flag(JsonNode body, String field) {
+    JsonNode value = body.get(field);
+    return value != null && value.asBoolean(false);
   }
 
   private static String text(JsonNode body, String field) {

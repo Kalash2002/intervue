@@ -82,12 +82,12 @@ class DatabaseTest {
   void aLaterMigrationAppliesOnTopOfAnExistingDatabase() throws SQLException {
     Path file = dir.resolve("intervue.db");
     try (Database db = Database.open(file)) {
-      assertThat(db.schemaVersion()).isEqualTo(1);
+      assertThat(db.schemaVersion()).isEqualTo(Database.MIGRATIONS.size());
     }
     List<String> withV2 = new ArrayList<>(Database.MIGRATIONS);
-    withV2.add("test/V2__add_column.sql");
+    withV2.add("test/Vnext__add_column.sql");
     try (Database db = Database.open(file, withV2)) {
-      assertThat(db.schemaVersion()).isEqualTo(2);
+      assertThat(db.schemaVersion()).isEqualTo(Database.MIGRATIONS.size() + 1);
       try (Statement s = db.connection().createStatement()) {
         s.executeUpdate("INSERT INTO settings(key, value, note) VALUES ('a', 'b', 'added by v2')");
       }
@@ -98,7 +98,7 @@ class DatabaseTest {
   void refusesADatabaseNewerThanThisEngine() throws SQLException {
     Path file = dir.resolve("intervue.db");
     List<String> withV2 = new ArrayList<>(Database.MIGRATIONS);
-    withV2.add("test/V2__add_column.sql");
+    withV2.add("test/Vnext__add_column.sql");
     Database.open(file, withV2).close();
 
     assertThatThrownBy(() -> Database.open(file))
@@ -111,11 +111,11 @@ class DatabaseTest {
     Path file = dir.resolve("intervue.db");
     Database.open(file).close();
     List<String> broken = new ArrayList<>(Database.MIGRATIONS);
-    broken.add("test/V2__broken.sql");
+    broken.add("test/Vnext__broken.sql");
 
     assertThatThrownBy(() -> Database.open(file, broken)).isInstanceOf(IllegalStateException.class);
     try (Database db = Database.open(file)) {
-      assertThat(db.schemaVersion()).isEqualTo(1);
+      assertThat(db.schemaVersion()).isEqualTo(Database.MIGRATIONS.size());
       assertThat(tables(db.connection())).doesNotContain("half_done");
     }
   }

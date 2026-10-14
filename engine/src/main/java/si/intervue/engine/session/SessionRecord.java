@@ -17,6 +17,7 @@ record SessionRecord(
     long startedAt,
     Long finishedAt,
     int minutes,
+    boolean timed,
     long activeMs,
     int unlocked,
     boolean assisted,
