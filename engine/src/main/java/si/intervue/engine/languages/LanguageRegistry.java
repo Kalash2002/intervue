@@ -1,5 +1,6 @@
 package si.intervue.engine.languages;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -29,5 +30,10 @@ public final class LanguageRegistry {
 
   public Optional<LanguagePackage> find(String id) {
     return Optional.ofNullable(byId.get(id));
+  }
+
+  /** Every installed package, in discovery order. */
+  public Collection<LanguagePackage> all() {
+    return byId.values();
   }
 }

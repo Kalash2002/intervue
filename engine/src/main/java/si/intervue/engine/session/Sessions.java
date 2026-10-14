@@ -25,6 +25,7 @@ import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.edits.EditReply;
 import si.intervue.engine.session.edits.EditStore;
 import si.intervue.engine.session.edits.UndoResult;
+import si.intervue.engine.store.Settings;
 import si.intervue.problemformat.ProblemFolder;
 
 /**

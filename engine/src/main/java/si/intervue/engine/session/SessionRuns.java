@@ -17,6 +17,7 @@ import si.intervue.engine.sections.Score;
 import si.intervue.engine.sections.ScoreInput;
 import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.Sessions.Context;
+import si.intervue.engine.store.Settings;
 import si.intervue.problemformat.Phase;
 import si.intervue.runprotocol.RunProtocolException;
 import si.intervue.runprotocol.RunProtocolParser;

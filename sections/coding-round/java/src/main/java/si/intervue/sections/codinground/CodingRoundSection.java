@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
+import si.intervue.engine.health.HealthCheck;
 import si.intervue.engine.sections.AssistantChannel;
 import si.intervue.engine.sections.ContentSchema;
 import si.intervue.engine.sections.Grader;
@@ -83,6 +84,12 @@ public final class CodingRoundSection implements SectionPackage {
   @Override
   public List<ResultPart> resultParts() {
     return RESULT_PARTS;
+  }
+
+  // Hints are already required by the schema; nothing else to probe in Phase 1a.
+  @Override
+  public List<HealthCheck> healthChecks() {
+    return List.of();
   }
 
   @Override

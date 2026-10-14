@@ -2,6 +2,7 @@ package si.intervue.engine.sections;
 
 import java.util.List;
 import java.util.Set;
+import si.intervue.engine.health.HealthCheck;
 
 /**
  * What a section package provides: how one kind of interview round is checked, graded, scored and
@@ -23,6 +24,8 @@ public interface SectionPackage {
 
   /** What the result page shows, in order. */
   List<ResultPart> resultParts();
+
+  List<HealthCheck> healthChecks();
 
   PromptTemplates prompts();
 

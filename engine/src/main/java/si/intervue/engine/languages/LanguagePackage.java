@@ -1,5 +1,8 @@
 package si.intervue.engine.languages;
 
+import java.util.List;
+import si.intervue.engine.health.HealthCheck;
+
 /**
  * What a language package provides so the engine can run its problems without knowing the language
  * (docs/contracts/language-contract.md). Implementations register in {@code
@@ -17,6 +20,9 @@ public interface LanguagePackage {
   TestKit testKit();
 
   CalibrationBenchmark benchmark();
+
+  /** Phase 1a: runtime intact, compile-and-run sample, encoding; the engine adds calibration. */
+  List<HealthCheck> healthChecks();
 
   EditorSupport editor();
 }

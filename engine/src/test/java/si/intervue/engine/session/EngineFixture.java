@@ -13,6 +13,7 @@ import si.intervue.engine.runners.ProcessControl;
 import si.intervue.engine.sections.SectionRegistry;
 import si.intervue.engine.session.edits.EditStore;
 import si.intervue.engine.store.Database;
+import si.intervue.engine.store.Settings;
 
 /** Builds the session module over a temp folder with the tiny fixture problem and a test clock. */
 final class EngineFixture implements AutoCloseable {

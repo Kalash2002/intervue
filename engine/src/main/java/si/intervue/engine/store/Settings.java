@@ -1,15 +1,14 @@
-package si.intervue.engine.session;
+package si.intervue.engine.store;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Optional;
-import si.intervue.engine.store.Database;
 
 /** Key-value settings in the {@code settings} table: calibration factors, the heartbeat. */
 public final class Settings {
 
-  static final String LAST_ALIVE_AT = "lastAliveAt";
+  public static final String LAST_ALIVE_AT = "lastAliveAt";
 
   private final Database db;
 

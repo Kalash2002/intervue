@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
 import java.util.List;
+import si.intervue.engine.health.HealthCheck;
 import si.intervue.engine.languages.CalibrationBenchmark;
 import si.intervue.engine.languages.EditorSupport;
 import si.intervue.engine.languages.LanguageDefinition;
@@ -74,6 +75,11 @@ public final class JavaLanguagePackage implements LanguagePackage {
   @Override
   public CalibrationBenchmark benchmark() {
     return benchmark;
+  }
+
+  @Override
+  public List<HealthCheck> healthChecks() {
+    return new JavaHealthChecks(runner).all();
   }
 
   @Override
