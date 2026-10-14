@@ -14,5 +14,5 @@ Phase 1b builds the checkout page against `PaymentPort` with `MockPaymentAdapter
 
 - No gateway contract, KYC or fees before there is demand; switching to a gateway touches only a new adapter.
 - Manual UPI means hand-confirming each order; acceptable at Phase 1 volume, a reason to add the gateway once orders exceed a few a week.
-- Two free problems: the installer bundles both (larger by a few kB), the catalog's free pointer becomes a list, and the Phase 1a content target is 2 free plus 8 in the launch pack. PLAN.md sections 1, 7.2, 10 and the Phase 0 exit metric are updated to match.
+- Two free problems: the installer bundles both (larger by a few kB), the catalog's free pointer becomes a list, and the Phase 1a content target is 2 free plus 8 in the launch pack. PLAN.md sections 1, 6.2, 7.3 and 10 (including the Phase 0 exit metric) are updated to match.
 - Prices change only with a new plan version (`effectiveFrom`), as PLAN.md 8.3 requires.
