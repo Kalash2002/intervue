@@ -28,7 +28,8 @@ export function changedRange(before: string, after: string): { fromLine: number;
 }
 
 const addMark = StateEffect.define<AiEditMark>();
-export const clearAiEdits = StateEffect.define<string | null>();
+/** Removes every AI-edit mark; the room re-adds the ones still active. */
+export const clearAiEdits = StateEffect.define<null>();
 
 class UndoWidget extends WidgetType {
   constructor(
@@ -58,9 +59,7 @@ function decorationsFor(state: EditorState, mark: AiEditMark, onUndo: (id: strin
   const ranges: Range<Decoration>[] = [];
   const last = Math.min(mark.toLine, doc.lines);
   for (let n = Math.max(1, mark.fromLine); n <= last; n++) {
-    ranges.push(
-      Decoration.line({ class: 'cm-ai-edit', attributes: { 'data-edit': mark.editId } }).range(doc.line(n).from),
-    );
+    ranges.push(Decoration.line({ class: 'cm-ai-edit' }).range(doc.line(n).from));
   }
   const widget = Decoration.widget({ widget: new UndoWidget(mark.editId, onUndo), side: 1 });
   ranges.push(widget.range(doc.line(Math.max(1, last)).to));
@@ -76,22 +75,13 @@ export function aiEdits(onUndo: (editId: string) => void): Extension {
       for (const effect of tr.effects) {
         if (effect.is(addMark))
           marks = marks.update({ add: decorationsFor(tr.state, effect.value, onUndo), sort: true });
-        if (effect.is(clearAiEdits)) {
-          const id = effect.value;
-          marks = id === null ? Decoration.none : marks.update({ filter: (_f, _t, d) => editIdOf(d) !== id });
-        }
+        if (effect.is(clearAiEdits)) marks = Decoration.none;
       }
       return marks;
     },
     provide: (f) => EditorView.decorations.from(f),
   });
   return [field, theme];
-}
-
-function editIdOf(decoration: Decoration): string | undefined {
-  const spec = decoration.spec as { attributes?: Record<string, string>; widget?: unknown };
-  if (spec.widget instanceof UndoWidget) return spec.widget.editId;
-  return spec.attributes?.['data-edit'];
 }
 
 export function markAiEdit(view: EditorView, mark: AiEditMark): void {

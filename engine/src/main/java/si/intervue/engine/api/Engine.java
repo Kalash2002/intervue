@@ -52,7 +52,7 @@ public final class Engine implements AutoCloseable {
             clock,
             processes);
     Doctor doctor =
-        new Doctor(db, EngineChecks.all(dataDir, settings, languages, sections, processes));
+        new Doctor(db, EngineChecks.all(dataDir, settings, languages, sections, processes), clock);
     return new Engine(db, content, sessions, doctor);
   }
 

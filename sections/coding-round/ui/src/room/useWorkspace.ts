@@ -68,12 +68,16 @@ export function useWorkspace(sessionId: string) {
       .catch(failed(notify));
   }, [client, load, notify, refreshTools, sessionId]);
 
-  const saveAll = useCallback(async () => {
-    const dirty = Object.entries(docs).filter(([, d]) => d.text !== d.saved);
-    for (const [path, d] of dirty) await client.writeFile(sessionId, path, d.text);
-    setDocs((all) => markSaved(all, dirty));
-    await refreshTools();
-  }, [client, docs, refreshTools, sessionId]);
+  /** Writes unsaved files; refreshes symbols and diagnostics unless a run is about to compile anyway. */
+  const saveAll = useCallback(
+    async (refresh = true) => {
+      const dirty = Object.entries(docs).filter(([, d]) => d.text !== d.saved);
+      for (const [path, d] of dirty) await client.writeFile(sessionId, path, d.text);
+      setDocs((all) => markSaved(all, dirty));
+      if (refresh) await refreshTools();
+    },
+    [client, docs, refreshTools, sessionId],
+  );
 
   return useMemo(
     () => ({

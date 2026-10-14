@@ -65,10 +65,12 @@ export function CodeEditor(props: CodeEditorProps) {
   }, [readOnly, language]);
 
   // Engine-side changes (reset, undo, AI edits) bypass the locked-range filter like any engine write.
+  // Replacing the whole document drops its decorations, so the AI-edit marks are laid again.
   useEffect(() => {
     const v = view.current;
     if (v && v.state.doc.toString() !== text) {
       v.dispatch({ changes: { from: 0, to: v.state.doc.length, insert: text }, filter: false });
+      applyMarks(v, latest.current.marks);
     }
   }, [text]);
 
@@ -76,16 +78,19 @@ export function CodeEditor(props: CodeEditorProps) {
     if (view.current) showDiagnostics(view.current, path, diagnostics);
   }, [path, diagnostics]);
 
+  // Typing maps existing marks through the change; only a new set of marks needs a redraw.
   useEffect(() => {
-    const v = view.current;
-    if (!v) return;
-    v.dispatch({ effects: clearAiEdits.of(null) });
-    marks.forEach((mark) => markAiEdit(v, mark));
-  }, [marks, text]);
+    if (view.current) applyMarks(view.current, marks);
+  }, [marks]);
 
   return (
     <div className="editor-wrap" ref={host}>
       {readOnly && <div className="readonly-note">read-only</div>}
     </div>
   );
+}
+
+function applyMarks(view: EditorView, marks: readonly AiEditMark[]) {
+  view.dispatch({ effects: clearAiEdits.of(null) });
+  marks.forEach((mark) => markAiEdit(view, mark));
 }

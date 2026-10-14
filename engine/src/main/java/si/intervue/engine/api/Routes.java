@@ -31,8 +31,7 @@ final class Routes {
 
   Object handle(String method, List<String> path, Map<String, String> query, JsonNode body) {
     if (path.size() >= 2 && path.get(0).equals("sessions")) {
-      String rest = String.join("/", path.subList(2, path.size()));
-      return session(method, path.get(1), rest, query, body);
+      return session(method, path, query, body);
     }
     String route = method + " /" + String.join("/", path);
     return switch (route) {
@@ -51,42 +50,47 @@ final class Routes {
     };
   }
 
+  /** Routes under {@code /sessions/<id>}; {@code path} is the whole path, split on slashes. */
   private Object session(
-      String method, String id, String rest, Map<String, String> query, JsonNode body) {
+      String method, List<String> path, Map<String, String> query, JsonNode body) {
     Sessions s = engine.sessions();
-    String route = method + " " + rest;
-    if (route.startsWith("POST edits/") && route.endsWith("/undo")) {
-      return s.undoEdit(id, rest.substring(6, rest.length() - 5));
+    String id = path.get(1);
+    if (method.equals("POST") && path.size() == 5 && path.get(4).equals("undo")) {
+      return switch (path.get(2)) {
+        case "edits" -> s.undoEdit(id, path.get(3));
+        case "replies" -> s.undoReply(id, path.get(3));
+        default -> throw new NotFound("No undo for " + path.get(2));
+      };
     }
-    if (route.startsWith("POST replies/") && route.endsWith("/undo")) {
-      return s.undoReply(id, rest.substring(8, rest.length() - 5));
-    }
-    switch (route) {
-      case "PUT file" -> s.writeFile(id, required(query, "path"), text(body, "text"));
-      case "POST files" -> s.createFile(id, text(body, "path"));
-      case "PUT notes" -> s.saveNotes(id, text(body, "notes"));
-      case "POST reset-problem" -> s.resetProblem(id);
-      default -> {
-        return sessionQuery(s, route, id, query, body);
-      }
-    }
-    return null;
-  }
-
-  private static Object sessionQuery(
-      Sessions s, String route, String id, Map<String, String> query, JsonNode body) {
+    String route = method + " " + String.join("/", path.subList(2, path.size()));
     return switch (route) {
       case "GET " -> s.view(id);
       case "GET files" -> s.files(id);
       case "GET file" -> Map.of("text", s.readFile(id, required(query, "path")));
+      case "PUT file" -> {
+        s.writeFile(id, required(query, "path"), text(body, "text"));
+        yield null;
+      }
+      case "POST files" -> {
+        s.createFile(id, text(body, "path"));
+        yield null;
+      }
       case "GET symbols" -> s.symbols(id);
       case "GET diagnostics" -> s.diagnostics(id);
+      case "PUT notes" -> {
+        s.saveNotes(id, text(body, "notes"));
+        yield null;
+      }
       case "POST run" -> s.run(id, text(body, "target"));
       case "POST skip" -> s.skip(id);
       case "POST hints" -> s.hint(id, number(body, "phase"));
       case "GET hints" -> s.revealedHints(id, Integer.parseInt(required(query, "phase")));
       case "POST fake-edits" -> s.applyEdits(id, FakeEditSource.lines(text(body, "id")));
       case "POST reset-file" -> Map.of("text", s.resetFile(id, text(body, "path")));
+      case "POST reset-problem" -> {
+        s.resetProblem(id);
+        yield null;
+      }
       case "POST finish" -> s.finish(id);
       default -> throw new NotFound("No session route " + route);
     };

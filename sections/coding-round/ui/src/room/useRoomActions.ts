@@ -29,7 +29,7 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
 
   const run = (target: string) =>
     guarded(async () => {
-      await ws.saveAll();
+      await ws.saveAll(false);
       const r = await client.run(id, target);
       setOutput((o) => [...o, { header: `${target} at ${clockText(view.activeMs)}`, text: r.output }]);
       ws.setDiagnostics(r.diagnostics);
@@ -50,9 +50,11 @@ export function useRoomActions(view: SessionView, ws: Workspace, refresh: (v: Se
     run,
     replay,
     undo,
-    save: guarded(ws.saveAll),
+    save: guarded(() => ws.saveAll()),
     skip: guarded(() => client.skip(id).then(refresh)),
-    finish: guarded(() => ws.saveAll().then(() => client.finish(id).then((v) => go({ name: 'result', session: v })))),
+    finish: guarded(() =>
+      ws.saveAll(false).then(() => client.finish(id).then((v) => go({ name: 'result', session: v }))),
+    ),
     resetFile: (path: string) =>
       guarded(async () => {
         await client.resetFile(id, path);
@@ -82,7 +84,7 @@ interface EditContext {
 
 /** Applies a recorded reply, then marks each applied edit on the lines it changed. */
 async function replayEdits({ client, id, ws, reload, setReply }: EditContext, streamId: string) {
-  await ws.saveAll();
+  await ws.saveAll(false);
   const editable = ws.files.filter((f) => !f.readOnly).map((f) => f.path);
   const before = Object.fromEntries(await Promise.all(editable.map(async (p) => [p, await ws.load(p)] as const)));
   const result = await client.replayFakeEdits(id, streamId);

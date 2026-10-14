@@ -71,6 +71,7 @@ CREATE TABLE settings (
 CREATE TABLE health_results (
   check_id TEXT PRIMARY KEY,
   status TEXT NOT NULL,
+  message TEXT,
   measured TEXT,
   ran_at INTEGER NOT NULL
 );

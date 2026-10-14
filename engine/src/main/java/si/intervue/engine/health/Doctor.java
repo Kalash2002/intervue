@@ -3,8 +3,11 @@ package si.intervue.engine.health;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.Clock;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import si.intervue.engine.health.HealthResult.Status;
 import si.intervue.engine.store.Database;
 
@@ -16,10 +19,12 @@ public final class Doctor {
 
   private final Database db;
   private final List<HealthCheck> checks;
+  private final Clock clock;
 
-  public Doctor(Database db, List<HealthCheck> checks) {
+  public Doctor(Database db, List<HealthCheck> checks, Clock clock) {
     this.db = db;
     this.checks = List.copyOf(checks);
+    this.clock = clock;
   }
 
   public DoctorReport runAll() {
@@ -48,7 +53,7 @@ public final class Doctor {
               result.status(),
               result.message(),
               result.measured(),
-              System.currentTimeMillis());
+              clock.millis());
       store(stored);
       results.add(stored);
       ready &= !(check.blocking() && result.status() == Status.FAIL);
@@ -56,48 +61,56 @@ public final class Doctor {
     return new DoctorReport(ready, results);
   }
 
-  /** The latest stored result of every check, in declaration order. */
+  /** The latest stored result of every check that has one, in declaration order. */
   public List<CheckResult> lastResults() {
+    Map<String, CheckResult> stored = new HashMap<>();
+    String sql = "SELECT check_id, status, message, measured, ran_at FROM health_results";
+    try (PreparedStatement ps = db.connection().prepareStatement(sql);
+        ResultSet rs = ps.executeQuery()) {
+      while (rs.next()) {
+        stored.put(
+            rs.getString(1),
+            new CheckResult(
+                rs.getString(1),
+                null,
+                false,
+                Status.valueOf(rs.getString(2)),
+                rs.getString(3),
+                rs.getString(4),
+                rs.getLong(5)));
+      }
+    } catch (SQLException e) {
+      throw new IllegalStateException("Cannot read health results", e);
+    }
     List<CheckResult> results = new ArrayList<>();
-    String sql = "SELECT status, measured, ran_at FROM health_results WHERE check_id = ?";
     for (HealthCheck check : checks) {
-      try (PreparedStatement ps = db.connection().prepareStatement(sql)) {
-        ps.setString(1, check.id());
-        try (ResultSet rs = ps.executeQuery()) {
-          if (rs.next()) {
-            String stored = rs.getString(1);
-            int bar = stored.indexOf('|');
-            String status = bar < 0 ? stored : stored.substring(0, bar);
-            String message = bar < 0 ? "" : stored.substring(bar + 1);
-            results.add(
-                new CheckResult(
-                    check.id(),
-                    check.title(),
-                    check.blocking(),
-                    Status.valueOf(status),
-                    message,
-                    rs.getString(2),
-                    rs.getLong(3)));
-          }
-        }
-      } catch (SQLException e) {
-        throw new IllegalStateException("Cannot read health results", e);
+      CheckResult r = stored.get(check.id());
+      if (r != null) {
+        results.add(
+            new CheckResult(
+                r.id(),
+                check.title(),
+                check.blocking(),
+                r.status(),
+                r.message(),
+                r.measured(),
+                r.ranAt()));
       }
     }
     return results;
   }
 
-  // The v1 table has no message column, so the message rides with the status as "STATUS|message".
   private void store(CheckResult r) {
     String sql =
-        "INSERT INTO health_results(check_id, status, measured, ran_at) VALUES (?, ?, ?, ?)"
-            + " ON CONFLICT(check_id) DO UPDATE SET status = excluded.status, measured = excluded.measured,"
-            + " ran_at = excluded.ran_at";
+        "INSERT INTO health_results(check_id, status, message, measured, ran_at)"
+            + " VALUES (?, ?, ?, ?, ?) ON CONFLICT(check_id) DO UPDATE SET status = excluded.status,"
+            + " message = excluded.message, measured = excluded.measured, ran_at = excluded.ran_at";
     try (PreparedStatement ps = db.connection().prepareStatement(sql)) {
       ps.setString(1, r.id());
-      ps.setString(2, r.status().name() + "|" + (r.message() == null ? "" : r.message()));
-      ps.setString(3, r.measured());
-      ps.setLong(4, r.ranAt());
+      ps.setString(2, r.status().name());
+      ps.setString(3, r.message());
+      ps.setString(4, r.measured());
+      ps.setLong(5, r.ranAt());
       ps.executeUpdate();
     } catch (SQLException e) {
       throw new IllegalStateException("Cannot store health result " + r.id(), e);

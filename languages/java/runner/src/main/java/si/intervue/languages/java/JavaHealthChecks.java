@@ -5,10 +5,8 @@ import java.io.UncheckedIOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import si.intervue.engine.health.HealthCheck;
 import si.intervue.engine.health.HealthResult;
 import si.intervue.engine.languages.CompileResult;
@@ -101,24 +99,11 @@ final class JavaHealthChecks {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     } finally {
-      deleteQuietly(dir);
+      JavaRunner.deleteQuietly(dir);
     }
   }
 
   private static String firstLine(String text) {
     return text.strip().lines().findFirst().orElse("(no output)");
-  }
-
-  private static void deleteQuietly(Path dir) {
-    if (dir == null) {
-      return;
-    }
-    try (Stream<Path> walk = Files.walk(dir)) {
-      for (Path p : walk.sorted(Comparator.reverseOrder()).toList()) {
-        Files.deleteIfExists(p);
-      }
-    } catch (IOException e) {
-      // A leftover temp folder is harmless; the OS cleans its temp directory.
-    }
   }
 }

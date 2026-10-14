@@ -55,11 +55,7 @@ public final class EngineMain {
     LocalApi api = LocalApi.start(engine, token, args.port());
     ScheduledExecutorService heartbeat =
         Executors.newSingleThreadScheduledExecutor(
-            r -> {
-              Thread t = new Thread(r, "heartbeat");
-              t.setDaemon(true);
-              return t;
-            });
+            Thread.ofPlatform().name("heartbeat").daemon().factory());
     heartbeat.scheduleAtFixedRate(
         engine.sessions()::heartbeat, HEARTBEAT_SECONDS, HEARTBEAT_SECONDS, TimeUnit.SECONDS);
     Runtime.getRuntime()

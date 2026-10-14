@@ -187,16 +187,33 @@ final class JavaRunner implements Runner {
 
   private static void recreate(Path dir) {
     try {
-      if (Files.exists(dir)) {
-        try (Stream<Path> walk = Files.walk(dir)) {
-          for (Path p : walk.sorted(Comparator.reverseOrder()).toList()) {
-            Files.delete(p);
-          }
-        }
-      }
+      deleteTree(dir);
       Files.createDirectories(dir);
     } catch (IOException e) {
       throw new UncheckedIOException(e);
+    }
+  }
+
+  /** Deletes a folder and everything in it; nothing happens when it does not exist. */
+  static void deleteTree(Path dir) throws IOException {
+    if (dir == null || !Files.exists(dir)) {
+      return;
+    }
+    try (Stream<Path> walk = Files.walk(dir)) {
+      for (Path p : walk.sorted(Comparator.reverseOrder()).toList()) {
+        Files.delete(p);
+      }
+    }
+  }
+
+  /**
+   * For scratch folders: a leftover temp folder is harmless, and the OS cleans its temp directory.
+   */
+  static void deleteQuietly(Path dir) {
+    try {
+      deleteTree(dir);
+    } catch (IOException e) {
+      // Leave it for the OS.
     }
   }
 }

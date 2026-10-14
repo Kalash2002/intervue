@@ -42,7 +42,7 @@ final class JavaBenchmark implements CalibrationBenchmark {
     } catch (IOException e) {
       throw new UncheckedIOException(e);
     } finally {
-      deleteQuietly(dir);
+      JavaRunner.deleteQuietly(dir);
     }
   }
 
@@ -55,17 +55,5 @@ final class JavaBenchmark implements CalibrationBenchmark {
       }
     }
     throw new IllegalStateException("The calibration benchmark printed no time: " + output);
-  }
-
-  private static void deleteQuietly(Path dir) {
-    if (dir == null) {
-      return;
-    }
-    try {
-      Files.deleteIfExists(dir.resolve("Bench.java"));
-      Files.deleteIfExists(dir);
-    } catch (IOException e) {
-      // A leftover temp folder is harmless; the OS cleans its temp directory.
-    }
   }
 }
