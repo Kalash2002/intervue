@@ -16,12 +16,14 @@ import si.intervue.engine.languages.CompileResult;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.languages.RunLimits;
 import si.intervue.engine.languages.RunRequest;
+import si.intervue.engine.runners.HeapPolicy;
 import si.intervue.engine.runners.ProcessControl;
 import si.intervue.problemformat.ProblemFolder;
 import si.intervue.problemformat.ProblemFormatException;
 import si.intervue.problemformat.ProblemReader;
 import si.intervue.problemformat.ProblemValidator;
 import si.intervue.problemformat.Variant;
+import si.intervue.runprotocol.RunProtocolException;
 import si.intervue.runprotocol.RunProtocolParser;
 import si.intervue.runprotocol.RunResults;
 import si.intervue.runprotocol.TestResult;
@@ -35,7 +37,9 @@ import si.intervue.runprotocol.TestStatus;
  */
 public final class ProblemVerifier {
 
-  private static final RunLimits LIMITS = new RunLimits(900_000, 1024, 400_000);
+  // Same heap as a real session (HeapPolicy): a smaller one slows reference solutions and fails
+  // the headroom rule for no real reason.
+  private static final RunLimits LIMITS = new RunLimits(900_000, HeapPolicy.defaultMb(), 400_000);
   private static final int HEADROOM = 5;
   private static final int NAIVE_MARGIN = 3;
 
@@ -95,14 +99,18 @@ public final class ProblemVerifier {
       lines.add("  naive      FAIL  missing naive/ with a correct but slow solution");
       return false;
     }
-    ok &=
-        check(
-            "naive",
-            run(pkg, dir, variant, "naive", "all", factor),
-            r -> naiveRule(r, last),
-            lines);
+    Outcome naive = run(pkg, dir, variant, "naive", "all", factor);
+    ok &= check("naive", naive, r -> naiveRule(r, last), lines);
+    if (naive.results() == null) {
+      return false;
+    }
     Outcome slow = run(pkg, dir, variant, "naive", "phase:" + phases, factor * NAIVE_MARGIN);
-    return ok & check("naive " + NAIVE_MARGIN + "x", slow, r -> naiveMarginRule(r, last), lines);
+    return ok
+        & check(
+            "naive " + NAIVE_MARGIN + "x",
+            slow,
+            r -> naiveMarginRule(naive.results(), r, last),
+            lines);
   }
 
   private static LanguagePackage findPackage(String language) {
@@ -115,8 +123,8 @@ public final class ProblemVerifier {
     return null;
   }
 
-  /** A run's results, or the compile output when it did not compile. */
-  private record Outcome(RunResults results, String compileError, long durationMs) {}
+  /** A run's results, or why there are none (compile error, no readable results file). */
+  private record Outcome(RunResults results, String failure, long durationMs) {}
 
   private Outcome run(
       LanguagePackage pkg,
@@ -141,11 +149,18 @@ public final class ProblemVerifier {
     long start = System.nanoTime();
     CompileResult compiled = pkg.runner().compile(work, out);
     if (!compiled.ok()) {
-      return new Outcome(null, compiled.output(), elapsedMs(start));
+      String firstError = compiled.output().lines().skip(2).findFirst().orElse("");
+      return new Outcome(null, "did not compile: " + firstError, elapsedMs(start));
     }
     var request = new RunRequest(work, out, target, variant, LIMITS, runFactor);
     var output = pkg.runner().run(request, processes);
-    return new Outcome(RunProtocolParser.parse(output.resultsFile()), null, elapsedMs(start));
+    try {
+      return new Outcome(RunProtocolParser.parse(output.resultsFile()), null, elapsedMs(start));
+    } catch (RunProtocolException e) {
+      String said = output.output().lines().findFirst().orElse("");
+      return new Outcome(
+          null, "no test results (" + e.getMessage() + "); output: " + said, elapsedMs(start));
+    }
   }
 
   private static long elapsedMs(long startNs) {
@@ -190,10 +205,27 @@ public final class ProblemVerifier {
         : "every phase but the last must pass and the last must have a TIMEOUT";
   }
 
-  private static String naiveMarginRule(RunResults r, String last) {
-    return count(r, last, TestStatus.TIMEOUT) > 0
-        ? null
-        : "the naive solution must still time out at " + NAIVE_MARGIN + "x the limits";
+  /**
+   * Every last-phase test the naive solution timed out on must still time out with the limits
+   * multiplied by the margin, so a calibration factor between 1 and 4 cannot flip it (PLAN.md 4.4).
+   */
+  static String naiveMarginRule(RunResults atLimit, RunResults atMargin, String last) {
+    for (TestResult t : atLimit.tests()) {
+      if (!t.suite().equals(last) || t.status() != TestStatus.TIMEOUT) {
+        continue;
+      }
+      boolean stillSlow =
+          atMargin.tests().stream()
+              .anyMatch(
+                  m ->
+                      m.suite().equals(last)
+                          && m.name().equals(t.name())
+                          && m.status() == TestStatus.TIMEOUT);
+      if (!stillSlow) {
+        return t.name() + " finishes within " + NAIVE_MARGIN + "x its limit on the naive solution";
+      }
+    }
+    return null;
   }
 
   private static long count(RunResults r, String suite, TestStatus status) {
@@ -203,8 +235,8 @@ public final class ProblemVerifier {
   /** Prints one line per run, in the prototype's format; a rule returns null when it holds. */
   private static boolean check(
       String label, Outcome outcome, Function<RunResults, String> rule, List<String> lines) {
-    String broken = outcome.compileError() != null ? null : rule.apply(outcome.results());
-    boolean ok = outcome.compileError() == null && broken == null;
+    String broken = outcome.failure() != null ? null : rule.apply(outcome.results());
+    boolean ok = outcome.failure() == null && broken == null;
     StringBuilder line =
         new StringBuilder(
             String.format(
@@ -213,9 +245,8 @@ public final class ProblemVerifier {
                 label,
                 ok ? "ok" : "FAIL",
                 outcome.durationMs() / 1000.0));
-    if (outcome.compileError() != null) {
-      line.append("did not compile: ")
-          .append(outcome.compileError().lines().skip(2).findFirst().orElse(""));
+    if (outcome.failure() != null) {
+      line.append(outcome.failure());
     } else {
       for (var suite : outcome.results().suites()) {
         long passed = count(outcome.results(), suite.name(), TestStatus.PASS);
