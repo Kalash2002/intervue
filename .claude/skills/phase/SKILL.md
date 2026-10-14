@@ -18,6 +18,6 @@ Follow `docs/process/pipeline.md` exactly, in order, and tell the user which ste
 7. Run `/simplify` on the diff. Keep tests green.
 8. Run `/code-review` at high effort on the diff. Fix each finding or write the reason in the PR body.
 9. Delegate to the `qa-gatekeeper` subagent. If RED, fix and re-run from step 7.
-10. Update `CHANGELOG.md` under Unreleased and `docs/status.md`. Open the PR with `.github/PULL_REQUEST_TEMPLATE.md` filled. Report to the user: what shipped, exit criteria met or not, what the human must try by hand, and what went to "Later".
+10. Update `CHANGELOG.md` under Unreleased, `docs/status.md`, and `docs/runbooks/commands.md` with a section for this phase listing the commands it introduced or changed (setup, run, test, deploy, data access). Open the PR with `.github/PULL_REQUEST_TEMPLATE.md` filled. Report to the user: what shipped, exit criteria met or not, what the human must try by hand, and what went to "Later".
 
 Rules: never skip a step because it "looks fine"; never widen scope; say "cannot verify" rather than guess; stop and ask the user only when a decision changes the deliverable materially.
