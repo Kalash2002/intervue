@@ -18,17 +18,24 @@
   --panel: #191d27;
   --panel-2: #212634;
   --line: #2c3343;
-  --text: #e3e7ef;
-  --muted: #949db0;
-  --accent: #7c9ef0;
+  --text: #d5dae3;
+  --muted: #8f98aa;
+  --accent: #9bb2ea;
   --accent-ink: #0c1428;
-  --accent-soft: rgba(124, 158, 240, 0.13);
-  --pass: #5cc49e;
-  --fail: #ec7f73;
-  --warn: #dcb062;
-  --prompt: #b19df2;
+  --accent-soft: rgba(155, 178, 234, 0.12);
+  --pass: #8ccfb3;
+  --fail: #e6a29a;
+  --warn: #e0c58e;
+  --prompt: #c2b4ee;
   --link: var(--accent);
-  --select: rgba(124, 158, 240, 0.22);
+  --select: rgba(155, 178, 234, 0.2);
+  /* Pastel syntax colours: calm on the dark background, still telling kinds apart. */
+  --syn-keyword: #c3a2ef;
+  --syn-type: #8fd2c4;
+  --syn-string: #bdd898;
+  --syn-number: #efb993;
+  --syn-def: #95b4ef;
+  --syn-meta: #b7c0d0;
   --backdrop: rgba(6, 9, 15, 0.62);
   --radius: 12px;
   --radius-s: 8px;
@@ -57,6 +64,12 @@
   --warn: #8d5b00;
   --prompt: #6449cc;
   --select: rgba(47, 88, 201, 0.15);
+  --syn-keyword: #7a46b0;
+  --syn-type: #17766b;
+  --syn-string: #5a7a1e;
+  --syn-number: #a5582a;
+  --syn-def: #2f58c9;
+  --syn-meta: #586276;
   --backdrop: rgba(26, 31, 44, 0.38);
   color-scheme: light;
 }

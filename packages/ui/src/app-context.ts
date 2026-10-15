@@ -10,6 +10,7 @@ export type Screen =
   | { name: 'overview'; session: TimedSession }
   | { name: 'room'; session: TimedSession }
   | { name: 'result'; session: SessionView }
+  | { name: 'answer'; session: SessionView }
   | { name: 'doctor'; firstRun: boolean };
 
 export interface AppServices {

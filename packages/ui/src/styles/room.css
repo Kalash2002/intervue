@@ -1,5 +1,5 @@
 /* The session room: header, timeline strip, file tree, editor, output pane and side panel.
-   The center column grid has exactly one row per child (editor, splitter, output). */
+   The work and center grids have exactly one track per child, splitters included. */
 .room {
   height: 100vh;
   display: grid;
@@ -47,7 +47,7 @@
 }
 .work {
   display: grid;
-  grid-template-columns: 196px minmax(0, 1fr) 5px var(--right-w, 430px);
+  grid-template-columns: var(--files-w, 196px) 5px minmax(0, 1fr) 5px var(--right-w, 430px);
   min-height: 0;
 }
 .pane-head {
@@ -177,8 +177,14 @@
   background: var(--bg);
   color: var(--text);
 }
+.editor-wrap .cm-editor {
+  /* CodeMirror forces position: relative, so inset alone leaves the editor as tall as its text,
+     clipped by the wrap: the wheel could not scroll it. A fixed height and a scrolling scroller can. */
+  height: 100%;
+}
 .editor-wrap .cm-editor .cm-scroller {
   font-family: var(--mono);
+  overflow: auto;
 }
 .cm-editor .cm-gutters {
   background: var(--bg);
@@ -222,10 +228,12 @@
 }
 .hsplit {
   cursor: row-resize;
+  touch-action: none;
   background: var(--line);
 }
 .vsplit {
   cursor: col-resize;
+  touch-action: none;
   background: var(--line);
 }
 .hsplit:hover,

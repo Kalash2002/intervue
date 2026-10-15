@@ -120,6 +120,50 @@ describe('dashboard', () => {
   });
 });
 
+describe('answer and navigation', () => {
+  const finished = {
+    ...session,
+    id: 'a',
+    title: 'Hold Exposure',
+    finished: true,
+    result: { walkthrough: '## Minutes 0 to 6: read before you run' },
+  } as SessionView;
+
+  it('opens the answer walkthrough from a card once the problem has a finished session', async () => {
+    const client = fakeClient({
+      history: vi.fn(async () => [summary({ id: 'a', problemId: 'hold-exposure' })]),
+      session: vi.fn(async () => finished),
+    });
+    renderApp(client);
+
+    expect(
+      within(await screen.findByRole('article', { name: 'Corridor Router' })).queryByRole('button', { name: 'Answer' }),
+    ).toBeNull();
+    const card = screen.getByRole('article', { name: 'Hold Exposure' });
+    fireEvent.click(within(card).getByRole('button', { name: 'Answer' }));
+
+    expect(await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' })).toBeInTheDocument();
+    expect(client.session).toHaveBeenCalledWith('a');
+  });
+
+  it('goes from the result to the answer and back to the dashboard', async () => {
+    const client = fakeClient({
+      history: vi.fn(async () => [summary({ id: 'a', problemId: 'hold-exposure' })]),
+      session: vi.fn(async () => finished),
+    });
+    renderApp(client);
+
+    const card = await screen.findByRole('article', { name: 'Hold Exposure' });
+    fireEvent.click(within(card).getByRole('button', { name: 'Last result' }));
+    await screen.findByRole('button', { name: 'Try again' });
+    fireEvent.click(screen.getByRole('button', { name: 'Answer' }));
+    await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' });
+    fireEvent.click(screen.getByRole('button', { name: '← Dashboard' }));
+
+    expect(await screen.findByRole('heading', { name: 'Problems' })).toBeInTheDocument();
+  });
+});
+
 describe('start screen', () => {
   it('sets up a timed Practice session, shows the overview, then opens the room', async () => {
     const client = fakeClient();
