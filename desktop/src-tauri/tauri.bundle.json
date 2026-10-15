@@ -3,7 +3,8 @@
     "resources": {
       "../resources/runtime/": "runtime/",
       "../../engine/build/engine/": "engine/",
-      "../../content/problems/": "content/problems/"
+      "../../content/problems/": "content/problems/",
+      "../../content/dsa/": "content/dsa/"
     }
   }
 }

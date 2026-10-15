@@ -17,7 +17,7 @@ jobs:
           BASE: ${{ github.event.pull_request.base.sha }}
         run: |
           case " $LABELS " in
-            *" content "*)  allowed='^(content/problems/|content/packs/[^/]+/pack\.json$)' ;;
+            *" content "*)  allowed='^(content/problems/|content/dsa/|content/packs/[^/]+/pack\.json$)' ;;
             *" engine "*)   allowed='^(engine/|shared-java/)' ;;
             *" desktop "*)  allowed='^desktop/' ;;
             *" web "*)      allowed='^web/' ;;
