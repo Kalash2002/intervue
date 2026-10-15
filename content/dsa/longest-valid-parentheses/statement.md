@@ -6,8 +6,8 @@ Implement `Brackets.longestBalanced(String s)` in `Brackets.java`. Return the le
 
 ## Examples
 
-- `s = "(()"` returns `2`: the last two characters, `()`, are balanced; the first `(` is never closed.
-- `s = ")()())"` returns `4`: the middle `()()` is balanced and the two `)` around it are not.
+- `s = "(()()"` returns `4`: the last four characters, `()()`, are balanced; the first `(` is never closed.
+- `s = "())(())"` returns `4`: the stretch `(())` at the end is balanced; the `()` at the start is shorter.
 - `s = "(())()("` returns `6`: everything except the last character.
 
 ## Constraints

@@ -8,7 +8,7 @@ Implement `Alerts.repeatsNearby(int[] codes, int gap)` in `Alerts.java`. Return 
 
 - `codes = {4,9,4}`, `gap = 2` returns `true`: the two 4s are 2 places apart.
 - `codes = {4,9,4}`, `gap = 1` returns `false`: the only repeat is too far apart.
-- `codes = {1,2,3,1,2,3}`, `gap = 2` returns `false`: every value repeats 3 places later, which is more than 2.
+- `codes = {9,4,7,9,4}`, `gap = 2` returns `false`: both 9 and 4 repeat 3 places later, which is more than 2.
 
 ## Constraints
 

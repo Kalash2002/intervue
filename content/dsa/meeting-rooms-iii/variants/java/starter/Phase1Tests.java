@@ -49,7 +49,7 @@ public class Phase1Tests {
         assertEquals(0, Studios.busiest(2, bookings)); // rooms 0 and 1 host three sessions each
     }
 
-    @Test(order = 8, timeoutMs = 2700)
+    @Test(order = 8, timeoutMs = 3500)
     void hundredThousandRequestsOnEightyThousandRooms() {
         int n = 100_000;
         int[][] bookings = new int[n][];
@@ -65,5 +65,6 @@ public class Phase1Tests {
         }
         assertEquals(203, Studios.busiest(80_000, bookings));
         assertEquals(14, Studios.busiest(70_000, bookings)); // 351 rooms tie at 3 sessions
+        assertEquals(4, Studios.busiest(60_000, bookings)); // 1,445 rooms tie at 3 sessions
     }
 }

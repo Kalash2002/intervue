@@ -6,8 +6,8 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(2, Brackets.longestBalanced("(()"));
-        assertEquals(4, Brackets.longestBalanced(")()())"));
+        assertEquals(4, Brackets.longestBalanced("(()()"));
+        assertEquals(4, Brackets.longestBalanced("())(())"));
         assertEquals(6, Brackets.longestBalanced("(())()("));
     }
 

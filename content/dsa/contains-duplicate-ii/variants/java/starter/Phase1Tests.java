@@ -29,7 +29,7 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void repeatsAreTooFarApartUntilTheGapReachesThem() {
-        int[] codes = {1, 2, 3, 1, 2, 3};
+        int[] codes = {9, 4, 7, 9, 4};
         assertEquals(false, Alerts.repeatsNearby(codes, 2));
         assertEquals(true, Alerts.repeatsNearby(codes, 3));
     }
@@ -48,7 +48,7 @@ public class Phase1Tests {
         assertEquals(false, Alerts.repeatsNearby(codes, 1));
     }
 
-    @Test(order = 8, timeoutMs = 400)
+    @Test(order = 8, timeoutMs = 320)
     void hundredThousandDistinctCodes() {
         int n = 100_000;
         int[] codes = new int[n];

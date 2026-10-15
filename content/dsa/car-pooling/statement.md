@@ -6,9 +6,9 @@ Implement `Shuttle.canCarry(int[][] rides, int seats)` in `Shuttle.java`. Return
 
 ## Examples
 
-- `rides = {{2,1,5},{3,3,7}}`, `seats = 4` returns `false`: from minute 3 to minute 5 both groups are aboard, which is 5 people.
-- `rides = {{2,1,5},{3,3,7}}`, `seats = 5` returns `true`: the same trip, and 5 seats just fit.
-- `rides = {{4,2,6},{4,6,9}}`, `seats = 4` returns `true`: the first group steps off at minute 6 as the second steps on.
+- `rides = {{3,2,6},{2,4,9}}`, `seats = 4` returns `false`: from minute 4 to minute 6 both groups are aboard, which is 5 people.
+- `rides = {{3,2,6},{2,4,9}}`, `seats = 5` returns `true`: the same trip, and 5 seats just fit.
+- `rides = {{3,1,4},{3,4,8}}`, `seats = 3` returns `true`: the first group steps off at minute 4 as the second steps on.
 
 ## Constraints
 

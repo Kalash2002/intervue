@@ -7,7 +7,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        int[][] rides = {{2, 1, 5}, {3, 3, 7}};
+        int[][] rides = {{3, 2, 6}, {2, 4, 9}};
         assertEquals(false, Shuttle.canCarry(rides, 4));
         assertEquals(true, Shuttle.canCarry(rides, 5));
     }
