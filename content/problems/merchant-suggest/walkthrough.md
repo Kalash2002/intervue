@@ -1,6 +1,6 @@
 # How a strong round goes: Merchant Suggest
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 7: read before you run
 
@@ -78,12 +78,11 @@ The `contains(" " + prefix)` test is the whole word-start rule in one expression
 ### Prompt
 
 ```text
-Implement Suggester.suggest(typed, limit) the direct way:
-- limit outside 1..10 throws IllegalArgumentException.
-- prefix = Normalizer.normalize(typed); empty prefix returns an empty list.
-- A merchant matches when key.startsWith(prefix) or key.contains(" " + prefix), where key = Normalizer.normalize(merchant.name()).
-- Sort matches by txnCount descending, then by key ascending. Return at most limit.
-Read merchants from directory.all() on every call. No caching. Only this method.
+First the direct version of Suggester.suggest(typed, limit): normalise the typed text, match
+merchants whose normalised name starts with it or has a word that starts with it, rank by
+transaction count then name, and return at most limit. A limit outside 1 to 10 is an
+IllegalArgumentException and an empty prefix returns nothing. Read directory.all() on each call,
+no caching yet. Only this method.
 ```
 
 ### Check the reply for
@@ -106,7 +105,10 @@ Each is slow for a different reason. Name all three before changing anything.
 ### Fix 1: the directory
 
 ```text
-Rewrite MerchantDirectory to store merchants in a TreeMap from normalized name to Merchant. add is a put (same key replaces). find is a get. all() returns the values in key order as an unmodifiable list, rebuilt only after a change. Add a method long version() that increases on every add. Keep the other public methods and behaviour.
+MerchantDirectory keeps a sorted array list and shifts on every add. Move it to a TreeMap keyed
+by normalised name so add is a put and find is a get, keep all() as an unmodifiable snapshot in
+key order rebuilt only after a change, and add a version counter that grows on every add so a
+caller can tell when the data moved. Keep the other public methods as they are.
 ```
 
 `version()` is the change signal the next two fixes need. Checking `size()` is not enough: replacing a merchant keeps the size the same.
@@ -116,14 +118,18 @@ Rewrite MerchantDirectory to store merchants in a TreeMap from normalized name t
 "For every merchant I add one entry per word: the rest of the normalized name from that word on, with the merchant. 'cafe coffee day' gives 'cafe coffee day', 'coffee day' and 'day'. Sorted, all entries that start with the typed text sit next to each other, so I find the first one by binary search and read forward while entries still start with the prefix."
 
 ```text
-In Suggester, build an index lazily: for each merchant in directory.all(), one entry per word start of its normalized name: (suffix text from that word to the end, merchant position). Sort entries by text. Rebuild only when directory.version() differs from the version the index was built for.
-suggest: binary-search the first entry whose text is >= prefix, scan forward while text.startsWith(prefix), skip merchants already seen in this call, keep the best 10 by txnCount descending then normalized name, return the first limit of them.
+Now the index. For every merchant, one entry per word start of its normalised name: the suffix
+from that word onward plus the merchant; sort the entries by text. Build it lazily and rebuild only
+when the directory's version has changed. suggest then binary-searches to the first entry at or
+after the prefix, scans forward while entries still start with it, skips a merchant it already
+counted, and keeps the best ten by transaction count then name before cutting to limit.
 ```
 
 ### Fix 3: remember answers for repeated prefixes
 
 ```text
-In Suggester, remember the best-10 list per normalized prefix in a HashMap. Clear the map whenever the index is rebuilt. suggest returns the first limit entries of the remembered list.
+The same prefix gets typed over and over, so remember the best-ten list per normalised prefix and
+throw that memory away whenever the index is rebuilt. suggest answers from it when it is there.
 ```
 
 A trie that stores the ten best merchants at every node does fixes 2 and 3 in one structure. Say that you know it and why you chose the sorted array: less code to get right in the time left, and far fewer objects for 100,000 names.
@@ -135,7 +141,11 @@ A trie that stores the ten best merchants at every node does fixes 2 and 3 in on
 - A remembered-answers map that is never cleared. The phase 2 test on directory changes is your guard; run phase 2 again.
 - Using `size()` instead of `version()` as the change signal.
 
-## The technique: binary search bounds, prefix ranges in sorted data, and tries
+## DSA reference
+
+### Theory
+
+![Prefix search in sorted data: every entry starting with "cof" is one contiguous block, so a binary search finds where the block starts and a short scan reads it. A trie gives the same block by walking c, o, f.](figures/prefix.svg)
 
 **Binary search bounds.** Pick one convention and keep every line consistent with it. Inclusive: `high = n - 1`, loop `while (low <= high)`, shrink with `high = middle - 1`. Exclusive: `high = n`, loop `while (low < high)`, shrink with `high = middle`. Mixing a line from each is the classic bug, and the one-element input exposes it.
 
@@ -144,6 +154,28 @@ A trie that stores the ten best merchants at every node does fixes 2 and 3 in on
 **Trie.** A tree with one edge per character; every node stands for a prefix. Walking the typed text costs its length, independent of how many names exist. Storing the best k results at each node makes a suggestion a walk plus a copy. It costs memory: one node per distinct prefix.
 
 **Remembering answers.** When the same question is asked repeatedly and the data changes rarely, keep the answer and discard it on change. The hard part is always the "discard on change".
+
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** All strings in a sorted list that start with prefix: one binary search, then a scan of the block. */
+static List<String> withPrefix(List<String> sorted, String prefix) {
+    int low = 0, high = sorted.size();                 // exclusive high: first index >= prefix
+    while (low < high) {
+        int mid = (low + high) >>> 1;
+        if (sorted.get(mid).compareTo(prefix) < 0) low = mid + 1; else high = mid;
+    }
+    List<String> block = new ArrayList<>();
+    for (int i = low; i < sorted.size() && sorted.get(i).startsWith(prefix); i++) {
+        block.add(sorted.get(i));
+    }
+    return block;
+}
+```
+
+### Complexity
 
 | Operation | Starter or direct version | Reference |
 | --- | --- | --- |
@@ -155,7 +187,7 @@ A trie that stores the ten best merchants at every node does fixes 2 and 3 in on
 | `suggest` with the index, m matching entries | not used | O(log(n w) + m) first time, O(1) when remembered |
 | Trie with best k per node (alternative) | not used | O(typed length + k) per call, O(total characters) space |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

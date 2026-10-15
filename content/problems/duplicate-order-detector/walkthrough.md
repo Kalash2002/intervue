@@ -1,6 +1,6 @@
 # How a strong round goes: Duplicate Order Detector
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 5: read before you run
 
@@ -76,20 +76,18 @@ Work the sample by hand with the 15-minute window `sampleFileSuspects` uses: O3 
 ### Prompt
 
 ```text
-Implement DuplicateDetector.suspectedDuplicates(int windowMinutes) as one forward pass over
-log.all() with a HashMap<OrderKey, Integer> of the latest minute per key. For each order,
-previous = map.put(key, minute); add the order id when previous != null and
-minute - previous < windowMinutes. Throw IllegalArgumentException for windowMinutes <= 0.
-Do not change any other method.
+One forward pass with a map from basket key to the latest minute I saw it; when the same key
+comes back inside the window, that order is a suspect. Implement suspectedDuplicates(windowMinutes)
+that way, keeping the latest minute rather than the first so a chain of repeats is judged against
+its nearest neighbour. A non-positive window is an IllegalArgumentException. Touch no other method.
 ```
 
 Then:
 
 ```text
-Implement mostDuplicatedSkus(int k): one pass with a HashSet<OrderKey> of seen keys; when add
-returns false, count one repeat for order.sku() in a HashMap<String, Integer>. Return the
-SkuCount list sorted by count descending, then sku ascending, limited to k. Throw
-IllegalArgumentException for a negative k. SKUs with no repeats never enter the map.
+For mostDuplicatedSkus(k) I'll count a repeat for the SKU every time a basket key is seen again,
+then rank: highest count first, SKU name as the tie-break, top k. A negative k is an
+IllegalArgumentException and SKUs that never repeat do not appear. Only this method.
 ```
 
 ### Check the reply for
@@ -111,7 +109,11 @@ Both tests run one report on 400,000 orders with a time limit. Say how many time
 
 If phase 2 used the one-pass map, both tests already pass. If either times out, find the backward scan (for each order, walking back through earlier orders) and replace it with a map lookup. Run all three phases.
 
-## The technique: hashing for "seen before"
+## DSA reference
+
+### Theory
+
+![A hash map from basket key to the latest minute: the key hashes to a bucket, equals() confirms the match, and the stored minute says whether this order is inside the window.](figures/hashmap.svg)
 
 **The idea.** A hash set answers "have I seen this before?" in O(1) on average, and a hash map answers "what did I record when I last saw it?". One forward pass with either turns an all-pairs comparison into linear work.
 
@@ -121,13 +123,34 @@ If phase 2 used the one-pass map, both tests already pass. If either times out, 
 
 **The two decisions that cause bugs.** Whether to compare with the first or the most recent occurrence: store the latest and update on every element. And whether the window is strict.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Ids of orders whose basket was seen again within the window, judged against the nearest earlier one. */
+static List<Long> repeatsWithin(List<Order> orders, int windowMinutes) {
+    Map<OrderKey, Integer> latest = new HashMap<>();
+    List<Long> suspects = new ArrayList<>();
+    for (Order order : orders) {
+        Integer previous = latest.put(order.key(), order.minute()); // store the latest, get the previous
+        if (previous != null && order.minute() - previous < windowMinutes) {
+            suspects.add(order.id());
+        }
+    }
+    return suspects;
+}
+```
+
+### Complexity
+
 | Approach | Time for n orders | Extra space |
 | --- | --- | --- |
 | For each order, scan earlier orders | O(n squared) | O(1) |
 | Hash map of latest minute per basket | O(n) on average | O(distinct baskets) |
 | Sort by key then minute, scan neighbours | O(n log n) | O(n), and loses log order |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

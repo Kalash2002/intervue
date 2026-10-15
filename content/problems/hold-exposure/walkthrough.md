@@ -1,6 +1,6 @@
 # How a strong round goes: Hold Exposure
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 6: read before you run
 
@@ -80,13 +80,19 @@ Write three lines in a comment or say them aloud:
 Ask for exactly that, one method at a time:
 
 ```text
-In ExposureCalculator, write a private method events(String account) that returns the account's holds as an array of (int minute, long delta) pairs: +amount at startMinute and -amount at endMinute. Sort by minute; for equal minutes put negative deltas first, because a hold is no longer active at its end minute. Use book.holdsFor(account). Plain Java 21, a private record for the pair is fine. Only this method.
+I'm going to sweep over the hold endpoints. Give me a private events(account) that turns the
+account's holds into sorted (minute, delta) pairs: plus the amount at the start, minus it at the
+end, and for equal minutes the minus first, because a hold is no longer active at its end minute.
+Use book.holdsFor(account). Only this method.
 ```
 
 Then:
 
 ```text
-Using events(account), implement peak(account): walk the events keeping a long running total; track the highest total and the minute it was first reached (strictly greater, so the earliest minute wins). Return Peak.NONE when there are no holds. Then implement firstBreach(account, limitMinor) the same way: throw IllegalArgumentException for a negative limit, return the minute of the first event after which the running total is greater than the limit, otherwise OptionalInt.empty().
+With events in place, implement peak(account) as one walk with a running total, taking the
+highest total and the earliest minute it was reached, Peak.NONE when there are no holds. Then
+firstBreach(account, limitMinor) with the same walk: the minute of the first event after which the
+total exceeds the limit, empty otherwise; a negative limit is an IllegalArgumentException.
 ```
 
 ### Check the reply for
@@ -128,7 +134,10 @@ If you run phase 3 and only the second test times out, that confirms it: the cal
 ### Prompt
 
 ```text
-Rewrite HoldBook so that no method scans every hold. Keep the public methods and their behaviour exactly: add, release (false for an unknown id), holdsFor (unreleased holds of one account in insertion order), accounts (every account that ever had a hold, in first-seen order, even if all its holds were released), size. Use a LinkedHashMap from account to its list of holds and a HashMap from id to hold. Only this class.
+Every HoldBook method scans the whole book. I want holds indexed by account and by id so nothing
+scans: a map from account to its holds in insertion order, and a map from id to hold. Keep the
+public methods and their exact behaviour, including accounts() still listing an account that has
+released everything. Only this class.
 ```
 
 ### Check the reply for
@@ -139,7 +148,11 @@ Rewrite HoldBook so that no method scans every hold. Keep the public methods and
 
 Run phase 1, 2 and 3 tests. Phase 1 and 2 are your regression suite for the rewrite.
 
-## The technique: a sweep over interval endpoints
+## DSA reference
+
+### Theory
+
+![A sweep over interval endpoints: three holds become six events on one time line, and the running total peaks at 110 at minute 10; at minute 20 the end of hold 1 is processed before the start of hold 3, so the total never shows 150.](figures/sweep.svg)
 
 **The idea.** When a quantity changes only at the start and end of intervals, you do not need to look at every moment or compare every pair of intervals. Put every start and every end on one time line, sort them, and walk left to right while keeping a running value. This is called a sweep line, or a line sweep.
 
@@ -148,6 +161,31 @@ Run phase 1, 2 and 3 tests. Phase 1 and 2 are your regression suite for the rewr
 **The two decisions that cause bugs.** First, what happens when an end and a start share the same time: if the end is exclusive, process ends first; if inclusive, starts first. Second, whether ties keep the earliest or the latest answer.
 
 **An alternative.** When times are small integers in a known range, a difference array does the same job without sorting: add at the start index, subtract at the end index, then take a running sum. Here minutes go up to about a million, so sorting the events is the safer default.
+
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Highest number of intervals active at once; ends before starts at the same time (end is exclusive). */
+static int peakOverlap(List<int[]> intervals) {
+    long[] events = new long[intervals.size() * 2];     // minute * 2 + (0 for end, 1 for start)
+    int n = 0;
+    for (int[] iv : intervals) {
+        events[n++] = (long) iv[0] * 2 + 1;               // start
+        events[n++] = (long) iv[1] * 2;                   // end sorts first at the same minute
+    }
+    Arrays.sort(events);
+    int active = 0, peak = 0;
+    for (long e : events) {
+        active += (e & 1) == 1 ? 1 : -1;
+        peak = Math.max(peak, active);
+    }
+    return peak;
+}
+```
+
+### Complexity
 
 | Approach | Time for one account with n holds | Extra space |
 | --- | --- | --- |
@@ -161,7 +199,7 @@ Run phase 1, 2 and 3 tests. Phase 1 and 2 are your regression suite for the rewr
 | `release(id)` | O(all holds) | O(1) to find, O(k) to remove from an account with k holds |
 | `peakByAccount()` with A accounts, N holds | O(A x N) | O(N log N) worst case |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

@@ -1,6 +1,6 @@
 # How a strong round goes: Friend Suggestion
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 5: read before you run
 
@@ -70,20 +70,19 @@ Check by hand from the sketch: from dev, ana is reached through ben and through 
 ### Prompt
 
 ```text
-Implement FriendFinder.suggestions(user, k): throw IllegalArgumentException for k < 0 or an
-unknown user. For each friend of the user, for each of that friend's friends, skip the user and
-the user's existing friends, and add one to the candidate's count in a HashMap<String, Integer>.
-Return Suggestion(candidate, count) sorted by count descending, then id ascending, limited to k.
-Only this method.
+Friends of friends: walk two steps out from the user, skip the user and anyone already a friend,
+and count how many paths reach each candidate. Rank by that count, then by id, and cut to k. An
+unknown user or a negative k is an IllegalArgumentException. Implement suggestions(user, k) like
+that and nothing else.
 ```
 
 Then:
 
 ```text
-Implement degreesApart(a, b) as breadth-first search: throw IllegalArgumentException when either
-user is unknown; put a in a HashMap<String, Integer> steps with 0 and in an ArrayDeque. Poll a
-user; if it is b return its steps; for each friend, if steps.putIfAbsent(friend, steps + 1)
-returns null, add the friend to the queue. Return -1 when the queue empties.
+degreesApart is breadth-first search. Implement it with a queue and a map of steps that doubles
+as the visited set; mark a user when it is queued, not when it is polled, or the same user gets
+queued many times. Return -1 when the two never connect; an unknown user is an
+IllegalArgumentException.
 ```
 
 ### Check the reply for
@@ -107,7 +106,11 @@ If phase 2 followed the plan above, phase 3 already passes. Run it. If suggestio
 
 Run all three phases.
 
-## The technique: graph traversal by neighbours and breadth-first search
+## DSA reference
+
+### Theory
+
+![Breadth-first search from Ana: ring 1 is her friends, ring 2 their friends. A node is claimed when it is queued, so Dev is reached once, at two steps, even though two friends lead to him.](figures/bfs.svg)
 
 **The idea.** A social network is an undirected graph stored as an adjacency list: each user maps to the set of their friends. "Friends of friends" is a walk of two steps from one node, so its cost depends on the user's neighbourhood, not on the size of the network. "Fewest steps" is breadth-first search: it explores in rings of equal distance, so the first time it reaches a node is along a shortest path.
 
@@ -117,6 +120,32 @@ Run all three phases.
 
 **When BFS is not enough.** With weighted edges (say, stronger and weaker friendships) the fewest steps is not the cheapest path; use Dijkstra's algorithm.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Fewest steps from a to b over an undirected adjacency list; -1 when not connected. */
+static int fewestSteps(Map<String, Set<String>> friends, String a, String b) {
+    Map<String, Integer> steps = new HashMap<>();   // doubles as the visited set
+    Deque<String> queue = new ArrayDeque<>();
+    steps.put(a, 0);
+    queue.add(a);
+    while (!queue.isEmpty()) {
+        String user = queue.poll();
+        if (user.equals(b)) return steps.get(user);
+        for (String friend : friends.getOrDefault(user, Set.of())) {
+            if (steps.putIfAbsent(friend, steps.get(user) + 1) == null) {  // claim on enqueue
+                queue.add(friend);
+            }
+        }
+    }
+    return -1;
+}
+```
+
+### Complexity
+
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Suggestions by scanning every user and intersecting friend sets | O(V x d) per call | O(V) |
@@ -124,7 +153,7 @@ Run all three phases.
 | Degrees apart by BFS with a hash map | O(V + E) | O(V) |
 | BFS with a list as the visited check | O(V squared) | O(V) |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" stroke-dasharray="4 3"><circle cx="200" cy="120" r="60"/><circle cx="200" cy="120" r="110"/></g>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<line x1="200" y1="120" x2="150" y2="85"/><line x1="200" y1="120" x2="250" y2="85"/><line x1="200" y1="120" x2="200" y2="180"/>
+<line x1="150" y1="85" x2="110" y2="30"/><line x1="250" y1="85" x2="110" y2="30"/><line x1="250" y1="85" x2="300" y2="40"/><line x1="200" y1="180" x2="250" y2="225"/>
+</g>
+<g fill="#83748f"><circle cx="200" cy="120" r="14" fill="#7c3aed"/><circle cx="150" cy="85" r="12"/><circle cx="250" cy="85" r="12"/><circle cx="200" cy="180" r="12"/><circle cx="110" cy="30" r="12" fill="#7c3aed"/><circle cx="300" cy="40" r="12"/><circle cx="250" cy="225" r="12"/></g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" font-size="12"><text x="222" y="116">Ana 0</text><text x="112" y="100">Bo 1</text><text x="268" y="100">Cy 1</text><text x="218" y="198">Eli 1</text><text x="60" y="26">Dev 2</text><text x="318" y="44">Fay 2</text><text x="268" y="240">Gus 2</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="380" y="40">queue, left to right</text><text x="380" y="66">[Ana]</text><text x="380" y="88">[Bo, Cy, Eli]</text><text x="380" y="110">[Cy, Eli, Dev]</text><text x="380" y="132">[Eli, Dev, Fay]   Dev already seen</text><text x="380" y="154">[Dev, Fay, Gus]</text></g>
+<text x="380" y="196" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">steps map = visited set; put on</text>
+<text x="380" y="216" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">enqueue, never on poll.</text>
+
+</svg>

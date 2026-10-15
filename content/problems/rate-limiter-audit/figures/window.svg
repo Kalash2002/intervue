@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+
+<g stroke="#83748f" stroke-width="1.5"><line x1="40" y1="120" x2="600" y2="120"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle" font-size="12"><text x="80" y="142">1000</text><text x="200" y="142">1500</text><text x="320" y="142">2000</text><text x="440" y="142">2500</text><text x="560" y="142">3000</text></g>
+<rect x="116" y="60" width="240" height="120" fill="#7c3aed" opacity="0.18"/>
+<text x="120" y="52" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" font-size="12">window of 1,000 ms ending at 2,150 (start excluded)</text>
+<g fill="#83748f"><circle cx="100" cy="120" r="6"/><circle cx="150" cy="120" r="6"/><circle cx="230" cy="120" r="6"/><circle cx="300" cy="120" r="6"/></g>
+<circle cx="356" cy="120" r="7" fill="none" stroke="#7c3aed" stroke-width="2"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle" font-size="11"><text x="100" y="104">1080</text><text x="150" y="104">1290</text><text x="230" y="104">1620</text><text x="300" y="104">1910</text><text x="356" y="104" fill="#7c3aed">2150</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="40" y="190">deque before 2150: [1080, 1290, 1620, 1910]</text><text x="40" y="210">expire 1080 (&lt;= 1150), size 3 = limit: reject 2150</text></g>
+
+</svg>

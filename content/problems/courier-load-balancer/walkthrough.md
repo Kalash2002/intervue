@@ -1,6 +1,6 @@
 # How a strong round goes: Courier Load Balancer
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 6: read before you run
 
@@ -71,11 +71,11 @@ Work the first test by hand: 8 to A, 7 to B, 5 does not fit on B (12 > 10) and i
 ### Prompt
 
 ```text
-Refactor LoadBalancer so balance and balanceWithCapacity share one private method
-plan(parcels, capacityGrams). balance calls it with Long.MAX_VALUE. In plan, after choosing
-the lightest courier with the strict < tie-break, call plan.leaveOver(parcel) when
-load + weight > capacity, otherwise give the parcel as now. balanceWithCapacity throws
-IllegalArgumentException when capacityGrams <= 0. Keep the linear search for now.
+I'd rather not carry two copies of the assignment loop. Pull balance and balanceWithCapacity
+onto one private plan method that takes a capacity; balance passes no limit. In plan keep the
+strict less-than tie-break on load so the first-listed courier wins, and when the lightest courier
+cannot take a parcel, leave it over instead of forcing it on. A capacity of zero or less is an
+IllegalArgumentException. Leave the linear search alone for now.
 ```
 
 ### Check the reply for
@@ -100,10 +100,10 @@ Both tests plan 200,000 parcels for 100,000 couriers in five seconds. Say the co
 ### Prompt
 
 ```text
-In LoadBalancer.plan, replace the linear search with a PriorityQueue<long[]> of {load, courierIndex}
-ordered by load, then by index. Start with every courier at load 0. For each parcel: peek; if
-load + weight > capacity leave the parcel over and continue; otherwise poll, add the weight,
-give the parcel to couriers.get(index), and offer the entry back. Change nothing else.
+The linear scan for the lightest courier is the n times m part. Replace it with a min-heap keyed
+by load and then courier index, so the tie-break survives. A courier's key changes when it takes
+a parcel, so it has to leave the heap and come back rather than be changed in place. Nothing
+else changes.
 ```
 
 ### Check the reply for
@@ -130,7 +130,11 @@ for (Parcel parcel : heaviestFirst(parcels)) {
 }
 ```
 
-## The technique: greedy assignment with a min-heap
+## DSA reference
+
+### Theory
+
+![A min-heap of couriers keyed by (load, index): the root is always the lightest courier, and after it takes a parcel it sinks to where its new load belongs.](figures/heap.svg)
 
 **The idea.** "Give each job to the least-loaded worker" is a greedy rule: it makes the locally best choice and never revisits it. Taking the largest jobs first (longest processing time first) keeps the result close to the best possible. The only expensive step is finding the least-loaded worker, and a min-heap does that in O(log m) instead of O(m).
 
@@ -140,13 +144,38 @@ for (Parcel parcel : heaviestFirst(parcels)) {
 
 **Greedy is not optimal.** Heaviest first on two couriers with weights 3, 3, 2, 2, 2 gives loads 7 and 5, while 3+3 and 2+2+2 gives 6 and 6. Graham's bound says the greedy heaviest load is at most 4/3 of the best possible.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Heaviest first, each to the lightest worker; the worker listed first wins a tie. */
+static long[] loads(long[] weights, int workers) {
+    long[] load = new long[workers];
+    PriorityQueue<long[]> heap = new PriorityQueue<>(
+        Comparator.<long[]>comparingLong(w -> w[0]).thenComparingLong(w -> w[1]));
+    for (int i = 0; i < workers; i++) heap.offer(new long[] {0, i});
+    long[] sorted = weights.clone();
+    Arrays.sort(sorted);
+    for (int j = sorted.length - 1; j >= 0; j--) {
+        long[] lightest = heap.poll();                 // leave the heap before the key changes
+        lightest[0] += sorted[j];
+        load[(int) lightest[1]] = lightest[0];
+        heap.offer(lightest);                          // come back where the new load belongs
+    }
+    return load;
+}
+```
+
+### Complexity
+
 | Approach | Time for n parcels and m couriers | Extra space |
 | --- | --- | --- |
 | Linear search for the lightest courier | O(n log n + n x m) | O(m) |
 | Min-heap keyed by (load, index) | O(n log n + n log m) | O(m) |
 | Exact best plan | NP-hard; exponential in general | |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

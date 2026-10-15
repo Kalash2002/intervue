@@ -1,6 +1,6 @@
 # How a strong round goes: Build-Log Bracket Checker
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 4: read before you run
 
@@ -74,15 +74,12 @@ By hand: `"(](("` gives `MISMATCH` at column 1 (the scan stops there). `"()(x"` 
 ### Prompt
 
 ```text
-Implement BracketChecker.firstError(line) as one left-to-right pass with an index i.
-Keep quote = column of an open double quote, or -1. While quote >= 0: on a backslash skip the
-next character (i++); on a double quote set quote = -1; ignore everything else.
-Outside quotes: a double quote sets quote = i; an opener pushes i onto a stack of columns;
-a closer returns UNEXPECTED_CLOSER at i when the stack is empty, or MISMATCH at i when the
-opener at the top does not match. After the loop return UNCLOSED_STRING at quote if quote >= 0,
-else UNCLOSED at the bottom of the stack (the earliest open column) if the stack is not empty,
-else Optional.empty(). Then change isBalanced(line) to return firstError(line).isEmpty().
-Only these two methods.
+I've decided on a single left-to-right pass. I'll keep a stack of the columns of the open brackets,
+plus the column of an open double quote so quoted text and its backslash escapes are skipped.
+Write firstError that way: a closer with an empty stack is UNEXPECTED_CLOSER, a closer that does not
+match the top is MISMATCH, and at the end of the line an open quote wins over open brackets. Report
+UNCLOSED at the earliest open bracket, not the latest. Make isBalanced delegate to it. Only these
+two methods.
 ```
 
 ### Check the reply for
@@ -129,13 +126,17 @@ If your phase 2 code is the one-pass stack, phase 3 already passes. Run it. If i
 An optional tidy-up, worth saying aloud even if you skip it: a `Deque<Integer>` boxes a million integers. An `int[]` that doubles when full holds the same columns in about 4 MB.
 
 ```text
-In BracketChecker.firstError, replace the Deque of columns with an int[] stack and a depth
-counter, starting at 16 entries and doubling with Arrays.copyOf when full. Change nothing else.
+The Deque<Integer> boxes a million columns. Swap it for a primitive int[] stack that grows by
+doubling, inside firstError only. Same behaviour, nothing else touched.
 ```
 
 Run all three phases.
 
-## The technique: a stack for nested pairs
+## DSA reference
+
+### Theory
+
+![Scanning ( [ ) ]: the stack holds the columns of the open brackets; the closer at column 2 does not match the top, so the scan stops there.](figures/stack.svg)
 
 **The idea.** Brackets close in the reverse order they open, so the bracket that must close next is always the most recent one still open. A stack gives you exactly that element in O(1): push on open, pop on close.
 
@@ -145,13 +146,39 @@ Run all three phases.
 
 **The two decisions that cause bugs.** What to store on the stack: the character is enough for yes or no, but an error position needs the column. And which open bracket to report at the end: the brief asks for the earliest, the bottom of the stack.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** The column of the first bracket error, or -1 when the line is balanced. */
+static int firstUnmatched(String line) {
+    int[] open = new int[16];   // columns of the open brackets, a stack
+    int depth = 0;
+    for (int i = 0; i < line.length(); i++) {
+        char c = line.charAt(i);
+        if (c == '(' || c == '[' || c == '{') {
+            if (depth == open.length) open = Arrays.copyOf(open, depth * 2);
+            open[depth++] = i;
+        } else if (c == ')' || c == ']' || c == '}') {
+            if (depth == 0) return i;                       // nothing to close
+            char opener = line.charAt(open[--depth]);
+            if (closerFor(opener) != c) return i;           // wrong kind
+        }
+    }
+    return depth == 0 ? -1 : open[0];                       // earliest still open
+}
+```
+
+### Complexity
+
 | Approach | Time for a line of n characters | Extra space |
 | --- | --- | --- |
 | Backward search for each closer | O(n squared) | O(n) |
 | Stack of columns, one pass | O(n) | O(depth), at most O(n) |
 | Counter per bracket type | O(n) | O(1), but wrong on crossed pairs |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

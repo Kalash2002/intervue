@@ -1,6 +1,6 @@
 # How a strong round goes: Corridor Router
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 7: read before you run
 
@@ -89,13 +89,13 @@ This is the Bellman-Ford algorithm stopped after `maxHops` rounds.
 ### Prompt
 
 ```text
-In RouteFinder, implement cheapest(from, to, maxHops) as Bellman-Ford limited to maxHops rounds.
-- Throw IllegalArgumentException if maxHops < 0. Return Optional.empty() if either node is unknown.
-- Keep one cost array per round: round h must read only round h-1 (copy the previous array, then relax every active corridor from the previous array), so a round never uses more than h corridors.
-- For each round keep which corridor improved each node, or nothing if the cost was carried over.
-- Answer: the cost at the last round. Among rounds with that same cost for the target pick the earliest, then rebuild the stops backwards from that round.
-- from equal to to gives Route([from], 0).
-Plain Java 21. Only this method and private helpers.
+I'm going with Bellman-Ford limited to maxHops rounds rather than Dijkstra, because with a hop cap
+the cheapest arrival at a node is not always the one worth keeping. Implement cheapest(from, to,
+maxHops) on that idea: every round relaxes from the previous round's costs, not the current ones, so
+after h rounds a route never uses more than h corridors, and keep enough per round to rebuild the
+stops. Take the earliest round that reaches the final cost. Negative maxHops is an
+IllegalArgumentException, an unknown node is Optional.empty(), from equal to to is a zero-fee route.
+Only this method and private helpers.
 ```
 
 ### Check the reply for
@@ -120,7 +120,9 @@ Say the insight aloud: "One table for an origin and a hop limit answers every de
 ### Prompt
 
 ```text
-In RouteFinder, keep the cost and corridor tables from the last call to cheapest in fields, together with the origin, maxHops and network.corridorCount() they were built for. Reuse them when all three match; rebuild otherwise. Do not change the public methods. Show only the changed parts.
+The batch asks the same origin hundreds of times, so I want to keep the last cost and corridor
+tables and reuse them while the origin, maxHops and the network's corridor count are unchanged.
+Add that to RouteFinder without changing the public methods, and show me only what changed.
 ```
 
 `corridorCount()` works as a change signal because corridors are only ever added. Say that this would not be enough if corridors could be switched off in place; then `Network` needs a version counter.
@@ -133,7 +135,11 @@ In RouteFinder, keep the cost and corridor tables from the last call to cheapest
 
 Optional and only if time remains: index nodes as integers and keep corridors in arrays. It speeds up the rounds but none of the tests require it.
 
-## The technique: breadth-first search, and Bellman-Ford with a round limit
+## DSA reference
+
+### Theory
+
+![Bellman-Ford with a hop limit: each round reads the previous row, so the cost at row h uses at most h corridors. A fee of 7 reaches C in two hops; the three-hop route is cheaper but over the limit.](figures/rounds.svg)
 
 **Breadth-first search.** Explores nodes in order of distance in hops. Use it when every edge counts the same. The rule that makes it correct: a node is claimed the first time it is discovered, which means when it is put on the queue.
 
@@ -142,6 +148,31 @@ Optional and only if time remains: index nodes as integers and keep corridors in
 **Bellman-Ford with k rounds.** After round h, every node holds its cheapest fee using at most h edges. Each round reads the previous round and tries every edge. It handles zero-fee loops without special care because the number of rounds is fixed.
 
 **How to recognise it.** "Cheapest path with at most k stops", "best result using at most k steps", or any shortest-path question with a second limit on length.
+
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Cheapest cost from source using at most k edges; -1 when unreachable. Rounds read the previous row. */
+static long cheapest(int n, List<int[]> edges, int source, int target, int k) {
+    long[] prev = new long[n];
+    Arrays.fill(prev, Long.MAX_VALUE);
+    prev[source] = 0;
+    for (int round = 1; round <= k; round++) {
+        long[] cur = prev.clone();                     // carry every cost over
+        for (int[] e : edges) {                         // e = {from, to, fee}
+            if (prev[e[0]] != Long.MAX_VALUE && prev[e[0]] + e[2] < cur[e[1]]) {
+                cur[e[1]] = prev[e[0]] + e[2];          // relax from the previous round only
+            }
+        }
+        prev = cur;
+    }
+    return prev[target] == Long.MAX_VALUE ? -1 : prev[target];
+}
+```
+
+### Complexity
 
 | Approach | Time per lookup | Space | Verdict |
 | --- | --- | --- | --- |
@@ -153,7 +184,7 @@ Optional and only if time remains: index nodes as integers and keep corridors in
 
 V is nodes, E is active corridors, k is `maxHops`. `fewestHops` is O(V + E) time and O(V) space.
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

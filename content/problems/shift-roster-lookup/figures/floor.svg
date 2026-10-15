@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img">
+
+<g fill="none" stroke="#83748f" stroke-width="1.5"><rect x="40" y="40" width="80" height="40"/><rect x="120" y="40" width="80" height="40"/><rect x="200" y="40" width="80" height="40"/><rect x="280" y="40" width="80" height="40"/><rect x="360" y="40" width="80" height="40"/></g>
+<rect x="120" y="40" width="80" height="40" fill="#7c3aed" stroke="#7c3aed"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle"><text x="80" y="65">0</text><text x="160" y="65" fill="#ffffff">480</text><text x="240" y="65">1020</text><text x="320" y="65">1260</text><text x="400" y="65">1380</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle" font-size="11"><text x="80" y="100">0</text><text x="160" y="100">1</text><text x="240" y="100">2</text><text x="320" y="100">3</text><text x="400" y="100">4</text></g>
+<line x1="200" y1="110" x2="200" y2="140" stroke="#83748f" stroke-width="1.5" stroke="#7c3aed"/>
+<text x="206" y="134" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" font-size="12">insertion point of 700 is 2</text>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="40" y="170">binarySearch(starts, 700) = -3</text><text x="40" y="192">insertion point = -(-3) - 1 = 2, floor = 2 - 1 = 1</text></g>
+<text x="40" y="214" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">floor start 480; on duty only if that shift's end is after 700</text>
+
+</svg>

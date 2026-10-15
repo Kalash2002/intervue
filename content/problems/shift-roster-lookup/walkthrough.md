@@ -1,6 +1,6 @@
 # How a strong round goes: Shift Roster Lookup
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 5: read before you run
 
@@ -71,22 +71,21 @@ Work ICU from 0 to 1600 by hand: covered to 480, then 960; 1020 is later, so gap
 ### Prompt
 
 ```text
-In RosterLookup, add a private helper lastStartAtOrBefore(List<Integer> starts, int minute)
-that returns the index of the last start <= minute, or -1, using Collections.binarySearch
-(found >= 0 ? found : -found - 2). Use it in onDutyAt. Then implement
-nextHandover(ward, minute): the start at helper + 1 if that index exists, else empty.
-Only these methods.
+A binary search for the floor is what onDutyAt needs: the last shift that starts at or before the
+minute. Add a private lastStartAtOrBefore(starts, minute) that turns Collections.binarySearch's
+negative insertion point into that index, or -1 before everything, use it in onDutyAt, then
+implement nextHandover(ward, minute) as the start after that index when there is one. Only these
+methods.
 ```
 
 Then:
 
 ```text
-Implement uncovered(ward, fromMinute, toMinute): throw IllegalArgumentException when
-fromMinute >= toMinute. Set cursor = fromMinute. Walk the ward's shifts from
-max(0, lastStartAtOrBefore(starts, fromMinute)) while a shift starts before toMinute: if the
-shift starts after cursor, add Gap(cursor, shift start) and move on; then cursor =
-max(cursor, shift end). After the walk, add Gap(cursor, toMinute) if cursor < toMinute.
-An unknown ward has no shifts, so it returns one gap for the whole range.
+uncovered(ward, fromMinute, toMinute): start a cursor at fromMinute, begin at the floor shift so
+a shift already in progress counts, and walk the shifts while they start before toMinute, adding
+a Gap whenever the next shift starts after the cursor and moving the cursor to the later shift
+end. Close with a gap to toMinute if the cursor has not reached it. fromMinute at or after
+toMinute is an IllegalArgumentException; an unknown ward is one gap over the whole range.
 ```
 
 ### Check the reply for
@@ -108,7 +107,11 @@ Five wards with 50,000 shifts each, and half a million lookups per test. Say how
 
 If every lookup goes through the binary-search helper, phase 3 already passes. If it times out, find the loop over a ward's shifts (often in `nextHandover`, or `uncovered` starting at index 0) and route it through the helper. Run all three phases.
 
-## The technique: binary search for the floor
+## DSA reference
+
+### Theory
+
+![Binary search for the floor: in the sorted shift starts, the insertion point of minute 700 is 2, so the floor is index 1 (start 480), and that shift covers 700 only if its end is after 700.](figures/floor.svg)
 
 **The idea.** In a sorted list, binary search finds not just exact keys but the position a missing key would take. The element just before that position is the **floor**, the largest value at or below the key. For non-overlapping intervals sorted by start, the floor interval is the only one that can contain a point; check its end and you have the answer in O(log n).
 
@@ -118,13 +121,35 @@ If every lookup goes through the binary-search helper, phase 3 already passes. I
 
 **In Java.** `Collections.binarySearch` and `Arrays.binarySearch` encode a missing key as `-(insertion point) - 1`. A `TreeMap<Integer, Shift>` gives the same answer with `floorEntry(minute)` and `higherKey(minute)` and needs no index arithmetic.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Index of the last element at or below key in a sorted list, or -1 when key is below every element. */
+static int floorIndex(List<Integer> sorted, int key) {
+    int found = Collections.binarySearch(sorted, key);
+    return found >= 0 ? found : -found - 2;           // -found - 1 is the insertion point
+}
+
+/** The interval containing minute, when intervals sorted by start do not overlap. */
+static Optional<int[]> containing(List<int[]> intervals, List<Integer> starts, int minute) {
+    int i = floorIndex(starts, minute);
+    if (i < 0) return Optional.empty();
+    int[] iv = intervals.get(i);
+    return minute < iv[1] ? Optional.of(iv) : Optional.empty();   // the floor may end before minute
+}
+```
+
+### Complexity
+
 | Approach | onDutyAt for n shifts | uncovered over a range with k shifts |
 | --- | --- | --- |
 | Scan every shift | O(n) | O(n) |
 | Binary search for the floor | O(log n) | O(log n + k) |
 | `TreeMap` floor and higher | O(log n) | O(log n + k) |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

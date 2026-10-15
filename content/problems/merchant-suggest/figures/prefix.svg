@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="30">sorted suffix entries</text>
+<text x="20" y="58">bakery sun</text><text x="20" y="80">cafe nero</text>
+<text x="20" y="102" fill="#7c3aed">coffee bean</text><text x="20" y="124" fill="#7c3aed">coffee house</text><text x="20" y="146" fill="#7c3aed">cofi corner</text>
+<text x="20" y="168">deli max</text><text x="20" y="190">house coffee</text>
+</g>
+<rect x="12" y="86" width="190" height="66" fill="none" stroke="#83748f" stroke-width="1.5" stroke="#7c3aed" rx="4"/>
+<text x="215" y="104" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">lower bound of "cof"</text>
+<text x="215" y="126" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">scan while startsWith("cof")</text>
+<text x="215" y="148" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">"house coffee" is reached by</text>
+<text x="215" y="168" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">its second word's entry: "coffee"</text>
+<g stroke="#83748f" stroke-width="1.5" fill="none"><circle cx="500" cy="40" r="12"/><circle cx="500" cy="90" r="12"/><circle cx="500" cy="140" r="12"/><circle cx="470" cy="190" r="12"/><circle cx="530" cy="190" r="12"/>
+<line x1="500" y1="52" x2="500" y2="78"/><line x1="500" y1="102" x2="500" y2="128"/><line x1="492" y1="151" x2="474" y2="178"/><line x1="508" y1="151" x2="526" y2="178"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" font-size="12"><text x="518" y="44">c</text><text x="518" y="94">o</text><text x="518" y="144">f</text><text x="440" y="194">f...</text><text x="548" y="194">i...</text></g>
+<text x="440" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">trie: one edge per letter</text>
+
+</svg>

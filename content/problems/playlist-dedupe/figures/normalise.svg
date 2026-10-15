@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img">
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="36">"Levitating "</text><text x="20" y="66">"LEVITATING"</text><text x="20" y="96">"levitating (Remix)"</text></g>
+<g stroke="#83748f" stroke-width="1.5" fill="none"><path d="M 200 30 L 260 60"/><path d="M 200 60 L 260 60"/><path d="M 230 92 L 260 62"/></g>
+<rect x="268" y="44" width="120" height="30" fill="#7c3aed" stroke="#7c3aed" rx="4"/><text x="280" y="64" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff">levitating</text>
+<text x="20" y="130" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">trim, lower-case, strip the bracket: one key</text>
+<g stroke="#83748f" stroke-width="1.5" fill="none"><circle cx="470" cy="120" r="60"/><circle cx="540" cy="120" r="60"/></g>
+<path d="M 505 68 A 60 60 0 0 1 505 172 A 60 60 0 0 1 505 68 Z" fill="#7c3aed" opacity="0.35"/>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="middle" font-size="12"><text x="440" y="124">A</text><text x="570" y="124">B</text><text x="505" y="124">shared</text></g>
+<text x="400" y="206" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">similarity = shared / (A or B) as a percentage</text>
+
+</svg>

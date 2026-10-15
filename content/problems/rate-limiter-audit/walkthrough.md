@@ -1,6 +1,6 @@
 # How a strong round goes: Rate Limiter Audit
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 5: read before you run
 
@@ -73,19 +73,19 @@ Walk alpha by hand with a limit of 2 and a 1,000 ms window: 120 and 480 are acce
 ### Prompt
 
 ```text
-Implement RateAudit.rejections(client, limit, windowMs): throw IllegalArgumentException when
-limit < 1 or windowMs < 1. Keep an ArrayDeque<Long> of accepted times. For each time t of
-log.forClient(client): while the deque is not empty and its first time <= t - windowMs, remove
-it. If the deque size is limit, add t to the rejected list; otherwise add t to the deque.
-Return the rejected times. Only this method.
+I'll model the limiter as a sliding window: a deque of the accepted times of one client. For each
+request, drop the times at the front that have left the window (the window start is excluded, so
+expire with less-or-equal), then reject if the deque is full, else accept and push. Implement
+rejections(client, limit, windowMs) that way and return the rejected times; a limit or window
+below 1 is an IllegalArgumentException. Only this method.
 ```
 
 Then:
 
 ```text
-Implement rejectionCounts(limit, windowMs): for each client in log.clients(), count
-rejections(client, limit, windowMs); put clients with a count above zero in a TreeMap.
-Validate limit and windowMs the same way, even when the log is empty.
+rejectionCounts(limit, windowMs): run rejections for every client the log knows and report the
+ones with a non-zero count in a sorted map. Validate the arguments the same way even when the log
+is empty.
 ```
 
 ### Check the reply for
@@ -109,10 +109,9 @@ The brief warns that the two workloads are slow for different reasons. Say each 
 ### Prompt
 
 ```text
-In RequestLog, keep a LinkedHashMap<String, List<Long>> of times per client, filled in add next
-to the existing list. forClient returns a copy of the client's list, or an empty list.
-clients() returns the map's key set in first-seen order. Keep the out-of-order check.
-Only this class.
+forClient scans the whole log for every client. Keep a per-client list of times filled in add,
+with clients in first-seen order, so forClient and clients() are direct lookups. Keep the
+out-of-order check. Only this class.
 ```
 
 ### Check the reply for
@@ -123,7 +122,11 @@ Only this class.
 
 Run all three phases.
 
-## The technique: a sliding window with a deque
+## DSA reference
+
+### Theory
+
+![A sliding window with a deque: accepted times enter at the back; before each request, times older than the window leave from the front. With a limit of 3, the request at 2,150 is rejected and the one at 2,900 is accepted.](figures/window.svg)
 
 **The idea.** When every question is about "the last w milliseconds", keep only the events still inside the window in a queue. New events join at the back, expired ones leave from the front. Each event is added and removed once, so a whole replay is linear, and the queue never holds more than the limit.
 
@@ -133,13 +136,35 @@ Run all three phases.
 
 **Floating point is not decimal.** Values such as 2.006 have no exact binary form. For money and timestamps written as decimal text, parse with `BigDecimal` or as integers.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** Times rejected by a limiter that allows `limit` accepted requests per sliding window. */
+static List<Long> rejected(List<Long> times, int limit, long windowMs) {
+    Deque<Long> accepted = new ArrayDeque<>();
+    List<Long> rejected = new ArrayList<>();
+    for (long t : times) {
+        while (!accepted.isEmpty() && accepted.peekFirst() <= t - windowMs) {
+            accepted.pollFirst();                      // left the window; the start is excluded
+        }
+        if (accepted.size() == limit) rejected.add(t); // only accepted requests occupy the window
+        else accepted.addLast(t);
+    }
+    return rejected;
+}
+```
+
+### Complexity
+
 | Approach | Time for one client with n requests | Memory at once |
 | --- | --- | --- |
 | Count accepted requests in the window for each request | O(n squared) | O(n) |
 | Deque of accepted times | O(n) | O(limit) |
 | Fixed one-second buckets | O(n) | O(1), but a burst at a boundary gets twice the limit |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

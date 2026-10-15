@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "friend-suggestion",
-  "version": 3,
+  "version": 4,
   "section": "coding-round",
   "title": "Friend Suggestion",
   "summary": "A social app's friend graph gives odd answers. Fix how friendships are stored, suggest people you may know and measure degrees apart, then serve a network of a hundred thousand users.",

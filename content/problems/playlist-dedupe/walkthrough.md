@@ -1,6 +1,6 @@
 # How a strong round goes: Playlist Dedupe
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The DSA reference at the end names the data structure behind the solution, shows it in plain Java, gives its cost and lists the questions to practise, which open inside the app. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 6: read before you run
 
@@ -70,19 +70,17 @@ Work the sample by hand: A = S1, S3, S5 is three songs. B = S2, S4, S8, S99 is S
 ### Prompt
 
 ```text
-Implement PlaylistTools.topArtists(plays, k): throw IllegalArgumentException for k < 0. For each
-play, find the track in the catalogue and skip unknown ids; add play.user() to a
-HashMap<String, Set<String>> keyed by SongKey.normalise(track.artist()). Return ArtistCount
-(artist, set size) sorted by listeners descending, then artist ascending, limited to k.
-Do not change other methods.
+topArtists(plays, k): for each play look the track up in the catalogue, skip ids it does not
+know, and collect the listeners per artist in a set keyed by the normalised artist name so
+spelling variants count once. Rank by listener count then artist, cut to k; a negative k is an
+IllegalArgumentException. Do not touch the other methods.
 ```
 
 Then:
 
 ```text
-Implement similarity(playlistA, playlistB): turn each list of track ids into a HashSet of
-track.songKey(), skipping unknown ids. all = size of the union, shared = size of the
-intersection. Return 0 when all is 0, else 100 * shared / all with integer division.
+similarity(a, b) is Jaccard on song keys: a hash set of track.songKey() per playlist, skipping
+unknown ids; shared over union as an integer percentage, 0 when both are empty.
 ```
 
 ### Check the reply for
@@ -105,7 +103,11 @@ Two playlists of 80,000 tracks, and 400,000 plays from 100,000 users. Say how ma
 
 If phase 2 used hash sets and a map as above, phase 3 already passes. If either test times out, find the list used as a set (`contains`, `indexOf`, or a list of artists searched by name) and replace it with a `HashSet` or a `HashMap`. Run all three phases.
 
-## The technique: normalised keys in hash sets
+## DSA reference
+
+### Theory
+
+![Normalised keys: three spellings of the same song collapse to one key, so a hash set holds it once, and set similarity is the shared part of two key sets over everything in either.](figures/normalise.svg)
 
 **The idea.** Decide once what makes two things "the same", write that as a function from the thing to a key, and let hash sets and maps do the comparing. Deduplication, distinct counts and set similarity all become one pass.
 
@@ -115,13 +117,38 @@ If phase 2 used hash sets and a map as above, phase 3 already passes. If either 
 
 **Set similarity.** Shared over all is the Jaccard index. With hash sets it is linear; with lists it is quadratic. For huge sets, MinHash estimates it from small signatures.
 
+### Code
+
+The structure on its own, outside this codebase; the reference solution is this shape with the problem's names.
+
+```java
+/** The percentage of songs two playlists share, after spelling differences are normalised away. */
+static int similarity(List<String> a, List<String> b) {
+    Set<String> keysA = new HashSet<>();
+    for (String title : a) keysA.add(normalise(title));
+    Set<String> keysB = new HashSet<>();
+    for (String title : b) keysB.add(normalise(title));
+    Set<String> union = new HashSet<>(keysA);
+    union.addAll(keysB);
+    if (union.isEmpty()) return 0;
+    keysA.retainAll(keysB);                                       // keysA is now the intersection
+    return 100 * keysA.size() / union.size();
+}
+
+static String normalise(String title) {
+    return title.trim().toLowerCase(Locale.ROOT).replaceAll("\\s*\\(.*\\)$", "");
+}
+```
+
+### Complexity
+
 | Approach | Time for playlists of n and m tracks | Extra space |
 | --- | --- | --- |
 | Lists with `contains` | O(n x m) | O(n + m) |
 | Hash sets of song keys | O(n + m) | O(n + m) |
 | Sort both key lists and merge | O(n log n + m log m) | O(n + m) |
 
-**Practise the technique**
+### Practise the technique
 
 These open inside the app under DSA.
 

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+
+<g stroke="#83748f" stroke-width="1.5"><line x1="60" y1="150" x2="600" y2="150"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle"><text x="100" y="172">0</text><text x="220" y="172">10</text><text x="340" y="172">20</text><text x="460" y="172">30</text><text x="580" y="172">40</text></g>
+<g stroke="#83748f" stroke-width="1.5">
+<line x1="100" y1="50" x2="340" y2="50"/><line x1="220" y1="80" x2="460" y2="80"/><line x1="340" y1="110" x2="580" y2="110"/>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" font-size="12"><text x="105" y="44">hold 1: 50 (0 to 20)</text><text x="225" y="74">hold 2: 60 (10 to 30)</text><text x="345" y="104">hold 3: 40 (20 to 40)</text></g>
+<g fill="#7c3aed"><circle cx="100" cy="150" r="5"/><circle cx="220" cy="150" r="5"/><circle cx="340" cy="150" r="5"/><circle cx="460" cy="150" r="5"/><circle cx="580" cy="150" r="5"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle" font-size="12">
+<text x="100" y="200">+50 = 50</text><text x="220" y="200">+60 = 110</text><text x="340" y="200">-50 +40 = 100</text><text x="460" y="200">-60 = 40</text><text x="580" y="200">-40 = 0</text>
+</g>
+<text x="60" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">peak 110 at minute 10; at minute 20 the end comes before the start, so the total never shows 150</text>
+
+</svg>
