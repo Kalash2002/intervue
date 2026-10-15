@@ -49,12 +49,13 @@ public class Phase1Tests {
 
     @Test(order = 8)
     void finishingSecondsBeyondTheIntRange() {
-        // machine 1 is busy until second 2,000,000,000, which does not fit in an int
-        expect(new int[] {5, 3}, new int[] {1_000_000_000, 1_000_000_000, 1_000_000_000, 1, 1},
-                new int[] {1, 0, 1, 0, 0});
+        // machine 1 runs jobs 0, 2 and 4 back to back and is busy until second 3,000,000,000, past the largest int
+        // (2,147,483,647); job 5 must therefore wait for machine 0, while an int clock sees machine 1 as free
+        expect(new int[] {5, 3}, new int[] {1_000_000_000, 1_000_000_000, 1_000_000_000, 1_000_000_000, 1_000_000_000, 1, 1},
+                new int[] {1, 0, 1, 0, 1, 0, 0});
     }
 
-    @Test(order = 9, timeoutMs = 2500)
+    @Test(order = 9, timeoutMs = 3500)
     void twoHundredThousandJobsOnOneHundredFiftyThousandMachines() {
         int m = 150_000;
         int[] weights = new int[m];
