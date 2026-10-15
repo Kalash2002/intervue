@@ -1,5 +1,6 @@
 # Desktop shell gates on both operating systems, and unsigned installers from a version tag
-# (Phase 1a exit criterion 5). Signing and notarisation arrive in Phase 1c.
+# (Phase 1a exit criterion 5). Signing and notarisation arrive in Phase 1c. macOS builds on every run but may
+# fail without blocking (ADR 0007: Windows first; macOS is hand-tested when a machine is available).
 name: desktop
 on:
   pull_request:
@@ -15,6 +16,7 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
     defaults:
       run:
         working-directory: desktop/src-tauri
@@ -38,6 +40,7 @@ jobs:
       matrix:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os == 'macos-latest' }}
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-java@v6
