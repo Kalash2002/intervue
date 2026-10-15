@@ -1,0 +1,199 @@
+/* The shell outside the room: the fixed left menu and the main column, the page grid with its
+   aside, page headers, and the shared card grid. No max-width anywhere: the main column takes the
+   window (docs/design/home-and-practice.md, section 3). */
+.shell {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  min-height: 100vh;
+}
+.shell.collapsed {
+  grid-template-columns: 64px minmax(0, 1fr);
+}
+.menu {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  overflow: hidden;
+}
+.menu-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2px 6px 14px;
+}
+.menu-toggle {
+  font-size: 16px;
+}
+.menu-group {
+  margin: 14px 10px 4px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.menu-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px 10px;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text-2);
+  text-align: left;
+  white-space: nowrap;
+}
+.menu-item:hover {
+  background: var(--panel-2);
+  color: var(--text);
+}
+.menu-item.active {
+  background: var(--select);
+  color: var(--select-ink);
+  font-weight: 650;
+}
+.menu-item .glyph {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  background: var(--panel-2);
+  font-size: 13px;
+  font-weight: 700;
+  flex: none;
+}
+.menu-item.active .glyph {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+.menu-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.shell.collapsed .menu .label,
+.shell.collapsed .menu .wordmark,
+.shell.collapsed .menu-group {
+  display: none;
+}
+.shell.collapsed .menu-top {
+  justify-content: center;
+}
+.shell.collapsed .menu-item {
+  justify-content: center;
+  padding: 8px 0;
+}
+@media (max-width: 900px) {
+  .shell {
+    grid-template-columns: 64px minmax(0, 1fr);
+  }
+  .menu .label,
+  .menu .wordmark,
+  .menu-group {
+    display: none;
+  }
+  .menu-top {
+    justify-content: center;
+  }
+  .menu-item {
+    justify-content: center;
+    padding: 8px 0;
+  }
+}
+.main {
+  min-width: 0;
+  padding: var(--space-5) var(--space-5) 80px;
+}
+.home-wash {
+  background: var(--wash);
+}
+/* A page: content column and, from 1280 px, a 320 px aside beside it; below that the aside stacks first. */
+.page {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-5);
+}
+.page .aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  order: -1;
+}
+@media (min-width: 1280px) {
+  .page.with-aside {
+    grid-template-columns: minmax(0, 1fr) 320px;
+  }
+  .page .aside {
+    order: 0;
+  }
+}
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-3) var(--space-5);
+  grid-column: 1 / -1;
+}
+.page-head h1 {
+  font-size: 30px;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+.page-head .lede {
+  margin: 8px 0 0;
+  color: var(--text-2);
+  max-width: 72ch;
+}
+.page-head .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+.page-head .tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 10px 0 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 9px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--panel-2);
+  color: var(--text-2);
+  font: 500 12px/1.5 var(--ui);
+  white-space: nowrap;
+  cursor: pointer;
+}
+.chip:hover {
+  border-color: var(--outline);
+  color: var(--text);
+}
+.chip.on {
+  background: var(--select);
+  border-color: var(--link);
+  color: var(--select-ink);
+}
+.chip .count {
+  margin-left: 6px;
+  color: var(--muted);
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.section-grid {
+  display: grid;
+  gap: var(--space-5);
+}

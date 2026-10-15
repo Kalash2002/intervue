@@ -49,6 +49,7 @@ const check = (over: Partial<CheckResult>): CheckResult => ({
 const session = {
   id: 'new-1',
   problemId: 'hold-exposure',
+  section: 'coding-round',
   type: 'PRACTICE',
   minutes: 60,
   phases: 3,
@@ -71,11 +72,14 @@ function fakeClient(over: Partial<EngineClient> = {}): EngineClient {
 }
 
 const section: SectionUi = {
+  id: 'coding-round',
+  title: 'AI-assisted coding',
+  description: 'Three-phase scenarios with an assistant.',
   Room: ({ session: s }) => <p>room for {s.view.id}</p>,
   Result: () => <p>result parts</p>,
 };
 
-const renderApp = (client: EngineClient) => render(<App client={client} section={section} languages={[]} />);
+const renderApp = (client: EngineClient) => render(<App client={client} sections={[section]} languages={[]} />);
 
 describe('theme', () => {
   it('applies the saved theme when the app starts', async () => {
@@ -86,6 +90,49 @@ describe('theme', () => {
     expect(document.documentElement.dataset.theme).toBe('light');
     localStorage.clear();
     delete document.documentElement.dataset.theme;
+  });
+});
+
+describe('shell', () => {
+  it('shows the menu with Home, the section under Practice, Doctor and the theme on every page but the room', async () => {
+    const client = fakeClient();
+    renderApp(client);
+
+    const menu = await screen.findByRole('navigation', { name: 'Main menu' });
+    expect(within(menu).getByRole('button', { name: 'Home' })).toHaveAttribute('aria-current', 'page');
+    expect(within(menu).getByText('Practice')).toBeInTheDocument();
+    expect(within(menu).getByRole('button', { name: 'Doctor' })).toBeInTheDocument();
+    expect(within(menu).getByRole('button', { name: 'Light theme' })).toBeInTheDocument();
+
+    fireEvent.click(within(menu).getByRole('button', { name: 'AI-assisted coding' }));
+    expect(await screen.findByRole('heading', { name: 'AI-assisted coding' })).toBeInTheDocument();
+    expect(screen.getByText('Three-phase scenarios with an assistant.')).toBeInTheDocument();
+    expect(within(menu).getByRole('button', { name: 'AI-assisted coding' })).toHaveAttribute('aria-current', 'page');
+    expect(await screen.findByRole('article', { name: 'Hold Exposure' })).toBeInTheDocument();
+
+    fireEvent.click(within(menu).getByRole('button', { name: 'Doctor' }));
+    expect(await screen.findByRole('heading', { name: 'Is this machine ready?' })).toBeInTheDocument();
+
+    fireEvent.click(within(menu).getByRole('button', { name: 'Home' }));
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Start' }))[0]);
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
+    fireEvent.click(await screen.findByRole('button', { name: 'Start phase 1' }));
+    expect(await screen.findByText('room for new-1')).toBeInTheDocument();
+    expect(screen.queryByRole('navigation', { name: 'Main menu' })).toBeNull();
+  });
+
+  it('collapses and expands the menu, remembering the choice', async () => {
+    renderApp(fakeClient());
+    const toggle = await screen.findByRole('button', { name: 'Collapse menu' });
+    expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+    fireEvent.click(toggle);
+
+    expect(screen.getByRole('button', { name: 'Expand menu' })).toHaveAttribute('aria-expanded', 'false');
+    expect(screen.getByRole('navigation', { name: 'Main menu' }).parentElement).toHaveClass('collapsed');
+    expect(localStorage.getItem('intervue.menu')).toBe('collapsed');
+    fireEvent.click(screen.getByRole('button', { name: 'Expand menu' }));
+    expect(localStorage.getItem('intervue.menu')).toBe('open');
   });
 });
 
@@ -151,7 +198,7 @@ describe('answer and navigation', () => {
     await screen.findByRole('button', { name: 'Try again' });
     fireEvent.click(screen.getByRole('button', { name: 'Answer' }));
     await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' });
-    fireEvent.click(screen.getByRole('button', { name: '← Dashboard' }));
+    fireEvent.click(screen.getByRole('button', { name: 'Home' }));
 
     expect(await screen.findAllByRole('button', { name: 'Answer' })).toHaveLength(2);
   });

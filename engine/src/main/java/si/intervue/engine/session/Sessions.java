@@ -132,6 +132,7 @@ public final class Sessions {
     return new SessionView(
         s.id(),
         s.problemId(),
+        s.sectionId(),
         c.problem().problem().title(),
         s.type(),
         s.minutes(),

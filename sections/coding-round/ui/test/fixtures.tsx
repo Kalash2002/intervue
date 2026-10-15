@@ -9,6 +9,7 @@ export function view(over: Partial<SessionView> = {}): SessionView {
   return {
     id: 's1',
     problemId: 'tiny',
+    section: 'coding-round',
     title: 'Tiny',
     type: 'INTERVIEW',
     minutes: 10,
@@ -44,6 +45,7 @@ export function renderWith(ui: ReactNode, client: Partial<EngineClient>) {
   const services: AppServices = {
     client: client as EngineClient,
     languages: [javaEditor],
+    sections: [],
     go: vi.fn(),
     notify: vi.fn(),
   };

@@ -14,6 +14,7 @@ import si.intervue.engine.sections.SessionType;
 public record SessionView(
     String id,
     String problemId,
+    String section,
     String title,
     SessionType type,
     int minutes,

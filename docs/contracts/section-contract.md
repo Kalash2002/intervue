@@ -4,11 +4,11 @@ What a section package provides: how a kind of interview round is graded, scored
 
 ## Packaging
 
-- `sections/<id>/section.json`: `id`, `name`, `version`, `spiVersion`, `runnerKind`, `graderKind`, `uiMode`.
+- `sections/<id>/section.json`: `id`, `name`, `version`, `spiVersion`, `runnerKind`, `graderKind`, `uiMode`, and since 2026-10-15 the optional `description` (one paragraph shown under the title of the section's page; additive, SPI version unchanged). `name` is the menu entry and page title.
 - A Java implementation of `SectionPackage`, registered in `META-INF/services/si.intervue.engine.sections.SectionPackage`. The interfaces live in `si.intervue.engine.sections`.
 - `schema/`: the JSON Schema for this section's `problem.json`.
 - `prompts/`: `system.md`, `interview-mode.md`, `helpful-mode.md`, `write-code.md`, `hint-explain.md`, `feedback.md`. Prompt text lives only here, never in code.
-- `ui/`: the pnpm package with the session view and result-page parts.
+- `ui/`: the pnpm package exporting one `SectionUi` (`packages/ui/src/section.ts`): `id`, `title` and `description` from `section.json`, `Room` (the session view) and `Result` (the result-page parts). The app lists every `SectionUi` it ships in menu order and looks sections up by `id`; a section's problems are those whose `problem.json.section` equals it.
 
 ## Interface
 

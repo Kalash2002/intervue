@@ -15,7 +15,7 @@ connect({ isTauri, invoke })
   .then((connection) =>
     root.render(
       <StrictMode>
-        <App client={createEngineClient(connection)} section={codingRoundUi} languages={languages} />
+        <App client={createEngineClient(connection)} sections={[codingRoundUi]} languages={languages} />
       </StrictMode>,
     ),
   )

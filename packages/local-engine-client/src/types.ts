@@ -77,6 +77,8 @@ export interface EventView {
 export interface SessionView {
   id: string;
   problemId: string;
+  /** The section the session runs in; picks the section UI. */
+  section: string;
   title: string;
   type: SessionType;
   minutes: number;

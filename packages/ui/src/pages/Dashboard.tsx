@@ -1,28 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
 import { failed, useApp } from '../app-context.ts';
-import { ThemeButton } from '../components/TopBar.tsx';
-import { dateText, plural } from '../lib/format.ts';
-import { byDifficulty, dashboardStats, progressFor, type ProblemState } from '../lib/progress.ts';
-import { timed } from '../lib/timed.ts';
-
-const STATE_LABEL: Record<ProblemState, [string, string]> = {
-  solved: ['✓', 'Solved'],
-  progress: ['▶', 'In progress'],
-  attempted: ['◐', 'Attempted'],
-  new: ['○', 'Not started'],
-};
-
-function useOpeners() {
-  const { client, go, notify } = useApp();
-  return {
-    open: (id: string) => client.session(id).then((view) => go({ name: 'room', session: timed(view) }), failed(notify)),
-    result: (id: string) => client.session(id).then((view) => go({ name: 'result', session: view }), failed(notify)),
-  };
-}
+import { ProblemCard, useOpeners } from '../components/ProblemCard.tsx';
+import { dateText } from '../lib/format.ts';
+import { byDifficulty, dashboardStats } from '../lib/progress.ts';
 
 export function Dashboard() {
-  const { client, go, notify } = useApp();
+  const { client, notify } = useApp();
   const [data, setData] = useState<{ problems: ProblemSummary[]; history: SessionSummary[] } | null>(null);
 
   useEffect(() => {
@@ -33,15 +17,6 @@ export function Dashboard() {
 
   return (
     <main className="home">
-      <header className="home-head">
-        <span className="wordmark">intervue</span>
-        <span>
-          <button className="ghost" type="button" onClick={() => go({ name: 'doctor', firstRun: false })}>
-            Doctor
-          </button>{' '}
-          <ThemeButton />
-        </span>
-      </header>
       <section className="home-intro">
         <h1>Rehearse the AI-assisted coding round.</h1>
         <p>
@@ -92,48 +67,6 @@ function Problems({ problems, history }: { problems: ProblemSummary[]; history: 
         ))}
       </div>
     </section>
-  );
-}
-
-function ProblemCard({ problem: p, history }: { problem: ProblemSummary; history: SessionSummary[] }) {
-  const { go } = useApp();
-  const { open, result } = useOpeners();
-  const { state, best, attempts, openId, lastFinishedId } = progressFor(p, history);
-  const [icon, label] = STATE_LABEL[state];
-  const facts = [best === null ? '' : `best ${best} / 100`, attempts ? plural(attempts, 'attempt') : '']
-    .filter(Boolean)
-    .join(', ');
-  return (
-    <article className="card" aria-labelledby={`problem-${p.id}`}>
-      <h3 id={`problem-${p.id}`}>{p.title}</h3>
-      <p className="tags">
-        <span className={`pill ${p.difficulty.toLowerCase()}`}>{p.difficulty}</span>
-        <span className="pill">{p.minutes} min</span>
-      </p>
-      <p className={`state ${state}`}>
-        <span aria-hidden="true">{icon}</span> {label}
-        {facts && <span className="facts-inline">{facts}</span>}
-      </p>
-      <p className="summary">{p.summary}</p>
-      <div className="actions">
-        {openId && (
-          <button className="ghost" type="button" onClick={() => open(openId)}>
-            Resume
-          </button>
-        )}
-        {lastFinishedId && (
-          <button className="ghost" type="button" onClick={() => result(lastFinishedId)}>
-            Last result
-          </button>
-        )}
-        <button className="ghost" type="button" onClick={() => go({ name: 'answer', problemId: p.id, title: p.title })}>
-          Answer
-        </button>
-        <button className="primary" type="button" onClick={() => go({ name: 'start', problem: p })}>
-          Start
-        </button>
-      </div>
-    </article>
   );
 }
 

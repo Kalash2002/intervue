@@ -2,18 +2,21 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import type { LanguageEditor } from '@intervue/editor';
 import { AppContext, type AppServices, type Screen } from './app-context.ts';
+import { Shell } from './components/Shell.tsx';
+import { applyTheme, storedTheme } from './components/TopBar.tsx';
 import { AnswerPage } from './pages/AnswerPage.tsx';
 import { Dashboard } from './pages/Dashboard.tsx';
-import { applyTheme, storedTheme } from './components/TopBar.tsx';
 import { DoctorPage } from './pages/DoctorPage.tsx';
 import { OverviewPage } from './pages/OverviewPage.tsx';
 import { ResultPage } from './pages/ResultPage.tsx';
+import { SectionPage } from './pages/SectionPage.tsx';
 import { StartScreen } from './pages/StartScreen.tsx';
 import type { SectionUi } from './section.ts';
 
 export interface AppProps {
   client: EngineClient;
-  section: SectionUi;
+  /** Every section UI the build ships, in menu order (the registry by section id). */
+  sections: readonly SectionUi[];
   languages: readonly LanguageEditor[];
 }
 
@@ -23,7 +26,7 @@ interface Toast {
 }
 
 /** The whole app: one screen at a time, chosen by state rather than URLs (the shell has no address bar). */
-export function App({ client, section, languages }: AppProps) {
+export function App({ client, sections, languages }: AppProps) {
   const [screen, setScreen] = useState<Screen>({ name: 'loading' });
   const [toast, setToast] = useState<Toast | null>(null);
   const toastTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -32,6 +35,7 @@ export function App({ client, section, languages }: AppProps) {
     () => ({
       client,
       languages,
+      sections,
       go: (next) => {
         setScreen(next);
         window.scrollTo?.(0, 0);
@@ -42,7 +46,7 @@ export function App({ client, section, languages }: AppProps) {
         toastTimer.current = setTimeout(() => setToast(null), 5000);
       },
     }),
-    [client, languages],
+    [client, languages, sections],
   );
 
   // First launch: no stored health results yet, so the Doctor runs before anything else.
@@ -63,31 +67,50 @@ export function App({ client, section, languages }: AppProps) {
     };
   }, [client]);
 
+  // The room takes the whole window; every other screen sits beside the menu.
+  const body =
+    screen.name === 'loading' ? (
+      <p className="loading">Starting the engine…</p>
+    ) : (
+      <CurrentScreen screen={screen} sections={sections} />
+    );
   return (
     <AppContext.Provider value={services}>
-      <CurrentScreen screen={screen} section={section} />
+      {screen.name === 'room' || screen.name === 'loading' ? body : <Shell screen={screen}>{body}</Shell>}
       {toast && <div className={`toast ${toast.tone ?? ''}`}>{toast.text}</div>}
     </AppContext.Provider>
   );
 }
 
-function CurrentScreen({ screen, section }: { screen: Screen; section: SectionUi }) {
+function CurrentScreen({
+  screen,
+  sections,
+}: {
+  screen: Exclude<Screen, { name: 'loading' }>;
+  sections: readonly SectionUi[];
+}) {
+  const sectionOf = (id: string) => sections.find((s) => s.id === id);
   switch (screen.name) {
-    case 'loading':
-      return <p className="loading">Starting the engine…</p>;
     case 'dashboard':
       return <Dashboard />;
+    case 'section':
+      return <SectionPage key={screen.sectionId} sectionId={screen.sectionId} tag={screen.tag} />;
     case 'start':
       return <StartScreen problem={screen.problem} />;
     case 'overview':
       return <OverviewPage session={screen.session} />;
     case 'room':
-      return <section.Room key={screen.session.view.id} session={screen.session} />;
+      return <Room section={sectionOf(screen.session.view.section)} screen={screen} />;
     case 'result':
-      return <ResultPage session={screen.session} Parts={section.Result} />;
+      return <ResultPage session={screen.session} Parts={sectionOf(screen.session.section)?.Result} />;
     case 'answer':
       return <AnswerPage problemId={screen.problemId} title={screen.title} />;
     case 'doctor':
       return <DoctorPage firstRun={screen.firstRun} />;
   }
+}
+
+function Room({ section, screen }: { section: SectionUi | undefined; screen: Extract<Screen, { name: 'room' }> }) {
+  if (!section) return <p className="loading">No section UI for {screen.session.view.section}.</p>;
+  return <section.Room key={screen.session.view.id} session={screen.session} />;
 }

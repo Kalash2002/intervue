@@ -1,6 +1,7 @@
 {
   "id": "coding-round",
-  "name": "Coding round",
+  "name": "AI-assisted coding",
+  "description": "Three-phase scenarios in a codebase you did not write, with an assistant that answers or writes code. Interview sessions run against the clock and count towards solved problems; Practice sessions use a stopwatch and authored hints.",
   "version": 1,
   "spiVersion": 1,
   "runnerKind": "code-tests",

@@ -12,19 +12,27 @@ export function applyTheme(theme: Theme) {
   localStorage.setItem('intervue.theme', theme);
 }
 
-export function ThemeButton() {
+export function ThemeButton({ className = 'ghost' }: { className?: string }) {
   const [theme, setTheme] = useState<Theme>(storedTheme);
   const next: Theme = theme === 'dark' ? 'light' : 'dark';
+  const label = next === 'light' ? 'Light theme' : 'Dark theme';
   return (
     <button
-      className="ghost"
+      className={className}
       type="button"
+      aria-label={label}
+      title={label}
       onClick={() => {
         applyTheme(next);
         setTheme(next);
       }}
     >
-      {next === 'light' ? 'Light theme' : 'Dark theme'}
+      {className === 'menu-item' && (
+        <span className="glyph" aria-hidden="true">
+          {next === 'light' ? '☀' : '☾'}
+        </span>
+      )}
+      <span className="label">{label}</span>
     </button>
   );
 }

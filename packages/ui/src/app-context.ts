@@ -2,10 +2,14 @@ import { createContext, useContext } from 'react';
 import type { EngineClient, ProblemSummary, SessionView } from '@intervue/local-engine-client';
 import type { LanguageEditor } from '@intervue/editor';
 import type { TimedSession } from './lib/timed.ts';
+import type { SectionUi } from './section.ts';
 
 export type Screen =
   | { name: 'loading' }
+  /** Home. The name stays `dashboard` because section UIs navigate to it. */
   | { name: 'dashboard' }
+  /** A section's page under Practice, optionally filtered to one tag. */
+  | { name: 'section'; sectionId: string; tag?: string }
   | { name: 'start'; problem: ProblemSummary }
   | { name: 'overview'; session: TimedSession }
   | { name: 'room'; session: TimedSession }
@@ -16,6 +20,8 @@ export type Screen =
 export interface AppServices {
   client: EngineClient;
   languages: readonly LanguageEditor[];
+  /** The registered section UIs, in menu order; looked up by id. */
+  sections: readonly SectionUi[];
   go: (screen: Screen) => void;
   /** Shows a short message; `bad` for errors. */
   notify: (text: string, tone?: 'good' | 'bad') => void;

@@ -28,19 +28,8 @@
   border-radius: var(--radius-s);
   padding: 8px 10px;
 }
-.result {
-  min-height: 100vh;
-}
-.result .topbar {
-  height: 48px;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
 .result-body {
-  max-width: 1040px;
-  margin: 0 auto;
-  padding: 28px 24px 90px;
+  min-width: 0;
 }
 .scoreline {
   display: flex;

@@ -33,11 +33,6 @@ export function StartScreen({ problem }: { problem: ProblemSummary }) {
 
   return (
     <main className="home">
-      <header className="home-head">
-        <button className="ghost back wordmark" type="button" onClick={() => go({ name: 'dashboard' })}>
-          intervue
-        </button>
-      </header>
       <section className="home-intro">
         <p className="eyebrow">{problem.title}</p>
         <h1>Set up your session</h1>

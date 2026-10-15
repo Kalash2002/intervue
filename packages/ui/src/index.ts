@@ -1,6 +1,7 @@
 // The app's screens, shared parts and the contract a section UI fills (PLAN.md 5.2, packages/ui).
 import './styles/tokens.css';
 import './styles/base.css';
+import './styles/shell.css';
 import './styles/room.css';
 import './styles/timeline.css';
 import './styles/panel.css';

@@ -1,14 +1,4 @@
-/* Pages outside the room: dashboard, set-up, overview and Doctor. */
-.home {
-  max-width: 880px;
-  margin: 0 auto;
-  padding: 28px 24px 80px;
-}
-.home-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/* Pages outside the room: dashboard, set-up, overview and Doctor. The shell's main column pads them. */
 .wordmark {
   font-weight: 750;
   font-size: 18px;
@@ -16,7 +6,7 @@
   color: var(--link);
 }
 .home-intro {
-  margin: 56px 0 44px;
+  margin: 0 0 var(--space-6);
 }
 .home-intro h1 {
   font-size: 40px;
@@ -154,12 +144,6 @@
   .score .num {
     font-size: 60px;
   }
-  .result .topbar {
-    height: auto;
-    flex-wrap: wrap;
-    padding: 8px 12px;
-    position: static;
-  }
 }
 .loading {
   padding: 40px;
@@ -223,11 +207,6 @@
   justify-content: flex-end;
   gap: var(--space-2);
   margin-top: var(--space-2);
-}
-.home-head .back {
-  border-color: transparent;
-  padding-left: 0;
-  color: var(--link);
 }
 .choice.selected {
   border-color: var(--link);

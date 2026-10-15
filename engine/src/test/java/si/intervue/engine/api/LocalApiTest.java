@@ -144,6 +144,7 @@ class LocalApiTest {
     JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
 
     assertThat(session.get("tags").get(1).asString()).isEqualTo("test");
+    assertThat(session.get("section").asString()).isEqualTo("coding-round");
     assertThat(call("GET", "/problems", null).get(0).get("tags").get(0).asString())
         .isEqualTo("arrays");
   }

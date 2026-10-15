@@ -35,8 +35,8 @@ export function DoctorPage({ firstRun }: { firstRun: boolean }) {
 
   return (
     <main className="home">
-      <header className="home-head">
-        <span className="wordmark">intervue doctor</span>
+      <header className="page-head">
+        <p className="eyebrow">Doctor</p>
         <button className="primary" type="button" disabled={running} onClick={() => go({ name: 'dashboard' })}>
           Continue
         </button>
