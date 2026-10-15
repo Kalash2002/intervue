@@ -29,7 +29,7 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
   const [ending, setEnding] = useState(false);
 
   return (
-    <div className="room">
+    <div className="room dsa">
       <TopBar onHome={() => go({ name: 'dashboard' })}>
         <div className="title">{view.title}</div>
         <div className="spacer" />

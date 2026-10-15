@@ -9,3 +9,12 @@
   min-width: 0;
   min-height: 0;
 }
+/* No timeline strip in this room: without this the work grid lands in the 50px strip row. */
+.room.dsa {
+  grid-template-rows: 48px minmax(0, 1fr);
+}
+@media (max-width: 1000px) {
+  .room.dsa {
+    grid-template-rows: auto auto;
+  }
+}
