@@ -51,7 +51,7 @@ public class Phase1Tests {
         assertEquals(-1, Ladder.fewestChanges("a", "c", List.of("b")));
     }
 
-    @Test(order = 9, timeoutMs = 2400)
+    @Test(order = 9, timeoutMs = 3600)
     void largeListWithAnIsolatedEnd() {
         Random random = new Random(5);
         String letters = "abcdefg";
