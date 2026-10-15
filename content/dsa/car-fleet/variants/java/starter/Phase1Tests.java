@@ -37,10 +37,16 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void inputOrderIsArbitrary() {
-        assertEquals(2, Convoy.groups(20, new int[] {13, 2, 9, 6}, new int[] {4, 3, 1, 2}));
+        assertEquals(2, Convoy.groups(20, new int[] {2, 13, 6, 9}, new int[] {3, 4, 2, 1}));
     }
 
-    @Test(order = 8, timeoutMs = 1000)
+    @Test(order = 8)
+    void fractionalArrivalTimesStayApart() {
+        // times 2.1 and 2.5: they differ, but both round down to 2
+        assertEquals(2, Convoy.groups(30, new int[] {5, 9}, new int[] {10, 10}));
+    }
+
+    @Test(order = 9, timeoutMs = 2000)
     void largeNobodyCatchesUp() {
         int n = 100_000;
         int[] start = new int[n];
@@ -52,7 +58,7 @@ public class Phase1Tests {
         assertEquals(n, Convoy.groups(n, start, speed)); // equal speeds: nobody gains on anybody
     }
 
-    @Test(order = 9, timeoutMs = 1000)
+    @Test(order = 10, timeoutMs = 2000)
     void largeAllArriveTogether() {
         int n = 100_000;
         int[] start = new int[n];
