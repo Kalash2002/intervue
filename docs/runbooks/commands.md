@@ -17,6 +17,28 @@ pnpm -C web format                                           # Prettier --write 
 ./gradlew spotlessApply                                      # format Java
 ```
 
+## Phase 1ac: shell, Home, section page, theme, tags
+
+### Gates added in this phase
+
+```sh
+pnpm -C packages/ui test                                     # includes tokens.test.ts (every token present, text at 4.5:1 in both themes) and the Home, section page and Markdown chip tests
+PRINT_CONTRAST=1 pnpm -C packages/ui exec vitest run test/tokens.test.ts   # prints every measured contrast ratio
+grep -rnE '#[0-9a-fA-F]{6}' packages/ui/src/styles | grep -v tokens.css    # must print nothing: colour literals live in tokens.css only
+grep -rn 'neetcode.io\|leetcode.com' content/problems         # must print nothing: walkthroughs link to dsa://<id> chips
+./gradlew :content:tools:verify --offline                    # all ten problems three ways; tags[] validated with the rest of problem.json
+```
+
+### Screenshots for the evidence folder
+
+```sh
+pnpm -C desktop engine:dev                                   # terminal 1
+pnpm -C desktop dev:browser                                  # terminal 2, UI on http://localhost:1420
+msedge --headless=new --disable-extensions --hide-scrollbars --remote-debugging-port=9222 --user-data-dir=<temp dir> about:blank   # terminal 3; --disable-extensions matters: the profile's Dark Reader otherwise darkens every capture; then drive it over the DevTools protocol (the script lives in the phase's scratch folder: navigate, click the menu and cards, Page.captureScreenshot at 1366x768 and 1920x1080, both themes) into docs/plans/phase-1ac-evidence/
+```
+
+The app has no URLs (PLAN.md 5.2: the shell has no address bar), so a plain `--screenshot` run shows Home only; every other page needs the DevTools route or the built-in browser.
+
 ## Phase 1ab: assistant on the developer route and the room flow
 
 ### Developer mode
