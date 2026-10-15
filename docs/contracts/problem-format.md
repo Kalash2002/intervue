@@ -50,6 +50,17 @@ content/problems/<problem-id>/
 | `verifiedAt`, `verifiedWith` | written by the verify tool |
 | `referenceMs` | `{"<Suite.test>": ms}` written by the verify tool for the last phase |
 
+## walkthrough.md
+
+The answer the app shows after a session and from every problem card. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
+
+| Rule | Detail |
+|---|---|
+| Closing sections, in this order | `## DSA reference` with `### Theory`, `### Code`, `### Complexity`, `### Practise the technique`; then `## Time budget`; then `## Follow-up answers` |
+| Figures | `![caption](figures/<name>.svg)` (or `.png`) refers to a file under the problem's `figures/`; the engine inlines them for the Answer page |
+| Practise links | `dsa://<question-id>` only; ids as in `content/dsa/INDEX.md` |
+| Prompts | ```text fences are what the candidate types; the voice rules are in `content/templates/README.md` (not validated) |
+
 ## Hints
 
 `hints/phase<N>.md` exists for every phase and has three sections, `## Level 1` (where to look), `## Level 2` (the approach) and `## Level 3` (concrete steps), each non-empty. Hints contain no code fences.
