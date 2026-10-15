@@ -4,6 +4,10 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- packages/ui, packages/editor, sections/coding-round/ui: fixes from the Phase 1a hand test: the room's splitters drag again (file tree, side panel, output pane, as in the prototype); the editor scrolls with the mouse wheel; pastel syntax colours from theme tokens and a softer dark palette; a "← Dashboard" button on the room, result and answer pages; an Answer page with the problem's walkthrough, on every dashboard card and on the result page (2026-10-15)
+- engine, packages/local-engine-client: `GET /problems/{id}/walkthrough` serves a problem's walkthrough without a session, for the Answer page (2026-10-15)
+- content: all ten walkthroughs follow one structure: read before you run, a codebase prompt, each phase with reproduce, cause, fix, prompts and what to check in the reply, the technique with its complexity table and practice links, a time budget, and answers to every follow-up; problem versions bumped (2026-10-15)
+- ci: installers build from `app-v*` tags, matching the per-deployable tag names (2026-10-15)
 - packages/ui: the room's center column no longer reserves a row for a tabs bar that is not rendered; the editor fills its column instead of being squeezed to two lines above a blank splitter (2026-10-14)
 - docs: ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), PLAN.md 2.8 and the section and edit-protocol contracts updated, Phase 1ab prompt added (2026-10-14)
 - desktop: Tauri 2 shell that starts the engine from Rust with a per-launch token, hands port and token to the UI, stops it on exit; jlink runtime script; NSIS and DMG bundle config (2026-10-14)

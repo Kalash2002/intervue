@@ -8,6 +8,8 @@ Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-rou
 
 Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 after the first hands-on run: the assistant live on the developer-mode CLI route, ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), and the room refresh along the Hello Interview flow. The blank-editor CSS bug found in that run is already fixed on `phase-1a`.
 
+Phase 1a hand test (2026-10-15, Windows, Interview session, by the owner): UI looks fine; reported (1) panes not resizable, (2) editor not scrollable with the mouse wheel, (3) dark-mode colours too bright, (4) no way home from the result page, (5) an Answer page after the test and on the dashboard next to Resume and Start, with the steps, prompts and techniques, Hello Interview style. All five fixed on `phase-1a-fixes` the same day and merged to `main`: splitters drag, wheel scrolls, pastel colours, "← Dashboard" everywhere, an Answer button on every card and on the result page, and all ten walkthroughs rewritten to one structure. Remaining for exit: macOS run and build (1, 5), Doctor on a clean machine (3), CI on a remote (4, 5), an outside tester from the zip (7).
+
 ## Done
 
 - 2026-10-14: prototype fixed (data files read-only, finish records first-time passes, naive solutions and `tools/Verify.java`, per-class child JVM test runner, heap cap, version fields). Three problems verified three ways.
@@ -34,6 +36,7 @@ Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 a
 
 ## Later (out of scope findings to revisit)
 
+- Build-Log Bracket Checker: the reference takes about 600 ms on `aLongBuildLog` against its 3,000 ms limit, right at the 5x headroom rule; verify failed twice and passed once on a loaded Windows machine (2026-10-15). Watch it on CI; if it flakes, make `Datasets.buildLog` cheaper or raise the limit with a content review.
 - From the first hands-on run (2026-10-14): a code-comprehension phase (questions about the codebase answered by text or voice, graded) and per-phase countdowns as Hello Interview does; both need a plan change, revisit after Phase 1ab.
 
 - CA review (ADR 0002): book a CA during Phase 1b; it blocks the first real payment in Phase 1c. Questions in `docs/discovery/ca-questions.md` (local).
