@@ -10,7 +10,6 @@ import { dateText, plural } from '../lib/format.ts';
 import { dashboardStats, nextUp } from '../lib/progress.ts';
 import { streak, weekStrip } from '../lib/streak.ts';
 
-const DSA = 'dsa-quick';
 const RECENT = 5;
 
 export function HomePage() {
@@ -154,23 +153,24 @@ function Recent({ problems, history }: Catalogue) {
 }
 
 function SolvedCard({ problems, history }: Catalogue) {
-  const solved = (inDsa: boolean) =>
-    dashboardStats(
-      problems.filter((p) => (p.section === DSA) === inDsa),
-      history,
-    ).solved;
+  const { sections } = useApp();
   return (
     <div className="card" aria-label="Solved">
       <p className="eyebrow">Solved</p>
       <dl className="stats">
-        <div aria-label="Coding round solved">
-          <dd>{solved(false)}</dd>
-          <dt>Coding round solved</dt>
-        </div>
-        <div aria-label="DSA solved">
-          <dd>{solved(true)}</dd>
-          <dt>DSA solved</dt>
-        </div>
+        {sections.map((s) => (
+          <div key={s.id} aria-label={`${s.title} solved`}>
+            <dd>
+              {
+                dashboardStats(
+                  problems.filter((p) => p.section === s.id),
+                  history,
+                ).solved
+              }
+            </dd>
+            <dt>{s.title} solved</dt>
+          </div>
+        ))}
       </dl>
     </div>
   );

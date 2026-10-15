@@ -84,4 +84,5 @@ export const section: SectionUi = {
   Result: () => <p>result parts</p>,
 };
 
-export const renderApp = (client: EngineClient) => render(<App client={client} sections={[section]} languages={[]} />);
+export const renderApp = (client: EngineClient, sections: readonly SectionUi[] = [section]) =>
+  render(<App client={client} sections={sections} languages={[]} />);
