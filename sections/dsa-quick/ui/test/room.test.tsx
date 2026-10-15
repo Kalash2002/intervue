@@ -10,8 +10,12 @@ function client(over: Partial<EngineClient> = {}): Partial<EngineClient> {
     aiStatus: vi.fn(async () => ({ developer: false, available: true, reason: '' })),
     chat: vi.fn(async () => []),
     session: vi.fn(async () => view()),
-    files: vi.fn(async () => [{ path: 'Solution.java', readOnly: false }]),
-    readFile: vi.fn(async () => ({ text: 'class Solution {}' })),
+    files: vi.fn(async () => [
+      { path: 'Main.java', readOnly: false },
+      { path: 'Phase1Tests.java', readOnly: true },
+      { path: 'TwoSum.java', readOnly: false },
+    ]),
+    readFile: vi.fn(async (_id: string, path: string) => ({ text: `// contents of ${path}` })),
     writeFile: vi.fn(async () => ({ ok: true })),
     symbols: vi.fn(async () => []),
     diagnostics: vi.fn(async () => []),
@@ -22,13 +26,30 @@ function client(over: Partial<EngineClient> = {}): Partial<EngineClient> {
 }
 
 describe('the DSA room', () => {
-  it('shows the statement and no empty intro, with one editable file', async () => {
+  it('offers small tabs when several files qualify', async () => {
+    const files = [
+      { path: 'Main.java', readOnly: false },
+      { path: 'Solver.java', readOnly: false },
+      { path: 'Util.java', readOnly: false },
+    ];
+    const { container } = renderWith(
+      <SolveRoom session={timed(view())} />,
+      client({ files: vi.fn(async () => files) }),
+    );
+    await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('Solver.java'));
+
+    fireEvent.click(screen.getByRole('tab', { name: 'Util.java' }));
+    await waitFor(() => expect(container.querySelector('.cm-content')?.textContent).toContain('Util.java'));
+  });
+
+  it('shows the statement and no empty intro, in the solution file', async () => {
     const { container } = renderWith(<SolveRoom session={timed(view())} />, client());
 
     expect(screen.getByText(/Find two indices/)).toBeInTheDocument();
     expect(container.querySelectorAll('.statement .md').length).toBe(1);
     await waitFor(() => expect(container.querySelector('.cm-content')).not.toBeNull());
-    expect(screen.queryByText('Solution.java')).toBeNull(); // no file tree
+    expect(container.querySelector('.cm-content')?.textContent).toContain('contents of TwoSum.java');
+    expect(screen.queryByRole('tab', { name: /java/ })).toBeNull(); // one candidate: no tabs
   });
 
   it('runs the tests through the client', async () => {

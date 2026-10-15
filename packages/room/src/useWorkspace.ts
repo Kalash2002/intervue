@@ -58,7 +58,8 @@ function useDocs(sessionId: string) {
   return { docs, setDocs, load, edit, marks, setMarks };
 }
 
-export function useWorkspace(sessionId: string) {
+/** `pick` chooses the file to open first (a stable function); the default suits the coding round. */
+export function useWorkspace(sessionId: string, pick: (files: readonly FileEntry[]) => string | null = firstFile) {
   const { client, notify } = useApp();
   const [files, setFiles] = useState<FileEntry[]>([]);
   const { docs, setDocs, load, edit, marks, setMarks } = useDocs(sessionId);
@@ -70,13 +71,13 @@ export function useWorkspace(sessionId: string) {
       .files(sessionId)
       .then(async (list) => {
         setFiles(list);
-        const first = firstFile(list);
+        const first = pick(list);
         if (first) await load(first);
         setActive(first);
         await refreshTools();
       })
       .catch(failed(notify));
-  }, [client, load, notify, refreshTools, sessionId]);
+  }, [client, load, notify, pick, refreshTools, sessionId]);
 
   /** Writes unsaved files; refreshes symbols and diagnostics unless a run is about to compile anyway. */
   const saveAll = useCallback(

@@ -2,7 +2,7 @@
 // side panel with the assistant (and hints in Practice). It must not show a file tree or phases.
 import { useState } from 'react';
 import { languageFor } from '@intervue/editor';
-import type { SessionView } from '@intervue/local-engine-client';
+import type { FileEntry, SessionView } from '@intervue/local-engine-client';
 import { Markdown, TopBar, clockText, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
 import {
   AssistantPanel,
@@ -15,14 +15,17 @@ import {
   useRoomActions,
   useWorkspace,
 } from '@intervue/room';
+import { solutionFiles } from './solutionFiles.ts';
 import './dsa.css';
+
+const pickSolution = (files: readonly FileEntry[]) => solutionFiles(files)[0] ?? null;
 
 export function SolveRoom({ session: initial }: SectionRoomProps) {
   const { go } = useApp();
   const [session, setSession] = useState(initial);
   const view = session.view;
   const refresh = (v: SessionView) => setSession(timed(v));
-  const ws = useWorkspace(view.id);
+  const ws = useWorkspace(view.id, pickSolution);
   const actions = useRoomActions(view, ws, refresh);
   const activeMs = useActiveMs(session);
   const [target, setTarget] = useState('phase:1');
@@ -146,7 +149,7 @@ function Clock({ view, activeMs }: { view: SessionView; activeMs: number }) {
   );
 }
 
-/** The single editable file; a one-file problem needs no tree. */
+/** The solution file; tabs appear only when several files qualify. */
 function EditorArea({
   ws,
   finished,
@@ -162,20 +165,39 @@ function EditorArea({
   const path = ws.active;
   const doc = path ? ws.docs[path] : undefined;
   if (!path || !doc) return <div className="editor-wrap" />;
+  const candidates = solutionFiles(ws.files);
   return (
-    <CodeEditor
-      key={path}
-      path={path}
-      text={doc.text}
-      readOnly={finished || (ws.files.find((f) => f.path === path)?.readOnly ?? false)}
-      language={languageFor(languages, path)}
-      symbols={ws.symbols}
-      diagnostics={ws.diagnostics}
-      marks={ws.marks[path] ?? []}
-      onChange={(text) => ws.edit(path, text)}
-      onUndo={actions.undo}
-      onSave={actions.save}
-      onRun={onRun}
-    />
+    <>
+      {candidates.length > 1 && (
+        <div className="tabs" role="tablist" aria-label="Solution files">
+          {candidates.map((p) => (
+            <button
+              key={p}
+              role="tab"
+              aria-selected={p === path}
+              className={p === path ? 'tab active' : 'tab'}
+              type="button"
+              onClick={() => void ws.open(p)}
+            >
+              {p}
+            </button>
+          ))}
+        </div>
+      )}
+      <CodeEditor
+        key={path}
+        path={path}
+        text={doc.text}
+        readOnly={finished || (ws.files.find((f) => f.path === path)?.readOnly ?? false)}
+        language={languageFor(languages, path)}
+        symbols={ws.symbols}
+        diagnostics={ws.diagnostics}
+        marks={ws.marks[path] ?? []}
+        onChange={(text) => ws.edit(path, text)}
+        onUndo={actions.undo}
+        onSave={actions.save}
+        onRun={onRun}
+      />
+    </>
   );
 }

@@ -107,7 +107,7 @@ describe('answer and navigation', () => {
 });
 
 describe('DSA links', () => {
-  const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick', coveredBy: ['hold-exposure', 'ghost'] });
+  const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick', phases: 1, coveredBy: ['hold-exposure', 'ghost'] });
   const dsaSection = { ...section, id: 'dsa-quick', title: 'DSA' };
   const render = () =>
     rtlRender(
@@ -120,6 +120,15 @@ describe('DSA links', () => {
         languages={[]}
       />,
     );
+
+  it('says "1 phase" for a one-phase problem', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+    fireEvent.click(within(row).getByRole('button', { name: 'Answer' }));
+
+    expect(await screen.findByText('1 phase')).toBeInTheDocument();
+  });
 
   it('lists coveredBy on a DSA answer under "Used in" and opens the covering answer', async () => {
     render();
@@ -182,6 +191,18 @@ describe('start screen', () => {
 
     await screen.findByText('3 phases, 60 minutes');
     expect(client.createSession).toHaveBeenCalledWith('hold-exposure', 'INTERVIEW', true);
+  });
+
+  it('says "1 phase" on the overview of a one-phase problem', async () => {
+    const client = fakeClient({
+      createSession: vi.fn(async () => ({ ...session, phases: 1, phaseTitles: ['Solve it'] }) as never),
+    });
+    renderApp(client);
+
+    await openSetup();
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
+
+    expect(await screen.findByText('1 phase, 60 minutes')).toBeInTheDocument();
   });
 
   it('refuses to start when a blocking check fails and says which', async () => {

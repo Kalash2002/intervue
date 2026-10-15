@@ -9,6 +9,7 @@ import { covering } from '../lib/progress.ts';
 import { Chip } from '../components/Chip.tsx';
 import { Markdown } from '../components/Markdown.tsx';
 import { TagChips } from '../components/TagChips.tsx';
+import { plural } from '../lib/format.ts';
 import { trackOf } from '../lib/tracks.ts';
 
 interface Answer {
@@ -97,7 +98,7 @@ function AnswerAside({
         <p className="tags">
           <span className={`pill ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
           <span className="pill">{problem.minutes} min</span>
-          <span className="pill">{problem.phases} phases</span>
+          <span className="pill">{plural(problem.phases, 'phase')}</span>
         </p>
         {track && <p className="summary">Topic group: {track.title}</p>}
       </div>
