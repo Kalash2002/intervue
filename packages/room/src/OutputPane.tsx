@@ -21,24 +21,25 @@ export function OutputPane({
   target,
   onTarget,
   actions,
+  runLabel = 'Run',
+  testsOnly = false,
 }: {
   view: SessionView;
   target: string;
   onTarget: (t: string) => void;
   actions: RoomActions;
+  /** The run button's text. */
+  runLabel?: string;
+  /** Offer only the per-phase test targets (no "All tests", no demo main); one target hides the select. */
+  testsOnly?: boolean;
 }) {
+  const options = testsOnly ? targets(view).filter((t) => t.value.startsWith('phase:')) : targets(view);
   return (
     <div className="output">
       <div className="pane-head">
         Output
         <div className="run-controls">
-          <select aria-label="What to run" value={target} onChange={(e) => onTarget(e.target.value)}>
-            {targets(view).map((t) => (
-              <option key={t.value} value={t.value}>
-                {t.label}
-              </option>
-            ))}
-          </select>
+          <TargetSelect options={options} target={target} onTarget={onTarget} />
           <button
             className="primary small"
             type="button"
@@ -46,7 +47,7 @@ export function OutputPane({
             title="Save and run (Ctrl+Enter)"
             onClick={() => actions.run(target)}
           >
-            {actions.busy ? 'Running' : 'Run'}
+            {actions.busy ? 'Running' : runLabel}
           </button>
           <button className="ghost small" type="button" onClick={actions.clearOutput}>
             Clear
@@ -69,5 +70,27 @@ export function OutputPane({
         ))}
       </pre>
     </div>
+  );
+}
+
+/** Hidden when only one thing can run. */
+function TargetSelect({
+  options,
+  target,
+  onTarget,
+}: {
+  options: { value: string; label: string }[];
+  target: string;
+  onTarget: (t: string) => void;
+}) {
+  if (options.length < 2) return null;
+  return (
+    <select aria-label="What to run" value={target} onChange={(e) => onTarget(e.target.value)}>
+      {options.map((t) => (
+        <option key={t.value} value={t.value}>
+          {t.label}
+        </option>
+      ))}
+    </select>
   );
 }

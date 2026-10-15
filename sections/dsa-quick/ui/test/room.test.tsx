@@ -34,10 +34,12 @@ describe('the DSA room', () => {
   it('runs the tests through the client', async () => {
     const c = client();
     renderWith(<SolveRoom session={timed(view())} />, c);
-    const run = await screen.findByRole('button', { name: 'Run' });
+    const run = await screen.findByRole('button', { name: 'Run tests' });
     await waitFor(() => expect(run).toBeEnabled());
     fireEvent.click(run);
 
+    expect(screen.queryByText('Main (demo)')).toBeNull();
+    expect(screen.queryByRole('combobox')).toBeNull();
     await waitFor(() => expect(c.run).toHaveBeenCalledWith('s1', 'phase:1'));
   });
 

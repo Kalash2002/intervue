@@ -56,7 +56,14 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
         <section className="center">
           <EditorArea ws={ws} finished={view.finished} actions={actions} onRun={() => actions.run(target)} />
           <Splitter size="--out-h" label="Resize the output pane" />
-          <OutputPane view={view} target={target} onTarget={setTarget} actions={actions} />
+          <OutputPane
+            view={view}
+            target={target}
+            onTarget={setTarget}
+            actions={actions}
+            runLabel="Run tests"
+            testsOnly
+          />
         </section>
         <Splitter size="--right-w" label="Resize the side panel" />
         <SidePanel view={view} actions={actions} onChange={refresh} />
