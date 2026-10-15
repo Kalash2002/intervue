@@ -117,7 +117,81 @@ Prompt 1ab.2, close the phase:
 
 ---
 
+## Phase 1ac: side menu, full-width pages, purple theme, tags, Java-first re-plan
+
+Added 2026-10-15 after the Phase 1ab hand test. Run it before anything else: the first product is Java only on Windows, the home and every page except the room get a left side menu and the window's width, and the palette in `docs/design/palette.md` replaces the current tokens. Human first: nothing; the Hello Interview screenshot is already in `docs/plans/phase-1ac-reference/`.
+
+Prompt 1ac.1:
+
+```
+> /phase docs/prompts/phase-1ac-shell-theme-tags.md
+```
+
+Human: open the app on Windows at your usual window size and at full screen, in both themes. Walk Home, the AI-assisted coding page, a set-up screen, an overview, a result and an Answer page, and the Doctor: the side menu is on every one of them, nothing is squeezed into a narrow middle column, and the room is unchanged. Click a tag on a card and on a result page. Click a `dsa://` chip in a walkthrough and see the "next release" toast.
+
+Prompt 1ac.2, close the phase:
+
+```
+> Manual results for Phase 1ac: <what you saw, pages that still have empty bands, colours that look wrong>. Record them in docs/status.md, fix anything blocking, re-run the gates, and tell me whether every exit criterion in docs/prompts/phase-1ac-shell-theme-tags.md is met. If yes, tag app-v0.1.2 and write docs/retro/phase-1ac.md.
+```
+
+---
+
+## Phase 1ad: DSA section with the NeetCode 150 set
+
+Runs after 1ac. The section lands first with the questions the walkthroughs already reference, then the rest in topic-group batches; each batch is its own PR.
+
+Prompt 1ad.1:
+
+```
+> /phase docs/prompts/phase-1ad-dsa-section.md
+```
+
+Human after the first batch: open DSA from the side menu, solve `two-sum` in Interview and in Practice, read its walkthrough, then open a coding-round walkthrough and follow a `dsa://` chip to its question and back.
+
+Prompt 1ad.2, repeat per batch until all 150 verify:
+
+```
+> Continue Phase 1ad with the next topic-group batch from content/dsa/INDEX.md (10 to 20 questions), verify them three ways, update INDEX.md and docs/status.md, and open the PR.
+```
+
+Prompt 1ad.3, close the phase:
+
+```
+> Manual results for Phase 1ad: <...>. Record them, fix blockers, re-run gates, confirm every exit criterion in docs/prompts/phase-1ad-dsa-section.md including 150 verified questions. Tag app-v0.1.3 and write docs/retro/phase-1ad.md.
+```
+
+---
+
+## Phase 1ae: catalogue to 24 Java problems, each covering two or three NeetCode questions
+
+Runs after 1ad. Problems land in batches of 3 to 5.
+
+Prompt 1ae.1:
+
+```
+> /phase docs/prompts/phase-1ae-catalogue-java.md
+```
+
+Human: play one new problem end to end in Interview mode; on its card and result page follow a "Covers" chip to the DSA question and the "Used in" link back.
+
+Prompt 1ae.2, repeat per batch:
+
+```
+> Continue Phase 1ae with the next 3 to 5 problems from the coverage map in PLAN.md 7.3, each with tags[] and two or three covers[] ids, verified three ways on CI, and open the PR.
+```
+
+Prompt 1ae.3, close the phase:
+
+```
+> Manual results for Phase 1ae: <...>. Record them, fix blockers, re-run gates, confirm every exit criterion in docs/prompts/phase-1ae-catalogue-java.md. Tag app-v0.2.0 and write docs/retro/phase-1ae.md.
+```
+
+---
+
 ## Phase 1b: accounts, packs, payment page, AI gateway
+
+Note (2026-10-15): the AI API key and the signing certificates are not available yet. Phase 1b runs with the developer route as its only AI route until the key exists; Phase 1c ships an unsigned Windows installer first and adds signing and macOS when the certificates and a macOS machine arrive. Edit both prompts before running them.
 
 Human first: `docs/learning/phase-1b.md`. Have the E2E Networks account, the domain and the Anthropic API key ready; put secrets only in the places `.env.example` names.
 
