@@ -10,7 +10,7 @@ Phase 1ab (assistant and room) built on branch `phase-1ab` (2026-10-15): develop
 
 Phase 1a hand test (2026-10-15, Windows, Interview session, by the owner): UI looks fine; reported (1) panes not resizable, (2) editor not scrollable with the mouse wheel, (3) dark-mode colours too bright, (4) no way home from the result page, (5) an Answer page after the test and on the dashboard next to Resume and Start, with the steps, prompts and techniques, Hello Interview style. All five fixed on `phase-1a-fixes` the same day and merged to `main`: splitters drag, wheel scrolls, pastel colours, "← Dashboard" everywhere, an Answer button on every card and on the result page, and all ten walkthroughs rewritten to one structure. Remaining for exit: macOS run and build (1, 5), Doctor on a clean machine (3), CI on a remote (4, 5), an outside tester from the zip (7).
 
-Phase 1a installer check (2026-10-15): `app-v0.1.0-rc.1` built on CI but the installed app failed to start the engine (Tauri's `\?\` resource path; Java cannot load a jar named that way). Fixed in `app-v0.1.0-rc.2`: installed on Windows by the owner, the app opens and lists the 10 problems (exit criteria 1 and 5 on Windows). Still open: macOS run and `.dmg` (1, 5), Doctor on a clean machine (3), an outside tester from the installer (7).
+Phase 1a installer check (2026-10-15): `app-v0.1.0-rc.1` built on CI but the installed app failed to start the engine (Tauri's `\\?\` resource path; Java cannot load a jar named that way). Fixed in `app-v0.1.0-rc.2`: installed on Windows by the owner, the app opens and lists the 10 problems (exit criteria 1 and 5 on Windows). Still open: macOS run and `.dmg` (1, 5), Doctor on a clean machine (3), an outside tester from the installer (7).
 
 ## Done
 
