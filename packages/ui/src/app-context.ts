@@ -9,7 +9,7 @@ export type Screen =
   /** Home. The name stays `dashboard` because section UIs navigate to it. */
   | { name: 'dashboard' }
   /** A section's page under Practice, optionally filtered to one tag. */
-  | { name: 'section'; sectionId: string; tag?: string }
+  | { name: 'section'; sectionId: string; tag?: string; track?: string }
   | { name: 'start'; problem: ProblemSummary }
   | { name: 'overview'; session: TimedSession }
   | { name: 'room'; session: TimedSession }

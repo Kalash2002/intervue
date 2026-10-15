@@ -5,8 +5,8 @@ import { AppContext, type AppServices, type Screen } from './app-context.ts';
 import { Shell } from './components/Shell.tsx';
 import { applyTheme, storedTheme } from './components/TopBar.tsx';
 import { AnswerPage } from './pages/AnswerPage.tsx';
-import { Dashboard } from './pages/Dashboard.tsx';
 import { DoctorPage } from './pages/DoctorPage.tsx';
+import { HomePage } from './pages/HomePage.tsx';
 import { OverviewPage } from './pages/OverviewPage.tsx';
 import { ResultPage } from './pages/ResultPage.tsx';
 import { SectionPage } from './pages/SectionPage.tsx';
@@ -92,9 +92,11 @@ function CurrentScreen({
   const sectionOf = (id: string) => sections.find((s) => s.id === id);
   switch (screen.name) {
     case 'dashboard':
-      return <Dashboard />;
+      return <HomePage />;
     case 'section':
-      return <SectionPage key={screen.sectionId} sectionId={screen.sectionId} tag={screen.tag} />;
+      return (
+        <SectionPage key={sectionKey(screen)} sectionId={screen.sectionId} tag={screen.tag} track={screen.track} />
+      );
     case 'start':
       return <StartScreen problem={screen.problem} />;
     case 'overview':
@@ -108,6 +110,11 @@ function CurrentScreen({
     case 'doctor':
       return <DoctorPage firstRun={screen.firstRun} />;
   }
+}
+
+/** A new tag or track from a chip remounts the page so its filter starts from that choice. */
+function sectionKey(screen: Extract<Screen, { name: 'section' }>): string {
+  return [screen.sectionId, screen.tag ?? '', screen.track ?? ''].join(':');
 }
 
 function Room({ section, screen }: { section: SectionUi | undefined; screen: Extract<Screen, { name: 'room' }> }) {
