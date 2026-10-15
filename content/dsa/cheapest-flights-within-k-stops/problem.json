@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "cheapest-flights-within-k-stops",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Cheapest Flights Within K Stops",
   "summary": "Find the cheapest route between two cities that uses at most a given number of stops.",

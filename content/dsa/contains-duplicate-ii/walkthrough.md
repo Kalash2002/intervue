@@ -32,7 +32,7 @@ A sliding window of the last `gap` codes in a set also works: add the new code, 
 
 ## Where it shows up
 
-`duplicate-order-detector` has `suspectedDuplicates`: an order repeating another order's key within a window of positions is flagged. That is this question, with the key built from several fields instead of one code. The map from key to last position is the structure to reach for, and updating it on every step is the detail that makes the matches the closest ones.
+`duplicate-order-detector` has `suspectedDuplicates`: an order is flagged when its key was last seen fewer than `windowMinutes` minutes earlier (strictly fewer: a gap of exactly the window is not flagged), so the comparison is on order minutes, not on positions in the log. That is this question, with the key built from several fields instead of one code. The map from key to last minute is the structure to reach for, and updating it on every step is the detail that makes the matches the closest ones.
 
 ## Follow-up answers
 

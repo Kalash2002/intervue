@@ -30,7 +30,7 @@ public class Phase1Tests {
     @Test(order = 4)
     void cycleInTheNetwork() {
         int[][] flights = {{0, 1, 5}, {1, 0, 5}, {1, 2, 5}};
-        assertEquals(10, Fares.cheapest(3, flights, 0, 2, 5));
+        assertEquals(10, Fares.cheapest(3, flights, 0, 2, 3));
     }
 
     @Test(order = 5)
@@ -60,7 +60,7 @@ public class Phase1Tests {
 
     @Test(order = 9, timeoutMs = 1000)
     void layeredNetworkWithManyTrips() {
-        int layers = 14;
+        int layers = 15;
         int width = 4;
         int target = 1 + layers * width;
         List<int[]> list = new ArrayList<>();
@@ -80,7 +80,7 @@ public class Phase1Tests {
         }
         int[][] flights = list.toArray(new int[0][]);
         int n = target + 1;
-        // Every trip uses layers + 1 = 15 flights, so 14 stops; the cheapest keeps to column 0.
+        // Every trip uses layers + 1 = 16 flights, so 15 stops; the cheapest keeps to column 0.
         assertEquals(10 * (layers + 1), Fares.cheapest(n, flights, 0, target, layers));
         assertEquals(-1, Fares.cheapest(n, flights, 0, target, layers - 1));
     }

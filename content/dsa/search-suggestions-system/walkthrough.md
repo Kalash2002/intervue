@@ -41,7 +41,7 @@ Here n is the number of products. Times count comparisons of two names; a compar
 
 ## Where it shows up
 
-`merchant-suggest` is this question with a ranking rule on top: its phase 3 asks for suggestions as the user types, and the reference `Suggester` sorts entries (one per word of a normalised merchant name, holding the rest of the name from that word on), finds the contiguous range of entries that start with the typed text by binary search, and keeps the best few of that range, busier merchants first and ties by name. It does not use a trie, and it remembers answers per typed text. The dictionary order of this question is replaced there by a transaction count, which is why it scans the range instead of reading its first entries.
+`merchant-suggest` is this question with a ranking rule on top: its phase 2 asks for suggestions as the user types, and the reference `Suggester` sorts entries (one per word of a normalised merchant name, holding the rest of the name from that word on), finds the contiguous range of entries that start with the typed text by binary search, and keeps the best few of that range, busier merchants first and ties by position in the merchant list (the directory keeps it in name order). It does not use a trie, and it remembers answers per typed text. The dictionary order of this question is replaced there by a transaction count, which is why it scans the range instead of reading its first entries.
 
 ## Follow-up answers
 
