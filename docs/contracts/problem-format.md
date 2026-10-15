@@ -15,7 +15,7 @@ content/problems/<problem-id>/
     ├── variant.json
     ├── starter/      the project the candidate gets, plus data/
     ├── reference/    files that overlay starter/ so every phase passes
-    └── naive/        files that overlay starter/: every phase but the last passes, the last times out
+    └── naive/        files that overlay starter/: every phase but the last passes, the last times out (one-phase problems: see "One-phase problems")
 ```
 
 DSA questions live in `content/dsa/<question-id>/` with the same shape and one phase (below). The engine reads both roots, `content/dsa/` being optional; ids are unique across them (ADR 0008).
@@ -27,14 +27,14 @@ DSA questions live in `content/dsa/<question-id>/` with the same shape and one p
 | `formatVersion` | integer | `1` |
 | `id` | string | equals the folder name; lowercase letters, digits and `-` |
 | `version` | integer | bumped on every change to the problem |
-| `section` | string | `coding-round` in Phase 1a |
+| `section` | string | `coding-round` or `dsa-quick` |
 | `title`, `summary`, `difficulty`, `domain` | string | non-empty; `difficulty` is `Easy`, `Medium` or `Hard` |
 | `techniques` | string array | track ids, at least one |
 | `tags` | string array, optional (added 2026-10-15, additive) | free-text tags shown as chips and used by the section page's filters; each `[a-z0-9]+(-[a-z0-9]+)*`, no repeats; absent means empty |
 | `minutes` | integer | Interview time limit |
 | `phases` | array | ids `1..N` in order, N at least 1 |
 | `phases[].title`, `.brief`, `.hints` | string | `brief` and `hints` are paths that exist |
-| `phases[].weight` | integer | phase weights sum to 70 (the correctness share) |
+| `phases[].weight` | integer | phase weights sum to 70 (the correctness share; 80 for a one-phase problem) |
 | `phases[].allOrNothing` | boolean | |
 | `phases[].timeoutRefMs` | integer | whole-run cap for that phase on the reference machine |
 | `coveredBy` | string array, optional (added 2026-10-15, additive) | DSA questions only: ids of coding-round problems that exercise this question; each exists in `content/problems/` |
@@ -86,4 +86,4 @@ The answer the app shows after a session and from every problem card. A one-phas
 
 ## Time limits
 
-Per-test `timeoutMs` in the test files and `timeoutRefMs` are milliseconds on the reference machine, scaled by the calibration factor at run time. The verify tool enforces: limit at least 5 times the reference solution's time, and the naive solution at least 3 times over the limit.
+Per-test `timeoutMs` in the test files and `timeoutRefMs` are milliseconds on the reference machine, scaled by the calibration factor at run time. The verify tool enforces: limit at least 5 times the reference solution's time, and the naive solution at least 3 times over the limit. A one-phase problem's naive solution is optional and follows its own rule (see "One-phase problems").

@@ -17,6 +17,37 @@ pnpm -C web format                                           # Prettier --write 
 ./gradlew spotlessApply                                      # format Java
 ```
 
+## Phase 1ad: DSA section
+
+### Commands added or changed
+
+```sh
+./gradlew :content:tools:verify --offline                    # now reads content/problems and content/dsa, and checks coveredBy[] and dsa:// links both ways
+./gradlew :content:tools:verify --offline -Pids=two-sum,valid-anagram   # -Pids takes DSA question ids as well as problem ids
+./gradlew :engine:engineDist --offline                       # discovers every sections/*/java project; lib/ holds one jar per section (coding-round.jar, dsa-quick.jar), named by section id
+./gradlew :sections:dsa-quick:java:test --offline            # the DSA section's own tests
+pnpm -C packages/room test && pnpm -C packages/sections test && pnpm -C sections/dsa-quick/ui test   # the new TypeScript packages
+```
+
+- The engine takes one `--content <dir>` and reads `<dir>/problems` and, when it exists, `<dir>/dsa`; a question id may not appear in both roots.
+- A new section adds its folder under `sections/` and one line in `packages/sections/src/index.ts` (`@intervue/sections`). No edit to `desktop/` or `engine/build.gradle.kts` (ADR 0008).
+- Check after `engineDist`: `unzip -l engine/build/engine/lib/dsa-quick.jar` lists the section, and the engine jar manifest `Class-Path` names both section jars.
+
+### Run a DSA session in the browser
+
+```sh
+pnpm -C desktop engine:dev                                   # terminal 1
+pnpm -C desktop dev:browser                                  # terminal 2
+# the UI is http://localhost:1420; the engine API is the same host under /engine (the Vite proxy adds the token)
+curl -X POST localhost:1420/engine/sessions -H 'content-type: application/json' -d '{"problemId":"two-sum","type":"PRACTICE","timed":false}'
+curl -X POST localhost:1420/engine/sessions/<id>/run -H 'content-type: application/json' -d '{"target":"phase:1"}'   # DSA runs only phase:1
+curl -X PUT 'localhost:1420/engine/sessions/<id>/file?path=TwoSum.java' -H 'content-type: application/json' -d '{"text":"..."}'
+curl -X POST localhost:1420/engine/sessions/<id>/finish -H 'content-type: application/json' -d '{"early":false}'      # the view carries events and result
+curl localhost:1420/engine/sessions                          # history rows, each with sectionId
+```
+
+Screenshots follow the Phase 1ac recipe below (headless Edge with `--disable-extensions`), into `docs/plans/phase-1ad-evidence/`.
+
 ## Phase 1ac: shell, Home, section page, theme, tags
 
 ### Gates added in this phase

@@ -47,5 +47,5 @@ public interface SectionPackage {
 | `channels()` | `ASK`, `WRITE_CODE` |
 | `supportsHints()` | `true` |
 | `resultParts()` | `score`, `tests`, `time`, `walkthrough` |
-| Score | Correctness 80 x passed / total (timeouts and failures count as not passed); time 20 only when every test passed within its limit. Labelled Interview or Practice as in ADR 0006 |
+| Score | Correctness 80 x passed / total (timeouts and failures count as not passed); time 20 only when every test passed within its limit. Labelled Interview or Practice as in ADR 0006. Unlike the coding round's, a DSA Practice score keeps its Time part |
 | Problems | one-phase, from `content/dsa/` (`docs/contracts/problem-format.md`, "One-phase problems") |

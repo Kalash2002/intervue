@@ -21,7 +21,7 @@ ADR 0007 puts a DSA section (Phase 1ad) before the catalogue growth. Three thing
 
 ## Consequences
 
-- This phase edits `desktop/src/main.tsx`, `desktop/package.json` and `engine/build.gradle.kts` once. From the next section on, exit criterion 1's "zero desktop edits" holds: a new section adds its folder and one line in `@intervue/sections`.
+- This phase edits `desktop/src/main.tsx`, `desktop/package.json`, `desktop/src-tauri/tauri.bundle.json` (it bundles `content/dsa`) and `engine/build.gradle.kts` once. From the next section on, exit criterion 1's "zero desktop edits" holds: a new section adds its folder and one line in `@intervue/sections`.
 - The owner chose this one-time fix on 2026-10-15 over hardcoding a second entry.
 - `docs/contracts/problem-format.md` and `docs/contracts/section-contract.md` carry the new rules. The validator branches on phase count, which is the cost of not bumping `formatVersion`.
 - A problem id can no longer be reused between the two roots; the verify tool is the guard.

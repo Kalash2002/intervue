@@ -4,6 +4,17 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- sections/dsa-quick: the DSA section (id `dsa-quick`, Java only): one-phase questions scored Correctness 80 and Time 20 (Interview and Practice, labels as in ADR 0006), result parts `score`, `tests`, `time`, `walkthrough`, its own Ask and Write code prompts; Practice keeps the Time part, unlike the coding round (2026-10-15)
+- sections/dsa-quick/ui, packages/room: the DSA solving page (statement beside the editor, "Run tests", the result page with a walkthrough tab; the room fills the window at 1366x768); the room pieces the coding round and DSA share (editor, output pane, file tree, splitters, assistant panel) move to the new `@intervue/room` package (2026-10-15)
+- packages/sections: new `@intervue/sections`, the one list of section UIs; a new section adds its folder and one line there. `desktop/src/main.tsx` reads that list instead of naming sections (ADR 0008) (2026-10-15)
+- shared-java: the problem validator accepts one-phase problems (weight 80, `statement.md` as the brief, no `brief/intro.md`, four walkthrough headings, optional `naive/`) and an optional `coveredBy[]` field; no `formatVersion` change (2026-10-15)
+- engine, packages/local-engine-client: the engine reads a second content root, `content/dsa`, beside `content/problems`; problem summaries carry `coveredBy`; a one-phase session has an empty intro in its brief; Gradle finds every `sections/*/java` project and ships one jar per section, named by section id (2026-10-15)
+- desktop: `tauri.bundle.json` bundles `content/dsa` with the installer, part of the one-time desktop edit recorded in ADR 0008 (2026-10-15)
+- packages/ui: `dsa://<id>` chips in walkthroughs and on the Answer page open the question's start screen (a toast if it is not written yet); question cards show a "Covered by" row and the Answer page a "Used in" card from `coveredBy`; Home's planned DSA track card is gone and a Solved card counts coding-round and DSA questions apart (2026-10-15)
+- content/tools: the verify tool reads both content roots, checks `coveredBy[]` and `dsa://` links both ways, and takes `-Pids` for DSA question ids; CI's content label also accepts `content/dsa/` (2026-10-15)
+- content: 29 DSA questions under `content/dsa/` (batch 1: the 16 referenced inside the NeetCode 150, two-sum among them, and the 13 referenced outside it), each with statement, three-level hints, tests, starter, reference and naive solutions, grading notes and a walkthrough; the rest of the 150 follow in topic-group batches (2026-10-15)
+- docs: ADR 0008 (DSA section, one-phase problems), `content/templates/dsa-question.md`, the problem-format and section contracts updated, Phase 1ad retro and runbook section (2026-10-15)
+
 - content: the ten walkthroughs end with a DSA reference (theory with one hand-drawn figure, the structure in plain Java, its complexity, the questions to practise); every implementation prompt is rewritten in the voice of an experienced developer stating an approach, not dictating code; `content/templates/walkthrough.md` and its README fix the shape for new problems; problem versions bumped (2026-10-15)
 - shared-java: the validator requires the walkthrough's DSA reference and closing headings in order and checks that every figure it shows exists; the verify tool's own test problem carries those headings (2026-10-15)
 - engine, packages/local-engine-client: `GET /problems/{id}/walkthrough` inlines `figures/*.svg|png` as data URIs beside the text (2026-10-15)
