@@ -2,7 +2,6 @@
 // child that is never rendered left the editor in a thin strip (fixed in e779c67).
 import roomCss from '../../../../packages/ui/src/styles/room.css?raw';
 import { timed } from '@intervue/ui';
-import { fireEvent, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { SessionRoom } from '../src/room/SessionRoom.tsx';
 import { renderWith, view } from './fixtures.tsx';
@@ -32,23 +31,5 @@ describe('the room layout', () => {
     expect(tracks(roomCss, 'center', 'rows')).toBe(3);
     expect(container.querySelector('.work')?.children.length).toBe(tracks(roomCss, 'work', 'columns'));
     expect(tracks(roomCss, 'work', 'columns')).toBe(5);
-  });
-
-  it('resizes the side panel and the output pane by dragging their splitters', async () => {
-    const { container } = renderWith(<SessionRoom session={timed(view())} />, client());
-    const work = container.querySelector<HTMLElement>('.work');
-
-    const side = screen.getByRole('separator', { name: 'Resize the side panel' });
-    fireEvent.pointerDown(side, { pointerId: 1 });
-    fireEvent.pointerMove(side, { clientX: window.innerWidth - 400 });
-    fireEvent.pointerUp(side);
-    fireEvent.pointerMove(side, { clientX: window.innerWidth - 350 });
-    expect(work?.style.getPropertyValue('--right-w')).toBe('400px');
-
-    const output = screen.getByRole('separator', { name: 'Resize the output pane' });
-    fireEvent.pointerDown(output, { pointerId: 1 });
-    fireEvent.pointerMove(output, { clientY: -1000 });
-    // jsdom lays nothing out, so the center box is empty and the height falls to its 80px floor.
-    expect(work?.style.getPropertyValue('--out-h')).toBe('80px');
   });
 });

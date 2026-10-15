@@ -262,6 +262,22 @@ public final class Sessions {
     return view(id);
   }
 
+  /**
+   * A problem's walkthrough for the answer page, which opens from the dashboard before any session.
+   * Only listed ids are read, so a crafted id cannot reach outside the problems folder.
+   */
+  public String walkthrough(String problemId) {
+    if (!content.ids().contains(problemId)) {
+      throw new SessionException("No problem " + problemId);
+    }
+    return walkthroughOf(content.load(problemId));
+  }
+
+  static String walkthroughOf(ProblemFolder problem) {
+    Path file = problem.dir().resolve("walkthrough.md");
+    return Files.exists(file) ? readString(file) : "";
+  }
+
   /** Every session, newest first, for the dashboard and history. */
   public List<SessionSummary> history() {
     return store.all().stream().map(runs::summary).toList();

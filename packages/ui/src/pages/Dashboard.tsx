@@ -18,7 +18,6 @@ function useOpeners() {
   return {
     open: (id: string) => client.session(id).then((view) => go({ name: 'room', session: timed(view) }), failed(notify)),
     result: (id: string) => client.session(id).then((view) => go({ name: 'result', session: view }), failed(notify)),
-    answer: (id: string) => client.session(id).then((view) => go({ name: 'answer', session: view }), failed(notify)),
   };
 }
 
@@ -98,7 +97,7 @@ function Problems({ problems, history }: { problems: ProblemSummary[]; history: 
 
 function ProblemCard({ problem: p, history }: { problem: ProblemSummary; history: SessionSummary[] }) {
   const { go } = useApp();
-  const { open, result, answer } = useOpeners();
+  const { open, result } = useOpeners();
   const { state, best, attempts, openId, lastFinishedId } = progressFor(p, history);
   const [icon, label] = STATE_LABEL[state];
   const facts = [best === null ? '' : `best ${best} / 100`, attempts ? plural(attempts, 'attempt') : '']
@@ -127,11 +126,9 @@ function ProblemCard({ problem: p, history }: { problem: ProblemSummary; history
             Last result
           </button>
         )}
-        {lastFinishedId && (
-          <button className="ghost" type="button" onClick={() => answer(lastFinishedId)}>
-            Answer
-          </button>
-        )}
+        <button className="ghost" type="button" onClick={() => go({ name: 'answer', problemId: p.id, title: p.title })}>
+          Answer
+        </button>
         <button className="primary" type="button" onClick={() => go({ name: 'start', problem: p })}>
           Start
         </button>

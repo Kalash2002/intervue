@@ -42,6 +42,12 @@ final class Routes {
     if (path.size() >= 2 && path.get(0).equals("sessions")) {
       return session(method, path, query, body);
     }
+    if (method.equals("GET")
+        && path.size() == 3
+        && path.get(0).equals("problems")
+        && path.get(2).equals("walkthrough")) {
+      return Map.of("text", engine.sessions().walkthrough(path.get(1)));
+    }
     String route = method + " /" + String.join("/", path);
     return switch (route) {
       case "GET /local/ping" -> Map.of("ok", true);

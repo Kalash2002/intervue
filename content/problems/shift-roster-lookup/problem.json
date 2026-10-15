@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "shift-roster-lookup",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Shift Roster Lookup",
   "summary": "A hospital app answers 'who is on duty in this ward right now'. Fix it showing the wrong nurse, add handovers and coverage gaps, then answer half a million lookups in time.",

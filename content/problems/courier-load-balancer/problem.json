@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "courier-load-balancer",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Courier Load Balancer",
   "summary": "A delivery hub splits the day's parcels between couriers. Fix an unfair tie-break, respect van capacity, then plan a festival-week hub with tens of thousands of couriers.",

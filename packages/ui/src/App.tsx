@@ -86,7 +86,7 @@ function CurrentScreen({ screen, section }: { screen: Screen; section: SectionUi
     case 'result':
       return <ResultPage session={screen.session} Parts={section.Result} />;
     case 'answer':
-      return <AnswerPage session={screen.session} />;
+      return <AnswerPage problemId={screen.problemId} title={screen.title} />;
     case 'doctor':
       return <DoctorPage firstRun={screen.firstRun} />;
   }

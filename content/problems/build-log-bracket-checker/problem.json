@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "build-log-bracket-checker",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Build-Log Bracket Checker",
   "summary": "A CI system flags build-log lines with broken brackets. Fix lines with unclosed brackets passing, point at the first error while ignoring quoted text, then check a two-million-character line.",
