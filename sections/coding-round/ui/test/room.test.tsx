@@ -51,6 +51,26 @@ function roomClient(over: Partial<EngineClient> = {}): Partial<EngineClient> {
   };
 }
 
+describe('the splitters', () => {
+  it('resize the side panel and the output pane by dragging', async () => {
+    const { container } = renderWith(<SessionRoom session={timed(view())} />, roomClient());
+    const work = container.querySelector<HTMLElement>('.work');
+
+    const side = await screen.findByRole('separator', { name: 'Resize the side panel' });
+    fireEvent.pointerDown(side, { pointerId: 1 });
+    fireEvent.pointerMove(side, { clientX: window.innerWidth - 400 });
+    fireEvent.pointerUp(side);
+    fireEvent.pointerMove(side, { clientX: window.innerWidth - 350 });
+    expect(work?.style.getPropertyValue('--right-w')).toBe('400px');
+
+    const output = screen.getByRole('separator', { name: 'Resize the output pane' });
+    fireEvent.pointerDown(output, { pointerId: 1 });
+    fireEvent.pointerMove(output, { clientY: -1000 });
+    // jsdom lays nothing out, so the center box is empty and the height falls to its 80px floor.
+    expect(work?.style.getPropertyValue('--out-h')).toBe('80px');
+  });
+});
+
 describe('the assistant panel', () => {
   it('shows Ask and Write code disabled until sign-in exists', async () => {
     renderWith(<SessionRoom session={timed(view())} />, roomClient());
