@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "corridor-router",
-  "version": 2,
+  "version": 3,
   "section": "coding-round",
   "title": "Corridor Router",
   "summary": "A payment router picks routes through a network of one-way corridors. Fix its hop-count search, add a fee-aware search, then make it hold up on a large network.",

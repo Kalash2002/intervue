@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "duplicate-order-detector",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Duplicate Order Detector",
   "summary": "A shop's checkout sometimes submits the same basket twice. Fix the repeat finder, flag likely double submissions within a time window, then keep it fast on a sale-day order log.",

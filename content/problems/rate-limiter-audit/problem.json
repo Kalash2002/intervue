@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "rate-limiter-audit",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Rate Limiter Audit",
   "summary": "An API gateway's access log must be audited against its rate limit. Fix requests landing in the wrong window, replay the limiter to find rejections, then audit a full day of traffic in time.",

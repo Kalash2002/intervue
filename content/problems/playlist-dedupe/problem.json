@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "playlist-dedupe",
-  "version": 1,
+  "version": 2,
   "section": "coding-round",
   "title": "Playlist Dedupe",
   "summary": "A streaming app shows the same song twice in playlists. Fix song matching, then rank artists by listeners and compare playlists, fast enough for a busy day of plays.",

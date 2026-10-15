@@ -1,6 +1,6 @@
 # How a strong round goes: Corridor Router
 
-**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution in `problems/corridor-router/solution/`. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
+**Read this first.** This is one good way through the problem, not the only one. The complexity figures describe the reference solution. The practice links go to other sites and to different questions that use the same technique; they are not this question. The prompts are written for interview mode, where the assistant does what you specify and nothing more.
 
 ## Minutes 0 to 7: read before you run
 
