@@ -12,7 +12,7 @@ import kit.Test;
 public class Phase3Tests {
 
     /** The nightly feed: 800,000 merchants added one at a time, in the partner's Z-to-A order, then a few lookups. */
-    @Test(order = 1, timeoutMs = 25000)
+    @Test(order = 1, timeoutMs = 16000)
     void loadingTheNightlyFeed() {
         List<Merchant> merchants = Datasets.nightlyFeed(800_000, 11L);
         MerchantDirectory directory = Datasets.directory(merchants);
