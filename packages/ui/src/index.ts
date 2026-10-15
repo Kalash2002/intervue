@@ -2,6 +2,7 @@
 import './styles/tokens.css';
 import './styles/base.css';
 import './styles/shell.css';
+import './styles/home.css';
 import './styles/room.css';
 import './styles/timeline.css';
 import './styles/panel.css';

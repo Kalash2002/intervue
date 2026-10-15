@@ -89,10 +89,10 @@ export interface TrackCell {
   total: number;
 }
 
-/** One cell per NeetCode group: how many problems fall in it and how many of those are solved. */
+/** One cell per NeetCode group: the problems filed under it (first matching group, as the list) and how many are solved. */
 export function trackCells(problems: readonly ProblemSummary[], history: readonly SessionSummary[]): TrackCell[] {
   return TRACKS.map((track) => {
-    const inGroup = problems.filter((p) => p.techniques.some((id) => track.techniques.includes(id)));
+    const inGroup = problems.filter((p) => trackOf(p.techniques) === track);
     const solved = inGroup.filter((p) => progressFor(p, history).state === 'solved').length;
     return { track, solved, total: inGroup.length };
   });

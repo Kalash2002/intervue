@@ -33,7 +33,7 @@ export function ThemeButton({ menu = false }: { menu?: boolean }) {
           {next === 'light' ? '☀' : '☾'}
         </span>
       )}
-      <span className="label">{label}</span>
+      <span className="menu-label">{label}</span>
     </button>
   );
 }

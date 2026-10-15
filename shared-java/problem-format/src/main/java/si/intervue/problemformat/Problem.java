@@ -23,6 +23,6 @@ public record Problem(
 
   /** {@code tags} is optional on disk; every reader sees a list. */
   public Problem {
-    tags = List.copyOf(nullToEmpty(tags));
+    tags = nullToEmpty(tags);
   }
 }

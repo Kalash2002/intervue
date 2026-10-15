@@ -102,7 +102,8 @@ class ProblemValidatorTest {
   @Test
   void refusesTagsThatAreNotLowerCaseWithDashes() throws IOException {
     replaceInProblem(
-        "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"tags\":[\"Graphs\",\"two pointers\"]");
+        "\"domain\":\"fintech\"",
+        "\"domain\":\"fintech\",\"tags\":[\"Graphs\",\"two pointers\",null]");
     assertThat(errors()).anyMatch(e -> e.contains("tags"));
   }
 

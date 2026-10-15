@@ -84,7 +84,7 @@ function MenuItem({
       <span className="glyph" aria-hidden="true">
         {glyph}
       </span>
-      <span className="label">{label}</span>
+      <span className="menu-label">{label}</span>
     </button>
   );
 }

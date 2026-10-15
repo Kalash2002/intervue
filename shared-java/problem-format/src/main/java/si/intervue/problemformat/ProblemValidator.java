@@ -71,7 +71,7 @@ public final class ProblemValidator {
     if (nullToEmpty(p.techniques()).isEmpty()) {
       errors.add("techniques needs at least one track");
     }
-    if (p.tags().stream().anyMatch(t -> !ID.matcher(t).matches())) {
+    if (p.tags().stream().anyMatch(t -> t == null || !ID.matcher(t).matches())) {
       errors.add("tags must be lowercase letters, digits and dashes");
     }
     if (p.tags().stream().distinct().count() != p.tags().size()) {

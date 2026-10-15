@@ -17,8 +17,10 @@ import {
   EMPTY_FILTER,
   nextUp,
   progressFor,
+  STATE_LABEL,
   topTags,
   type Filter,
+  type ProblemState,
 } from '../lib/progress.ts';
 import { TRACKS, trackOf, type Track } from '../lib/tracks.ts';
 
@@ -28,7 +30,15 @@ const storageKey = (sectionId: string) => `intervue.filter.${sectionId}`;
 function storedFilter(sectionId: string): Filter {
   try {
     const raw = sessionStorage.getItem(storageKey(sectionId));
-    return raw ? { ...EMPTY_FILTER, ...(JSON.parse(raw) as Partial<Filter>) } : EMPTY_FILTER;
+    const stored = raw ? (JSON.parse(raw) as Partial<Record<keyof Filter, unknown>>) : {};
+    const strings = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : []);
+    return {
+      query: typeof stored.query === 'string' ? stored.query : '',
+      difficulty: strings(stored.difficulty),
+      status: strings(stored.status).filter((s): s is ProblemState => s in STATE_LABEL),
+      tags: strings(stored.tags),
+      view: stored.view === 'flat' ? 'flat' : 'grouped',
+    };
   } catch {
     return EMPTY_FILTER;
   }
