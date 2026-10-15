@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "car-pooling",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Car Pooling",
+  "summary": "Decide whether one shuttle with a fixed number of seats can serve every ride request without ever being over capacity.",
+  "difficulty": "Medium",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting", "sweep-line"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you report the first minute at which the shuttle is over capacity?", "What changes if the shuttle can also refuse some requests and you want to serve as many riders as possible?", "What if the times are tiny, say minutes within one day, rather than up to a billion?"],
+  "languages": ["java"],
+  "coveredBy": ["hold-exposure"]
+}

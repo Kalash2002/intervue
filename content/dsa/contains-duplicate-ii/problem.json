@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "contains-duplicate-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Contains Duplicate II",
+  "summary": "Tell whether the same value appears twice within a given distance in a list.",
+  "difficulty": "Easy",
+  "techniques": ["sliding-window"],
+  "tags": ["array", "hash-map", "window"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you do it keeping only the last gap values in memory?", "How would you return the closest pair of equal positions instead of a yes or no?", "What changes if two values count as repeats when they differ by at most a small amount?"],
+  "languages": ["java"],
+  "coveredBy": ["duplicate-order-detector"]
+}

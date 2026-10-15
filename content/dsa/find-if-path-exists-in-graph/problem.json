@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "find-if-path-exists-in-graph",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Find if Path Exists in Graph",
+  "summary": "Decide whether two stations are joined by a chain of two-way connectors.",
+  "difficulty": "Easy",
+  "techniques": ["graphs"],
+  "tags": ["graph", "bfs", "union-find"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you answer many from-to questions on the same network?", "What changes if the connectors work in one direction only?", "How would you return an actual route, not just yes or no?"],
+  "languages": ["java"],
+  "coveredBy": ["friend-suggestion"]
+}

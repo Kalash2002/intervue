@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "design-hit-counter",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Design Hit Counter",
+  "summary": "Build a small class that counts the pings received within the most recent stretch of time.",
+  "difficulty": "Medium",
+  "techniques": ["sliding-window"],
+  "tags": ["design", "queue", "window"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if a million pings arrive in the same second?", "What if the counter must be safe to call from many threads?", "How would you answer for an arbitrary earlier time, not only the latest?"],
+  "languages": ["java"],
+  "coveredBy": ["rate-limiter-audit"]
+}

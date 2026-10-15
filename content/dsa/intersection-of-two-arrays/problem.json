@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "intersection-of-two-arrays",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Intersection of Two Arrays",
+  "summary": "List the distinct values that appear in both of two lists, in ascending order.",
+  "difficulty": "Easy",
+  "techniques": ["arrays-hashing"],
+  "tags": ["array", "hash-set", "sorting"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if both lists are already sorted?", "What if one list is tiny and the other does not fit in memory?", "How would you keep the number of times a value is shared, not just that it is shared?"],
+  "languages": ["java"],
+  "coveredBy": ["playlist-dedupe"]
+}

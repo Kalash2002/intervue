@@ -20,13 +20,13 @@ Phase 1ad writes these first, then the rest of the NeetCode 150 by topic group. 
 | `sliding-window-maximum` | Sliding Window Maximum | Sliding window | rate-limiter-audit | written |
 | `valid-parentheses` | Valid Parentheses | Stack | build-log-bracket-checker | written |
 | `implement-trie-prefix-tree` | Implement Trie (Prefix Tree) | Tries | merchant-suggest | written |
-| `car-pooling` | Car Pooling | outside the 150 | hold-exposure | pending |
-| `contains-duplicate-ii` | Contains Duplicate II | outside the 150 | duplicate-order-detector | pending |
-| `design-hit-counter` | Design Hit Counter | outside the 150 | rate-limiter-audit | pending |
-| `find-if-path-exists-in-graph` | Find if Path Exists in Graph | outside the 150 | friend-suggestion | pending |
-| `intersection-of-two-arrays` | Intersection of Two Arrays | outside the 150 | playlist-dedupe | pending |
-| `longest-valid-parentheses` | Longest Valid Parentheses | outside the 150 | build-log-bracket-checker | pending |
-| `meeting-rooms-iii` | Meeting Rooms III | outside the 150 | courier-load-balancer | pending |
+| `car-pooling` | Car Pooling | outside the 150 | hold-exposure | written |
+| `contains-duplicate-ii` | Contains Duplicate II | outside the 150 | duplicate-order-detector | written |
+| `design-hit-counter` | Design Hit Counter | outside the 150 | rate-limiter-audit | written |
+| `find-if-path-exists-in-graph` | Find if Path Exists in Graph | outside the 150 | friend-suggestion | written |
+| `intersection-of-two-arrays` | Intersection of Two Arrays | outside the 150 | playlist-dedupe | written |
+| `longest-valid-parentheses` | Longest Valid Parentheses | outside the 150 | build-log-bracket-checker | written |
+| `meeting-rooms-iii` | Meeting Rooms III | outside the 150 | courier-load-balancer | written |
 | `minimum-remove-to-make-valid-parentheses` | Minimum Remove to Make Valid Parentheses | outside the 150 | build-log-bracket-checker | pending |
 | `number-of-recent-calls` | Number of Recent Calls | outside the 150 | rate-limiter-audit | pending |
 | `process-tasks-using-servers` | Process Tasks Using Servers | outside the 150 | courier-load-balancer | pending |

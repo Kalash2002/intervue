@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "meeting-rooms-iii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Meeting Rooms III",
+  "summary": "Simulate booking requests into numbered rooms, delaying those that find every room busy, and name the room used most.",
+  "difficulty": "Hard",
+  "techniques": ["heap"],
+  "tags": ["heap", "simulation", "sorting"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if a delayed booking should be dropped instead of waiting?", "How would you report the total waiting time as well?", "What changes if bookings arrive live, one at a time, with no sorted list up front?"],
+  "languages": ["java"],
+  "coveredBy": ["courier-load-balancer"]
+}

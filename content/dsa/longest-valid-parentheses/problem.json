@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "longest-valid-parentheses",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Longest Valid Parentheses",
+  "summary": "Find the length of the longest unbroken stretch of a bracket string that is correctly matched.",
+  "difficulty": "Hard",
+  "techniques": ["stack"],
+  "tags": ["string", "stack", "dynamic-programming"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in constant extra space?", "How would you return where the longest stretch starts, as well as its length?", "How would you handle several kinds of brackets, like round and square together?"],
+  "languages": ["java"],
+  "coveredBy": ["build-log-bracket-checker"]
+}

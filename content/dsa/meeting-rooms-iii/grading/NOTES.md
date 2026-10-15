@@ -1,0 +1,5 @@
+# Grader notes: Meeting Rooms III
+
+Tests cover: the sample, a single request, a single room, a delayed request that runs in the room that frees first, the lowest-numbered free room being chosen when several are free (the answer is room 1 and not 0), a tie between rooms 1 and 2 that goes to 1, requests given out of start order, and a case with two rooms and sessions up to a billion minutes long where delayed finishing times pass the `int` range (an `int` solution picks the wrong room). The large case has 80,000 rooms and 100,000 requests starting at minutes 0 to 99,999 with lengths 50,000 to 149,999, so most rooms are busy and many requests wait; the expected rooms are 203 for 80,000 rooms (3 sessions, 37 rooms tie) and 14 for 70,000 rooms (3 sessions, 351 tie); both were found with an independent heap simulation and agrees with the naive solution.
+
+The naive solution scans every room for each request. That is O(requests times rooms), so on the large test it exceeds the limit and 3x the limit. The reference keeps a heap of free rooms and a heap of busy rooms.
