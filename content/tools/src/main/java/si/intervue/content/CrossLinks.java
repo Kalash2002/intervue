@@ -5,11 +5,14 @@ import java.io.UncheckedIOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
+import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.problemformat.ProblemFormatException;
 import si.intervue.problemformat.ProblemReader;
 
@@ -30,13 +33,36 @@ final class CrossLinks {
   /** Error messages, empty when every link holds. {@code dsaRoot} may not exist yet. */
   static List<String> check(Path problemsRoot, Path dsaRoot) {
     List<String> errors = new ArrayList<>();
-    List<String> problemIds = folderNames(problemsRoot);
-    List<String> dsaIds = folderNames(dsaRoot);
+    List<String> problemIds = PlainFolderSource.folderNames(problemsRoot);
+    List<String> dsaIds = PlainFolderSource.folderNames(dsaRoot);
+    Map<String, List<String>> coveredByOf = new LinkedHashMap<>();
+    for (String id : dsaIds) {
+      coveredByOf.put(id, coveredBy(dsaRoot.resolve(id)));
+    }
+    // Each Markdown file is read once: its dsa:// targets in order, and a forbidden-site error if
+    // any.
+    Map<Path, List<String>> linksByFile = new LinkedHashMap<>();
+    List<String> siteErrors = new ArrayList<>();
+    for (Path root : List.of(problemsRoot, dsaRoot)) {
+      for (Path md : markdownFiles(root)) {
+        String text = read(md);
+        List<String> targets = new ArrayList<>();
+        var links = DSA_LINK.matcher(text);
+        while (links.find()) {
+          targets.add(links.group(1));
+        }
+        linksByFile.put(md, targets);
+        var site = FORBIDDEN_SITE.matcher(text);
+        if (site.find()) {
+          siteErrors.add(md + " links to " + site.group(2) + "; link dsa:// questions instead");
+        }
+      }
+    }
     for (String id : dsaIds) {
       if (problemIds.contains(id)) {
         errors.add(id + " is a folder in both content/problems and content/dsa");
       }
-      for (String target : coveredBy(dsaRoot.resolve(id))) {
+      for (String target : coveredByOf.get(id)) {
         if (!problemIds.contains(target)) {
           errors.add(
               "content/dsa/"
@@ -47,40 +73,33 @@ final class CrossLinks {
         }
       }
     }
-    errors.addAll(agreement(problemsRoot, dsaRoot, problemIds, dsaIds));
-    for (Path root : List.of(problemsRoot, dsaRoot)) {
-      for (Path md : markdownFiles(root)) {
-        String text = read(md);
-        var links = DSA_LINK.matcher(text);
-        while (links.find()) {
-          if (!dsaIds.contains(links.group(1))) {
-            errors.add(
-                md + " links dsa://" + links.group(1) + " but content/dsa has no such folder");
-          }
-        }
-        var site = FORBIDDEN_SITE.matcher(text);
-        if (site.find()) {
-          errors.add(md + " links to " + site.group(2) + "; link dsa:// questions instead");
+    errors.addAll(agreement(problemsRoot, problemIds, dsaIds, coveredByOf, linksByFile));
+    for (var file : linksByFile.entrySet()) {
+      for (String target : file.getValue()) {
+        if (!dsaIds.contains(target)) {
+          errors.add(
+              file.getKey() + " links dsa://" + target + " but content/dsa has no such folder");
         }
       }
     }
+    errors.addAll(siteErrors);
     return errors;
   }
 
   /** A problem's walkthrough links dsa://X exactly when X's coveredBy lists that problem. */
   private static List<String> agreement(
-      Path problemsRoot, Path dsaRoot, List<String> problemIds, List<String> dsaIds) {
+      Path problemsRoot,
+      List<String> problemIds,
+      List<String> dsaIds,
+      Map<String, List<String>> coveredByOf,
+      Map<Path, List<String>> linksByFile) {
     List<String> errors = new ArrayList<>();
     for (String id : problemIds) {
       Path walkthrough = problemsRoot.resolve(id).resolve("walkthrough.md");
-      Set<String> linked = new TreeSet<>();
-      var links = DSA_LINK.matcher(Files.isRegularFile(walkthrough) ? read(walkthrough) : "");
-      while (links.find()) {
-        linked.add(links.group(1));
-      }
+      Set<String> linked = new TreeSet<>(linksByFile.getOrDefault(walkthrough, List.of()));
       for (String target : linked) {
-        // A missing target folder is reported by the link check below.
-        if (dsaIds.contains(target) && !coveredBy(dsaRoot.resolve(target)).contains(id)) {
+        // A missing target folder is reported by the link check.
+        if (dsaIds.contains(target) && !coveredByOf.get(target).contains(id)) {
           errors.add(
               "content/problems/"
                   + id
@@ -94,7 +113,7 @@ final class CrossLinks {
         }
       }
       for (String x : dsaIds) {
-        if (coveredBy(dsaRoot.resolve(x)).contains(id) && !linked.contains(x)) {
+        if (coveredByOf.get(x).contains(id) && !linked.contains(x)) {
           errors.add(
               "content/dsa/"
                   + x
@@ -116,17 +135,6 @@ final class CrossLinks {
     } catch (ProblemFormatException e) {
       // The per-problem verify run reports the unreadable file; here it just has no links.
       return List.of();
-    }
-  }
-
-  private static List<String> folderNames(Path root) {
-    if (!Files.isDirectory(root)) {
-      return List.of();
-    }
-    try (Stream<Path> dirs = Files.list(root)) {
-      return dirs.filter(Files::isDirectory).map(d -> d.getFileName().toString()).sorted().toList();
-    } catch (IOException e) {
-      throw new UncheckedIOException(e);
     }
   }
 

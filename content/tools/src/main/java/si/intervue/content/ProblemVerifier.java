@@ -248,12 +248,12 @@ public final class ProblemVerifier {
     // With one phase there is no earlier phase to pass, so the naive must be correct on every test
     // it does not time out on; a FAIL or an ERROR (crash) would otherwise count as "slow".
     boolean othersPass =
-        onePhase
-            ? r.tests().stream()
-                .allMatch(t -> t.status() == TestStatus.PASS || t.status() == TestStatus.TIMEOUT)
-            : r.tests().stream()
-                .filter(t -> !t.suite().equals(last))
-                .allMatch(t -> t.status() == TestStatus.PASS);
+        r.tests().stream()
+            .filter(t -> onePhase || !t.suite().equals(last))
+            .allMatch(
+                t ->
+                    t.status() == TestStatus.PASS
+                        || (onePhase && t.status() == TestStatus.TIMEOUT));
     return othersPass && count(r, last, TestStatus.TIMEOUT) > 0
         ? null
         : "every phase but the last must pass and the last must have a TIMEOUT";

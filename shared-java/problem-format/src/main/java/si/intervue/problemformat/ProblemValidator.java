@@ -37,11 +37,11 @@ public final class ProblemValidator {
     checkPhases(folder, errors);
     checkVariants(folder, errors);
     boolean onePhase = isOnePhase(folder.problem());
-    for (String file : List.of("brief/intro.md", "walkthrough.md", "grading/NOTES.md")) {
-      if (!(onePhase && file.equals("brief/intro.md"))) {
-        requireFile(folder.dir(), file, errors);
-      }
+    if (!onePhase) {
+      requireFile(folder.dir(), "brief/intro.md", errors);
     }
+    requireFile(folder.dir(), "walkthrough.md", errors);
+    requireFile(folder.dir(), "grading/NOTES.md", errors);
     if (Files.isRegularFile(folder.dir().resolve("walkthrough.md"))) {
       checkWalkthrough(folder.dir(), onePhase, errors);
     }
@@ -117,7 +117,7 @@ public final class ProblemValidator {
         checkHints(folder.dir().resolve(phase.hints()), phase.hints(), errors);
       }
     }
-    int expected = phases.size() == 1 ? ONE_PHASE_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
+    int expected = isOnePhase(folder.problem()) ? ONE_PHASE_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
     if (weights != expected) {
       errors.add("phase weights sum to " + weights + ", must be " + expected);
     }

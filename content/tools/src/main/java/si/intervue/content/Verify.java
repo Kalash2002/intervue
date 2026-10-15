@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ServiceLoader;
-import java.util.stream.Stream;
+import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.runners.Calibration;
 import si.intervue.engine.runners.ProcessControl;
@@ -30,13 +30,7 @@ public final class Verify {
     List<String> ids = new ArrayList<>(List.of(args));
     if (ids.isEmpty()) {
       for (Path root : List.of(problems, dsa)) {
-        if (Files.isDirectory(root)) {
-          try (Stream<Path> dirs = Files.list(root)) {
-            dirs.filter(Files::isDirectory)
-                .sorted()
-                .forEach(d -> ids.add(d.getFileName().toString()));
-          }
-        }
+        ids.addAll(PlainFolderSource.folderNames(root));
       }
     }
     ProcessControl processes = new ProcessControl();

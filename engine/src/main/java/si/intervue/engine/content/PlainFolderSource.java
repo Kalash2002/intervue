@@ -61,18 +61,18 @@ public final class PlainFolderSource implements ContentStore {
 
   @Override
   public ProblemFolder load(String id) {
-    for (int i = 0;
-        id != null && i < roots.size();
-        i++) { // a null id gets the "not a problem id" error below
-      if (Files.isDirectory(roots.get(i).resolve(id))) {
-        return problems.get(i).load(id);
+    if (id != null) { // a null id gets the "not a problem id" error below
+      for (int i = 0; i < roots.size(); i++) {
+        if (Files.isDirectory(roots.get(i).resolve(id))) {
+          return problems.get(i).load(id);
+        }
       }
     }
     return problems.getFirst().load(id); // not found: the usual "no such problem" error
   }
 
   /** Sorted folder names of a root; a root that does not exist (content/dsa) has none. */
-  private static List<String> folderNames(Path root) {
+  public static List<String> folderNames(Path root) {
     if (!Files.isDirectory(root)) {
       return List.of();
     }
