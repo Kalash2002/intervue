@@ -32,8 +32,9 @@ import si.intervue.runprotocol.TestStatus;
 /**
  * Verifies a problem the way docs/contracts/problem-format.md requires: the format is valid; the
  * starter fails phase 1; the reference passes everything with 5x headroom under every limit; the
- * naive solution passes every phase but the last and still times out there at 3x the limits. It
- * never changes the problem folder; all runs happen in a scratch copy.
+ * naive solution passes every phase but the last and still times out there at 3x the limits (a
+ * one-phase question may omit the naive). It never changes the problem folder; all runs happen in a
+ * scratch copy.
  */
 public final class ProblemVerifier {
 
@@ -108,11 +109,16 @@ public final class ProblemVerifier {
     }
     ok &= check("reference", reference, r -> referenceRule(referenceRuns), lines);
     if (!Files.isDirectory(dir.resolve("naive"))) {
+      // A one-phase question may have no time dimension worth grading (problem-format.md).
+      if (phases == 1) {
+        lines.add("  naive      skip  no naive/; time is not graded separately");
+        return ok;
+      }
       lines.add("  naive      FAIL  missing naive/ with a correct but slow solution");
       return false;
     }
     Outcome naive = run(pkg, dir, variant, "naive", "all", factor);
-    ok &= check("naive", naive, r -> naiveRule(r, last), lines);
+    ok &= check("naive", naive, r -> naiveRule(r, last, phases == 1), lines);
     if (naive.results() == null) {
       return false;
     }
@@ -223,11 +229,15 @@ public final class ProblemVerifier {
     return null;
   }
 
-  private static String naiveRule(RunResults r, String last) {
+  private static String naiveRule(RunResults r, String last, boolean onePhase) {
+    // With one phase there is no earlier phase to pass, so the naive must be correct on every test
+    // it does not time out on; otherwise a wrong solution would count as "slow".
     boolean othersPass =
-        r.tests().stream()
-            .filter(t -> !t.suite().equals(last))
-            .allMatch(t -> t.status() == TestStatus.PASS);
+        onePhase
+            ? r.tests().stream().noneMatch(t -> t.status() == TestStatus.FAIL)
+            : r.tests().stream()
+                .filter(t -> !t.suite().equals(last))
+                .allMatch(t -> t.status() == TestStatus.PASS);
     return othersPass && count(r, last, TestStatus.TIMEOUT) > 0
         ? null
         : "every phase but the last must pass and the last must have a TIMEOUT";

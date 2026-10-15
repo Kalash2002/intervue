@@ -179,4 +179,105 @@ class ProblemVerifierTest {
     assertThat(report.ok()).isFalse();
     assertThat(report.lines()).anyMatch(l -> l.contains("hints/phase2.md"));
   }
+
+  private static final String ONE_PHASE_WALKTHROUGH =
+      "# Walkthrough\n\n## Approach\n\ntext\n\n## Complexity\n\ntable\n\n"
+          + "## Where it shows up\n\ntext\n\n## Follow-up answers\n\ntext\n";
+
+  /** One phase with a single suite: {@code f} must be right and {@code g} fast (1 s limit). */
+  private VerifyReport verifyOnePhase(String naiveF, long naiveG) throws IOException {
+    Path dir = root.resolve("problems").resolve("solo");
+    write(
+        dir.resolve("problem.json"),
+        """
+        {"formatVersion":1,"id":"solo","version":1,"section":"dsa-quick","title":"Solo",
+         "summary":"One phase.","difficulty":"Easy","techniques":["arrays"],"domain":"test",
+         "minutes":10,"followUps":[],"languages":["java"],
+         "phases":[{"id":1,"title":"Solve","brief":"statement.md","hints":"hints/phase1.md","weight":80,"allOrNothing":false,"timeoutRefMs":20000}]}
+        """);
+    write(
+        dir.resolve("variants/java/variant.json"),
+        """
+        {"language":"java","minToolchain":"21","main":"Calc",
+         "readOnly":["Phase1Tests.java"],"tests":{"1":"Phase1Tests"}}
+        """);
+    write(
+        dir.resolve("variants/java/starter/Phase1Tests.java"),
+        """
+        import kit.Check;
+        import kit.Test;
+
+        public class Phase1Tests {
+          @Test(order = 1, timeoutMs = 2000)
+          void doubles() {
+            Check.assertEquals(4, Calc.f(2));
+          }
+
+          @Test(order = 2, timeoutMs = 1000)
+          void isFast() {
+            Check.assertEquals(1000L, Calc.g(1000));
+          }
+        }
+        """);
+    write(dir.resolve("statement.md"), "text");
+    write(dir.resolve("grading/NOTES.md"), "text");
+    write(dir.resolve("walkthrough.md"), ONE_PHASE_WALKTHROUGH);
+    write(dir.resolve("hints/phase1.md"), HINT);
+    Path variant = dir.resolve("variants/java");
+    write(variant.resolve("starter/Calc.java"), calc(BUGGY_F, 0));
+    write(variant.resolve("reference/Calc.java"), calc(CORRECT_F, 0));
+    if (naiveF != null) {
+      write(variant.resolve("naive/Calc.java"), calc(naiveF, naiveG));
+    }
+    return new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+  }
+
+  @Test
+  void onePhaseWithoutNaivePasses() throws IOException {
+    VerifyReport report = verifyOnePhase(null, 0);
+
+    assertThat(report.ok()).as(String.join("\n", report.lines())).isTrue();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive      skip"));
+  }
+
+  @Test
+  void onePhaseNaiveMustTimeOut() throws IOException {
+    VerifyReport report = verifyOnePhase(CORRECT_F, 0);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+  }
+
+  @Test
+  void onePhaseNaiveThatTimesOutPasses() throws IOException {
+    VerifyReport report = verifyOnePhase(CORRECT_F, 10_000);
+
+    assertThat(report.ok()).as(String.join("\n", report.lines())).isTrue();
+  }
+
+  @Test
+  void onePhaseNaiveMayNotFailATest() throws IOException {
+    VerifyReport report = verifyOnePhase(BUGGY_F, 10_000);
+
+    assertThat(report.ok()).isFalse();
+  }
+
+  @Test
+  void multiPhaseWithoutNaiveStillFails() throws IOException {
+    Path dir = root.resolve("problems").resolve("tiny");
+    verify(BUGGY_F, CORRECT_F, 0, CORRECT_F, 10_000);
+    deleteNaive(dir);
+
+    VerifyReport report =
+        new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("missing naive/"));
+  }
+
+  private static void deleteNaive(Path dir) throws IOException {
+    Path naive = dir.resolve("variants/java/naive");
+    Files.delete(naive.resolve("Calc.java"));
+    Files.delete(naive);
+  }
 }
