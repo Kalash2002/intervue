@@ -5,18 +5,18 @@ import { useApp } from '../app-context.ts';
 import { useOpeners } from '../hooks.ts';
 import { plural } from '../lib/format.ts';
 import { covering, progressFor, STATE_LABEL } from '../lib/progress.ts';
-import { Chip } from './Chip.tsx';
+import { CoveringChips } from './CoveringChips.tsx';
 import { TagChips } from './TagChips.tsx';
 
 export function ProblemCard({
   problem: p,
   history,
-  all = [],
+  all,
 }: {
   problem: ProblemSummary;
   history: readonly SessionSummary[];
   /** The whole catalogue, to name the problems in `coveredBy`. */
-  all?: readonly ProblemSummary[];
+  all: readonly ProblemSummary[];
 }) {
   const { go } = useApp();
   const { open, result } = useOpeners();
@@ -64,17 +64,11 @@ export function ProblemCard({
 
 /** The coding-round problems that practise this question; each opens that problem's Answer page. */
 function CoveredBy({ problem, all }: { problem: ProblemSummary; all: readonly ProblemSummary[] }) {
-  const { go } = useApp();
   const used = covering(problem, all);
   if (!used.length) return null;
   return (
-    <p className="chips" aria-label="Covered by">
+    <CoveringChips problems={used} label="Covered by">
       <span className="hint">Covered by</span>
-      {used.map((q) => (
-        <Chip key={q.id} onClick={() => go({ name: 'answer', problem: q })}>
-          {q.title}
-        </Chip>
-      ))}
-    </p>
+    </CoveringChips>
   );
 }

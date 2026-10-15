@@ -7,6 +7,7 @@ import { failed, useApp } from '../app-context.ts';
 import { useCatalogue, useOpenQuestion } from '../hooks.ts';
 import { covering } from '../lib/progress.ts';
 import { Chip } from '../components/Chip.tsx';
+import { CoveringChips } from '../components/CoveringChips.tsx';
 import { Markdown } from '../components/Markdown.tsx';
 import { TagChips } from '../components/TagChips.tsx';
 import { plural } from '../lib/format.ts';
@@ -121,20 +122,13 @@ function AnswerAside({
 
 /** The coding-round problems that practise this DSA question; each opens its Answer page. */
 function UsedIn({ problem }: { problem: ProblemSummary }) {
-  const { go } = useApp();
   const catalogue = useCatalogue();
   const usedIn = catalogue ? covering(problem, catalogue.problems) : [];
   if (!usedIn.length) return null;
   return (
     <div className="card" aria-label="Used in">
       <p className="eyebrow">Used in</p>
-      <p className="chips">
-        {usedIn.map((q) => (
-          <Chip key={q.id} onClick={() => go({ name: 'answer', problem: q })}>
-            {q.title}
-          </Chip>
-        ))}
-      </p>
+      <CoveringChips problems={usedIn} />
     </div>
   );
 }

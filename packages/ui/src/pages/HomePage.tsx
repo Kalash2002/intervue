@@ -7,7 +7,7 @@ import { ContinueCard } from '../components/ContinueCard.tsx';
 import { TrackCard } from '../components/TrackCard.tsx';
 import { titleOf, useCatalogue, useOpeners, type Catalogue } from '../hooks.ts';
 import { dateText, plural } from '../lib/format.ts';
-import { dashboardStats, nextUp } from '../lib/progress.ts';
+import { nextUp, solvedBySection } from '../lib/progress.ts';
 import { streak, weekStrip } from '../lib/streak.ts';
 
 const RECENT = 5;
@@ -29,7 +29,12 @@ export function HomePage() {
           <Recent {...data} />
         </div>
       )}
-      {data && <Aside {...data} />}
+      {data && (
+        <aside className="aside">
+          <SolvedCard {...data} />
+          <StreakCard history={data.history} />
+        </aside>
+      )}
     </main>
   );
 }
@@ -160,14 +165,7 @@ function SolvedCard({ problems, history }: Catalogue) {
       <dl className="stats">
         {sections.map((s) => (
           <div key={s.id} aria-label={`${s.title} solved`}>
-            <dd>
-              {
-                dashboardStats(
-                  problems.filter((p) => p.section === s.id),
-                  history,
-                ).solved
-              }
-            </dd>
+            <dd>{solvedBySection(problems, history, s.id)}</dd>
             <dt>{s.title} solved</dt>
           </div>
         ))}
@@ -176,35 +174,24 @@ function SolvedCard({ problems, history }: Catalogue) {
   );
 }
 
-function Aside(data: Catalogue) {
-  return (
-    <aside className="aside">
-      <SolvedCard {...data} />
-      <StreakCard history={data.history} />
-    </aside>
-  );
-}
-
 function StreakCard({ history }: { history: SessionSummary[] }) {
   const { current, best } = streak(history);
   const days = weekStrip(history);
   return (
-    <>
-      <div className="card" aria-label="Streak">
-        <p className="eyebrow">Streak</p>
-        <p className="streak">
-          <b>{plural(current, 'day')}</b>
-          <span className="hint">best {best}</span>
-        </p>
-        <ol className="week" aria-label="Last seven days">
-          {days.map((d, i) => (
-            <li key={i} className={d.done ? 'done' : ''} title={d.done ? `${d.label}: a session finished` : d.label}>
-              <span className="dot" aria-hidden="true" />
-              {d.label}
-            </li>
-          ))}
-        </ol>
-      </div>
-    </>
+    <div className="card" aria-label="Streak">
+      <p className="eyebrow">Streak</p>
+      <p className="streak">
+        <b>{plural(current, 'day')}</b>
+        <span className="hint">best {best}</span>
+      </p>
+      <ol className="week" aria-label="Last seven days">
+        {days.map((d, i) => (
+          <li key={i} className={d.done ? 'done' : ''} title={d.done ? `${d.label}: a session finished` : d.label}>
+            <span className="dot" aria-hidden="true" />
+            {d.label}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
