@@ -18,6 +18,8 @@ content/problems/<problem-id>/
     └── naive/        files that overlay starter/: every phase but the last passes, the last times out
 ```
 
+DSA questions live in `content/dsa/<question-id>/` with the same shape and one phase (below). The engine reads both roots, `content/dsa/` being optional; ids are unique across them (ADR 0008).
+
 ## problem.json
 
 | Field | Type | Rule |
@@ -35,8 +37,24 @@ content/problems/<problem-id>/
 | `phases[].weight` | integer | phase weights sum to 70 (the correctness share) |
 | `phases[].allOrNothing` | boolean | |
 | `phases[].timeoutRefMs` | integer | whole-run cap for that phase on the reference machine |
+| `coveredBy` | string array, optional (added 2026-10-15, additive) | DSA questions only: ids of coding-round problems that exercise this question; each exists in `content/problems/` |
 | `followUps` | string array | |
 | `languages` | string array | each has a `variants/<language>/` folder |
+
+## One-phase problems (DSA, added 2026-10-15, additive, no `formatVersion` bump)
+
+A problem with exactly one phase differs from the multi-phase rules in this file:
+
+| Item | Rule |
+|---|---|
+| Phase | one, weight `80` (not 70); its brief is `statement.md`; hints are `hints/phase1.md` |
+| `brief/intro.md` | not present |
+| `grading/NOTES.md` | still required |
+| Walkthrough headings, in order | `## Approach`, `## Complexity`, `## Where it shows up`, `## Follow-up answers` |
+| `naive/` | optional. Without it time is not graded separately and `grading/NOTES.md` says so. With it, the naive solution passes every test that did not time out, times out at least once, and still times out at 3x the limits (`NAIVE_MARGIN`) |
+| Reference | keeps the 5x headroom rule |
+
+Problems with several phases keep every other rule. The shape for a new question is `content/templates/dsa-question.md`.
 
 ## variant.json
 
@@ -52,13 +70,14 @@ content/problems/<problem-id>/
 
 ## walkthrough.md
 
-The answer the app shows after a session and from every problem card. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
+The answer the app shows after a session and from every problem card. A one-phase problem uses the four headings above instead of the closing sections below. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
 
 | Rule | Detail |
 |---|---|
 | Closing sections, in this order | `## DSA reference` with `### Theory`, `### Code`, `### Complexity`, `### Practise the technique`; then `## Time budget`; then `## Follow-up answers` |
 | Figures | `![caption](figures/<name>.svg)` (or `.png`) refers to a file under the problem's `figures/`; the engine inlines them for the Answer page |
-| Practise links | `dsa://<question-id>` only; ids as in `content/dsa/INDEX.md` |
+| Practise links | `dsa://<question-id>` only; ids as in `content/dsa/INDEX.md`; each exists in `content/dsa/` |
+| Other sites | no `neetcode.io` or `leetcode.com` link anywhere under `content/` |
 | Prompts | ```text fences are what the candidate types; the voice rules are in `content/templates/README.md` (not validated) |
 
 ## Hints
