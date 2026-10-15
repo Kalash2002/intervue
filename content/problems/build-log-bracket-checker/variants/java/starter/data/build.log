@@ -1,0 +1,6 @@
+compile(src/main) [ok]
+link {libs: [core, net]}
+test(unit (fast)
+deploy ) early
+pack [zip}
+retry {count: 3}

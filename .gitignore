@@ -48,6 +48,8 @@ out/
 *.jar
 !gradle/wrapper/gradle-wrapper.jar
 *.log
+# Sample data in problems is content, not a log file.
+!content/problems/**/data/*.log
 hs_err_pid*
 
 # ---- TypeScript / pnpm / Vite ----
