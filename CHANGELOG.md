@@ -4,6 +4,7 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- packages/ui, packages/editor, sections/coding-round/ui: fixes from the Phase 1a hand test: the room's splitters drag again (file tree, side panel, output pane, as in the prototype); the editor scrolls with the mouse wheel; pastel syntax colours from theme tokens and a softer dark palette; a "← Dashboard" button on the room, result and answer pages; an Answer page with the problem's walkthrough, opened from the result page or from a dashboard card once the problem has a finished session (2026-10-15)
 - engine: developer-mode assistant on the Claude CLI (`--developer-mode`): Ask, Write code through the edit applier, Explain this hint and a written review at finish, streamed to the UI; prompts built from the section's prompt files; every call logs an `aiCall` event with route, model, tokens and latency, never text; Doctor check "Claude CLI found and signed in" in developer mode; with developer mode off no `claude` process is started (2026-10-15)
 - engine: ADR 0006 scoring: every passing Interview session counts as solved, labels are Interview or Practice, the view carries AI edits applied and undone; timed Practice and `endedEarly` (V2 migration) (2026-10-15)
 - sections/coding-round: point-and-explain rules for Interview mode and the Write code scope, with recorded-transcript tests per rule (2026-10-15)
