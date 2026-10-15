@@ -254,8 +254,12 @@ public final class ProblemVerifier {
                 t ->
                     t.status() == TestStatus.PASS
                         || (onePhase && t.status() == TestStatus.TIMEOUT));
-    return othersPass && count(r, last, TestStatus.TIMEOUT) > 0
-        ? null
+    boolean timesOut = count(r, last, TestStatus.TIMEOUT) > 0;
+    if (othersPass && timesOut) {
+      return null;
+    }
+    return onePhase
+        ? "every test must pass or time out, and at least one must time out"
         : "every phase but the last must pass and the last must have a TIMEOUT";
   }
 

@@ -246,6 +246,8 @@ class ProblemVerifierTest {
 
     assertThat(report.ok()).isFalse();
     assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+    assertThat(report.lines())
+        .anyMatch(l -> l.contains("every test must pass or time out, and at least one must"));
   }
 
   @Test
