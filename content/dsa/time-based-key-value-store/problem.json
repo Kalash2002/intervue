@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "time-based-key-value-store",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Time Based Key-Value Store",
+  "summary": "Design a store that returns the latest value of a key at or before a given time.",
+  "difficulty": "Medium",
+  "techniques": ["binary-search"],
+  "tags": ["design", "hash-map", "binary-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if timestamps for a key may be set out of order?", "How would you delete or expire old values?", "What if you also need the first value after a given time?"],
+  "languages": ["java"],
+  "coveredBy": ["shift-roster-lookup"]
+}

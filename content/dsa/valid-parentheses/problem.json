@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "valid-parentheses",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Valid Parentheses",
+  "summary": "Say whether every bracket in a string is closed by the right kind, in the right order.",
+  "difficulty": "Easy",
+  "techniques": ["stack"],
+  "tags": ["string", "stack"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you report the position of the first mistake?", "What if the text also contains other characters that should be ignored?", "What if the string is too large to hold in memory?"],
+  "languages": ["java"],
+  "coveredBy": ["build-log-bracket-checker"]
+}

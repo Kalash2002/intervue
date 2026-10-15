@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "two-sum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Two Sum",
+  "summary": "Find the two positions in an array whose values add up to a target.",
+  "difficulty": "Easy",
+  "techniques": ["arrays-hashing", "hashing"],
+  "tags": ["array", "hash-map"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the array is sorted?", "What if several pairs add up to the target and you must return all of them?", "What if the numbers do not fit in memory?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

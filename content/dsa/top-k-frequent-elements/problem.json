@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "top-k-frequent-elements",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Top K Frequent Elements",
+  "summary": "Return the k values that occur most often in an array.",
+  "difficulty": "Medium",
+  "techniques": ["arrays-hashing", "hashing"],
+  "tags": ["array", "hash-map", "heap", "bucket-sort"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in O(n) rather than O(n log n)?", "What if the values arrive as a stream and you may ask for the top k at any time?", "What if two values tie for the last place?"],
+  "languages": ["java"],
+  "coveredBy": ["duplicate-order-detector"]
+}

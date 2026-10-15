@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "group-anagrams",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Group Anagrams",
+  "summary": "Group words that are made of exactly the same letters.",
+  "difficulty": "Medium",
+  "techniques": ["arrays-hashing", "hashing"],
+  "tags": ["string", "hash-map", "sorting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the words can contain any Unicode characters?", "Can you build the key in O(length) instead of O(length log length)?", "How would you do this when the words do not fit in memory?"],
+  "languages": ["java"],
+  "coveredBy": ["playlist-dedupe"]
+}

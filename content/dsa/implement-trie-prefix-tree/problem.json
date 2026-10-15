@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "implement-trie-prefix-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Implement Trie (Prefix Tree)",
+  "summary": "Build a tree that stores words and answers whole-word and prefix lookups.",
+  "difficulty": "Medium",
+  "techniques": ["tries"],
+  "tags": ["design", "trie", "string"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return every word that starts with a prefix?", "How can you cut the memory use of a trie with many long, rarely shared words?", "How would you support deleting a word?"],
+  "languages": ["java"],
+  "coveredBy": ["merchant-suggest"]
+}

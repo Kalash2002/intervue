@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "sliding-window-maximum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Sliding Window Maximum",
+  "summary": "Report the largest value in every window of k consecutive elements.",
+  "difficulty": "Hard",
+  "techniques": ["sliding-window"],
+  "tags": ["array", "deque", "monotonic-queue"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is each element pushed and popped at most once?", "How would you solve it with a heap, and what does that cost?", "What changes if you need the minimum, or the median, of each window?"],
+  "languages": ["java"],
+  "coveredBy": ["rate-limiter-audit"]
+}

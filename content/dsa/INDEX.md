@@ -2,35 +2,36 @@
 
 Phase 1ad writes these first, then the rest of the NeetCode 150 by topic group. Ids are the LeetCode slugs (the prompt's examples used NeetCode's own slugs, which differ per question and could not be verified offline; one scheme, applied everywhere, is what matters). Walkthroughs link to them as `dsa://<id>`; the app renders the link as a chip. Questions marked "outside the 150" are referenced by a walkthrough but are not NeetCode 150 problems; Phase 1ad writes them too, after the 150, or replaces the reference with the nearest question in the set.
 
-| Id | Title | NeetCode 150 topic group | Referenced by |
-|---|---|---|---|
-| `cheapest-flights-within-k-stops` | Cheapest Flights Within K Stops | Advanced graphs | corridor-router |
-| `network-delay-time` | Network Delay Time | Advanced graphs | corridor-router |
-| `contains-duplicate` | Contains Duplicate | Arrays and hashing | duplicate-order-detector |
-| `group-anagrams` | Group Anagrams | Arrays and hashing | playlist-dedupe |
-| `top-k-frequent-elements` | Top K Frequent Elements | Arrays and hashing | duplicate-order-detector |
-| `time-based-key-value-store` | Time Based Key-Value Store | Binary search | shift-roster-lookup |
-| `number-of-islands` | Number of Islands | Graphs | friend-suggestion |
-| `word-ladder` | Word Ladder | Graphs | friend-suggestion |
-| `task-scheduler` | Task Scheduler | Heap and priority queue | courier-load-balancer |
-| `insert-interval` | Insert Interval | Intervals | shift-roster-lookup |
-| `meeting-rooms-ii` | Meeting Rooms II | Intervals | hold-exposure |
-| `merge-intervals` | Merge Intervals | Intervals | hold-exposure |
-| `sliding-window-maximum` | Sliding Window Maximum | Sliding window | rate-limiter-audit |
-| `valid-parentheses` | Valid Parentheses | Stack | build-log-bracket-checker |
-| `implement-trie-prefix-tree` | Implement Trie (Prefix Tree) | Tries | merchant-suggest |
-| `car-pooling` | Car Pooling | outside the 150 | hold-exposure |
-| `contains-duplicate-ii` | Contains Duplicate II | outside the 150 | duplicate-order-detector |
-| `design-hit-counter` | Design Hit Counter | outside the 150 | rate-limiter-audit |
-| `find-if-path-exists-in-graph` | Find if Path Exists in Graph | outside the 150 | friend-suggestion |
-| `intersection-of-two-arrays` | Intersection of Two Arrays | outside the 150 | playlist-dedupe |
-| `longest-valid-parentheses` | Longest Valid Parentheses | outside the 150 | build-log-bracket-checker |
-| `meeting-rooms-iii` | Meeting Rooms III | outside the 150 | courier-load-balancer |
-| `minimum-remove-to-make-valid-parentheses` | Minimum Remove to Make Valid Parentheses | outside the 150 | build-log-bracket-checker |
-| `number-of-recent-calls` | Number of Recent Calls | outside the 150 | rate-limiter-audit |
-| `process-tasks-using-servers` | Process Tasks Using Servers | outside the 150 | courier-load-balancer |
-| `search-insert-position` | Search Insert Position | outside the 150 | shift-roster-lookup |
-| `search-suggestions-system` | Search Suggestions System | outside the 150 | merchant-suggest |
-| `unique-email-addresses` | Unique Email Addresses | outside the 150 | playlist-dedupe |
+| Id | Title | NeetCode 150 topic group | Referenced by | Status |
+|---|---|---|---|---|
+| `cheapest-flights-within-k-stops` | Cheapest Flights Within K Stops | Advanced graphs | corridor-router | pending |
+| `network-delay-time` | Network Delay Time | Advanced graphs | corridor-router | pending |
+| `two-sum` | Two Sum | Arrays and hashing | none (used by the exit-criterion session) | written |
+| `contains-duplicate` | Contains Duplicate | Arrays and hashing | duplicate-order-detector | written |
+| `group-anagrams` | Group Anagrams | Arrays and hashing | playlist-dedupe | written |
+| `top-k-frequent-elements` | Top K Frequent Elements | Arrays and hashing | duplicate-order-detector | written |
+| `time-based-key-value-store` | Time Based Key-Value Store | Binary search | shift-roster-lookup | written |
+| `number-of-islands` | Number of Islands | Graphs | friend-suggestion | pending |
+| `word-ladder` | Word Ladder | Graphs | friend-suggestion | pending |
+| `task-scheduler` | Task Scheduler | Heap and priority queue | courier-load-balancer | pending |
+| `insert-interval` | Insert Interval | Intervals | shift-roster-lookup | pending |
+| `meeting-rooms-ii` | Meeting Rooms II | Intervals | hold-exposure | pending |
+| `merge-intervals` | Merge Intervals | Intervals | hold-exposure | pending |
+| `sliding-window-maximum` | Sliding Window Maximum | Sliding window | rate-limiter-audit | written |
+| `valid-parentheses` | Valid Parentheses | Stack | build-log-bracket-checker | written |
+| `implement-trie-prefix-tree` | Implement Trie (Prefix Tree) | Tries | merchant-suggest | written |
+| `car-pooling` | Car Pooling | outside the 150 | hold-exposure | pending |
+| `contains-duplicate-ii` | Contains Duplicate II | outside the 150 | duplicate-order-detector | pending |
+| `design-hit-counter` | Design Hit Counter | outside the 150 | rate-limiter-audit | pending |
+| `find-if-path-exists-in-graph` | Find if Path Exists in Graph | outside the 150 | friend-suggestion | pending |
+| `intersection-of-two-arrays` | Intersection of Two Arrays | outside the 150 | playlist-dedupe | pending |
+| `longest-valid-parentheses` | Longest Valid Parentheses | outside the 150 | build-log-bracket-checker | pending |
+| `meeting-rooms-iii` | Meeting Rooms III | outside the 150 | courier-load-balancer | pending |
+| `minimum-remove-to-make-valid-parentheses` | Minimum Remove to Make Valid Parentheses | outside the 150 | build-log-bracket-checker | pending |
+| `number-of-recent-calls` | Number of Recent Calls | outside the 150 | rate-limiter-audit | pending |
+| `process-tasks-using-servers` | Process Tasks Using Servers | outside the 150 | courier-load-balancer | pending |
+| `search-insert-position` | Search Insert Position | outside the 150 | shift-roster-lookup | pending |
+| `search-suggestions-system` | Search Suggestions System | outside the 150 | merchant-suggest | pending |
+| `unique-email-addresses` | Unique Email Addresses | outside the 150 | playlist-dedupe | pending |
 
-28 questions, 15 inside the NeetCode 150.
+29 questions, 16 inside the NeetCode 150.

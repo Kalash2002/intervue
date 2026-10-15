@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "contains-duplicate",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Contains Duplicate",
+  "summary": "Say whether any value appears more than once in an array.",
+  "difficulty": "Easy",
+  "techniques": ["arrays-hashing", "hashing"],
+  "tags": ["array", "hash-set"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if memory is tight and you may reorder the array?", "How would you report which values repeat, not just whether any does?", "What if you only care about repeats that are within k positions of each other?"],
+  "languages": ["java"],
+  "coveredBy": ["duplicate-order-detector"]
+}
