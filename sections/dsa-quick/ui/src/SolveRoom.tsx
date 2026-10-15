@@ -3,12 +3,15 @@
 import { useState } from 'react';
 import { languageFor } from '@intervue/editor';
 import type { FileEntry, SessionView } from '@intervue/local-engine-client';
-import { Markdown, TopBar, clockText, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
+import { Markdown, TopBar, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
 import {
   AssistantPanel,
   CodeEditor,
+  EndDialog,
   HintControl,
   OutputPane,
+  phaseTargets,
+  RoomClock,
   type RoomActions,
   type Workspace,
   Splitter,
@@ -29,27 +32,15 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
   const actions = useRoomActions(view, ws, refresh);
   const activeMs = useActiveMs(session);
   const [target, setTarget] = useState('phase:1');
-  const [ending, setEnding] = useState(false);
 
   return (
     <div className="room dsa">
       <TopBar onHome={() => go({ name: 'dashboard' })}>
         <div className="title">{view.title}</div>
         <div className="spacer" />
-        <Clock view={view} activeMs={activeMs} />
-        {view.finished ? (
-          <button className="primary" type="button" onClick={() => go({ name: 'result', session: view })}>
-            Result
-          </button>
-        ) : (
-          <button className="primary" type="button" onClick={() => setEnding(true)}>
-            Finish
-          </button>
-        )}
+        <RoomClock view={view} activeMs={activeMs} />
+        <FinishControl view={view} actions={actions} />
       </TopBar>
-      {ending && (
-        <EndDialog onCancel={() => setEnding(false)} onDone={() => (setEnding(false), actions.finish(false))} />
-      )}
       <div className="work dsa">
         <section className="statement" aria-label="Statement">
           {/* A one-phase problem has an empty intro: skip blanks so no empty block renders. */}
@@ -65,7 +56,7 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
             onTarget={setTarget}
             actions={actions}
             runLabel="Run tests"
-            testsOnly
+            targets={phaseTargets(view)}
           />
         </section>
         <Splitter size="--right-w" label="Resize the side panel" />
@@ -75,22 +66,34 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
   );
 }
 
-function EndDialog({ onCancel, onDone }: { onCancel: () => void; onDone: () => void }) {
+/** Result once finished, otherwise Finish with its confirmation dialog. */
+function FinishControl({ view, actions }: { view: SessionView; actions: RoomActions }) {
+  const { go } = useApp();
+  const [ending, setEnding] = useState(false);
+  if (view.finished) {
+    return (
+      <button className="primary" type="button" onClick={() => go({ name: 'result', session: view })}>
+        Result
+      </button>
+    );
+  }
   return (
-    <div className="modal">
-      <div className="modal-box" role="dialog" aria-modal="true" aria-label="End the session?">
-        <h3>End the session?</h3>
-        <p>The final run scores your code as it is now.</p>
-        <div className="modal-actions">
-          <button className="ghost" type="button" onClick={onCancel}>
-            Cancel
-          </button>
-          <button className="primary" type="button" onClick={onDone}>
-            I&apos;m done
-          </button>
-        </div>
-      </div>
-    </div>
+    <>
+      <button className="primary" type="button" onClick={() => setEnding(true)}>
+        Finish
+      </button>
+      {ending && (
+        <EndDialog
+          onCancel={() => setEnding(false)}
+          onDone={() => {
+            setEnding(false);
+            actions.finish(false);
+          }}
+        >
+          The final run scores your code as it is now.
+        </EndDialog>
+      )}
+    </>
   );
 }
 
@@ -136,16 +139,6 @@ function SidePanel({
         )}
       </div>
     </aside>
-  );
-}
-
-function Clock({ view, activeMs }: { view: SessionView; activeMs: number }) {
-  const limit = view.minutes * 60_000;
-  if (!view.timed) return <div className="clock">{clockText(activeMs)}</div>;
-  return activeMs > limit ? (
-    <div className="clock over">+{clockText(activeMs - limit)}</div>
-  ) : (
-    <div className="clock">{clockText(limit - activeMs)}</div>
   );
 }
 

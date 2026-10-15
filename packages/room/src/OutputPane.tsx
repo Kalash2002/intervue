@@ -8,12 +8,18 @@ function lineClass(line: string): string {
   return '';
 }
 
-export function targets(view: SessionView): { value: string; label: string }[] {
-  const phases = Array.from({ length: view.phases }, (_, i) => ({
+type Target = { value: string; label: string };
+
+/** One "Phase N tests" target per phase. */
+export function phaseTargets(view: SessionView): Target[] {
+  return Array.from({ length: view.phases }, (_, i) => ({
     value: `phase:${i + 1}`,
     label: `Phase ${i + 1} tests`,
   }));
-  return [...phases, { value: 'all', label: 'All tests' }, { value: 'main', label: 'Main (demo)' }];
+}
+
+export function targets(view: SessionView): Target[] {
+  return [...phaseTargets(view), { value: 'all', label: 'All tests' }, { value: 'main', label: 'Main (demo)' }];
 }
 
 export function OutputPane({
@@ -22,7 +28,7 @@ export function OutputPane({
   onTarget,
   actions,
   runLabel = 'Run',
-  testsOnly = false,
+  targets: options = targets(view),
 }: {
   view: SessionView;
   target: string;
@@ -30,10 +36,9 @@ export function OutputPane({
   actions: RoomActions;
   /** The run button's text. */
   runLabel?: string;
-  /** Offer only the per-phase test targets (no "All tests", no demo main); one target hides the select. */
-  testsOnly?: boolean;
+  /** What the select offers; one target hides it. Defaults to the coding round's phases, all and main. */
+  targets?: Target[];
 }) {
-  const options = testsOnly ? targets(view).filter((t) => t.value.startsWith('phase:')) : targets(view);
   return (
     <div className="output">
       <div className="pane-head">
@@ -79,7 +84,7 @@ function TargetSelect({
   target,
   onTarget,
 }: {
-  options: { value: string; label: string }[];
+  options: Target[];
   target: string;
   onTarget: (t: string) => void;
 }) {

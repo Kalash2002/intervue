@@ -4,9 +4,13 @@
   height: 100vh;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
-  grid-template-rows: 48px 50px minmax(0, 1fr);
+  grid-template-rows: 48px minmax(0, 1fr);
   min-width: 0;
   overflow: hidden;
+}
+/* A room with a timeline strip (the coding round) has a row for it between header and work. */
+.room.has-timeline {
+  grid-template-rows: 48px 50px minmax(0, 1fr);
 }
 .topbar {
   display: flex;
@@ -291,6 +295,9 @@
   .room {
     height: auto;
     min-height: 100vh;
+    grid-template-rows: auto auto;
+  }
+  .room.has-timeline {
     grid-template-rows: auto auto auto;
   }
   .topbar {

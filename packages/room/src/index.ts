@@ -7,8 +7,11 @@
  */
 export { AssistantPanel } from './AssistantPanel.tsx';
 export { CodeEditor, type CodeEditorProps } from './CodeEditor.tsx';
+export { EndDialog } from './EndDialog.tsx';
 export { HintControl } from './HintControl.tsx';
-export { OutputPane, targets } from './OutputPane.tsx';
+export { OutputPane, phaseTargets, targets } from './OutputPane.tsx';
+export { RoomClock } from './RoomClock.tsx';
+export { ScoreLine, WalkthroughTab } from './ResultParts.tsx';
 export { SIZES, Splitter } from './Splitter.tsx';
 export { useChat, type ShownTurn } from './useChat.ts';
 export { useRoomActions, type OutputBlock, type RoomActions } from './useRoomActions.ts';

@@ -1,8 +1,9 @@
 // The coding round's result page body (section.json resultParts): score with its label, the strip,
 // then phases and how the session went, the walkthrough, and follow-ups with notes.
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import type { SessionResult, SessionView } from '@intervue/local-engine-client';
-import { clockText, failed, Markdown, plural, useApp, type SectionResultProps } from '@intervue/ui';
+import { clockText, failed, plural, useApp, type SectionResultProps } from '@intervue/ui';
+import { ScoreLine, WalkthroughTab } from '@intervue/room';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
 import { WrittenReview } from './WrittenReview.tsx';
 
@@ -14,7 +15,7 @@ export function ResultParts({ session }: SectionResultProps) {
   if (!result) return <p className="hint">This session is not finished.</p>;
   return (
     <>
-      <ScoreLine session={session} result={result} />
+      <CodingScoreLine session={session} result={result} />
       <div className="strip framed">
         <TimelineStrip view={session} activeMs={session.activeMs} />
       </div>
@@ -48,40 +49,19 @@ export function ResultParts({ session }: SectionResultProps) {
   );
 }
 
-/** The stored text shows at once; the figures arrive with the problem's walkthrough. */
-function WalkthroughTab({ problemId, text }: { problemId: string; text: string }) {
-  const { client, notify } = useApp();
-  const [figures, setFigures] = useState<Record<string, string>>({});
-  useEffect(() => {
-    client.walkthrough(problemId).then((w) => setFigures(w.figures), failed(notify));
-  }, [client, notify, problemId]);
-  return <Markdown source={text || 'No walkthrough yet.'} figures={figures} wide />;
-}
-
-function ScoreLine({ session, result }: { session: SessionView; result: SessionResult }) {
-  const { score } = result;
+function CodingScoreLine({ session, result }: { session: SessionView; result: SessionResult }) {
   return (
-    <section className="scoreline" aria-label="Score">
-      <div className="score">
-        <span className="num">{score.total}</span>
-        <span className="of">/ 100</span>
-      </div>
-      <div className="score-text">
-        <h1>
-          <span className={`label ${session.type.toLowerCase()}`}>{score.label}</span> {score.band}
-          {score.solved ? ', all phases solved' : ''}
-        </h1>
-        <p>
-          Active time {clockText(session.activeMs)}
-          {session.timed ? ` of ${session.minutes}:00` : ' on the stopwatch'}.
-        </p>
-        <p className="hint">
-          {session.type === 'PRACTICE'
-            ? 'Practice scores count correctness and phases only and never count as solved.'
-            : 'The score counts tests, time and how often you ran your code.'}
-        </p>
-      </div>
-    </section>
+    <ScoreLine session={session} score={result.score} suffix={result.score.solved ? ', all phases solved' : ''}>
+      <p>
+        Active time {clockText(session.activeMs)}
+        {session.timed ? ` of ${session.minutes}:00` : ' on the stopwatch'}.
+      </p>
+      <p className="hint">
+        {session.type === 'PRACTICE'
+          ? 'Practice scores count correctness and phases only and never count as solved.'
+          : 'The score counts tests, time and how often you ran your code.'}
+      </p>
+    </ScoreLine>
   );
 }
 

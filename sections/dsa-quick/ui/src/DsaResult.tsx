@@ -1,7 +1,8 @@
 // The DSA result page body: score with its parts, tests passed, time spent and the walkthrough.
 // It must not reproduce the coding round's phases or timeline.
-import { useEffect, useState } from 'react';
-import { clockText, failed, Markdown, useApp, type SectionResultProps } from '@intervue/ui';
+import { useState } from 'react';
+import { clockText, type SectionResultProps } from '@intervue/ui';
+import { ScoreLine, WalkthroughTab } from '@intervue/room';
 
 export function DsaResult({ session }: SectionResultProps) {
   const [open, setOpen] = useState(false);
@@ -12,19 +13,10 @@ export function DsaResult({ session }: SectionResultProps) {
   const passed = result.finalResults.reduce((n, p) => n + p.passed, 0);
   return (
     <>
-      <section className="scoreline" aria-label="Score">
-        <div className="score">
-          <span className="num">{score.total}</span>
-          <span className="of">/ 100</span>
-        </div>
-        <div className="score-text">
-          <h1>
-            <span className={`label ${session.type.toLowerCase()}`}>{score.label}</span> {score.band}
-          </h1>
-          <p>{`Tests passed ${passed}/${total}`}</p>
-          <p>Time spent {clockText(session.activeMs)}</p>
-        </div>
-      </section>
+      <ScoreLine session={session} score={score}>
+        <p>{`Tests passed ${passed}/${total}`}</p>
+        <p>Time spent {clockText(session.activeMs)}</p>
+      </ScoreLine>
       {result.finalCompileError && <p className="bad">The final code did not compile, so no test ran.</p>}
       <section className="phase-result">
         <table className="tests">
@@ -44,17 +36,7 @@ export function DsaResult({ session }: SectionResultProps) {
       <button className="ghost" type="button" aria-expanded={open} onClick={() => setOpen(!open)}>
         Walkthrough
       </button>
-      {open && <Walkthrough problemId={session.problemId} text={result.walkthrough} />}
+      {open && <WalkthroughTab problemId={session.problemId} text={result.walkthrough} />}
     </>
   );
-}
-
-/** The stored text shows at once; the figures arrive with the problem's walkthrough. */
-function Walkthrough({ problemId, text }: { problemId: string; text: string }) {
-  const { client, notify } = useApp();
-  const [figures, setFigures] = useState<Record<string, string>>({});
-  useEffect(() => {
-    client.walkthrough(problemId).then((w) => setFigures(w.figures), failed(notify));
-  }, [client, notify, problemId]);
-  return <Markdown source={text || 'No walkthrough yet.'} figures={figures} wide />;
 }
