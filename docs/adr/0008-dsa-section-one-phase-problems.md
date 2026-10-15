@@ -21,7 +21,7 @@ ADR 0007 puts a DSA section (Phase 1ad) before the catalogue growth. Three thing
 
 ## Consequences
 
-- This phase edits `desktop/src/main.tsx`, `desktop/package.json`, `desktop/src-tauri/tauri.bundle.json` (it bundles `content/dsa`) and `engine/build.gradle.kts` once. From the next section on, exit criterion 1's "zero desktop edits" holds: a new section adds its folder and one line in `@intervue/sections`.
+- This phase edits `desktop/src/main.tsx`, `desktop/package.json`, `desktop/src-tauri/tauri.bundle.json` (it bundles `content/dsa`) and `engine/build.gradle.kts` once. From the next section on, exit criterion 1's "zero desktop and engine edits" holds. A new section is not one folder plus one line, though: it adds its folder under `sections/`, one line in `packages/sections/src/index.ts`, a dependency in `packages/sections/package.json` and the matching entry in the root `pnpm-lock.yaml`. `.github/workflows/parts.yml` has no part label that allows both `sections/` and `packages/`, and none that allows the lockfile, so such a PR needs a label rule change or an exception.
 - The owner chose this one-time fix on 2026-10-15 over hardcoding a second entry.
 - `docs/contracts/problem-format.md` and `docs/contracts/section-contract.md` carry the new rules. The validator branches on phase count, which is the cost of not bumping `formatVersion`.
 - A problem id can no longer be reused between the two roots; the verify tool is the guard.
