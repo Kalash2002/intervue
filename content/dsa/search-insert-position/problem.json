@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "search-insert-position",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Search Insert Position",
+  "summary": "Find where a number sits in a sorted array, or where it would have to be inserted to keep the order.",
+  "difficulty": "Easy",
+  "techniques": ["binary-search"],
+  "tags": ["array", "binary-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you find the position after the last equal element instead?", "How would you count how many times a value occurs?", "What if the array is too large to load, and you can only read a position at a time from disk?"],
+  "languages": ["java"],
+  "coveredBy": ["shift-roster-lookup"]
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "process-tasks-using-servers",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Process Tasks Using Servers",
+  "summary": "Hand each arriving job to the lightest free machine, queueing jobs when every machine is busy, and report which machine took each one.",
+  "difficulty": "Medium",
+  "techniques": ["heap"],
+  "tags": ["heap", "simulation", "greedy"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you also report when each job started?", "What changes if jobs can arrive at arbitrary seconds instead of one per second?", "What if a machine can break down while it is working?"],
+  "languages": ["java"],
+  "coveredBy": ["courier-load-balancer"]
+}

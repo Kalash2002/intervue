@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "search-suggestions-system",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Search Suggestions System",
+  "summary": "After each letter typed into a search box, list the first few catalogue words, in dictionary order, that start with what has been typed.",
+  "difficulty": "Medium",
+  "techniques": ["tries", "binary-search"],
+  "tags": ["string", "trie", "sorting", "binary-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the best suggestions are ranked by popularity instead of dictionary order?", "What if the user can also delete a letter, so the typed text goes back one step?", "How would you serve this for a catalogue of millions of words that changes during the day?"],
+  "languages": ["java"],
+  "coveredBy": ["merchant-suggest"]
+}

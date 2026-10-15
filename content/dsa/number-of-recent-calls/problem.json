@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "number-of-recent-calls",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Number of Recent Calls",
+  "summary": "Count how many calls arrived within the last stretch of time, each time a new call comes in.",
+  "difficulty": "Easy",
+  "techniques": ["sliding-window", "queue"],
+  "tags": ["queue", "design", "sliding-window"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if calls can arrive out of order?", "How would you count calls in the window for several different clients at once?", "What changes if the window is a count of the last k calls instead of a length of time?"],
+  "languages": ["java"],
+  "coveredBy": ["rate-limiter-audit"]
+}

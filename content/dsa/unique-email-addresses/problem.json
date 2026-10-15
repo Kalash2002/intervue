@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "unique-email-addresses",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Unique Email Addresses",
+  "summary": "Count how many different mailboxes a list of email addresses reaches, once dots and plus-tags in the name are ignored.",
+  "difficulty": "Easy",
+  "techniques": ["arrays-hashing"],
+  "tags": ["string", "hash-set"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the groups of addresses that reach the same mailbox?", "What if a new rule is added, such as ignoring case in the name?", "What if the list is too large to keep every normalised address in memory?"],
+  "languages": ["java"],
+  "coveredBy": ["playlist-dedupe"]
+}

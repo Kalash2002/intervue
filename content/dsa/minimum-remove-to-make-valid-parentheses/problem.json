@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "minimum-remove-to-make-valid-parentheses",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Minimum Remove to Make Valid Parentheses",
+  "summary": "Delete the fewest round brackets from a text so that the rest is balanced, keeping every other character in place.",
+  "difficulty": "Medium",
+  "techniques": ["stack"],
+  "tags": ["string", "stack"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the number of removed brackets instead of the text?", "What changes if square and curly brackets are in the text too?", "Can you do it without a stack, in two passes with counters?"],
+  "languages": ["java"],
+  "coveredBy": ["build-log-bracket-checker"]
+}
