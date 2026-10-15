@@ -10,6 +10,7 @@ import { FileTree } from './FileTree.tsx';
 import { OutputPane } from './OutputPane.tsx';
 import { ProgressDots, RoomClock } from './PhaseChips.tsx';
 import { SidePanel } from './SidePanel.tsx';
+import { Splitter } from './Splitter.tsx';
 import { useRoomActions } from './useRoomActions.ts';
 import { useWorkspace, type Workspace } from './useWorkspace.ts';
 
@@ -48,6 +49,7 @@ export function SessionRoom({ session: initial }: SectionRoomProps) {
           onResetFile={actions.resetFile}
           onResetProblem={actions.resetProblem}
         />
+        <Splitter size="--files-w" label="Resize the file tree" />
         <section className="center">
           <EditorArea
             ws={ws}
@@ -56,10 +58,10 @@ export function SessionRoom({ session: initial }: SectionRoomProps) {
             onSave={actions.save}
             onRun={() => actions.run(target)}
           />
-          <div className="hsplit" />
+          <Splitter size="--out-h" label="Resize the output pane" />
           <OutputPane view={view} target={target} onTarget={setTarget} actions={actions} />
         </section>
-        <div className="vsplit" />
+        <Splitter size="--right-w" label="Resize the side panel" />
         <SidePanel view={view} actions={actions} onChange={refresh} />
       </div>
     </div>
