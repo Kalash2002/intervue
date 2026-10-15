@@ -19,6 +19,10 @@ class ProblemVerifierTest {
   private static final String BUGGY_F = "n + 1";
   private static final String HINT =
       "## Level 1\nWhere.\n\n## Level 2\nHow.\n\n## Level 3\nSteps.\n";
+  private static final String WALKTHROUGH =
+      "# Walkthrough\n\n## DSA reference\n\n### Theory\n\ntext\n\n### Code\n\ncode\n\n"
+          + "### Complexity\n\ntable\n\n### Practise the technique\n\n- list\n\n"
+          + "## Time budget\n\ntable\n\n## Follow-up answers\n\ntext\n";
 
   @TempDir Path root;
 
@@ -98,15 +102,10 @@ class ProblemVerifierTest {
         }
         """);
     for (String file :
-        new String[] {
-          "brief/intro.md",
-          "brief/phase1.md",
-          "brief/phase2.md",
-          "walkthrough.md",
-          "grading/NOTES.md"
-        }) {
+        new String[] {"brief/intro.md", "brief/phase1.md", "brief/phase2.md", "grading/NOTES.md"}) {
       write(dir.resolve(file), "text");
     }
+    write(dir.resolve("walkthrough.md"), WALKTHROUGH);
     write(dir.resolve("hints/phase1.md"), HINT);
     write(dir.resolve("hints/phase2.md"), HINT);
   }
