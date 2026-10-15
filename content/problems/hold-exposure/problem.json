@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "hold-exposure",
-  "version": 3,
+  "version": 4,
   "section": "coding-round",
   "title": "Hold Exposure",
   "summary": "A risk service totals the authorisation holds on each account. Fix a wrong total, add peak and limit-breach queries, then make them fast for very busy books.",
@@ -9,6 +9,12 @@
   "techniques": [
     "intervals",
     "sorting"
+  ],
+  "tags": [
+    "intervals",
+    "sorting",
+    "sweep-line",
+    "fintech"
   ],
   "domain": "fintech",
   "minutes": 60,

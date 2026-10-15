@@ -126,9 +126,11 @@ If every lookup goes through the binary-search helper, phase 3 already passes. I
 
 **Practise the technique**
 
-- [Search Insert Position on LeetCode](https://leetcode.com/problems/search-insert-position/): the insertion point itself.
-- [Time Based Key-Value Store on LeetCode](https://leetcode.com/problems/time-based-key-value-store/): the floor of a timestamp, the closest match to `onDutyAt`.
-- [Insert Interval on LeetCode](https://leetcode.com/problems/insert-interval/): walking sorted intervals with a cursor, as in `uncovered`.
+These open inside the app under DSA.
+
+- [Search Insert Position](dsa://search-insert-position): the insertion point itself.
+- [Time Based Key-Value Store](dsa://time-based-key-value-store): the floor of a timestamp, the closest match to `onDutyAt`.
+- [Insert Interval](dsa://insert-interval): walking sorted intervals with a cursor, as in `uncovered`.
 
 ## Time budget
 

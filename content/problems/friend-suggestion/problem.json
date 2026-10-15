@@ -1,18 +1,51 @@
 {
   "formatVersion": 1,
   "id": "friend-suggestion",
-  "version": 2,
+  "version": 3,
   "section": "coding-round",
   "title": "Friend Suggestion",
   "summary": "A social app's friend graph gives odd answers. Fix how friendships are stored, suggest people you may know and measure degrees apart, then serve a network of a hundred thousand users.",
   "difficulty": "Medium",
-  "techniques": ["graphs", "bfs"],
+  "techniques": [
+    "graphs",
+    "bfs"
+  ],
+  "tags": [
+    "graphs",
+    "bfs",
+    "adjacency-list",
+    "social"
+  ],
   "domain": "social",
   "minutes": 60,
   "phases": [
-    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
-    { "id": 2, "title": "People you may know", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
-    { "id": 3, "title": "The whole network", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+    {
+      "id": 1,
+      "title": "Fix the bug",
+      "brief": "brief/phase1.md",
+      "hints": "hints/phase1.md",
+      "weight": 20,
+      "allOrNothing": true,
+      "timeoutRefMs": 30000
+    },
+    {
+      "id": 2,
+      "title": "People you may know",
+      "brief": "brief/phase2.md",
+      "hints": "hints/phase2.md",
+      "weight": 30,
+      "allOrNothing": false,
+      "timeoutRefMs": 30000
+    },
+    {
+      "id": 3,
+      "title": "The whole network",
+      "brief": "brief/phase3.md",
+      "hints": "hints/phase3.md",
+      "weight": 20,
+      "allOrNothing": false,
+      "timeoutRefMs": 40000
+    }
   ],
   "followUps": [
     "How did a one-character slip make the graph directed, and which test caught it first?",
@@ -21,5 +54,7 @@
     "The network has a celebrity with two million friends. What happens to suggestions for their friends, and what would you change?",
     "What did the assistant get wrong or leave out, and how did you notice?"
   ],
-  "languages": ["java"]
+  "languages": [
+    "java"
+  ]
 }

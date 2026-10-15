@@ -155,7 +155,10 @@ V is nodes, E is active corridors, k is `maxHops`. `fewestHops` is O(V + E) time
 
 **Practise the technique**
 
-- [Cheapest Flights Within K Stops on NeetCode](https://neetcode.io/problems/cheapest-flight-path/question): the same shape as phase 2. The [written solution](https://neetcode.io/solutions/cheapest-flights-within-k-stops) shows the round-by-round version and why a copy of the previous round is needed.
+These open inside the app under DSA.
+
+- [Cheapest Flights Within K Stops](dsa://cheapest-flights-within-k-stops): the same shape as phase 2: the round-by-round version, and why a copy of the previous round is needed.
+- [Network Delay Time](dsa://network-delay-time): the cheapest route without a hop limit, to see what the limit changes.
 
 ## Time budget
 

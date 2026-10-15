@@ -153,9 +153,11 @@ Run all three phases.
 
 **Practise the technique**
 
-- [Valid Parentheses on LeetCode](https://leetcode.com/problems/valid-parentheses/): phase 1 exactly, as a yes or no.
-- [Minimum Remove to Make Valid Parentheses on LeetCode](https://leetcode.com/problems/minimum-remove-to-make-valid-parentheses/): a stack of indexes, as in phase 2.
-- [Longest Valid Parentheses on LeetCode](https://leetcode.com/problems/longest-valid-parentheses/): a harder stack-of-indexes problem.
+These open inside the app under DSA.
+
+- [Valid Parentheses](dsa://valid-parentheses): phase 1 exactly, as a yes or no.
+- [Minimum Remove to Make Valid Parentheses](dsa://minimum-remove-to-make-valid-parentheses): a stack of indexes, as in phase 2.
+- [Longest Valid Parentheses](dsa://longest-valid-parentheses): a harder stack-of-indexes problem.
 
 ## Time budget
 

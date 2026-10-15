@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "merchant-suggest",
-  "version": 4,
+  "version": 5,
   "section": "coding-round",
   "title": "Merchant Suggest",
   "summary": "The \"Pay to\" box suggests merchants as the customer types. Fix a lookup that misses merchants, build the suggestions, then make them fast enough to answer on every keystroke.",
@@ -9,6 +9,12 @@
   "techniques": [
     "tries",
     "binary-search"
+  ],
+  "tags": [
+    "tries",
+    "binary-search",
+    "autocomplete",
+    "fintech"
   ],
   "domain": "fintech",
   "minutes": 60,

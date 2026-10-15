@@ -126,9 +126,11 @@ Run all three phases.
 
 **Practise the technique**
 
-- [Number of Islands on LeetCode](https://leetcode.com/problems/number-of-islands/): traversal with a visited mark.
-- [Word Ladder on LeetCode](https://leetcode.com/problems/word-ladder/): fewest steps in an unweighted graph, the same shape as `degreesApart`.
-- [Find if Path Exists in Graph on LeetCode](https://leetcode.com/problems/find-if-path-exists-in-graph/): building an undirected adjacency list in both directions.
+These open inside the app under DSA.
+
+- [Number of Islands](dsa://number-of-islands): traversal with a visited mark.
+- [Word Ladder](dsa://word-ladder): fewest steps in an unweighted graph, the same shape as `degreesApart`.
+- [Find if Path Exists in Graph](dsa://find-if-path-exists-in-graph): building an undirected adjacency list in both directions.
 
 ## Time budget
 

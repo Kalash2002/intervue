@@ -157,8 +157,10 @@ A trie that stores the ten best merchants at every node does fixes 2 and 3 in on
 
 **Practise the technique**
 
-- [Implement Trie (Prefix Tree) on NeetCode](https://neetcode.io/problems/implement-prefix-tree/question), with the [written solution](https://neetcode.io/solutions/implement-trie-prefix-tree): the structure itself.
-- [Search Suggestions System, NeetCode solution](https://neetcode.io/solutions/search-suggestions-system): suggestions after every typed letter, solved with sorting plus binary search and with a trie. The closest match to phase 3.
+These open inside the app under DSA.
+
+- [Implement Trie (Prefix Tree)](dsa://implement-trie-prefix-tree): the structure itself.
+- [Search Suggestions System](dsa://search-suggestions-system): suggestions after every typed letter, solved with sorting plus binary search and with a trie. The closest match to phase 3.
 
 ## Time budget
 

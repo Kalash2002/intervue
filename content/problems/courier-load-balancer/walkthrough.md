@@ -148,9 +148,11 @@ for (Parcel parcel : heaviestFirst(parcels)) {
 
 **Practise the technique**
 
-- [Task Scheduler on LeetCode](https://leetcode.com/problems/task-scheduler/): greedy choice with a heap of counts.
-- [Meeting Rooms III on LeetCode](https://leetcode.com/problems/meeting-rooms-iii/): heaps of free and busy rooms with a lowest-index tie-break, the closest match.
-- [Process Tasks Using Servers on LeetCode](https://leetcode.com/problems/process-tasks-using-servers/): servers keyed by weight, then index.
+These open inside the app under DSA.
+
+- [Task Scheduler](dsa://task-scheduler): greedy choice with a heap of counts.
+- [Meeting Rooms III](dsa://meeting-rooms-iii): heaps of free and busy rooms with a lowest-index tie-break, the closest match.
+- [Process Tasks Using Servers](dsa://process-tasks-using-servers): servers keyed by weight, then index.
 
 ## Time budget
 

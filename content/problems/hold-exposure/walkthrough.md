@@ -163,9 +163,11 @@ Run phase 1, 2 and 3 tests. Phase 1 and 2 are your regression suite for the rewr
 
 **Practise the technique**
 
-- [Meeting Rooms II on NeetCode](https://neetcode.io/problems/meeting-schedule-ii/question): the minimum number of rooms is the peak number of overlapping intervals. The closest match to this problem.
-- [Car Pooling, NeetCode solution](https://neetcode.io/solutions/car-pooling): a running total over start and end points with a capacity limit, which is `firstBreach`.
-- [Merge Intervals on NeetCode](https://neetcode.io/problems/merge-intervals/question): sorting intervals and reasoning about touching ends.
+These open inside the app under DSA.
+
+- [Meeting Rooms II](dsa://meeting-rooms-ii): the minimum number of rooms is the peak number of overlapping intervals. The closest match to this problem.
+- [Car Pooling](dsa://car-pooling): a running total over start and end points with a capacity limit, which is `firstBreach`.
+- [Merge Intervals](dsa://merge-intervals): sorting intervals and reasoning about touching ends.
 
 ## Time budget
 

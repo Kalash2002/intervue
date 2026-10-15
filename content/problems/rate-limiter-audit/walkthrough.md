@@ -141,9 +141,11 @@ Run all three phases.
 
 **Practise the technique**
 
-- [Number of Recent Calls on LeetCode](https://leetcode.com/problems/number-of-recent-calls/): a queue of times with expiry from the front, the closest match.
-- [Design Hit Counter on LeetCode](https://leetcode.com/problems/design-hit-counter/): the same idea as a class (LeetCode Premium).
-- [Sliding Window Maximum on LeetCode](https://leetcode.com/problems/sliding-window-maximum/): a harder deque window.
+These open inside the app under DSA.
+
+- [Number of Recent Calls](dsa://number-of-recent-calls): a queue of times with expiry from the front, the closest match.
+- [Design Hit Counter](dsa://design-hit-counter): the same idea as a class.
+- [Sliding Window Maximum](dsa://sliding-window-maximum): a harder deque window.
 
 ## Time budget
 

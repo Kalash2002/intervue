@@ -129,9 +129,11 @@ If phase 2 used the one-pass map, both tests already pass. If either times out, 
 
 **Practise the technique**
 
-- [Contains Duplicate on LeetCode](https://leetcode.com/problems/contains-duplicate/): `exactRepeats` as a yes or no.
-- [Contains Duplicate II on LeetCode](https://leetcode.com/problems/contains-duplicate-ii/): a repeat within a window of positions, the closest match to `suspectedDuplicates`.
-- [Top K Frequent Elements on LeetCode](https://leetcode.com/problems/top-k-frequent-elements/): counting then ranking, as in `mostDuplicatedSkus`.
+These open inside the app under DSA.
+
+- [Contains Duplicate](dsa://contains-duplicate): `exactRepeats` as a yes or no.
+- [Contains Duplicate II](dsa://contains-duplicate-ii): a repeat within a window of positions, the closest match to `suspectedDuplicates`.
+- [Top K Frequent Elements](dsa://top-k-frequent-elements): counting then ranking, as in `mostDuplicatedSkus`.
 
 ## Time budget
 

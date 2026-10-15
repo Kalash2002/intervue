@@ -123,9 +123,11 @@ If phase 2 used hash sets and a map as above, phase 3 already passes. If either 
 
 **Practise the technique**
 
-- [Group Anagrams on LeetCode](https://leetcode.com/problems/group-anagrams/): a normalised key per string in a hash map.
-- [Unique Email Addresses on LeetCode](https://leetcode.com/problems/unique-email-addresses/): normalising rules, then a set.
-- [Intersection of Two Arrays on LeetCode](https://leetcode.com/problems/intersection-of-two-arrays/): the shared part of `similarity`.
+These open inside the app under DSA.
+
+- [Group Anagrams](dsa://group-anagrams): a normalised key per string in a hash map.
+- [Unique Email Addresses](dsa://unique-email-addresses): normalising rules, then a set.
+- [Intersection of Two Arrays](dsa://intersection-of-two-arrays): the shared part of `similarity`.
 
 ## Time budget
 
