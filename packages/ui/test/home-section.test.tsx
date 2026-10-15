@@ -60,7 +60,6 @@ describe('home', () => {
     expect(within(coding).getAllByRole('listitem')).toHaveLength(18);
     expect(within(coding).getByTitle('Intervals: 1 of 1 solved')).toHaveClass('done');
     expect(within(coding).getByTitle('Graphs: 0 of 1 solved')).not.toHaveClass('done');
-    expect(within(tracks).getByRole('article', { name: 'DSA' })).toHaveTextContent('Arrives in the next release');
 
     const recent = screen.getByLabelText('Recent results');
     expect(within(recent).getByText('Hold Exposure')).toBeInTheDocument();
@@ -85,6 +84,22 @@ describe('home', () => {
     renderApp(client());
     fireEvent.click(await screen.findByRole('button', { name: 'Open AI-assisted coding' }));
     expect(await screen.findByRole('heading', { name: 'AI-assisted coding' })).toBeInTheDocument();
+  });
+});
+
+describe('home DSA tile', () => {
+  it('counts DSA questions solved apart from the coding-round ones', async () => {
+    const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick' });
+    renderApp(
+      fakeClient({
+        problems: vi.fn(async () => [...problems, dsa]),
+        history: vi.fn(async () => [...history, summary({ id: 'd', problemId: 'two-sum', sectionId: 'dsa-quick' })]),
+      }),
+    );
+
+    const dsaTile = await screen.findByLabelText('DSA solved');
+    expect(dsaTile).toHaveTextContent('1');
+    expect(screen.getByLabelText('Coding round solved')).toHaveTextContent('1');
   });
 });
 

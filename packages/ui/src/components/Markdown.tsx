@@ -1,13 +1,13 @@
 // Briefs, hints and walkthroughs are pack content, so their HTML is sanitised even though
 // markdown-it already escapes raw HTML with `html: false`. Links to in-app DSA questions
-// (`dsa://<question-id>`) become chips; until the DSA section ships (Phase 1ad) a click says so.
+// (`dsa://<question-id>`) become chips; a click or Enter opens the question, or says it is not written yet.
 // Images are figures: their source comes from the `figures` map the engine inlines (an <img>
 // cannot carry the API token), and a figure that is not in the map shows its caption alone.
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import type { RenderRule } from 'markdown-it/lib/renderer.mjs';
-import { useMemo, type MouseEvent } from 'react';
-import { useApp } from '../app-context.ts';
+import { useMemo, type KeyboardEvent, type MouseEvent } from 'react';
+import { useOpenQuestion } from '../hooks.ts';
 
 const DSA = 'dsa://';
 const markdown = new MarkdownIt({ html: false, linkify: true });
@@ -50,10 +50,19 @@ export function Markdown({
   /** Relative path in the Markdown to a data URI, as the walkthrough route returns them. */
   figures?: Record<string, string>;
 }) {
-  const { notify } = useApp();
+  const openQuestion = useOpenQuestion();
   const html = useMemo(() => DOMPurify.sanitize(markdown.render(source, { figures } satisfies Env)), [source, figures]);
-  const onClick = (e: MouseEvent<HTMLDivElement>) => {
-    if ((e.target as HTMLElement).closest('.dsa-chip')) notify('DSA arrives in the next release.');
+  const open = (e: MouseEvent | KeyboardEvent) => {
+    const id = (e.target as HTMLElement).closest<HTMLElement>('.dsa-chip')?.dataset.id;
+    if (id) void openQuestion(id);
   };
-  return <div className={wide ? 'md wide' : 'md'} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
+  const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => e.key === 'Enter' && open(e);
+  return (
+    <div
+      className={wide ? 'md wide' : 'md'}
+      onClick={open}
+      onKeyDown={onKeyDown}
+      dangerouslySetInnerHTML={{ __html: html }}
+    />
+  );
 }

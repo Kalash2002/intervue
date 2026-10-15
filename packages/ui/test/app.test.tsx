@@ -1,7 +1,8 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { fireEvent, render as rtlRender, screen, waitFor, within } from '@testing-library/react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { describe, expect, it, vi } from 'vitest';
-import { check, fakeClient, renderApp, session, summary } from './fixtures.tsx';
+import { App } from '../src/index.ts';
+import { check, fakeClient, problem, renderApp, section, session, summary } from './fixtures.tsx';
 
 describe('theme', () => {
   it('applies the saved theme when the app starts', async () => {
@@ -102,6 +103,45 @@ describe('answer and navigation', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Home' }));
 
     expect(await screen.findByLabelText('Recent results')).toBeInTheDocument();
+  });
+});
+
+describe('DSA links', () => {
+  const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick', coveredBy: ['hold-exposure', 'ghost'] });
+  const dsaSection = { ...section, id: 'dsa-quick', title: 'DSA' };
+  const render = () =>
+    rtlRender(
+      <App
+        client={fakeClient({
+          problems: vi.fn(async () => [problem('hold-exposure', 'Hold Exposure'), dsa]),
+          walkthrough: vi.fn(async () => ({ text: '## Plan', figures: {} })),
+        })}
+        sections={[section, dsaSection]}
+        languages={[]}
+      />,
+    );
+
+  it('lists coveredBy on a DSA answer under "Used in" and opens the covering answer', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+    expect(within(row).queryByRole('button', { name: 'ghost' })).toBeNull();
+    fireEvent.click(within(row).getByRole('button', { name: 'Answer' }));
+
+    const usedIn = await screen.findByLabelText('Used in');
+    fireEvent.click(within(usedIn).getByRole('button', { name: 'Hold Exposure' }));
+
+    expect(await screen.findByRole('heading', { name: 'Hold Exposure' })).toBeInTheDocument();
+  });
+
+  it('shows the covering problems as links on the DSA row', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+
+    fireEvent.click(within(row).getByRole('button', { name: 'Hold Exposure' }));
+
+    expect(await screen.findByRole('heading', { name: 'Hold Exposure' })).toBeInTheDocument();
   });
 });
 

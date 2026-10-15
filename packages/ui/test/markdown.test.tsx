@@ -1,10 +1,17 @@
 // Walkthrough links to in-app DSA questions render as chips; ordinary links and the sanitiser
 // are unchanged.
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
 import { AppContext, Markdown, type AppServices } from '../src/index.ts';
 
-const services = { notify: vi.fn(), go: vi.fn(), sections: [], languages: [] } as unknown as AppServices;
+const twoSum = { id: 'two-sum', title: 'Two Sum' };
+const services = {
+  notify: vi.fn(),
+  go: vi.fn(),
+  sections: [],
+  languages: [],
+  client: { problems: vi.fn(async () => [twoSum]) },
+} as unknown as AppServices;
 const renderMd = (source: string, figures?: Record<string, string>) =>
   render(
     <AppContext.Provider value={services}>
@@ -23,12 +30,23 @@ describe('Markdown', () => {
     expect(screen.getByRole('link', { name: 'Top K' })).toHaveAttribute('data-id', 'top-k-frequent-elements');
   });
 
-  it('says the DSA section is coming when no handler is given', () => {
+  it('opens the start screen of a DSA question on click and on Enter', async () => {
     renderMd('[Two Sum](dsa://two-sum)');
+    const chip = screen.getByRole('link', { name: 'Two Sum' });
 
-    fireEvent.click(screen.getByRole('link', { name: 'Two Sum' }));
+    fireEvent.click(chip);
+    await waitFor(() => expect(services.go).toHaveBeenCalledWith({ name: 'start', problem: twoSum }));
+    vi.mocked(services.go).mockClear();
+    fireEvent.keyDown(chip, { key: 'Enter' });
+    await waitFor(() => expect(services.go).toHaveBeenCalledWith({ name: 'start', problem: twoSum }));
+  });
 
-    expect(services.notify).toHaveBeenCalledWith('DSA arrives in the next release.');
+  it('says the question arrives later when its id is not in the problem list', async () => {
+    renderMd('[Gone](dsa://not-yet-written)');
+
+    fireEvent.click(screen.getByRole('link', { name: 'Gone' }));
+
+    await waitFor(() => expect(services.notify).toHaveBeenCalledWith('This question arrives in a later batch.'));
   });
 
   it('renders an image as a figure from the inlined data, or its caption alone when missing', () => {

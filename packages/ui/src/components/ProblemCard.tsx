@@ -4,10 +4,20 @@ import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-clie
 import { useApp } from '../app-context.ts';
 import { useOpeners } from '../hooks.ts';
 import { plural } from '../lib/format.ts';
-import { progressFor, STATE_LABEL } from '../lib/progress.ts';
+import { covering, progressFor, STATE_LABEL } from '../lib/progress.ts';
+import { Chip } from './Chip.tsx';
 import { TagChips } from './TagChips.tsx';
 
-export function ProblemCard({ problem: p, history }: { problem: ProblemSummary; history: readonly SessionSummary[] }) {
+export function ProblemCard({
+  problem: p,
+  history,
+  all = [],
+}: {
+  problem: ProblemSummary;
+  history: readonly SessionSummary[];
+  /** The whole catalogue, to name the problems in `coveredBy`. */
+  all?: readonly ProblemSummary[];
+}) {
   const { go } = useApp();
   const { open, result } = useOpeners();
   const { state, best, attempts, openId, lastFinishedId } = progressFor(p, history);
@@ -29,6 +39,7 @@ export function ProblemCard({ problem: p, history }: { problem: ProblemSummary; 
       </p>
       <p className="summary">{p.summary}</p>
       <TagChips problem={p} />
+      <CoveredBy problem={p} all={all} />
       <div className="actions">
         {openId && (
           <button className="ghost" type="button" onClick={() => open(openId)}>
@@ -48,5 +59,22 @@ export function ProblemCard({ problem: p, history }: { problem: ProblemSummary; 
         </button>
       </div>
     </article>
+  );
+}
+
+/** The coding-round problems that practise this question; each opens that problem's Answer page. */
+function CoveredBy({ problem, all }: { problem: ProblemSummary; all: readonly ProblemSummary[] }) {
+  const { go } = useApp();
+  const used = covering(problem, all);
+  if (!used.length) return null;
+  return (
+    <p className="chips" aria-label="Covered by">
+      <span className="hint">Covered by</span>
+      {used.map((q) => (
+        <Chip key={q.id} onClick={() => go({ name: 'answer', problem: q })}>
+          {q.title}
+        </Chip>
+      ))}
+    </p>
   );
 }

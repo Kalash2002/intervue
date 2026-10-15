@@ -90,11 +90,11 @@ export function SectionPage({ sectionId, tag, track }: { sectionId: string; tag?
           {filter.view === 'flat' ? (
             <div className="cards">
               {byDifficulty(shown).map((p) => (
-                <ProblemCard key={p.id} problem={p} history={data.history} />
+                <ProblemCard key={p.id} problem={p} history={data.history} all={catalogue.problems} />
               ))}
             </div>
           ) : (
-            <Grouped problems={shown} history={data.history} openOnly={track} />
+            <Grouped problems={shown} history={data.history} all={catalogue.problems} openOnly={track} />
           )}
         </div>
       )}
@@ -103,7 +103,7 @@ export function SectionPage({ sectionId, tag, track }: { sectionId: string; tag?
   );
 }
 
-function Grouped({ problems, history, openOnly }: Catalogue & { openOnly?: string }) {
+function Grouped({ problems, history, all, openOnly }: Catalogue & { all: ProblemSummary[]; openOnly?: string }) {
   const groups = [...TRACKS, OTHER]
     .map((t) => ({
       track: t,
@@ -127,7 +127,7 @@ function Grouped({ problems, history, openOnly }: Catalogue & { openOnly?: strin
             </summary>
             <div className="cards">
               {items.map((p) => (
-                <ProblemCard key={p.id} problem={p} history={history} />
+                <ProblemCard key={p.id} problem={p} history={history} all={all} />
               ))}
             </div>
           </details>

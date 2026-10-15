@@ -105,9 +105,6 @@
   background: var(--pass);
   opacity: 1;
 }
-.planned {
-  opacity: 0.75;
-}
 .streak {
   display: flex;
   align-items: baseline;

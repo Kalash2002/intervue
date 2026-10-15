@@ -4,6 +4,8 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ProblemSummary } from '@intervue/local-engine-client';
 import { failed, useApp } from '../app-context.ts';
+import { useCatalogue, useOpenQuestion } from '../hooks.ts';
+import { covering } from '../lib/progress.ts';
 import { Chip } from '../components/Chip.tsx';
 import { Markdown } from '../components/Markdown.tsx';
 import { TagChips } from '../components/TagChips.tsx';
@@ -72,7 +74,7 @@ function AnswerAside({
   problem: ProblemSummary;
   practise: { id: string; title: string }[];
 }) {
-  const { notify } = useApp();
+  const openQuestion = useOpenQuestion();
   const track = trackOf(problem.techniques);
   return (
     <aside className="aside">
@@ -104,13 +106,34 @@ function AnswerAside({
           <p className="eyebrow">Practise under DSA</p>
           <p className="chips">
             {practise.map((q) => (
-              <Chip key={q.id} onClick={() => notify('DSA arrives in the next release.')}>
+              <Chip key={q.id} onClick={() => void openQuestion(q.id)}>
                 {q.title}
               </Chip>
             ))}
           </p>
         </div>
       )}
+      <UsedIn problem={problem} />
     </aside>
+  );
+}
+
+/** The coding-round problems that practise this DSA question; each opens its Answer page. */
+function UsedIn({ problem }: { problem: ProblemSummary }) {
+  const { go } = useApp();
+  const catalogue = useCatalogue();
+  const usedIn = catalogue ? covering(problem, catalogue.problems) : [];
+  if (!usedIn.length) return null;
+  return (
+    <div className="card" aria-label="Used in">
+      <p className="eyebrow">Used in</p>
+      <p className="chips">
+        {usedIn.map((q) => (
+          <Chip key={q.id} onClick={() => go({ name: 'answer', problem: q })}>
+            {q.title}
+          </Chip>
+        ))}
+      </p>
+    </div>
   );
 }

@@ -4,14 +4,13 @@
 import type { SessionSummary } from '@intervue/local-engine-client';
 import { useApp } from '../app-context.ts';
 import { ContinueCard } from '../components/ContinueCard.tsx';
-import { PlannedTrackCard, TrackCard } from '../components/TrackCard.tsx';
+import { TrackCard } from '../components/TrackCard.tsx';
 import { titleOf, useCatalogue, useOpeners, type Catalogue } from '../hooks.ts';
 import { dateText, plural } from '../lib/format.ts';
-import { nextUp } from '../lib/progress.ts';
+import { dashboardStats, nextUp } from '../lib/progress.ts';
 import { streak, weekStrip } from '../lib/streak.ts';
 
-/** Sections the roadmap promises but no package ships yet; Home shows them as placeholders. */
-const PLANNED = [{ id: 'dsa-quick', title: 'DSA' }];
+const DSA = 'dsa-quick';
 const RECENT = 5;
 
 export function HomePage() {
@@ -31,7 +30,7 @@ export function HomePage() {
           <Recent {...data} />
         </div>
       )}
-      {data && <StreakCard history={data.history} />}
+      {data && <Aside {...data} />}
     </main>
   );
 }
@@ -106,9 +105,6 @@ function Tracks({ problems, history }: Catalogue) {
             onCell={(track) => go({ name: 'section', sectionId: s.id, track })}
           />
         ))}
-        {PLANNED.filter((p) => !sections.some((s) => s.id === p.id)).map((p) => (
-          <PlannedTrackCard key={p.id} title={p.title} />
-        ))}
       </div>
     </section>
   );
@@ -157,11 +153,43 @@ function Recent({ problems, history }: Catalogue) {
   );
 }
 
+function SolvedCard({ problems, history }: Catalogue) {
+  const solved = (inDsa: boolean) =>
+    dashboardStats(
+      problems.filter((p) => (p.section === DSA) === inDsa),
+      history,
+    ).solved;
+  return (
+    <div className="card" aria-label="Solved">
+      <p className="eyebrow">Solved</p>
+      <dl className="stats">
+        <div aria-label="Coding round solved">
+          <dd>{solved(false)}</dd>
+          <dt>Coding round solved</dt>
+        </div>
+        <div aria-label="DSA solved">
+          <dd>{solved(true)}</dd>
+          <dt>DSA solved</dt>
+        </div>
+      </dl>
+    </div>
+  );
+}
+
+function Aside(data: Catalogue) {
+  return (
+    <aside className="aside">
+      <SolvedCard {...data} />
+      <StreakCard history={data.history} />
+    </aside>
+  );
+}
+
 function StreakCard({ history }: { history: SessionSummary[] }) {
   const { current, best } = streak(history);
   const days = weekStrip(history);
   return (
-    <aside className="aside">
+    <>
       <div className="card" aria-label="Streak">
         <p className="eyebrow">Streak</p>
         <p className="streak">
@@ -177,6 +205,6 @@ function StreakCard({ history }: { history: SessionSummary[] }) {
           ))}
         </ol>
       </div>
-    </aside>
+    </>
   );
 }

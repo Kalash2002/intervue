@@ -30,6 +30,17 @@ export function useOpeners() {
   };
 }
 
+/** Opens a DSA question's start screen by id; a question not written yet says so instead. */
+export function useOpenQuestion() {
+  const { client, go, notify } = useApp();
+  return (id: string) =>
+    client.problems().then((all) => {
+      const problem = all.find((p) => p.id === id);
+      if (problem) go({ name: 'start', problem });
+      else notify('This question arrives in a later batch.');
+    }, failed(notify));
+}
+
 export function titleOf(problems: readonly ProblemSummary[], id: string): string {
   return problems.find((p) => p.id === id)?.title ?? id;
 }
