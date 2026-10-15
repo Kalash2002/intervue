@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "merge-intervals",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Merge Intervals",
+  "summary": "Combine every group of overlapping or touching ranges into one range.",
+  "difficulty": "Medium",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the ranges arrive one at a time and you must keep the merged list up to date?", "How would you list the gaps between the merged ranges instead?", "What changes if ranges that only touch must stay separate?"],
+  "languages": ["java"],
+  "coveredBy": ["hold-exposure"]
+}

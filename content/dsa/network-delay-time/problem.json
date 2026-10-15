@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "network-delay-time",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Network Delay Time",
+  "summary": "Find how long a signal takes to reach every node of a directed network, or report that some are unreachable.",
+  "difficulty": "Medium",
+  "techniques": ["advanced-graphs"],
+  "tags": ["dijkstra", "shortest-path", "heap"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if some delays could be negative?", "How would you return the node that is reached last, not just the time?", "What if you needed the time for many different sources on the same network?"],
+  "languages": ["java"],
+  "coveredBy": ["corridor-router"]
+}

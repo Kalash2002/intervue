@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "meeting-rooms-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Meeting Rooms II",
+  "summary": "Find the fewest rooms that can hold every booking without two overlapping in one room.",
+  "difficulty": "Medium",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting", "sweep-line"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you also say which room each booking gets?", "What if every room is only available for part of the day?", "How would you find the busiest moment, not just the count?"],
+  "languages": ["java"],
+  "coveredBy": ["hold-exposure"]
+}

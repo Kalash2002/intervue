@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "cheapest-flights-within-k-stops",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Cheapest Flights Within K Stops",
+  "summary": "Find the cheapest route between two cities that uses at most a given number of stops.",
+  "difficulty": "Medium",
+  "techniques": ["advanced-graphs"],
+  "tags": ["bellman-ford", "shortest-path", "dp"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the route itself, not only the price?", "What if a stop limit applied but prices could also be negative?", "How does the answer change if you must use exactly that many stops?"],
+  "languages": ["java"],
+  "coveredBy": ["corridor-router"]
+}

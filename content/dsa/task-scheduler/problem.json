@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "task-scheduler",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Task Scheduler",
+  "summary": "Find the shortest schedule when two jobs of the same kind need a cool-down between them.",
+  "difficulty": "Medium",
+  "techniques": ["heap"],
+  "tags": ["greedy", "counting", "heap"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you output an actual schedule, not just its length?", "What if each job kind had its own cool-down?", "What changes if the jobs must run in the order given?"],
+  "languages": ["java"],
+  "coveredBy": ["courier-load-balancer"]
+}

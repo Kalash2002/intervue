@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "number-of-islands",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Number of Islands",
+  "summary": "Count the separate pieces of land on a grid map.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["grid", "dfs", "bfs"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you also report the size of the largest island?", "What if land can be added one cell at a time and you must report the count after each addition?", "What if diagonal neighbours also connect land?"],
+  "languages": ["java"],
+  "coveredBy": ["friend-suggestion"]
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "word-ladder",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Word Ladder",
+  "summary": "Find the fewest one-letter changes that turn one word into another using only listed words.",
+  "difficulty": "Hard",
+  "techniques": ["graphs"],
+  "tags": ["bfs", "string", "hash-map"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the whole sequence of words, not just the number of changes?", "What if the dictionary is huge but you ask many begin and end pairs?", "How does searching from both ends at once help?"],
+  "languages": ["java"],
+  "coveredBy": ["friend-suggestion"]
+}

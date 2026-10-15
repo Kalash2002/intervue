@@ -4,19 +4,19 @@ Phase 1ad writes these first, then the rest of the NeetCode 150 by topic group. 
 
 | Id | Title | NeetCode 150 topic group | Referenced by | Status |
 |---|---|---|---|---|
-| `cheapest-flights-within-k-stops` | Cheapest Flights Within K Stops | Advanced graphs | corridor-router | pending |
-| `network-delay-time` | Network Delay Time | Advanced graphs | corridor-router | pending |
+| `cheapest-flights-within-k-stops` | Cheapest Flights Within K Stops | Advanced graphs | corridor-router | written |
+| `network-delay-time` | Network Delay Time | Advanced graphs | corridor-router | written |
 | `two-sum` | Two Sum | Arrays and hashing | none (used by the exit-criterion session) | written |
 | `contains-duplicate` | Contains Duplicate | Arrays and hashing | duplicate-order-detector | written |
 | `group-anagrams` | Group Anagrams | Arrays and hashing | playlist-dedupe | written |
 | `top-k-frequent-elements` | Top K Frequent Elements | Arrays and hashing | duplicate-order-detector | written |
 | `time-based-key-value-store` | Time Based Key-Value Store | Binary search | shift-roster-lookup | written |
-| `number-of-islands` | Number of Islands | Graphs | friend-suggestion | pending |
-| `word-ladder` | Word Ladder | Graphs | friend-suggestion | pending |
-| `task-scheduler` | Task Scheduler | Heap and priority queue | courier-load-balancer | pending |
-| `insert-interval` | Insert Interval | Intervals | shift-roster-lookup | pending |
-| `meeting-rooms-ii` | Meeting Rooms II | Intervals | hold-exposure | pending |
-| `merge-intervals` | Merge Intervals | Intervals | hold-exposure | pending |
+| `number-of-islands` | Number of Islands | Graphs | friend-suggestion | written |
+| `word-ladder` | Word Ladder | Graphs | friend-suggestion | written |
+| `task-scheduler` | Task Scheduler | Heap and priority queue | courier-load-balancer | written |
+| `insert-interval` | Insert Interval | Intervals | shift-roster-lookup | written |
+| `meeting-rooms-ii` | Meeting Rooms II | Intervals | hold-exposure | written |
+| `merge-intervals` | Merge Intervals | Intervals | hold-exposure | written |
 | `sliding-window-maximum` | Sliding Window Maximum | Sliding window | rate-limiter-audit | written |
 | `valid-parentheses` | Valid Parentheses | Stack | build-log-bracket-checker | written |
 | `implement-trie-prefix-tree` | Implement Trie (Prefix Tree) | Tries | merchant-suggest | written |

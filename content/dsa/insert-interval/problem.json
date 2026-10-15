@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "insert-interval",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Insert Interval",
+  "summary": "Add one range to a sorted list of separate ranges, merging whatever it overlaps.",
+  "difficulty": "Medium",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you do it if the list were stored in a balanced tree?", "What if the new range may arrive before the list is sorted?", "How would you remove a range instead of adding one?"],
+  "languages": ["java"],
+  "coveredBy": ["shift-roster-lookup"]
+}
