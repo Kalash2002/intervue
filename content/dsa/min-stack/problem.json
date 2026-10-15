@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "min-stack",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Min Stack",
+  "summary": "Design a stack that can report its smallest value at any moment in constant time.",
+  "difficulty": "Medium",
+  "techniques": ["stack"],
+  "tags": ["design", "stack", "auxiliary-data"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you keep only one extra stack and push to it less often?", "How would you add a getMax with the same cost?", "How would you make it safe to use from several threads?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

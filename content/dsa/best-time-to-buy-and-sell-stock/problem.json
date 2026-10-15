@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "best-time-to-buy-and-sell-stock",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Best Time to Buy and Sell Stock",
+  "summary": "Find the largest profit from buying on one day and selling on a later day, given a list of daily prices.",
+  "difficulty": "Easy",
+  "techniques": ["sliding-window"],
+  "tags": ["array", "running-minimum", "prices"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if you may complete as many buy-and-sell trades as you like, one share at a time?", "How would you also return the buy day and the sell day?", "What if each trade costs a fixed fee?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

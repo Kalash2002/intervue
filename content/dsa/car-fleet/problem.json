@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "car-fleet",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Car Fleet",
+  "summary": "Count how many groups of cars arrive at a gate when no car may overtake the car ahead.",
+  "difficulty": "Medium",
+  "techniques": ["stack"],
+  "tags": ["array", "sorting", "monotonic-stack", "simulation"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if cars could overtake one another on a wide road?", "How would you also report the time at which each group arrives?", "Why do you not need a real stack, and when would you want one?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

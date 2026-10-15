@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "daily-temperatures",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Daily Temperatures",
+  "summary": "For each day, count how many days pass until a strictly warmer day, or zero if none comes.",
+  "difficulty": "Medium",
+  "techniques": ["stack"],
+  "tags": ["array", "monotonic-stack", "next-greater-element"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you solve it without a stack by walking from the right and jumping through earlier answers?", "How would you return the warmer temperature itself instead of the number of days?", "How would you handle a circular week, where the days after the last one wrap around to the first?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

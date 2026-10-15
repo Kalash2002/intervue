@@ -18,18 +18,18 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 12 | Two pointers | 3Sum | `3sum` | ✓ | |
 | 13 | Two pointers | Container With Most Water | `container-with-most-water` | ✓ | |
 | 14 | Two pointers | Trapping Rain Water | `trapping-rain-water` | ✓ | |
-| 15 | Sliding window | Best Time to Buy and Sell Stock | `best-time-to-buy-and-sell-stock` | | |
-| 16 | Sliding window | Longest Substring Without Repeating Characters | `longest-substring-without-repeating-characters` | | |
-| 17 | Sliding window | Longest Repeating Character Replacement | `longest-repeating-character-replacement` | | |
-| 18 | Sliding window | Permutation in String | `permutation-in-string` | | |
-| 19 | Sliding window | Minimum Window Substring | `minimum-window-substring` | | |
+| 15 | Sliding window | Best Time to Buy and Sell Stock | `best-time-to-buy-and-sell-stock` | ✓ | |
+| 16 | Sliding window | Longest Substring Without Repeating Characters | `longest-substring-without-repeating-characters` | ✓ | |
+| 17 | Sliding window | Longest Repeating Character Replacement | `longest-repeating-character-replacement` | ✓ | |
+| 18 | Sliding window | Permutation in String | `permutation-in-string` | ✓ | |
+| 19 | Sliding window | Minimum Window Substring | `minimum-window-substring` | ✓ | |
 | 20 | Sliding window | Sliding Window Maximum | `sliding-window-maximum` | ✓ | rate-limiter-audit |
 | 21 | Stack | Valid Parentheses | `valid-parentheses` | ✓ | build-log-bracket-checker |
-| 22 | Stack | Min Stack | `min-stack` | | |
-| 23 | Stack | Evaluate Reverse Polish Notation | `evaluate-reverse-polish-notation` | | |
-| 24 | Stack | Daily Temperatures | `daily-temperatures` | | |
-| 25 | Stack | Car Fleet | `car-fleet` | | |
-| 26 | Stack | Largest Rectangle in Histogram | `largest-rectangle-in-histogram` | | |
+| 22 | Stack | Min Stack | `min-stack` | ✓ | |
+| 23 | Stack | Evaluate Reverse Polish Notation | `evaluate-reverse-polish-notation` | ✓ | |
+| 24 | Stack | Daily Temperatures | `daily-temperatures` | ✓ | |
+| 25 | Stack | Car Fleet | `car-fleet` | ✓ | |
+| 26 | Stack | Largest Rectangle in Histogram | `largest-rectangle-in-histogram` | ✓ | |
 | 27 | Binary search | Binary Search | `binary-search` | | |
 | 28 | Binary search | Search a 2D Matrix | `search-a-2d-matrix` | | |
 | 29 | Binary search | Koko Eating Bananas | `koko-eating-bananas` | | |

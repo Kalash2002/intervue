@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "minimum-window-substring",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Minimum Window Substring",
+  "summary": "Find the shortest stretch of a text that contains every letter of a given word, counting repeats.",
+  "difficulty": "Hard",
+  "techniques": ["sliding-window"],
+  "tags": ["string", "window", "hash-map", "two-pointers"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you avoid checking all letters every time the window changes?", "What changes if the answer must be the shortest stretch that contains the letters in the given order?", "How would you return every shortest stretch, not only the leftmost?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "evaluate-reverse-polish-notation",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Evaluate Reverse Polish Notation",
+  "summary": "Compute the value of an arithmetic expression written with the operator after its two operands.",
+  "difficulty": "Medium",
+  "techniques": ["stack"],
+  "tags": ["array", "stack", "parsing", "math"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you convert an ordinary infix expression with brackets into this form?", "How would you report a malformed expression instead of assuming it is valid?", "What changes if the numbers can be decimals?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
