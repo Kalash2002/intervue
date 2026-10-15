@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import type { CheckResult, ProblemSummary, SessionType } from '@intervue/local-engine-client';
 import { failed, useApp } from '../app-context.ts';
+import { TagChips } from '../components/TagChips.tsx';
 import { timed } from '../lib/timed.ts';
 
 /**
@@ -37,6 +38,7 @@ export function StartScreen({ problem }: { problem: ProblemSummary }) {
         <p className="eyebrow">{problem.title}</p>
         <h1>Set up your session</h1>
         <p>{problem.summary}</p>
+        <TagChips problem={problem} />
       </section>
       {blocking.length > 0 && <Blocking checks={blocking} onDoctor={() => go({ name: 'doctor', firstRun: false })} />}
       <label className="field">

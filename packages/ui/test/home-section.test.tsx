@@ -1,9 +1,10 @@
 // Home (continue, tracks, recent results, streak) and the section page (filters, grouped and flat
 // lists, next up, random unsolved), as docs/design/home-and-practice.md sections 4 and 5 say.
 import { fireEvent, screen, within } from '@testing-library/react';
+import type { SessionView } from '@intervue/local-engine-client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { forgetFilters } from '../src/pages/SectionPage.tsx';
-import { fakeClient, problem, renderApp, summary } from './fixtures.tsx';
+import { fakeClient, problem, renderApp, session, summary } from './fixtures.tsx';
 
 const today = new Date(2026, 9, 15, 15).getTime();
 const yesterday = today - 24 * 60 * 60 * 1000;
@@ -175,5 +176,40 @@ describe('section page', () => {
 
     expect(await screen.findByRole('heading', { name: 'Set up your session' })).toBeInTheDocument();
     expect(screen.getByText('Merchant Suggest')).toBeInTheDocument();
+  });
+});
+
+describe('tags on the session pages', () => {
+  it('shows the tags on the set-up screen and the result header, each opening the section filtered', async () => {
+    const finished = {
+      ...session,
+      id: 'a',
+      title: 'Hold Exposure',
+      finished: true,
+      result: null,
+      tags: ['fintech', 'intervals'],
+    } as SessionView;
+    renderApp(
+      fakeClient({
+        problems: vi.fn(async () => problems),
+        history: vi.fn(async () => history),
+        session: vi.fn(async () => finished),
+      }),
+    );
+
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Result' }))[0]);
+    const head = await screen.findByRole('heading', { name: 'Hold Exposure' });
+    expect(within(head.parentElement as HTMLElement).getByRole('button', { name: 'fintech' })).toHaveClass('chip');
+    fireEvent.click(within(head.parentElement as HTMLElement).getByRole('button', { name: 'intervals' }));
+    await screen.findByRole('heading', { name: 'AI-assisted coding' });
+    expect(
+      within(screen.getByRole('group', { name: 'Filter by tag' })).getByRole('button', { name: /intervals/ }),
+    ).toHaveClass('on');
+
+    fireEvent.click(
+      within(screen.getByRole('article', { name: 'Hold Exposure' })).getByRole('button', { name: 'Start' }),
+    );
+    await screen.findByRole('heading', { name: 'Set up your session' });
+    expect(screen.getByRole('button', { name: 'fintech' })).toHaveClass('chip');
   });
 });

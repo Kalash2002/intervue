@@ -1,12 +1,46 @@
 // Briefs, hints and walkthroughs are pack content, so their HTML is sanitised even though
-// markdown-it already escapes raw HTML with `html: false`.
+// markdown-it already escapes raw HTML with `html: false`. Links to in-app DSA questions
+// (`dsa://<question-id>`) become chips; the click reaches `onDsa`, or a toast until the DSA
+// section ships (Phase 1ad).
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
-import { useMemo } from 'react';
+import type { RenderRule } from 'markdown-it/lib/renderer.mjs';
+import { useMemo, type MouseEvent } from 'react';
+import { useApp } from '../app-context.ts';
 
+const DSA = 'dsa://';
 const markdown = new MarkdownIt({ html: false, linkify: true });
 
-export function Markdown({ source, wide = false }: { source: string; wide?: boolean }) {
+// Links never nest in CommonMark, so the next link_close is the chip's own.
+const proxy: RenderRule = (tokens, idx, options, _env, self) => self.renderToken(tokens, idx, options);
+const openDefault = markdown.renderer.rules.link_open ?? proxy;
+const closeDefault = markdown.renderer.rules.link_close ?? proxy;
+markdown.renderer.rules.link_open = (tokens, idx, options, env, self) => {
+  const href = String(tokens[idx]?.attrGet('href') ?? '');
+  if (!href.startsWith(DSA)) return openDefault(tokens, idx, options, env, self);
+  const close = tokens.slice(idx + 1).find((t) => t.type === 'link_close');
+  if (close) close.meta = { chip: true };
+  const id = markdown.utils.escapeHtml(href.slice(DSA.length));
+  return `<span class="dsa-chip" role="link" tabindex="0" data-id="${id}">`;
+};
+markdown.renderer.rules.link_close = (tokens, idx, options, env, self) =>
+  tokens[idx]?.meta?.chip ? '</span>' : closeDefault(tokens, idx, options, env, self);
+
+export function Markdown({
+  source,
+  wide = false,
+  onDsa,
+}: {
+  source: string;
+  wide?: boolean;
+  /** Called with the question id when a dsa:// chip is clicked; the default says the section is coming. */
+  onDsa?: (id: string) => void;
+}) {
+  const { notify } = useApp();
   const html = useMemo(() => DOMPurify.sanitize(markdown.render(source)), [source]);
-  return <div className={wide ? 'md wide' : 'md'} dangerouslySetInnerHTML={{ __html: html }} />;
+  const onClick = (e: MouseEvent<HTMLDivElement>) => {
+    const id = (e.target as HTMLElement).closest('.dsa-chip')?.getAttribute('data-id');
+    if (id) (onDsa ?? (() => notify('DSA arrives in the next release.')))(id);
+  };
+  return <div className={wide ? 'md wide' : 'md'} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
 }
