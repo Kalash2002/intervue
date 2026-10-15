@@ -39,6 +39,10 @@ pub struct Engine {
 
 /// Bundled files first; in debug builds, the repository's build output when nothing is bundled.
 pub fn resolve(resources: &Path, data: PathBuf, dev_root: Option<&Path>) -> EnginePaths {
+    // Tauri gives Windows paths in the \\?\ form, and Java cannot load classes from a jar named
+    // that way ("Could not find or load main class"). dunce drops the prefix only where it is safe.
+    let resources = dunce::simplified(resources);
+    let data = dunce::simplified(&data).to_path_buf();
     let java_name = if cfg!(windows) { "java.exe" } else { "java" };
     let bundled_java = resources.join("runtime").join("bin").join(java_name);
     let pick = |bundled: PathBuf, dev: &str| match dev_root {
@@ -190,6 +194,19 @@ mod tests {
             content: root.join("content"),
             data: root.join("data"),
         }
+    }
+
+    /// The installed app failed with "Could not find or load main class" until this held.
+    #[cfg(windows)]
+    #[test]
+    fn drops_the_verbatim_prefix_java_cannot_load_from() {
+        let p = resolve(
+            Path::new(r"\\?\C:\Apps\Intervue"),
+            PathBuf::from(r"\\?\C:\Data"),
+            None,
+        );
+        assert_eq!(p.jar, PathBuf::from(r"C:\Apps\Intervue\engine\engine.jar"));
+        assert_eq!(p.data, PathBuf::from(r"C:\Data"));
     }
 
     fn temp_dir(name: &str) -> PathBuf {
