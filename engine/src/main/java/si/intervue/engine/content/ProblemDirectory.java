@@ -21,6 +21,10 @@ final class ProblemDirectory {
   // Problem ids are lowercase words joined by dashes, so an id can never climb out of the root.
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
 
+  static boolean isProblemId(String id) {
+    return id != null && ID.matcher(id).matches();
+  }
+
   /** A folder that passed validation, or why it cannot be used. */
   private record Checked(ProblemFolder folder, List<String> problems) {}
 
@@ -45,7 +49,7 @@ final class ProblemDirectory {
   }
 
   private Checked check(String id) {
-    if (id == null || !ID.matcher(id).matches()) {
+    if (!isProblemId(id)) {
       return new Checked(null, List.of("not a problem id"));
     }
     return checked.computeIfAbsent(id, this::read);
