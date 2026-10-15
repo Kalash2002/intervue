@@ -6,7 +6,8 @@ on:
     paths: ['desktop/**', 'engine/**', 'languages/**', 'sections/**', 'packages/**', 'shared-java/**']
   push:
     branches: [main]
-    tags: ['v*']
+    # Releases are tagged per deployable (PLAN.md: semantic versioning per deployable), e.g. app-v0.1.0.
+    tags: ['app-v*']
 jobs:
   rust:
     strategy:
@@ -29,7 +30,7 @@ jobs:
       - run: cargo test
 
   installers:
-    if: startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/app-v')
     needs: rust
     strategy:
       matrix:
