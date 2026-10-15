@@ -60,6 +60,8 @@ jobs:
       - uses: actions/upload-artifact@v5
         with:
           name: installers-${{ matrix.os }}
+          # A green run must mean an installer exists.
+          if-no-files-found: error
           path: |
             desktop/src-tauri/target/release/bundle/nsis/*.exe
             desktop/src-tauri/target/release/bundle/dmg/*.dmg
