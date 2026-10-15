@@ -1,6 +1,8 @@
 // Dashboard numbers worked out from the session history, as the prototype's progressFor did. A
 // problem is solved by an Interview session that passed every phase, with or without AI edits (ADR 0006).
+// Also the section page's filter and the Home track cells; all pure, no React.
 import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
+import { TRACKS, trackOf, type Track } from './tracks.ts';
 
 export type ProblemState = 'solved' | 'progress' | 'attempted' | 'new';
 
@@ -61,4 +63,71 @@ const RANK: Record<string, number> = { Easy: 0, Medium: 1, Hard: 2 };
 
 export function byDifficulty(problems: readonly ProblemSummary[]): ProblemSummary[] {
   return [...problems].sort((a, b) => (RANK[a.difficulty] ?? 9) - (RANK[b.difficulty] ?? 9));
+}
+
+/** Track order, then difficulty, then title: the order of the grouped list and of "next up". */
+export function byTrack(problems: readonly ProblemSummary[]): ProblemSummary[] {
+  const order = (p: ProblemSummary) => {
+    const t = trackOf(p.techniques);
+    return t ? TRACKS.indexOf(t) : TRACKS.length;
+  };
+  return [...problems].sort(
+    (a, b) =>
+      order(a) - order(b) || (RANK[a.difficulty] ?? 9) - (RANK[b.difficulty] ?? 9) || a.title.localeCompare(b.title),
+  );
+}
+
+export interface TrackCell {
+  track: Track;
+  solved: number;
+  total: number;
+}
+
+/** One cell per NeetCode group: how many problems fall in it and how many of those are solved. */
+export function trackCells(problems: readonly ProblemSummary[], history: readonly SessionSummary[]): TrackCell[] {
+  return TRACKS.map((track) => {
+    const inGroup = problems.filter((p) => p.techniques.some((id) => track.techniques.includes(id)));
+    const solved = inGroup.filter((p) => progressFor(p, history).state === 'solved').length;
+    return { track, solved, total: inGroup.length };
+  });
+}
+
+/** The first problem not yet solved, in track order; null when everything is solved. */
+export function nextUp(problems: readonly ProblemSummary[], history: readonly SessionSummary[]): ProblemSummary | null {
+  return byTrack(problems).find((p) => progressFor(p, history).state !== 'solved') ?? null;
+}
+
+export interface Filter {
+  query: string;
+  difficulty: readonly string[];
+  status: readonly ProblemState[];
+  tags: readonly string[];
+  view: 'grouped' | 'flat';
+}
+
+export const EMPTY_FILTER: Filter = { query: '', difficulty: [], status: [], tags: [], view: 'grouped' };
+
+/** AND across kinds, OR within a kind (PLAN.md 7.2); an empty kind matches everything. */
+export function applyFilter(
+  problems: readonly ProblemSummary[],
+  history: readonly SessionSummary[],
+  filter: Filter,
+): ProblemSummary[] {
+  const q = filter.query.trim().toLowerCase();
+  return problems.filter((p) => {
+    const text = [p.title, ...p.tags, ...p.techniques].join(' ').toLowerCase();
+    if (q && !text.includes(q)) return false;
+    if (filter.difficulty.length && !filter.difficulty.includes(p.difficulty)) return false;
+    if (filter.status.length && !filter.status.includes(progressFor(p, history).state)) return false;
+    return !filter.tags.length || filter.tags.some((t) => p.tags.includes(t));
+  });
+}
+
+/** Tags by how many problems carry them, most common first, ties by name. */
+export function topTags(problems: readonly ProblemSummary[]): { tag: string; count: number }[] {
+  const counts = new Map<string, number>();
+  for (const p of problems) for (const t of p.tags) counts.set(t, (counts.get(t) ?? 0) + 1);
+  return [...counts]
+    .map(([tag, count]) => ({ tag, count }))
+    .sort((a, b) => b.count - a.count || a.tag.localeCompare(b.tag));
 }
