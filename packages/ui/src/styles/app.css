@@ -16,15 +16,22 @@
   --panel: #222a3a;
   --panel-2: #2a3346;
   --line: #37425a;
-  --text: #e6eaf2;
-  --muted: #9aa6bd;
-  --accent: #f0b54a;
+  --text: #d8dde6;
+  --muted: #959fb3;
+  --accent: #e8c483;
   --accent-ink: #2a1d00;
-  --pass: #58c7a3;
-  --fail: #f0796c;
-  --prompt: #a79cf2;
-  --link: #8fbcf7;
-  --select: rgba(143, 188, 247, 0.22);
+  --pass: #8ccfb3;
+  --fail: #e6a29a;
+  --prompt: #c2b4ee;
+  --link: #a9c4ef;
+  --select: rgba(169, 196, 239, 0.2);
+  /* Pastel syntax colours: calm on the dark background, still telling kinds apart. */
+  --syn-keyword: #c3a2ef;
+  --syn-type: #8fd2c4;
+  --syn-string: #bdd898;
+  --syn-number: #efb993;
+  --syn-def: #95b4ef;
+  --syn-meta: #b7c0d0;
   --ui: 'Hanken Grotesk', 'Segoe UI', system-ui, sans-serif;
   --mono: 'JetBrains Mono', Consolas, 'Cascadia Mono', monospace;
 }
@@ -42,6 +49,12 @@
   --prompt: #5a49cf;
   --link: #1f5fbf;
   --select: rgba(31, 95, 191, 0.16);
+  --syn-keyword: #7a46b0;
+  --syn-type: #17766b;
+  --syn-string: #5a7a1e;
+  --syn-number: #a5582a;
+  --syn-def: #1f5fbf;
+  --syn-meta: #5b6880;
 }
 
 * {
@@ -431,7 +444,7 @@ select {
 
 .work {
   display: grid;
-  grid-template-columns: 196px minmax(0, 1fr) 5px var(--right-w, 430px);
+  grid-template-columns: var(--files-w, 196px) 5px minmax(0, 1fr) 5px var(--right-w, 430px);
   min-height: 0;
 }
 .pane-head {
@@ -581,8 +594,14 @@ select {
   background: var(--bg);
   color: var(--text);
 }
+.editor-wrap .cm-editor {
+  /* CodeMirror forces position: relative, so inset alone leaves the editor as tall as its text,
+     clipped by the wrap: the wheel could not scroll it. A fixed height and a scrolling scroller can. */
+  height: 100%;
+}
 .editor-wrap .cm-editor .cm-scroller {
   font-family: var(--mono);
+  overflow: auto;
 }
 .cm-editor .cm-gutters {
   background: var(--bg);
@@ -627,10 +646,12 @@ select {
 
 .hsplit {
   cursor: row-resize;
+  touch-action: none;
   background: var(--line);
 }
 .vsplit {
   cursor: col-resize;
+  touch-action: none;
   background: var(--line);
 }
 .hsplit:hover,

@@ -22,6 +22,13 @@ export function ResultPage({ session, Parts }: { session: SessionView; Parts: Co
       <TopBar onHome={() => go({ name: 'dashboard' })}>
         <div className="title">{session.title}</div>
         <div className="spacer" />
+        <button
+          className="ghost"
+          type="button"
+          onClick={() => go({ name: 'answer', problemId: session.problemId, title: session.title })}
+        >
+          Answer
+        </button>
         <button className="ghost" type="button" onClick={() => go({ name: 'room', session: timed(session) })}>
           Open the workspace
         </button>

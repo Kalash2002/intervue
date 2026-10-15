@@ -9,6 +9,7 @@ export type Screen =
   | { name: 'start'; problem: ProblemSummary }
   | { name: 'room'; session: TimedSession }
   | { name: 'result'; session: SessionView }
+  | { name: 'answer'; problemId: string; title: string }
   | { name: 'doctor'; firstRun: boolean };
 
 export interface AppServices {

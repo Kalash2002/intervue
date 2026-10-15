@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import type { LanguageEditor } from '@intervue/editor';
 import { AppContext, type AppServices, type Screen } from './app-context.ts';
+import { AnswerPage } from './pages/AnswerPage.tsx';
 import { Dashboard } from './pages/Dashboard.tsx';
 import { DoctorPage } from './pages/DoctorPage.tsx';
 import { ResultPage } from './pages/ResultPage.tsx';
@@ -78,6 +79,8 @@ function CurrentScreen({ screen, section }: { screen: Screen; section: SectionUi
       return <section.Room key={screen.session.view.id} session={screen.session} />;
     case 'result':
       return <ResultPage session={screen.session} Parts={section.Result} />;
+    case 'answer':
+      return <AnswerPage problemId={screen.problemId} title={screen.title} />;
     case 'doctor':
       return <DoctorPage firstRun={screen.firstRun} />;
   }

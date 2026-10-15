@@ -30,8 +30,8 @@ export function ThemeButton() {
 export function TopBar({ onHome, children }: { onHome: () => void; children: ReactNode }) {
   return (
     <header className="topbar">
-      <button className="ghost back" type="button" title="Back to the dashboard" onClick={onHome}>
-        Intervue
+      <button className="ghost back" type="button" onClick={onHome}>
+        ← Dashboard
       </button>
       {children}
       <ThemeButton />

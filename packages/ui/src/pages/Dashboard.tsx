@@ -129,6 +129,9 @@ function ProblemRow({ problem: p, history }: { problem: ProblemSummary; history:
             Last result
           </button>
         )}
+        <button className="ghost" type="button" onClick={() => go({ name: 'answer', problemId: p.id, title: p.title })}>
+          Answer
+        </button>
         <button className="primary" type="button" onClick={() => go({ name: 'start', problem: p })}>
           Start
         </button>

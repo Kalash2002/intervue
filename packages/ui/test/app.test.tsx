@@ -86,6 +86,38 @@ describe('dashboard', () => {
   });
 });
 
+describe('answer and navigation', () => {
+  const answer = vi.fn(async () => ({ text: '## Minutes 0 to 6: read before you run' }));
+
+  it('opens a problem answer from the dashboard before any session', async () => {
+    const client = fakeClient({ walkthrough: answer });
+    renderApp(client);
+
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Answer' }))[0]);
+
+    expect(await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' })).toBeInTheDocument();
+    expect(client.walkthrough).toHaveBeenCalledWith('hold-exposure');
+  });
+
+  it('goes from the result to the answer and back to the dashboard', async () => {
+    const finished = { ...session, id: 'a', title: 'Hold Exposure', finished: true, result: null } as SessionView;
+    const client = fakeClient({
+      history: vi.fn(async () => [summary({ id: 'a', problemId: 'hold-exposure' })]),
+      session: vi.fn(async () => finished),
+      walkthrough: answer,
+    });
+    renderApp(client);
+
+    fireEvent.click((await screen.findAllByRole('button', { name: 'Last result' }))[0]);
+    await screen.findByRole('button', { name: 'Try again' });
+    fireEvent.click(screen.getByRole('button', { name: 'Answer' }));
+    await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' });
+    fireEvent.click(screen.getByRole('button', { name: '← Dashboard' }));
+
+    expect(await screen.findAllByRole('button', { name: 'Answer' })).toHaveLength(2);
+  });
+});
+
 describe('start screen', () => {
   it('starts a Practice session after the fast checks pass', async () => {
     const client = fakeClient();
