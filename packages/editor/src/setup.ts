@@ -6,6 +6,7 @@ import { EditorState, type Extension } from '@codemirror/state';
 import { EditorView, keymap, type KeyBinding } from '@codemirror/view';
 import { basicSetup } from 'codemirror';
 import { aiEdits } from './ai-edits.ts';
+import { syntaxColours } from './highlight.ts';
 import { lockedRanges } from './locked.ts';
 
 export interface EditorOptions {
@@ -23,6 +24,7 @@ export function editorExtensions(options: EditorOptions): Extension[] {
     // Room shortcuts first, so Ctrl+S and Ctrl+Enter win over the default keymap.
     keymap.of([...(options.keys ?? [])]),
     basicSetup,
+    syntaxColours,
     options.language,
     autocompletion({ override: [...options.completionSources] }),
     lintGutter(),
