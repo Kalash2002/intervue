@@ -82,6 +82,15 @@ class ContentStoreTest {
   }
 
   @Test
+  void aNullIdIsNotAProblemId() {
+    ContentStore store = new PlainFolderSource(PROBLEMS);
+
+    assertThatThrownBy(() -> store.load(null))
+        .isInstanceOf(ContentException.class)
+        .hasMessageContaining("not a problem id");
+  }
+
+  @Test
   void listsBothRoots() throws IOException {
     copyTree(PROBLEMS.resolve("hold-exposure"), temp.resolve("a/hold-exposure"));
     copyTree(PROBLEMS.resolve("corridor-router"), temp.resolve("b/corridor-router"));

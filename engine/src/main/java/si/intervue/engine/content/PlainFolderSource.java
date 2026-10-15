@@ -61,7 +61,9 @@ public final class PlainFolderSource implements ContentStore {
 
   @Override
   public ProblemFolder load(String id) {
-    for (int i = 0; i < roots.size(); i++) {
+    for (int i = 0;
+        id != null && i < roots.size();
+        i++) { // a null id gets the "not a problem id" error below
       if (Files.isDirectory(roots.get(i).resolve(id))) {
         return problems.get(i).load(id);
       }
