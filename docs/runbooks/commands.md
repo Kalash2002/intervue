@@ -31,7 +31,7 @@ pnpm -C packages/room test && pnpm -C packages/sections test && pnpm -C sections
 
 - The engine takes one `--content <dir>` and reads `<dir>/problems` and, when it exists, `<dir>/dsa`; a question id may not appear in both roots.
 - A new section adds its folder under `sections/` and one line in `packages/sections/src/index.ts` (`@intervue/sections`). No edit to `desktop/` or `engine/build.gradle.kts` (ADR 0008).
-- Check after `engineDist`: `unzip -l engine/build/engine/lib/dsa-quick.jar` lists the section, and the engine jar manifest `Class-Path` names both section jars.
+- `engineDist` fails with a clear message when two bundled jars share a file name (a section without its own `base.archivesName`), so no manual duplicate check is needed. Check after `engineDist`: `unzip -l engine/build/engine/lib/dsa-quick.jar` lists the section, and the engine jar manifest `Class-Path` names both section jars.
 
 ### Run a DSA session in the browser
 

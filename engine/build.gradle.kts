@@ -37,6 +37,12 @@ val engineJar by tasks.registering(Jar::class) {
     from(sourceSets.main.get().output)
     inputs.files(engineLibs)
     doFirst {
+        // Two bundled jars with one file name would overwrite each other in lib/ (a section forgot base.archivesName).
+        val duplicates = engineLibs.files.groupBy { it.name }.filter { it.value.size > 1 }
+        check(duplicates.isEmpty()) {
+            "engineDist: lib/ would hold duplicate jar names " + duplicates.keys +
+                "; give each section project a distinct base.archivesName in its build file."
+        }
         manifest.attributes(
             "Main-Class" to "si.intervue.engine.api.EngineMain",
             "Class-Path" to engineLibs.joinToString(" ") { "lib/" + it.name },
