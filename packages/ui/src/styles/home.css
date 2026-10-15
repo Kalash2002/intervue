@@ -19,8 +19,12 @@
 .continue:hover .actions button span {
   transform: translateX(4px);
 }
-.tracks {
-  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+/* Two classes so this wins over the generic card grid, which pages.css declares later. */
+.cards.tracks {
+  grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+}
+.track-head button {
+  white-space: nowrap;
 }
 .track-head {
   display: flex;
