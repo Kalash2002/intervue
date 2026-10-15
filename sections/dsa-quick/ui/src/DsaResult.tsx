@@ -14,7 +14,9 @@ export function DsaResult({ session }: SectionResultProps) {
   return (
     <>
       <ScoreLine session={session} score={score}>
-        <p>{`Tests passed ${passed}/${total}`}</p>
+        <p>
+          {total === 0 ? 'Tests not run: the code did not compile in the final run' : `Tests passed ${passed}/${total}`}
+        </p>
         <p>Time spent {clockText(session.activeMs)}</p>
       </ScoreLine>
       {result.finalCompileError && <p className="bad">The final code did not compile, so no test ran.</p>}
@@ -25,7 +27,7 @@ export function DsaResult({ session }: SectionResultProps) {
               <tr key={part.name}>
                 <td>{part.name}</td>
                 <td className="points">
-                  {part.points} / {part.max}
+                  {Math.round(part.points * 10) / 10} / {part.max}
                 </td>
                 <td>{part.note}</td>
               </tr>
