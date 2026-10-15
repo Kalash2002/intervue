@@ -318,6 +318,64 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4(jsdom@30.1.2)(vite@8.3.4)
 
+  sections/dsa-quick/ui:
+    dependencies:
+      '@codemirror/state':
+        specifier: ^6.7.6
+        version: 6.7.6
+      '@codemirror/view':
+        specifier: ^6.43.14
+        version: 6.43.14
+      '@intervue/editor':
+        specifier: workspace:^
+        version: link:../../../packages/editor
+      '@intervue/local-engine-client':
+        specifier: workspace:^
+        version: link:../../../packages/local-engine-client
+      '@intervue/room':
+        specifier: workspace:^
+        version: link:../../../packages/room
+      '@intervue/ui':
+        specifier: workspace:^
+        version: link:../../../packages/ui
+      react:
+        specifier: ^19.3.0
+        version: 19.3.0
+    devDependencies:
+      '@intervue/lang-java-editor':
+        specifier: workspace:^
+        version: link:../../../languages/java/editor
+      '@testing-library/jest-dom':
+        specifier: ^7.0.1
+        version: 7.0.1(@testing-library/dom@10.4.2)(vitest@5.0.4)
+      '@testing-library/react':
+        specifier: ^16.3.3
+        version: 16.3.3(@testing-library/dom@10.4.2)(@types/react-dom@19.3.0)(@types/react@19.3.0)(react-dom@19.3.0)(react@19.3.0)
+      '@types/react':
+        specifier: ^19.3.0
+        version: 19.3.0
+      '@types/react-dom':
+        specifier: ^19.3.0
+        version: 19.3.0(@types/react@19.3.0)
+      eslint:
+        specifier: ^10.12.0
+        version: 10.12.0
+      jsdom:
+        specifier: ^30.1.2
+        version: 30.1.2
+      prettier:
+        specifier: ^3.9.10
+        version: 3.9.10
+      react-dom:
+        specifier: ^19.3.0
+        version: 19.3.0(react@19.3.0)
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.4
+        version: 5.0.4(jsdom@30.1.2)(vite@8.3.4)
+
   web:
     dependencies:
       '@emotion/react':

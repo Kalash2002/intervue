@@ -1,0 +1,11 @@
+/* The DSA room's own layout: statement | editor over output | side panel. Theme tokens only. */
+.work.dsa {
+  --files-w: 380px;
+}
+.statement {
+  overflow: auto;
+  padding: 14px 16px;
+  background: var(--panel);
+  min-width: 0;
+  min-height: 0;
+}
