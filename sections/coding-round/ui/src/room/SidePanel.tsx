@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown } from '@intervue/ui';
-import { AssistantPanel } from './AssistantPanel.tsx';
+import { AssistantPanel, HintControl, type RoomActions } from '@intervue/room';
 import { GuidePanel } from './GuidePanel.tsx';
-import { HintControl } from './HintControl.tsx';
-import type { RoomActions } from './useRoomActions.ts';
 
 type Tab = 'Guide' | 'Brief' | 'Hints' | 'Assistant';
 

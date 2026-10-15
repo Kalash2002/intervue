@@ -5,14 +5,10 @@ import { languageFor } from '@intervue/editor';
 import type { SessionView } from '@intervue/local-engine-client';
 import { TopBar, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
-import { CodeEditor } from './CodeEditor.tsx';
 import { FileTree } from './FileTree.tsx';
-import { OutputPane } from './OutputPane.tsx';
 import { ProgressDots, RoomClock } from './PhaseChips.tsx';
 import { SidePanel } from './SidePanel.tsx';
-import { Splitter } from './Splitter.tsx';
-import { useRoomActions } from './useRoomActions.ts';
-import { useWorkspace, type Workspace } from './useWorkspace.ts';
+import { CodeEditor, OutputPane, Splitter, useRoomActions, useWorkspace, type Workspace } from '@intervue/room';
 
 export function SessionRoom({ session: initial }: SectionRoomProps) {
   const { go } = useApp();

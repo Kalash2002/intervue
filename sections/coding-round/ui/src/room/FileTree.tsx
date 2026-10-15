@@ -1,5 +1,5 @@
 import { ConfirmButton } from '@intervue/ui';
-import type { Workspace } from './useWorkspace.ts';
+import type { Workspace } from '@intervue/room';
 
 export function FileTree({
   ws,

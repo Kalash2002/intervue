@@ -3,7 +3,7 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import { timed } from '@intervue/ui';
 import { describe, expect, it, vi } from 'vitest';
-import { HintControl } from '../src/room/HintControl.tsx';
+import { HintControl } from '@intervue/room';
 import { SessionRoom } from '../src/room/SessionRoom.tsx';
 import { renderWith, view } from './fixtures.tsx';
 

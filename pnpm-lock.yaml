@@ -168,6 +168,46 @@ importers:
         specifier: ^5.0.4
         version: 5.0.4(@types/node@26.6.5)(vite@8.3.4)
 
+  packages/room:
+    dependencies:
+      '@codemirror/state':
+        specifier: ^6.7.6
+        version: 6.7.6
+      '@codemirror/view':
+        specifier: ^6.43.14
+        version: 6.43.14
+      '@intervue/editor':
+        specifier: workspace:^
+        version: link:../editor
+      '@intervue/local-engine-client':
+        specifier: workspace:^
+        version: link:../local-engine-client
+      '@intervue/ui':
+        specifier: workspace:^
+        version: link:../ui
+      react:
+        specifier: ^19.3.0
+        version: 19.3.0
+    devDependencies:
+      '@types/react':
+        specifier: ^19.3.0
+        version: 19.3.0
+      eslint:
+        specifier: ^10.12.0
+        version: 10.12.0
+      jsdom:
+        specifier: ^30.1.2
+        version: 30.1.2
+      prettier:
+        specifier: ^3.9.10
+        version: 3.9.10
+      typescript:
+        specifier: ~6.0.3
+        version: 6.0.3
+      vitest:
+        specifier: ^5.0.4
+        version: 5.0.4(jsdom@30.1.2)(vite@8.3.4)
+
   packages/ui:
     dependencies:
       '@intervue/editor':
@@ -234,6 +274,9 @@ importers:
       '@intervue/local-engine-client':
         specifier: workspace:^
         version: link:../../../packages/local-engine-client
+      '@intervue/room':
+        specifier: workspace:^
+        version: link:../../../packages/room
       '@intervue/ui':
         specifier: workspace:^
         version: link:../../../packages/ui

@@ -1,8 +1,8 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import type { EditReply, EngineClient } from '@intervue/local-engine-client';
 import { describe, expect, it, vi } from 'vitest';
-import { AssistantPanel } from '../src/room/AssistantPanel.tsx';
-import type { RoomActions } from '../src/room/useRoomActions.ts';
+import { AssistantPanel } from '@intervue/room';
+import type { RoomActions } from '@intervue/room';
 import { event, renderWith, view } from './fixtures.tsx';
 
 const NO_ROUTE = 'Assistant unavailable: sign-in arrives in Phase 1b';

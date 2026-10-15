@@ -1,6 +1,6 @@
 import { fireEvent, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
-import { HintControl } from '../src/room/HintControl.tsx';
+import { HintControl } from '@intervue/room';
 import { renderWith, view } from './fixtures.tsx';
 
 describe('explain this hint', () => {
