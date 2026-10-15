@@ -16,7 +16,7 @@ application {
 // ./gradlew :content:tools:verify [-Pids=hold-exposure,corridor-router]
 tasks.register<JavaExec>("verify") {
     group = "verification"
-    description = "Verifies content/problems three ways: starter fails, reference passes, naive times out."
+    description = "Verifies content/problems and content/dsa three ways (starter fails, reference passes, naive times out), then the dsa:// cross-links."
     classpath = sourceSets.main.get().runtimeClasspath
     mainClass = "si.intervue.content.Verify"
     workingDir = rootDir

@@ -198,7 +198,7 @@ class ProblemVerifierTest {
     write(
         dir.resolve("variants/java/variant.json"),
         """
-        {"language":"java","minToolchain":"21","main":"Calc",
+        {"language":"java","minToolchain":"21","main":"Main",
          "readOnly":["Phase1Tests.java"],"tests":{"1":"Phase1Tests"}}
         """);
     write(
@@ -272,6 +272,20 @@ class ProblemVerifierTest {
 
     assertThat(report.ok()).isFalse();
     assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+  }
+
+  @Test
+  void dsaQuickVariantMainMustBeMain() throws IOException {
+    Path dir = root.resolve("problems").resolve("solo");
+    verifyOnePhase(null, 0);
+    Path variant = dir.resolve("variants/java/variant.json");
+    Files.writeString(variant, Files.readString(variant).replace("\"Main\"", "\"Calc\""));
+
+    VerifyReport report =
+        new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("must have \"main\": \"Main\""));
   }
 
   @Test

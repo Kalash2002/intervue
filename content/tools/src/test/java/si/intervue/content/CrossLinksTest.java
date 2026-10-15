@@ -50,6 +50,29 @@ class CrossLinksTest {
   }
 
   @Test
+  void walkthroughLinkWithoutCoveredBy() throws IOException {
+    problem(problems(), "hold", "");
+    write(problems().resolve("hold/walkthrough.md"), "[Two sum](dsa://two-sum)");
+    problem(dsa(), "two-sum", "");
+
+    assertThat(check())
+        .singleElement()
+        .asString()
+        .contains("hold")
+        .contains("two-sum")
+        .contains("coveredBy");
+  }
+
+  @Test
+  void coveredByWithoutWalkthroughLink() throws IOException {
+    problem(problems(), "hold", "");
+    write(problems().resolve("hold/walkthrough.md"), "no links");
+    problem(dsa(), "two-sum", "\"hold\"");
+
+    assertThat(check()).singleElement().asString().contains("two-sum").contains("does not link");
+  }
+
+  @Test
   void missingDsaTarget() throws IOException {
     problem(problems(), "hold", "");
     write(problems().resolve("hold/walkthrough.md"), "[Two sum](dsa://two-sum)");

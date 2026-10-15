@@ -68,6 +68,21 @@ public final class ProblemVerifier {
     List<String> errors = ProblemValidator.validate(folder);
     errors.forEach(e -> lines.add("  format     FAIL  " + e));
     boolean ok = errors.isEmpty();
+    if ("dsa-quick".equals(folder.problem().section())) {
+      // The DSA room starts the main class by this name (ADR 0008); the API does not pass it
+      // through.
+      for (var entry : folder.variants().entrySet()) {
+        if (!"Main".equals(entry.getValue().main())) {
+          lines.add(
+              "  format     FAIL  dsa-quick variant "
+                  + entry.getKey()
+                  + " must have \"main\": \"Main\" (found \""
+                  + entry.getValue().main()
+                  + "\")");
+          ok = false;
+        }
+      }
+    }
     for (String language : ok ? folder.problem().languages() : List.<String>of()) {
       ok &= verifyVariant(folder, language, lines);
     }

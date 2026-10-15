@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 import si.intervue.problemformat.ProblemFormatException;
@@ -45,6 +47,7 @@ final class CrossLinks {
         }
       }
     }
+    errors.addAll(agreement(problemsRoot, dsaRoot, problemIds, dsaIds));
     for (Path root : List.of(problemsRoot, dsaRoot)) {
       for (Path md : markdownFiles(root)) {
         String text = read(md);
@@ -58,6 +61,49 @@ final class CrossLinks {
         var site = FORBIDDEN_SITE.matcher(text);
         if (site.find()) {
           errors.add(md + " links to " + site.group(2) + "; link dsa:// questions instead");
+        }
+      }
+    }
+    return errors;
+  }
+
+  /** A problem's walkthrough links dsa://X exactly when X's coveredBy lists that problem. */
+  private static List<String> agreement(
+      Path problemsRoot, Path dsaRoot, List<String> problemIds, List<String> dsaIds) {
+    List<String> errors = new ArrayList<>();
+    for (String id : problemIds) {
+      Path walkthrough = problemsRoot.resolve(id).resolve("walkthrough.md");
+      Set<String> linked = new TreeSet<>();
+      var links = DSA_LINK.matcher(Files.isRegularFile(walkthrough) ? read(walkthrough) : "");
+      while (links.find()) {
+        linked.add(links.group(1));
+      }
+      for (String target : linked) {
+        // A missing target folder is reported by the link check below.
+        if (dsaIds.contains(target) && !coveredBy(dsaRoot.resolve(target)).contains(id)) {
+          errors.add(
+              "content/problems/"
+                  + id
+                  + " links dsa://"
+                  + target
+                  + " but content/dsa/"
+                  + target
+                  + " does not list "
+                  + id
+                  + " in coveredBy");
+        }
+      }
+      for (String x : dsaIds) {
+        if (coveredBy(dsaRoot.resolve(x)).contains(id) && !linked.contains(x)) {
+          errors.add(
+              "content/dsa/"
+                  + x
+                  + " is coveredBy "
+                  + id
+                  + " but content/problems/"
+                  + id
+                  + "/walkthrough.md does not link dsa://"
+                  + x);
         }
       }
     }
