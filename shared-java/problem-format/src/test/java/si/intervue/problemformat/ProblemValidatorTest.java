@@ -246,4 +246,84 @@ class ProblemValidatorTest {
         .isInstanceOf(ProblemFormatException.class)
         .hasMessageContaining("problem.json");
   }
+
+  private static final String ONE_PHASE_WALKTHROUGH =
+      """
+      # Solution
+
+      ## Approach
+
+      text
+
+      ## Complexity
+
+      table
+
+      ## Where it shows up
+
+      text
+
+      ## Follow-up answers
+
+      text
+      """;
+
+  /** Turns the fixture into a one-phase problem: one phase, a statement, no intro. */
+  private void makeOnePhase(int weight) throws IOException {
+    write(
+        "problem.json",
+        """
+        {"formatVersion":1,"id":"hold-exposure","version":3,"section":"dsa-quick",
+         "title":"Hold Exposure","summary":"Totals holds.","difficulty":"Easy",
+         "techniques":["intervals"],"domain":"fintech","minutes":20,
+         "phases":[
+          {"id":1,"title":"Solve","brief":"brief/statement.md","hints":"hints/phase1.md","weight":%d,"allOrNothing":false,"timeoutRefMs":30000}],
+         "followUps":["Why?"],"languages":["java"]}
+        """
+            .formatted(weight));
+    write(
+        "variants/java/variant.json",
+        "{\"language\":\"java\",\"minToolchain\":\"21\","
+            + "\"main\":\"Main\",\"readOnly\":[\"Phase1Tests.java\"],\"tests\":{\"1\":\"Phase1Tests\"}}");
+    write("brief/statement.md", "text");
+    write("walkthrough.md", ONE_PHASE_WALKTHROUGH);
+    Files.delete(dir.resolve("brief/intro.md"));
+  }
+
+  @Test
+  void acceptsAOnePhaseProblem() throws IOException {
+    makeOnePhase(80);
+    assertThat(errors()).isEmpty();
+  }
+
+  @Test
+  void refusesAOnePhaseWeightOtherThan80() throws IOException {
+    makeOnePhase(70);
+    assertThat(errors()).anyMatch(e -> e.contains("must be 80"));
+  }
+
+  @Test
+  void refusesAOnePhaseWalkthroughWithoutApproach() throws IOException {
+    makeOnePhase(80);
+    write("walkthrough.md", ONE_PHASE_WALKTHROUGH.replace("## Approach", "## Idea"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Approach"));
+  }
+
+  @Test
+  void multiPhaseStillNeedsIntroAndSeventy() throws IOException {
+    Files.delete(dir.resolve("brief/intro.md"));
+    assertThat(errors()).anyMatch(e -> e.contains("brief/intro.md"));
+  }
+
+  @Test
+  void coveredByDefaultsToEmpty() {
+    assertThat(ProblemReader.read(dir).problem().coveredBy()).isEqualTo(List.of());
+  }
+
+  @Test
+  void refusesBadCoveredByIds() throws IOException {
+    replaceInProblem(
+        "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"coveredBy\":[\"Hold Exposure\"]");
+    assertThat(errors()).anyMatch(e -> e.contains("coveredBy must be problem ids"));
+  }
 }

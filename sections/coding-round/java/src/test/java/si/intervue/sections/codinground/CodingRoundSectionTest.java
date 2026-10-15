@@ -44,7 +44,8 @@ class CodingRoundSectionTest {
         60,
         phases,
         List.of(),
-        List.of("java"));
+        List.of("java"),
+        List.of());
   }
 
   private static final Variant VARIANT =

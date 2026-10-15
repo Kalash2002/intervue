@@ -19,10 +19,12 @@ public record Problem(
     int minutes,
     List<Phase> phases,
     List<String> followUps,
-    List<String> languages) {
+    List<String> languages,
+    List<String> coveredBy) {
 
-  /** {@code tags} is optional on disk; every reader sees a list. */
+  /** {@code tags} and {@code coveredBy} are optional on disk; every reader sees a list. */
   public Problem {
     tags = nullToEmpty(tags);
+    coveredBy = nullToEmpty(coveredBy);
   }
 }

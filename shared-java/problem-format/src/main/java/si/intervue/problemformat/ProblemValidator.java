@@ -22,6 +22,9 @@ public final class ProblemValidator {
 
   public static final int FORMAT_VERSION = 1;
   private static final int CORRECTNESS_POINTS = 70;
+  // A one-phase problem has no intro and no per-phase split, so it carries the whole correctness
+  // share of a section scored 80/20 (docs/contracts/problem-format.md, "One-phase problems").
+  private static final int ONE_PHASE_CORRECTNESS_POINTS = 80;
   private static final Set<String> DIFFICULTIES = Set.of("Easy", "Medium", "Hard");
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
 
@@ -33,13 +36,21 @@ public final class ProblemValidator {
     checkFields(folder.problem(), errors);
     checkPhases(folder, errors);
     checkVariants(folder, errors);
+    boolean onePhase = isOnePhase(folder.problem());
     for (String file : List.of("brief/intro.md", "walkthrough.md", "grading/NOTES.md")) {
-      requireFile(folder.dir(), file, errors);
+      if (!(onePhase && file.equals("brief/intro.md"))) {
+        requireFile(folder.dir(), file, errors);
+      }
     }
     if (Files.isRegularFile(folder.dir().resolve("walkthrough.md"))) {
-      checkWalkthrough(folder.dir(), errors);
+      checkWalkthrough(folder.dir(), onePhase, errors);
     }
     return errors;
+  }
+
+  /** Keyed on the phase count so shared-java never needs to know section ids. */
+  private static boolean isOnePhase(Problem p) {
+    return nullToEmpty(p.phases()).size() == 1;
   }
 
   private static void checkIdentity(ProblemFolder folder, List<String> errors) {
@@ -83,6 +94,9 @@ public final class ProblemValidator {
     if (p.minutes() < 1) {
       errors.add("minutes must be positive");
     }
+    if (p.coveredBy().stream().anyMatch(c -> c == null || !ID.matcher(c).matches())) {
+      errors.add("coveredBy must be problem ids (lowercase letters, digits and dashes)");
+    }
   }
 
   private static void checkPhases(ProblemFolder folder, List<String> errors) {
@@ -103,8 +117,9 @@ public final class ProblemValidator {
         checkHints(folder.dir().resolve(phase.hints()), phase.hints(), errors);
       }
     }
-    if (weights != CORRECTNESS_POINTS) {
-      errors.add("phase weights sum to " + weights + ", must be " + CORRECTNESS_POINTS);
+    int expected = phases.size() == 1 ? ONE_PHASE_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
+    if (weights != expected) {
+      errors.add("phase weights sum to " + weights + ", must be " + expected);
     }
   }
 
@@ -119,15 +134,19 @@ public final class ProblemValidator {
           "## Time budget",
           "## Follow-up answers");
 
+  /** The headings a one-phase problem's walkthrough has: no DSA reference, no time budget. */
+  static final List<String> ONE_PHASE_HEADINGS =
+      List.of("## Approach", "## Complexity", "## Where it shows up", "## Follow-up answers");
+
   private static final Pattern FIGURE = Pattern.compile("\\]\\((figures/[^)\\s]+)\\)");
 
   /**
    * The DSA reference and the closing sections exist in order, and every figure it shows exists.
    */
-  private static void checkWalkthrough(Path dir, List<String> errors) {
+  private static void checkWalkthrough(Path dir, boolean onePhase, List<String> errors) {
     String text = readString(dir.resolve("walkthrough.md"));
     int at = 0;
-    for (String heading : WALKTHROUGH_HEADINGS) {
+    for (String heading : onePhase ? ONE_PHASE_HEADINGS : WALKTHROUGH_HEADINGS) {
       int found = text.indexOf("\n" + heading + "\n", at);
       if (found < 0) {
         errors.add("walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
