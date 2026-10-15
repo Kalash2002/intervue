@@ -97,6 +97,31 @@ class CodingRoundSectionTest {
   }
 
   @Test
+  void refusesAOnePhaseProblem() {
+    Problem p = problem("coding-round");
+    Problem one =
+        new Problem(
+            p.formatVersion(),
+            p.id(),
+            p.version(),
+            p.section(),
+            p.title(),
+            p.summary(),
+            p.difficulty(),
+            p.techniques(),
+            p.tags(),
+            p.domain(),
+            p.minutes(),
+            List.of(p.phases().getFirst()),
+            p.followUps(),
+            p.languages(),
+            p.coveredBy());
+
+    assertThat(section.schema().validate(new ProblemFolder(Path.of("p"), one, Map.of())))
+        .anySatisfy(e -> assertThat(e).contains("at least 2 phases"));
+  }
+
+  @Test
   void gradesEachPhaseFromItsTestClass() {
     RunResults results =
         new RunResults(
