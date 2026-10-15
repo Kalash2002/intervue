@@ -96,6 +96,16 @@ class DsaQuickSectionTest {
   }
 
   @Test
+  void theSchemaRequiresMainToBeMain() {
+    Variant bad = new Variant("java", "21", "Solution", List.of(), Map.of(), null, null, null);
+    ProblemFolder f = folder("dsa-quick", 1);
+
+    assertThat(
+            section.schema().validate(new ProblemFolder(f.dir(), f.problem(), Map.of("java", bad))))
+        .anyMatch(m -> m.contains("\"main\": \"Main\""));
+  }
+
+  @Test
   void gradesTheSinglePhaseFromItsTestClass() {
     RunResults results =
         new RunResults(

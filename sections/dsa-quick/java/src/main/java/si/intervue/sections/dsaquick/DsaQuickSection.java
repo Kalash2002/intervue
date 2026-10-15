@@ -68,6 +68,15 @@ public final class DsaQuickSection implements SectionPackage {
       if (folder.problem().phases().size() != 1) {
         errors.add("a dsa-quick problem has exactly one phase");
       }
+      // The room starts this class (ADR 0008); the verify tool checks it too.
+      folder
+          .variants()
+          .forEach(
+              (language, v) -> {
+                if (!"Main".equals(v.main())) {
+                  errors.add("dsa-quick variant " + language + " must have \"main\": \"Main\"");
+                }
+              });
       return errors;
     };
   }
