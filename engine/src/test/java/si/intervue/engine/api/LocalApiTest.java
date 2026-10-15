@@ -195,9 +195,25 @@ class LocalApiTest {
 
   @Test
   void aOnePhaseProblemHasAWalkthrough() throws Exception {
-    // Starting a session on it waits for the dsa-quick package (Task 4); the brief is tested in
-    // SessionBriefTest.
     assertThat(call("GET", "/problems/tiny-dsa/walkthrough", null).toString()).contains("Approach");
+  }
+
+  @Test
+  void aOnePhaseDsaSessionStartsRunsAndFinishes() throws Exception {
+    JsonNode session =
+        call("POST", "/sessions", "{\"problemId\":\"tiny-dsa\",\"type\":\"PRACTICE\"}");
+    String s = "/sessions/" + session.get("id").asString();
+    call(
+        "PUT",
+        s + "/file?path=Calc.java",
+        "{\"text\":" + JSON.writeValueAsString(fixedCalc()) + "}");
+    call("POST", s + "/run", "{\"target\":\"phase:1\"}");
+    JsonNode finished = call("POST", s + "/finish", null);
+
+    assertThat(finished.get("result").get("score").get("label").asString()).isEqualTo("Practice");
+    assertThat(finished.get("result").get("score").get("total").asInt()).isEqualTo(100);
+    assertThat(call("GET", "/sessions", null).get(0).get("sectionId").asString())
+        .isEqualTo("dsa-quick");
   }
 
   @Test

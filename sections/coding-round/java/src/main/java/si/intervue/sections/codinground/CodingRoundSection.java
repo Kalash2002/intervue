@@ -41,7 +41,8 @@ public final class CodingRoundSection implements SectionPackage {
   private final CodingRoundScore scoring = new CodingRoundScore();
 
   private static SectionDefinition readDefinition() {
-    try (InputStream in = CodingRoundSection.class.getResourceAsStream("/section.json")) {
+    try (InputStream in =
+        CodingRoundSection.class.getResourceAsStream("/sections/coding-round/section.json")) {
       if (in == null) {
         throw new IllegalStateException("section.json is missing from the coding-round jar");
       }
@@ -96,7 +97,8 @@ public final class CodingRoundSection implements SectionPackage {
   public PromptTemplates prompts() {
     return name -> {
       try (InputStream in =
-          CodingRoundSection.class.getResourceAsStream("/prompts/" + name + ".md")) {
+          CodingRoundSection.class.getResourceAsStream(
+              "/sections/coding-round/prompts/" + name + ".md")) {
         if (in == null) {
           throw new IllegalArgumentException("No prompt template named " + name);
         }
