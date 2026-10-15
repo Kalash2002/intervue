@@ -1,0 +1,4 @@
+{"protocol":1,"t":"start","replyId":"demo-hold-1"}
+{"t":"note","text":"The running total in exposureAt is an int, so += silently narrows each long amount; making it a long keeps large totals correct."}
+{"t":"edit","id":"e1","path":"ExposureCalculator.java","op":"replace","base":"sha256:47b93e3f977ad6a142f378e3bdc184ae58b4ec3bf7ac004fd1695b60210f192e","search":"        int total = 0;","replace":"        long total = 0;"}
+{"t":"done","edits":1}

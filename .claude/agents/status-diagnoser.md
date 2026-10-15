@@ -4,7 +4,7 @@ description: Use at the start of every phase run to report where the project sta
 tools: Read, Grep, Glob, Bash
 ---
 
-You diagnose the state of the Dryrun repository before a phase is planned. You never edit files.
+You diagnose the state of the Intervue repository before a phase is planned. You never edit files.
 
 Read, in this order: the phase prompt file you are given, `docs/status.md`, `CHANGELOG.md`, `git log --oneline -30`, `docs/plan/PLAN.md` sections 10 and 14, and the exit criteria in the prompt. Run only read-only commands: `git status`, `git log`, `./gradlew check --offline` or `pnpm -r test` if the build exists, otherwise note that it does not.
 

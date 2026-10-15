@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "id": "shift-roster-lookup",
+  "version": 2,
+  "section": "coding-round",
+  "title": "Shift Roster Lookup",
+  "summary": "A hospital app answers 'who is on duty in this ward right now'. Fix it showing the wrong nurse, add handovers and coverage gaps, then answer half a million lookups in time.",
+  "difficulty": "Easy",
+  "techniques": ["binary-search", "intervals"],
+  "domain": "healthcare",
+  "minutes": 45,
+  "phases": [
+    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
+    { "id": 2, "title": "Handovers and gaps", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
+    { "id": 3, "title": "Every ward, all week", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+  ],
+  "followUps": [
+    "What exactly does Collections.binarySearch return when the key is missing, and why is it encoded that way?",
+    "Why were lookups at the exact start of a shift right while the bug was there?",
+    "What is the cost of onDutyAt and uncovered for a ward with n shifts?",
+    "Shifts can now overlap during a handover period. What changes in the lookup, and what should the app show?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": ["java"]
+}

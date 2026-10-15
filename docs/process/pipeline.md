@@ -12,7 +12,7 @@ Every roadmap phase is a file in `docs/prompts/`. Running `/phase <file>` execut
 | 6. Simplify | `/simplify` on the diff | The diff | Fewer lines, same behaviour, same tests green | Behaviour change detected by tests |
 | 7. Review | `/code-review` at high effort | The diff | Findings fixed or recorded with a reason | Any correctness finding left open |
 | 8. Gates | `qa-gatekeeper` subagent | The repository | All gates in `definition-of-done.md` green; a short report | Any red gate |
-| 9. Report | main agent | Everything above | `CHANGELOG.md` entry, `docs/status.md` updated, PR opened with the template filled, a summary to the human | None |
+| 9. Report | main agent | Everything above | `CHANGELOG.md` entry, `docs/status.md` and `docs/runbooks/commands.md` updated, PR opened with the template filled, a summary to the human | None |
 
 `docs/research/<phase>.md` and `docs/plans/<phase>.md` are working documents: they stay on your machine and are listed in `.gitignore`. What matters from them is carried into code, tests, ADRs, contracts, the plan or the retro, which are committed.
 

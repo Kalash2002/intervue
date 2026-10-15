@@ -1,0 +1,4 @@
+{"protocol":1,"t":"start","runner":"java-kit/2.0","language":"java"}
+{"t":"suite","name":"Phase1Tests","tests":3}
+{"t":"test","suite":"Phase1Tests","name":"a","status":"pass","ms":2}
+{"t":"test","suite":"Phase1Tests","na

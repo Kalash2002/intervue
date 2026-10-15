@@ -1,0 +1,21 @@
+# Java gates (docs/process/definition-of-done.md): compile with -Werror, Spotless, tests, ArchUnit, coverage.
+name: java
+on:
+  pull_request:
+    paths: ['engine/**', 'shared-java/**', 'languages/**', 'sections/**', 'content/**', '*.gradle.kts', 'gradle/**', 'gradle.properties']
+  push:
+    branches: [main]
+jobs:
+  check:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: gradle/actions/setup-gradle@v6
+      - run: ./gradlew check --console=plain

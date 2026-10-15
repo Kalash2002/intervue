@@ -1,0 +1,53 @@
+{
+  "formatVersion": 1,
+  "id": "corridor-router",
+  "version": 3,
+  "section": "coding-round",
+  "title": "Corridor Router",
+  "summary": "A payment router picks routes through a network of one-way corridors. Fix its hop-count search, add a fee-aware search, then make it hold up on a large network.",
+  "difficulty": "Medium",
+  "techniques": [
+    "graphs"
+  ],
+  "domain": "fintech",
+  "minutes": 60,
+  "phases": [
+    {
+      "id": 1,
+      "title": "Fix the bug",
+      "brief": "brief/phase1.md",
+      "hints": "hints/phase1.md",
+      "weight": 20,
+      "allOrNothing": true,
+      "timeoutRefMs": 30000
+    },
+    {
+      "id": 2,
+      "title": "Cheapest route",
+      "brief": "brief/phase2.md",
+      "hints": "hints/phase2.md",
+      "weight": 30,
+      "allOrNothing": false,
+      "timeoutRefMs": 30000
+    },
+    {
+      "id": 3,
+      "title": "Large networks",
+      "brief": "brief/phase3.md",
+      "hints": "hints/phase3.md",
+      "weight": 20,
+      "allOrNothing": false,
+      "timeoutRefMs": 40000
+    }
+  ],
+  "followUps": [
+    "What is the time and space cost of your cheapest-route search, in terms of nodes, corridors and maxHops?",
+    "Why does a plain shortest-path search by fee give wrong answers once there is a hop limit?",
+    "You cache results between lookups. When exactly is the cache thrown away, and what would break if two threads used the router at once?",
+    "Corridors can be switched off at any moment in production. How would the router learn about it, and what happens to a payment already in flight?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": [
+    "java"
+  ]
+}

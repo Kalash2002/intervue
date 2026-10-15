@@ -1,0 +1,25 @@
+{
+  "formatVersion": 1,
+  "id": "rate-limiter-audit",
+  "version": 2,
+  "section": "coding-round",
+  "title": "Rate Limiter Audit",
+  "summary": "An API gateway's access log must be audited against its rate limit. Fix requests landing in the wrong window, replay the limiter to find rejections, then audit a full day of traffic in time.",
+  "difficulty": "Easy",
+  "techniques": ["sliding-window", "hashing"],
+  "domain": "developer-tools",
+  "minutes": 45,
+  "phases": [
+    { "id": 1, "title": "Fix the bug", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000 },
+    { "id": 2, "title": "Replay the limiter", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 30, "allOrNothing": false, "timeoutRefMs": 30000 },
+    { "id": 3, "title": "A full day", "brief": "brief/phase3.md", "hints": "hints/phase3.md", "weight": 20, "allOrNothing": false, "timeoutRefMs": 40000 }
+  ],
+  "followUps": [
+    "Why does multiplying 2.006 by 1000 not give 2006, and which other timestamps are affected?",
+    "Why must rejected requests not count towards the window, and what would a client see if they did?",
+    "What is the cost of rejections for one client with n requests, and how much memory does it hold at once?",
+    "The gateway runs on four machines that each keep their own window. What changes, and what would you do about it?",
+    "What did the assistant get wrong or leave out, and how did you notice?"
+  ],
+  "languages": ["java"]
+}

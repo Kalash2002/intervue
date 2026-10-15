@@ -1,0 +1,9 @@
+{
+  "id": "java",
+  "displayName": "Java",
+  "spiVersion": 1,
+  "toolchain": { "policy": "bundled", "minVersion": "21", "recommended": "21" },
+  "extensions": [".java"],
+  "limits": { "memoryMbMin": 512, "memoryMbMax": 4096, "outputBytes": 400000 },
+  "calibration": { "program": "calibration/Bench.java", "repetitions": 3, "referenceMs": 1648 }
+}

@@ -1,4 +1,4 @@
-# Dryrun .gitignore
+# Intervue .gitignore
 # Policy (CONTRIBUTING.md, "What is committed"): commit code, content, contracts, the plan, the process layer,
 # the phase prompts, the status board, ADRs, runbooks, retros and learning files. Do not commit secrets,
 # build output, user data, or working documents a phase produces and discards.
@@ -57,6 +57,8 @@ coverage/
 .pnpm-store/
 *.tsbuildinfo
 .vite/
+# wrangler's local state, including local KV with test signups
+.wrangler/
 
 # ---- Rust / Tauri ----
 target/
@@ -73,6 +75,8 @@ content/.build/
 
 # ---- user data from running the app or the prototype ----
 engine/sessions/
+# the engine's data folder in browser dev mode, with its dev token
+desktop/.dev-data/
 prototype/sessions/*
 !prototype/sessions/README.txt
 *.db

@@ -4,7 +4,11 @@ Updated by the `status-diagnoser` subagent at the start of every phase run and b
 
 ## Current phase
 
-Phase 0, validation (PLAN.md section 10 and section 13). Engineering starts with `docs/prompts/phase-1a-base-app.md`.
+Phase 1a (base app) built on branch `phase-1a`: engine, Java package, coding-round section, ten verified problems, UI, editor and the Tauri shell. Automated gates green on Windows. Waiting on the human checks: macOS run and build, CI on a remote, clean-machine Doctor, and an outside tester (exit criteria 1 on macOS, 3 clean machine, 4 and 5 on CI, 7). Phase 0 validation continues alongside; checkpoint about 2026-11-19.
+
+Next: Phase 1ab (`docs/prompts/phase-1ab-assistant-room.md`), added 2026-10-14 after the first hands-on run: the assistant live on the developer-mode CLI route, ADR 0006 (AI use never blocks solved; point-and-explain rules in Interview mode), and the room refresh along the Hello Interview flow. The blank-editor CSS bug found in that run is already fixed on `phase-1a`.
+
+Phase 1a hand test (2026-10-15, Windows, Interview session, by the owner): UI looks fine; reported (1) panes not resizable, (2) editor not scrollable with the mouse wheel, (3) dark-mode colours too bright, (4) no way home from the result page, (5) an Answer page after the test and on the dashboard next to Resume and Start, with the steps, prompts and techniques, Hello Interview style. All five fixed on `phase-1a-fixes` the same day and merged to `main`: splitters drag, wheel scrolls, pastel colours, "← Dashboard" everywhere, an Answer button on every card and on the result page, and all ten walkthroughs rewritten to one structure. Remaining for exit: macOS run and build (1, 5), Doctor on a clean machine (3), CI on a remote (4, 5), an outside tester from the zip (7).
 
 ## Done
 
@@ -16,10 +20,15 @@ Phase 0, validation (PLAN.md section 10 and section 13). Engineering starts with
 - 2026-10-14: `.gitignore` and `CONTRIBUTING.md` added with the commit policy: working documents, raw research, interview notes, build output, user data and secrets stay local; dry run verified.
 - 2026-10-14: developer-mode routing between the Claude CLI and the backend added (PLAN.md 2.5, decision 8); two CLI facts left for Phase 1b research.
 - 2026-10-14: assistant redesigned (PLAN.md 2.8): Interview and Practice session types, Ask and Write code channels, assisted label, three-level authored hints, AI edit applier with undo and reset, editor autocomplete with language-server plugins; gates, prompts and learning files updated.
+- 2026-10-14: Phase 0 landing page built in `web/` (days 3 to 5 of PLAN.md section 13): page, waitlist form to KV through a Pages function, PostHog events, Pages config. Live at https://intervue-web.pages.dev with screenshots, KV and PostHog.
+- 2026-10-14: prototype verified (`java tools/Verify.java`: starter fails, reference passes, naive times out in phase 3, for all three problems) and published as `web/public/downloads/intervue-prototype.zip` with `RUN.md`, linked as "early prototype" on the landing page.
+- 2026-10-14: Phase 0 review written; ADR 0001 (mock and manual UPI first, gateway later; ₹1,500 monthly and ₹3,500 quarterly; two free problems at launch: Hold Exposure and Corridor Router, confirmed) and ADR 0002 (individual, no GST registration until a CA review before the first real payment) accepted; PLAN.md updated for two free problems (launch pack of 8) and the new "would pay" metric.
+
+- 2026-10-14: Phase 1a: monorepo build and gates; contracts and ADRs 0003 to 0005; run protocol and problem format libraries; Java package with test kit, runner, calibration, health checks and editor support; coding-round section with the prototype score; SQLite store; sessions with the pause rule, Practice hints and the AI edit applier; Doctor; local HTTP API with a per-launch token and engine.jar; typed client, CodeMirror editor, app UI and coding-round UI; Tauri 2 shell; three problems migrated and seven written, all ten verified three ways.
 
 ## In progress
 
-- Phase 0 tasks from PLAN.md section 13.
+- Phase 0 validation, alongside the Phase 1a learning sprint: post the pricing survey and recruiting message, 10 interviews, 3 prototype testers.
 
 ## Blocked
 
@@ -27,5 +36,23 @@ Phase 0, validation (PLAN.md section 10 and section 13). Engineering starts with
 
 ## Later (out of scope findings to revisit)
 
+- Build-Log Bracket Checker: the reference takes about 600 ms on `aLongBuildLog` against its 3,000 ms limit, right at the 5x headroom rule; verify failed twice and passed once on a loaded Windows machine (2026-10-15). Watch it on CI; if it flakes, make `Datasets.buildLog` cheaper or raise the limit with a content review.
+- From the first hands-on run (2026-10-14): a code-comprehension phase (questions about the codebase answered by text or voice, graded) and per-phase countdowns as Hello Interview does; both need a plan change, revisit after Phase 1ab.
+
+- CA review (ADR 0002): book a CA during Phase 1b; it blocks the first real payment in Phase 1c. Questions in `docs/discovery/ca-questions.md` (local).
+
+- Waitlist endpoint has a honeypot and input caps but no rate limit; spam could exhaust the free KV write quota (failed writes return 503, nothing is silently lost). Add a Cloudflare rate-limiting rule on `/api/waitlist` before promoting the page widely.
+- Landing bundle is about 765 kB (247 kB gzip), mostly MUI and posthog-js; trim if page speed matters for conversion.
+- The gate `pnpm -r lint typecheck test` in `CLAUDE.md` and `definition-of-done.md` runs only `lint` (pnpm passes the other names as arguments); the working form is `pnpm -r lint && pnpm -r typecheck && pnpm -r test`.
+
 - Prototype `Json` parser is replaced by Jackson in the engine; nothing to carry over.
-- Clock pause rule (PLAN.md 2.2) to be implemented in Phase 1a with the session module.
+
+- Phase 1a review follow-ups (not blocking): engine returns the changed line range of each applied AI edit, so the UI stops diffing files and per-edit Undo marks are exact; `FileEntry` says "editable" by the engine's real rule (kit and `data/` included) and the variant names the first file to open; one editor-tools endpoint with a single javac pass for symbols and diagnostics; dashboard progress computed by the engine; share one tree copy/delete helper between `engine`, `content/tools` and tests; pass the engine's `ProcessControl` to package health checks (SPI change, needs an ADR).
+- The shell starts the engine inside Tauri `setup`, so the window appears only once the engine is ready (1 to 3 s); start it on a thread and let `engine_connection` wait.
+- The engine's HTTP server runs on one thread over the single SQLite connection, so a long run or the Doctor holds other calls; move to per-session locks if the UI needs to stay live during runs.
+- `java.runtime` health check compares versions only; add the `lib/modules` hash once the jlink step records a reference hash.
+- The installer bundles every problem folder including `reference/` and `naive/`; Phase 1b packs and encryption replace this.
+- The app icon is a placeholder square from `desktop/resources/icon.png`.
+- `CLAUDE.md` and `definition-of-done.md` name the verify gate as `java content/tools/Verify.java`; the working command is `./gradlew :content:tools:verify`.
+- `definition-of-done.md` names coverage packages `*.domain` and `*.application`, which the engine does not have; the enforced rule (engine/build.gradle.kts) covers the use-case packages `session`, `session.edits`, `health`, `content` and `store` at 80% lines. Update the DoD wording when the process docs are next touched.
+- The section UI is wired directly (`App` takes one `SectionUi`); add a registry by section id when the second section lands.

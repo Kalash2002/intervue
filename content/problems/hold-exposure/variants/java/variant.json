@@ -1,0 +1,17 @@
+{
+  "language": "java",
+  "minToolchain": "21",
+  "main": "Main",
+  "readOnly": [
+    "Phase1Tests.java",
+    "Phase2Tests.java",
+    "Phase3Tests.java",
+    "Datasets.java",
+    "data/holds.csv"
+  ],
+  "tests": {
+    "1": "Phase1Tests",
+    "2": "Phase2Tests",
+    "3": "Phase3Tests"
+  }
+}

@@ -15,7 +15,7 @@ One paragraph: what changes, which phase prompt asked for it, and why this way.
 - [ ] No new `TODO` without an issue link; no commented-out code
 - [ ] `/code-review` run; findings fixed or reasons written below
 - [ ] `/simplify` run on the diff
-- [ ] `CHANGELOG.md` and `docs/status.md` updated
+- [ ] `CHANGELOG.md`, `docs/status.md` and `docs/runbooks/commands.md` updated
 - [ ] UI change: screenshot or recording attached
 - [ ] Runner or kit change: protocol byte-compatible, or ADR linked
 

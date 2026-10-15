@@ -1,5 +1,5 @@
 @echo off
-rem Starts Dryrun. Needs a JDK (Java 17 or newer) on PATH. Close this window or press Ctrl+C to stop.
+rem Starts Intervue. Needs a JDK (Java 17 or newer) on PATH. Close this window or press Ctrl+C to stop.
 cd /d "%~dp0"
 where java >nul 2>nul
 if errorlevel 1 (

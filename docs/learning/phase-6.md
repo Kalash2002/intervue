@@ -4,7 +4,7 @@ Time (est.): 20 hours.
 
 ## Minimal concepts
 
-| Concept | Why it matters in Dryrun | Source |
+| Concept | Why it matters in Intervue | Source |
 |---|---|---|
 | Reading Go: packages, slices and maps, structs and methods, interfaces, error values, `defer`, goroutines only as far as `go test` uses them | Reviewing AI-drafted ports | A Tour of Go; Effective Go, the sections on slices, maps, errors |
 | Standard library equivalents: `sort`, `container/heap`, `strings`, `bufio`, `encoding/csv` | Standard library only | Go package docs |
@@ -16,7 +16,7 @@ Time (est.): 20 hours.
 ## Tutor prompt
 
 ```
-You are my tutor for reading Go and for Linux packaging basics. I am a backend engineer (Java) who has never written Go, building Dryrun, where interview problems get Go variants (starter, read-only tests, reference, deliberately slow solution) built offline with the standard library and run by a small test runner with per-test timeouts, and where the desktop app gets unsigned Linux builds. I have about 20 hours.
+You are my tutor for reading Go and for Linux packaging basics. I am a backend engineer (Java) who has never written Go, building Intervue, where interview problems get Go variants (starter, read-only tests, reference, deliberately slow solution) built offline with the standard library and run by a small test runner with per-test timeouts, and where the desktop app gets unsigned Linux builds. I have about 20 hours.
 
 Teach me only: Go syntax and idioms I will meet in such code (packages, slices and maps and their gotchas, structs and methods, interfaces, error values, defer); the standard-library equivalents of Java collections and sorting, including container/heap; building fully offline with a go.mod that has no requires, GOFLAGS, GOPROXY=off, GOTOOLCHAIN=local and a GOCACHE inside my app folder; why go test's -timeout is whole-binary and how a runner forks itself per test for a per-test limit; what go vet will reject in content; gofmt; producing AppImage and deb with the Tauri bundler and what users see when they are unsigned; prlimit for CPU and memory caps.
 

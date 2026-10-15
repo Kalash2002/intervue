@@ -1,4 +1,4 @@
-# Dryrun: product and engineering plan
+# Intervue: product and engineering plan
 
 Prepared 2026-10-14 from the prototype in this folder, the thirteen fixed decisions, and the answers given in Step 1.
 Every figure marked **(est.)** is an estimate with its assumption stated next to it. Every price or policy that changes over time carries a source and the date it was checked. Where I could not verify something, the text says **not verified** rather than guessing.
@@ -37,16 +37,16 @@ Appendix: sources checked on 2026-10-14 are cited inline. The raw research notes
 
 ### Who it is for and the promise
 
-Dryrun is for engineers preparing for the AI-assisted coding round: a timed session in a codebase they did not write, with an assistant that can answer or write code, graded on tests and on how they worked, including how they used the AI. Primary buyers at launch are Indian working engineers with one to five years of experience and final-year students; international buyers are served from day one with USD pricing and card payments.
+Intervue is for engineers preparing for the AI-assisted coding round: a timed session in a codebase they did not write, with an assistant that can answer or write code, graded on tests and on how they worked, including how they used the AI. Primary buyers at launch are Indian working engineers with one to five years of experience and final-year students; international buyers are served from day one with USD pricing and card payments.
 
 One-sentence promise: **rehearse the real AI-assisted interview on your own machine, with the same constraints, and get a score and a written review you can act on.**
 
 | | Free | Paid |
 |---|---|---|
 | App | Full desktop app, every feature | Same app |
-| Content | One built-in problem (Hold Exposure) in every supported language | Packs of problems, sold per pack per month or per quarter; longer terms only when the catalogue has grown |
+| Content | Two built-in problems at launch (Hold Exposure and Corridor Router; ADR 0001) in every supported language | Packs of problems, sold per pack per month or per quarter; longer terms only when the catalogue has grown |
 | AI assistant (Ask and Write code) and written feedback | Included within the per-user caps in section 9 | Same caps, raised for paying users |
-| Session types and hints | Interview and Practice on the free problem, with its three-level hints | Same on every pack problem; hints ship inside the pack |
+| Session types and hints | Interview and Practice on the free problems, with their three-level hints | Same on every pack problem; hints ship inside the pack |
 | Editor assistance | Autocomplete, symbols and inline compiler diagnostics; language-server IntelliSense as an optional download | Same |
 | Progress, history, dashboard | Included, synced | Included, synced |
 | Devices | 1 active device | 1 by default; extra device slots purchasable |
@@ -77,7 +77,7 @@ Both exist because the practice must run on the user's machine (decision 9) whil
 
 ### Session types and the assistant
 
-A session starts as **Interview** or **Practice** (section 2.8). Interview is the timed rehearsal: no hints, the full score, and proctoring later; using Write code is allowed but marks the session "assisted", and only unassisted interview sessions count as solved. Practice is for learning: a stopwatch instead of a limit, three authored hint levels per phase with an online "explain further", Write code without a label, and a score shown as "Practice" that never counts as solved. In both types the assistant has two channels, **Ask** and **Write code**; Write code edits the session's copy of the files immediately with one-click undo, the problem source is never touched, and "Reset problem" recreates the copy.
+A session starts as **Interview** or **Practice** (section 2.8). Interview is the timed rehearsal: no hints, the full score, and proctoring later; the assistant follows point-and-explain rules (it names the place and the logic, writes code only for a named piece), and a passing Interview session counts as solved whether or not the assistant edited code; the written review grades how the AI was driven (ADR 0006). Practice is for learning: a stopwatch instead of a limit, three authored hint levels per phase with an online "explain further", Write code without a label, and a score shown as "Practice" that never counts as solved. In both types the assistant has two channels, **Ask** and **Write code**; Write code edits the session's copy of the files immediately with one-click undo, the problem source is never touched, and "Reset problem" recreates the copy.
 
 ### Filtering
 
@@ -137,7 +137,7 @@ Code execution happens only inside the engine on the user's machine at launch. T
 
 ### 2.2 Offline-first design for the app
 
-**Local store.** SQLite (one file per OS user profile, `dryrun.db`), accessed from the engine through `sqlite-jdbc`. It replaces `session.json`. Tables:
+**Local store.** SQLite (one file per OS user profile, `intervue.db`), accessed from the engine through `sqlite-jdbc`. It replaces `session.json`. Tables:
 
 | Table | Key columns | Notes |
 |---|---|---|
@@ -174,7 +174,7 @@ Conflict rules: a session is owned by the device that created it and is immutabl
 **Sign-in (device authorization flow).**
 
 1. App calls `POST /v1/auth/device/start {deviceId, devicePublicKey, appVersion, os}`; gets `{deviceCode, userCode, verificationUrl, expiresIn:600, interval:5}`.
-2. App opens `https://dryrun.app/activate?code=USER-CODE` in the system browser. The user signs in on the website (email magic link or Google) and approves the device; the page shows the device name and OS.
+2. App opens `https://intervue.si/activate?code=USER-CODE` in the system browser. The user signs in on the website (email magic link or Google) and approves the device; the page shows the device name and OS.
 3. App polls `POST /v1/auth/device/token {deviceCode}` until it receives `{accessToken (15 min, JWT), refreshToken (opaque, 90 days, rotating, bound to deviceId)}`.
 4. The refresh token is stored in the operating system keychain (Windows Credential Manager, macOS Keychain) by the Rust shell through a keychain crate such as `keyring`, whose current API the research step verifies, and handed to the engine at startup over the local socket, never written in plaintext.
 5. Refresh: `POST /v1/auth/refresh` rotates the token; reuse of an old token revokes the whole device. Sign-out: `POST /v1/auth/devices/{id}/revoke`; "sign out everywhere" revokes all devices and bumps the user's token generation so every access token dies within 15 minutes.
@@ -331,7 +331,7 @@ You want companies to use the app the way they use CoderPad or HackerRank, with 
 
 ### 2.8 Session types, assistant channels, hints and editor assistance
 
-Added 2026-10-14 after your request for a Hello Interview style assistant with "Ask" and "Write code", hints per phase, and a practice mode. Decisions you made: Write code is allowed in both session types, and an Interview session in which AI edits were used is scored as assisted; Practice mode is the non-interview mode with hints and no proctoring; edits apply immediately with one-click undo; the problem source stays intact and the editor works on a copy that reset recreates; hints are authored in three levels with an online "explain further"; a Write code call costs three message-equivalents; the assistant works on the whole project unless the user names a file or a method; the reviewer sees every edit event.
+Added 2026-10-14 after your request for a Hello Interview style assistant with "Ask" and "Write code", hints per phase, and a practice mode. Decisions you made: Write code is allowed in both session types, and an Interview session in which AI edits were used is scored as assisted (revised 2026-10-14 after the first hands-on run, ADR 0006: AI use no longer changes the label, solved or the best score; the reviewer grades control of the AI, and the Interview-mode rules became the point-and-explain rules below); Practice mode is the non-interview mode with hints and no proctoring; edits apply immediately with one-click undo; the problem source stays intact and the editor works on a copy that reset recreates; hints are authored in three levels with an online "explain further"; a Write code call costs three message-equivalents; the assistant works on the whole project unless the user names a file or a method; the reviewer sees every edit event.
 
 #### Session types
 
@@ -340,14 +340,16 @@ Added 2026-10-14 after your request for a Hello Interview style assistant with "
 | Purpose | Rehearse the real round | Learn the problem |
 | Clock | Enforced limit from `problem.json`, time score applies | Stopwatch by default; the user may switch the limit on; no time score |
 | Hints | None; the Hint button is hidden | Three authored levels per phase, plus "explain this hint further" online |
-| Ask channel | Interview-mode rules (no volunteered bugs or solutions) or Helpful, as today | Helpful by default, Interview rules selectable |
-| Write code channel | Allowed; the session becomes **assisted** at the first run or finish with an AI edit still applied | Allowed, no label needed |
-| Score | Full formula; shown as "Interview" or "Interview, assisted" | Correctness and phase results only; shown as "Practice" |
-| Counts as solved or best score | Unassisted interview sessions only; assisted sessions are listed with their own best | Never |
+| Ask channel | Point-and-explain rules (below) | Helpful by default, point-and-explain rules selectable |
+| Write code channel | Allowed for a piece the candidate names after stating the approach; every applied edit is recorded and the count is shown on the result page | Allowed |
+| Score | Full formula; shown as "Interview" | Correctness and phase results only; shown as "Practice" |
+| Counts as solved or best score | Every Interview session that passes, with or without AI edits (ADR 0006) | Never |
 | Proctoring (Phase 9) | Applies, in assessment sessions | Never |
 | Offline | Yes, without either assistant channel | Yes, with authored hints; no AI channels |
 
 The session type is chosen on the start screen and recorded in `sessions.session_type`; it cannot change after the clock starts.
+
+**Clock and pauses (decided 2026-10-14).** The clock pauses whenever the app is closed, in both session types, and resumes when the app starts again. The engine records `lastAliveAt` every 15 seconds while it runs; at start it closes the gap for every unfinished session with a `pause` event at `lastAliveAt` and a `resume` event at the current time. A clean shutdown writes the `pause` directly. `active_ms` is wall time minus paused gaps, and the Interview limit and time score use `active_ms`. Accepted trade-off: closing the app stops an Interview clock; the result page lists every pause, so a reviewer sees it.
 
 #### Assistant channels
 
@@ -382,7 +384,20 @@ Engine rules, each with a test in `engine/session/edits/`:
 | Finished, offline, caps, signed out | The Write code control is disabled with the reason shown before typing |
 | Injection | File contents are data inside the prompt; instructions come only from the section's prompt files; a file containing instruction-like text changes nothing |
 
-`assisted` is true when any `run` event or the finish has `aiEditsActive > 0`. The reviewer prompt receives the edit events, so "control of the AI" is judged from what was accepted, undone and reverted.
+`assisted` is true when any `run` event or the finish has `aiEditsActive > 0`. It is stored and the result page shows the number of AI edits applied and undone, but it changes neither the label, nor solved, nor the best score (ADR 0006). The reviewer prompt receives the edit events and scores "Control of the AI" from what was accepted, undone and reverted; that score, visible on the result page, is the product's answer to leaning on the assistant.
+
+#### Point-and-explain rules (Interview mode)
+
+Decided 2026-10-14. The assistant is a tool the candidate drives, not an answer key. In an Interview session, on the Ask channel:
+
+1. Asked to fix, solve or make the tests pass: name the exact place (file, method, line) and describe the logic that has to change, in words. No solution code.
+2. Asked to explain any code, test, failure or concept: explain fully, using the candidate's own code as the example.
+3. Asked a specific question ("is the visited check in `fewestHops` right?"): answer honestly, including a plain yes or no.
+4. Never volunteer work on other phases, other bugs, or optimisations the candidate did not ask about.
+
+On the Write code channel: write only the piece the candidate named (a method, a class, a test, a data structure), and only after the candidate stated the approach in the message or earlier in the chat; a bare "fix it" or "make it pass" gets the reply of rule 1 and no edit. Practice uses Helpful rules by default with these rules selectable. The rules live in `prompts/interview-mode.md` and `prompts/write-code.md`, and each has a recorded-transcript test.
+
+**Availability (Phase 1ab).** Before the backend exists, both channels, hint explanations and the written review run through the developer-mode CLI route of section 2.5 on the developer's own machine; end-user builds get the backend route in Phase 1b. The panel shows "Assistant unavailable" with the reason (developer mode off, no CLI, signed out) instead of disabled controls.
 
 #### Hints
 
@@ -437,7 +452,7 @@ Language servers are downloaded on demand like toolchains, hash-verified, starte
 
 ### 3.2 Desktop packaging (decision 10)
 
-**Bundled runtime.** Eclipse Temurin 21 (LTS until at least December 2029, GPLv2 with Classpath Exception, free to bundle; source: [adoptium.net/docs/faq](https://adoptium.net/docs/faq/), checked 2026-10-14) trimmed with `jlink --add-modules java.base,jdk.compiler,java.management,jdk.management,java.sql,jdk.crypto.ec --strip-debug --no-header-files --no-man-pages --compress zip-6`. A `java.base` plus `jdk.compiler` image measured 42.3 MiB compressed on Windows x64 with Oracle JDK 21.0.2 (local measurement, not a published figure); the extra modules above add a few MB (est.). The runtime runs the engine and compiles the user's Java, which satisfies decision 10. Do not bundle Oracle JDK: its no-fee licence forbids bundling with a product that charges fees ([oracle.com no-fee licence](https://www.oracle.com/downloads/licenses/no-fee-license.html), checked 2026-10-14). Ship the Temurin licence and notice files inside the app.
+**Bundled runtime.** Eclipse Temurin 21 (LTS until at least December 2029, GPLv2 with Classpath Exception, free to bundle; source: [adoptium.net/docs/faq](https://adoptium.net/docs/faq/), checked 2026-10-14) trimmed with `jlink --add-modules java.base,jdk.compiler,jdk.httpserver,java.management,jdk.management,java.sql,jdk.crypto.ec --strip-debug --no-header-files --no-man-pages --compress zip-6`. A `java.base` plus `jdk.compiler` image measured 42.3 MiB compressed on Windows x64 with Oracle JDK 21.0.2 (local measurement, not a published figure); the extra modules above add a few MB (est.). The runtime runs the engine and compiles the user's Java, which satisfies decision 10. The engine starts as `java -jar engine.jar` with its libraries on the class path: putting sqlite-jdbc or Jackson on the module path would also require `java.sql.rowset` and `java.xml` (measured in Phase 1a research). Do not bundle Oracle JDK: its no-fee licence forbids bundling with a product that charges fees ([oracle.com no-fee licence](https://www.oracle.com/downloads/licenses/no-fee-license.html), checked 2026-10-14). Ship the Temurin licence and notice files inside the app.
 
 **Tool: the Tauri 2 bundler**, not jpackage. jpackage produces installers but does not notarize for macOS and needs WiX on Windows ([jpackage man page](https://docs.oracle.com/en/java/javase/21/docs/specs/man/jpackage.html), checked 2026-10-14), and it gives no auto-update. Tauri's bundler produces NSIS and MSI installers on Windows and `.app` and `.dmg` on macOS, signs and notarizes macOS builds from environment variables, signs Windows builds through a configurable `signCommand`, and the updater plugin reads a signed static JSON file per platform from any static host such as R2 ([Tauri updater plugin](https://v2.tauri.app/plugin/updater/), [Tauri macOS signing](https://v2.tauri.app/distribute/sign/macos/), [Tauri Windows signing](https://v2.tauri.app/distribute/sign/windows/), checked 2026-10-14). The Java runtime ships as a bundle resource folder and the shell starts the engine with the shell plugin; Tauri's `externalBin` sidecar mechanism expects single binaries with a target-triple suffix ([Tauri sidecar docs](https://v2.tauri.app/develop/sidecar/)), which does not fit a JDK image, so it is not used.
 
@@ -449,7 +464,7 @@ Language servers are downloaded on demand like toolchains, hash-verified, starte
 | Yearly cost (est.) | $129 certificate plus cloud signing or a one-time token | $99 |
 | False positives | SmartScreen warns until the publisher identity has reputation; EV no longer bypasses it, and reputation accrues per certificate and per file ([Microsoft Learn SmartScreen](https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/smartscreen-reputation), checked 2026-10-14). Reduce it by signing every build including betas with the same certificate from day one, keeping the certificate for years, submitting the installer to Microsoft's malware analysis portal and to major antivirus vendors' false-positive forms before launch, and avoiding packers | Notarized apps open without warnings; antivirus is rarely an issue on macOS |
 | Antivirus on the bundled runtime | Some scanners flag `java.exe` in user profiles. Install per-machine under Program Files when possible and sign every executable inside the runtime folder | Not an issue |
-| Self-update | Tauri updater plugin reading `https://cdn.dryrun.app/releases/stable/latest.json`; every update artefact is signed with the updater key generated by `tauri signer generate`, whose private half lives only in CI secrets as `TAURI_SIGNING_PRIVATE_KEY`; checks at launch and every 4 hours; passive install mode on Windows | Same feed with the macOS entries; the app is signed and notarized, which the updater requires |
+| Self-update | Tauri updater plugin reading `https://cdn.intervue.si/releases/stable/latest.json`; every update artefact is signed with the updater key generated by `tauri signer generate`, whose private half lives only in CI secrets as `TAURI_SIGNING_PRIVATE_KEY`; checks at launch and every 4 hours; passive install mode on Windows | Same feed with the macOS entries; the app is signed and notarized, which the updater requires |
 
 **Steps you will follow (the "steps and navigation" you asked for) are written as a runbook in `docs/runbooks/release-app.md`:** enrol in the Apple Developer Program from the Apple Developer app; create the Developer ID Application certificate in Xcode or the portal and export it as a `.p12`; create an app-specific password; buy the IV certificate, complete identity validation, choose cloud signing or token; generate the updater key pair with `tauri signer generate`; put `APPLE_CERTIFICATE`, `APPLE_CERTIFICATE_PASSWORD`, `APPLE_ID`, `APPLE_PASSWORD`, `APPLE_TEAM_ID`, `TAURI_SIGNING_PRIVATE_KEY` and the Windows cloud-signing credentials used by `signCommand` in GitHub Environment secrets; run the release workflow on a tag; download both installers from the `beta` channel and test on clean machines; promote to `stable` by copying `latest.json` and the artefacts.
 
@@ -594,7 +609,7 @@ Assistance comes in two tiers (section 2.8). Tier 1 is built in and offline: key
 Files created, all under `languages/<lang>/`:
 
 1. `language.json` with every field in 4.1.
-2. `runner/` Gradle subproject implementing `LanguagePackage`, registered through `META-INF/services/app.dryrun.engine.spi.LanguagePackage`.
+2. `runner/` Gradle subproject implementing `LanguagePackage`, registered through `META-INF/services/si.intervue.engine.spi.LanguagePackage`.
 3. `testkit/` emitting the run protocol, with the per-test timeout mechanism that works in that runtime.
 4. `calibration/` benchmark plus `reference.json` produced on the reference machine.
 5. `setup/` guides per OS and `messages.json` for health check texts.
@@ -624,7 +639,7 @@ Recommendation: one monorepo now, with `content/` kept at the top level and self
 Tooling: Gradle (Kotlin DSL) multi-project for all Java; pnpm workspace for all TypeScript. Every folder below says what lives there and who owns changes.
 
 ```
-dryrun/
+intervue/
 ├── README.md                         # how to run everything locally                              owner: you
 ├── CONTRIBUTING.md                   # the rules in 5.11                                           owner: you
 ├── settings.gradle.kts               # auto-includes backend, engine, shared-java/*, languages/*/runner, sections/*/grader
@@ -634,7 +649,7 @@ dryrun/
 │   ├── workflows/                    # one path-filtered workflow per deployable (5.8)             owner: you
 │   └── CODEOWNERS                    # empty until a second contributor
 ├── backend/                          # Spring Boot 3, Java 21, hexagonal                           owner: backend
-│   ├── src/main/java/app/dryrun/backend/
+│   ├── src/main/java/si/intervue/backend/
 │   │   ├── identity/                 # users, devices, device-auth flow, tokens, sign-out-all
 │   │   ├── catalog/                  # packs, problems metadata, versions, free problem pointer
 │   │   ├── entitlements/             # grants, terms, device slots, redeem codes, status rules
@@ -651,7 +666,7 @@ dryrun/
 │   ├── src/test/                     # unit + Testcontainers Postgres integration tests
 │   └── Dockerfile
 ├── engine/                           # Java 21 local core, replaces server/Server.java              owner: app
-│   ├── src/main/java/app/dryrun/engine/
+│   ├── src/main/java/si/intervue/engine/
 │   │   ├── api/                      # local HTTP on 127.0.0.1 (JDK httpserver), per-launch token, SSE
 │   │   ├── session/                  # create (interview or practice), files, runs, unlock, clock with pause, hints, finish, report
 │   │   ├── session/edits/            # AI edit protocol parser, EditApplier (allowed paths, base hash, exact match), snapshots, undo, reset
@@ -671,7 +686,7 @@ dryrun/
 │   ├── src-tauri/src/                # main.rs, commands/ (engine port+token, OS facts, open-external), engine launcher, keychain, proctor/ (later)
 │   ├── src-tauri/capabilities/       # permission sets for the shell, dialog and updater plugins
 │   ├── src-tauri/tauri.conf.json     # bundle targets nsis and dmg, resources (jlink runtime, free problem), updater endpoints
-│   ├── src/                          # renderer: mounts @dryrun/ui App; nothing else
+│   ├── src/                          # renderer: mounts @intervue/ui App; nothing else
 │   ├── resources/                    # jlink runtime (built, git-ignored), free problem, icons, licences
 │   └── scripts/                      # jlink.ts, latest.json generator, smoke test
 ├── web/                              # React + Vite + TypeScript + MUI website                       owner: web
@@ -732,7 +747,7 @@ dryrun/
 
 | Prototype file | New location | Note |
 |---|---|---|
-| `server/Server.java` routing, static files, http helpers | `engine/api/` | Keeps JDK httpserver; adds a per-launch token instead of the `X-Dryrun` header |
+| `server/Server.java` routing, static files, http helpers | `engine/api/` | Keeps JDK httpserver; adds a per-launch token instead of the `X-Intervue` header |
 | `Server.Sessions` (create, files, unlock, notes, finish, report) | `engine/session/` | `score()` moves to `sections/coding-round/scoring/` |
 | `Server.Runner` (compile, run, restore read-only, sections parser) | `languages/java/runner/` and `engine/runners/` | Parser becomes `shared-java/run-protocol` |
 | `Server.exec` | `engine/runners/ProcessControl.java` | Adds memory limit flag and per-language kill rules |
@@ -754,7 +769,7 @@ dryrun/
 | `run.bat`, `run.sh` | dropped | Installer and `scripts/dev-up.sh` |
 | `README.md` | `README.md` and `docs/` | |
 | `PLANNING-PROMPT.md` | `docs/plan/` | |
-| `sessions/` | user data directory, never in the repo | `%APPDATA%/Dryrun` and `~/Library/Application Support/Dryrun` |
+| `sessions/` | user data directory, never in the repo | `%APPDATA%/Intervue` and `~/Library/Application Support/Intervue` |
 
 ### 5.3 Application architecture and dependency direction
 
@@ -840,7 +855,7 @@ A second job runs `content/tools validate` (schema, required files, every langua
 
 ### 5.7 Versioning and compatibility
 
-Semantic versioning per deployable. The app sends `X-Dryrun-App: <version>` and `X-Dryrun-Formats: pack=1;sync=1` on every call; the backend answers `426 Upgrade Required` with a reason when the version is below the supported floor.
+Semantic versioning per deployable. The app sends `X-Intervue-App: <version>` and `X-Intervue-Formats: pack=1;sync=1` on every call; the backend answers `426 Upgrade Required` with a reason when the version is below the supported floor.
 
 | App version | Backend API | Pack format | Sync protocol | Language SPI | Section SPI |
 |---|---|---|---|---|---|
@@ -855,7 +870,7 @@ Backend keeps old apps working by serving v1 unchanged, by never removing fields
 
 | Deployable | Trigger paths | CI jobs | Environments | Secrets | Rollback |
 |---|---|---|---|---|---|
-| Backend | `backend/**`, `shared-java/**` | build, unit, Testcontainers integration, Docker image, deploy to staging on merge, deploy to prod on tag | local (compose), staging (second stack on the VPS, own DB and bucket), prod | GitHub Environment secrets for registry and SSH; runtime secrets in `/etc/dryrun/backend.env` on the VPS, root-only | Redeploy previous image tag (`scripts/release-backend.sh rollback`); Flyway migrations are additive so old images run against new schema |
+| Backend | `backend/**`, `shared-java/**` | build, unit, Testcontainers integration, Docker image, deploy to staging on merge, deploy to prod on tag | local (compose), staging (second stack on the VPS, own DB and bucket), prod | GitHub Environment secrets for registry and SSH; runtime secrets in `/etc/intervue/backend.env` on the VPS, root-only | Redeploy previous image tag (`scripts/release-backend.sh rollback`); Flyway migrations are additive so old images run against new schema |
 | Website | `web/**`, `packages/**` | lint, typecheck, build, deploy preview per PR, deploy prod on merge | Cloudflare Pages preview and production | Pages token | Pages instant rollback to previous deployment |
 | Desktop app | `desktop/**`, `engine/**`, `languages/**`, `sections/**`, `packages/**`, `shared-java/**` | Java tests, TS tests, `cargo fmt --check`, `cargo clippy`, `cargo test`, jlink runtime, `cargo tauri build` on the Windows and macOS runners with the Rust build cache, sign, notarize, sign update artefacts with the updater key, smoke-launch, upload artefacts and `latest.json` to R2 `releases/<channel>/` on tag | channels: `dev` (every merge), `beta` (tag `-beta`), `stable` (tag) | Windows cloud-signing credentials, Apple certificate and password, Apple ID or API key, `TAURI_SIGNING_PRIVATE_KEY`, R2 token | Point the channel's `latest.json` back at the previous version; the updater offers it as an update |
 | Language packages | inside the app build | same as app, plus `languages/<lang>/calibration` run on CI reference runner | ship with the app; a flag can hide a language | none | with the app |
@@ -905,10 +920,10 @@ Target time from download to first session: under 5 minutes on Windows and macOS
 
 | Step | Windows | macOS | Linux (Phase 6, unsigned) |
 |---|---|---|---|
-| Download | `Dryrun-Setup-1.0.0.exe` from the website, about 50 MB (section 3.2); installs the WebView2 runtime first if the machine lacks it | `Dryrun-1.0.0-arm64.dmg` or `-x64.dmg`, about 50 MB; the site picks by browser hint and lets the user switch | `.AppImage` and `.deb` |
+| Download | `Intervue-Setup-1.0.0.exe` from the website, about 50 MB (section 3.2); installs the WebView2 runtime first if the machine lacks it | `Intervue-1.0.0-arm64.dmg` or `-x64.dmg`, about 50 MB; the site picks by browser hint and lets the user switch | `.AppImage` and `.deb` |
 | Installer warning | SmartScreen may show "Windows protected your PC" until the signing identity has reputation; the download page shows the exact dialog and the "More info, Run anyway" path, and the fix (reputation) is in section 3 | Gatekeeper opens a notarized app without a warning; an unnotarized build is blocked, so every release is notarized | "Untrusted application" dialogs vary; the guide shows `chmod +x` and `--appimage-extract` fallbacks |
 | First launch | Doctor screen runs the blocking checks (6.4), 10 to 20 seconds; Java sample compiles and runs; calibration runs once (about 15 seconds) | Same; the first launch also asks nothing about permissions because no capture or microphone is used | Same |
-| Free problem | The dashboard shows Hold Exposure as "Free, built in", with "Start the clock" enabled without sign-in | Same | Same |
+| Free problems | The dashboard shows the two free problems as "Free, built in", with "Start the clock" enabled without sign-in | Same | Same |
 | Sign-in | Optional banner: "Sign in to sync progress and unlock the assistant". Device flow opens the browser | Same | Same |
 | Store | Pack cards link to the website; after purchase the app refreshes entitlements and downloads | Same | Same |
 
@@ -918,7 +933,7 @@ Target time from download to first session: under 5 minutes on Windows and macOS
 
 | Symptom | Cause | Fix shown |
 |---|---|---|
-| "Bundled runtime missing files" | Antivirus quarantined `runtime/bin/java.exe` or a DLL | Restore from quarantine, allowlist the Dryrun folder, reinstall; a "Repair" button reinstalls the runtime from the installer cache |
+| "Bundled runtime missing files" | Antivirus quarantined `runtime/bin/java.exe` or a DLL | Restore from quarantine, allowlist the Intervue folder, reinstall; a "Repair" button reinstalls the runtime from the installer cache |
 | "Sample program did not compile" | Corporate policy blocks executables in `%LOCALAPPDATA%` (AppLocker, Smart App Control) | Install per-machine into Program Files via the installer's "all users" option, or ask IT to allowlist the signed publisher |
 | Runs are slow and phase 3 times out on the reference | Laptop in power saver mode, or a very slow machine | Calibration factor is shown; "Re-run calibration while plugged in" |
 | "Port in use" | Another local service on the engine port | The engine picks a free port automatically; the message appears only if every port in its range is taken |
@@ -931,14 +946,14 @@ Windows:
 1. Open https://www.python.org/downloads/windows/ and download the 64-bit installer for the latest 3.12 or 3.13 release.
 2. Run it. Tick "Add python.exe to PATH". Click "Install Now".
 3. Open a new Command Prompt and run `python --version`. Expect `Python 3.12.x` or `3.13.x`.
-4. In Dryrun, open Doctor, choose Python, click "Use system Python". The check compiles and runs the sample.
+4. In Intervue, open Doctor, choose Python, click "Use system Python". The check compiles and runs the sample.
 Common failures: the Microsoft Store stub opens when typing `python` (turn off "App execution aliases" for python.exe in Windows Settings); `python` is 32-bit (uninstall, install the 64-bit build); antivirus blocks `python.exe` on first run (allow it).
 
 macOS:
 1. Install from https://www.python.org/downloads/macos/ (universal2 installer), or `brew install python@3.12`.
 2. In Terminal run `python3 --version`.
-3. In Dryrun, Doctor, Python, "Use system Python".
-Common failures: the system `python3` is the Xcode Command Line Tools shim and prompts to install tools (accept, or install from python.org); Homebrew path not on PATH in the app's environment (Dryrun searches `/opt/homebrew/bin` and `/usr/local/bin` explicitly).
+3. In Intervue, Doctor, Python, "Use system Python".
+Common failures: the system `python3` is the Xcode Command Line Tools shim and prompts to install tools (accept, or install from python.org); Homebrew path not on PATH in the app's environment (Intervue searches `/opt/homebrew/bin` and `/usr/local/bin` explicitly).
 
 Linux:
 1. `sudo apt install python3 python3-venv` (Debian and Ubuntu) or `sudo dnf install python3` (Fedora).
@@ -966,13 +981,13 @@ Two runs: the full Doctor before the first session and on demand from the dashbo
 
 | Check | Declared by | What it tests and how | Pass / fail | Message on fail | Fix | Blocking? | F |
 |---|---|---|---|---|---|---|---|
-| OS and architecture | shell | `os.name`, version, arch against the support matrix | Windows 10 2004+, macOS 13+, x64 or arm64 | "Dryrun supports Windows 10 version 2004 and later and macOS 13 and later. This machine: ..." | Link to supported systems | Blocking | F |
+| OS and architecture | shell | `os.name`, version, arch against the support matrix | Windows 10 2004+, macOS 13+, x64 or arm64 | "Intervue supports Windows 10 version 2004 and later and macOS 13 and later. This machine: ..." | Link to supported systems | Blocking | F |
 | Bundled runtime intact | Java package | Files present, `java -version` output matches the embedded version, hash of `lib/modules` | Exact version match | "The bundled Java runtime is damaged (likely antivirus). Repair?" | One-click Repair reinstalls from installer cache | Blocking | F |
-| Toolchain present and version | each language | Run `<tool> --version` for compiler and runtime, parse version, compare with `minToolchain` | Both found, version at or above minimum | "Python 3.9 found at ...; Dryrun needs 3.12 or newer" | "Download recommended version" or guide link | Blocking for that language | F |
+| Toolchain present and version | each language | Run `<tool> --version` for compiler and runtime, parse version, compare with `minToolchain` | Both found, version at or above minimum | "Python 3.9 found at ...; Intervue needs 3.12 or newer" | "Download recommended version" or guide link | Blocking for that language | F |
 | Compile and run sample | each language | Compile and run `sample/` program through the real runner, measure ms | Exit 0, expected output, under 10 s | "The sample program failed: <first error line>" | Guide link to the matching failure row | Blocking for that language | |
 | Calibration | each language | Run `calibration/` benchmark 3 times, median, divide by reference ms, clamp 1.0 to 4.0 | Factor computed | "This machine is 2.6x slower than our reference; time limits are scaled accordingly" | Re-run while plugged in | Warning | |
-| Sessions folder writable and disk space | shell | Create and delete a temp file in the data folder; free space | Writable, over 1 GB free | "Dryrun cannot write to <path>" or "Only 300 MB free" | Open folder settings; choose another location | Blocking | F |
-| Local port free and not blocked | shell | Bind on 127.0.0.1 in the port range; the UI calls `GET /local/ping` | Bind and ping succeed | "A firewall or antivirus is blocking Dryrun's local connection" | Allowlist instructions per product | Blocking | F |
+| Sessions folder writable and disk space | shell | Create and delete a temp file in the data folder; free space | Writable, over 1 GB free | "Intervue cannot write to <path>" or "Only 300 MB free" | Open folder settings; choose another location | Blocking | F |
+| Local port free and not blocked | shell | Bind on 127.0.0.1 in the port range; the UI calls `GET /local/ping` | Bind and ping succeed | "A firewall or antivirus is blocking Intervue's local connection" | Allowlist instructions per product | Blocking | F |
 | Encoding and line endings | each language | Compile and run a sample containing UTF-8 text and a CRLF file; compare output | Byte-exact expected output | "Text output is garbled on this machine" | Automatic: the runner forces UTF-8 flags; message only if that fails | Warning | |
 | Packs present and valid | shell (pack client) | For each downloaded pack: signature, hash, decryptable with the cached key for the signed-in user, `formatVersion` in range, languages and sections available | All valid | "Pack <name> is damaged. Re-download?" or "needs app 1.3" | Re-download; update app | Blocking for that pack | F |
 | App version supported | shell | Compare with `GET /v1/version-floor` (cached) | Above the floor | "This version is no longer supported. Update to continue syncing" | Update button | Warning offline, blocking for sync | F |
@@ -1080,7 +1095,7 @@ Filters combine with AND across axes and OR within an axis. The dashboard groups
 
 ### 7.3 Coverage map
 
-Target catalogue: 10 problems in the base app and at launch (1 free plus a launch pack of 9), 16 after Phase 2, 36 by the end of Phase 3, 60 by the end of the first year. Every problem exercises one primary technique and usually a secondary one. Counts below are planned, not written; the three existing problems are marked.
+Target catalogue: 10 problems in the base app and at launch (2 free plus a launch pack of 8, ADR 0001), 16 after Phase 2, 36 by the end of Phase 3, 60 by the end of the first year. Every problem exercises one primary technique and usually a secondary one. Counts below are planned, not written; the three existing problems are marked.
 
 | NeetCode 150 topic group | Planned scenario problems (domain) | Easy / Medium / Hard | Pack and phase |
 |---|---|---|---|
@@ -1094,7 +1109,7 @@ Target catalogue: 10 problems in the base app and at launch (1 free plus a launc
 | Tries | **Merchant Suggest (fintech, existing)**; Command palette (developer tools) | 0 / 0 / 2 | Launch pack A; Phase 3 |
 | Heap and priority queue | ER triage queue (healthcare); Matchmaking lobby (gaming) | 0 / 1 / 1 | Launch pack B; Phase 3 |
 | Backtracking | Shift assignment solver (healthcare); Loot table generator (gaming) | 0 / 1 / 1 | Phase 3; Phase 7 |
-| Graphs | **Corridor Router (fintech, existing)**; Friend suggestion (social) | 0 / 2 / 0 | Launch pack A; Phase 3 |
+| Graphs | **Corridor Router (fintech, existing, free)**; Friend suggestion (social) | 0 / 2 / 0 | Free; Launch pack A |
 | Advanced graphs | Dependency installer order (developer tools); Cheapest flight with stops (travel) | 0 / 1 / 1 | Phase 3; Phase 7 |
 | 1-D dynamic programming | Coupon stacking (e-commerce); Streaming bitrate ladder (streaming) | 0 / 1 / 1 | Launch pack B; Phase 7 |
 | 2-D dynamic programming | Warehouse path with obstacles (logistics); Text diff for code review (developer tools) | 0 / 1 / 1 | Phase 3; Phase 7 |
@@ -1103,7 +1118,7 @@ Target catalogue: 10 problems in the base app and at launch (1 free plus a launc
 | Math and geometry | Delivery zone geofence (logistics); Game camera clamp (gaming) | 1 / 1 / 0 | Phase 3; Phase 7 |
 | Bit manipulation | Feature flag bitsets (developer tools); Permission masks (social) | 1 / 1 / 0 | Launch pack B; Phase 7 |
 
-Base app and launch (Phases 1a to 1c): free Hold Exposure plus the launch pack of 9 (Merchant Suggest, Corridor Router, Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup). That is 10. Phase 2 adds pack B of 6 (Org chart permissions, ER triage queue, Coupon stacking, Feature flag bitsets, Command palette, Meeting room booker) for 16. Phase 3 adds 20 across every group (36). Phase 7 adds the remaining hard problems (60).
+Base app and launch (Phases 1a to 1c): free Hold Exposure and Corridor Router (ADR 0001) plus the launch pack of 8 (Merchant Suggest, Duplicate order detector, Rate limiter audit, Courier load balancer, Friend suggestion, Playlist dedupe, Build-log bracket checker, Shift roster lookup). That is 10. Phase 2 adds pack B of 6 (Org chart permissions, ER triage queue, Coupon stacking, Feature flag bitsets, Command palette, Meeting room booker) for 16. Phase 3 adds 20 across every group (36). Phase 7 adds the remaining hard problems (60).
 
 ### 7.4 Authoring pipeline
 
@@ -1368,8 +1383,9 @@ Assumptions: 14 hours a week on average (your range is 8 to 20), AI-assisted cod
 
 | Phase | Goal | In | Explicitly out | Content per language | Paid for | Exit criteria | Weeks (est.) | Main risk |
 |---|---|---|---|---|---|---|---|---|
-| 0. Validation | Confirm people want this and will pay | Landing page with waitlist and the improved prototype zip; 10 conversations with target users; 3 testers complete a prototype session; pricing survey; choose the provider and start Apple enrolment and the Windows certificate (validation takes days to weeks); repo skeleton | Any new product code beyond the skeleton | Java: the existing 3 | Nothing | 25 waitlist sign-ups or 5 explicit "would pay at ₹499"; 3 recorded sessions with notes | 2 | Talking to the wrong users |
-| 1a. Base app (decision 11, first prompt) | A working desktop app with 10 problems, no account | A two to three week Rust and Tauri learning sprint (`docs/learning/phase-1a.md`) ending in a shell that launches the prototype; engine rewrite (SQLite, run protocol, health framework, calibration); Interview and Practice session types; authored hints with three levels per phase and the Hint control; the AI edit applier with snapshots, undo, reset and the assisted flag, tested with a fake edit source; editor tier 1 (autocomplete from project symbols, inline compiler diagnostics); React UI port; Tauri 2 shell in Rust with the bundled runtime, unsigned dev builds; the Java language package and the coding-round section package; 10 problems from a local content folder with hints: the 3 existing plus 7 from the coverage map | Backend, accounts, packs, encryption, payments, AI calls (Ask, Write code, hint explanation), sync, website, signing, updater, language servers | Java: 10 (1 free, 9 for the launch pack) | Nothing yet | Full Interview and Practice sessions on both OSes from a zip; Doctor green; 10 problems verified with hints; a tester completes a session | 8 to 10, of which 2 to 3 are the learning sprint | Rust on the critical path; mitigated by the thin shell and the Electron fallback if the sprint overruns by more than a week |
+| 0. Validation | Confirm people want this and will pay | Landing page with waitlist and the improved prototype zip; 10 conversations with target users; 3 testers complete a prototype session; pricing survey; choose the provider and start Apple enrolment and the Windows certificate (validation takes days to weeks); repo skeleton | Any new product code beyond the skeleton | Java: the existing 3 | Nothing | 25 waitlist sign-ups or 5 explicit "would pay" (Definitely or Probably) at ₹1,500 a month or ₹3,500 a quarter; 3 recorded sessions with notes | 2 | Talking to the wrong users |
+| 1a. Base app (decision 11, first prompt) | A working desktop app with 10 problems, no account | A two to three week Rust and Tauri learning sprint (`docs/learning/phase-1a.md`) ending in a shell that launches the prototype; engine rewrite (SQLite, run protocol, health framework, calibration); Interview and Practice session types; authored hints with three levels per phase and the Hint control; the AI edit applier with snapshots, undo, reset and the assisted flag, tested with a fake edit source; editor tier 1 (autocomplete from project symbols, inline compiler diagnostics); React UI port; Tauri 2 shell in Rust with the bundled runtime, unsigned dev builds; the Java language package and the coding-round section package; 10 problems from a local content folder with hints: the 3 existing plus 7 from the coverage map | Backend, accounts, packs, encryption, payments, AI calls (Ask, Write code, hint explanation), sync, website, signing, updater, language servers | Java: 10 (2 free, 8 for the launch pack) | Nothing yet | Full Interview and Practice sessions on both OSes from a zip; Doctor green; 10 problems verified with hints; a tester completes a session | 8 to 10, of which 2 to 3 are the learning sprint | Rust on the critical path; mitigated by the thin shell and the Electron fallback if the sprint overruns by more than a week |
+| 1ab. Live assistant, scoring rule, room refresh (added 2026-10-14 after the first hands-on run) | The assistant works on the developer's machine through the CLI route, AI use no longer blocks solved, and the room follows a guided flow | `AiClient` with `CliModelClient` behind developer mode for Ask, Write code, hint explanation and the written review; point-and-explain prompts with recorded-transcript tests; score and dashboard without the assisted gate (ADR 0006); guided set-up screen, phase overview and intro cards, Guide tab with the passing pill, end-session dialog; new visual tokens, dashboard cards | Backend route, accounts, caps, usage log, remaining-allowance rule, comprehension questions, per-phase clocks | Java: 10 | Nothing yet | Ask, Write code, undo and the review work end to end on one machine; a passing Interview session with AI edits counts as solved; both session types hand-checked in the new room in both themes | 1 to 2 | Prompt rules that leak solutions; mitigated by one recorded-transcript test per rule |
 | 1b. Accounts, packs, payment page, AI | Buy, download, practise, chat and get feedback through the backend | Backend identity with device flow, catalog with the `plans` table, entitlements, redeem codes, promo codes, `PaymentPort` with the mock adapter and the manual UPI adapter, signed URLs and keys, encrypted packs, AI gateway with Ask, Write code and hint-explanation endpoints, caching and message-equivalent caps, minimal admin page; engine pack client and AI client wired to the edit applier, with the developer-mode route between the Claude CLI and the backend (2.5); E2E Networks hosting with staging | Real gateway adapter, website beyond activate and checkout, sync, deferred feedback, signing, language servers | Java: 10 | Launch pack, monthly and quarterly, paid by UPI and confirmed by you until a gateway is live | Redeem and UPI orders produce entitlements; pack locks and deletes correctly; Write code applies and undoes edits end to end; caps enforced per channel; staging and production deploy from CI | 5 | Entitlement and key handling bugs; mitigated by tests on expiry, revoke, refund and device limit |
 | 1c. Website, installers, launch | First paying user | Website (landing, pricing, setup guides, download, sign-in, store, account); jlink runtime, Tauri bundler configuration, Windows signing through `signCommand`, macOS notarization, updater plugin with signed `latest.json` channels; Doctor completion and copy-report; launch pack built, signed, published; beta of five, then launch | Sync, deferred feedback, dashboard, Python, Linux | Java: 10 | Launch pack | A stranger pays; 10 external sessions; crash-free week; update from 1.0.0 to 1.0.1 works on both OSes | 3 to 4 | Signing and notarization friction; mitigated by starting certificates in Phase 0 and signing every build from the first |
 | 2. Sync, deferred feedback, Java IntelliSense (decision 12) | Same state on every device, AI review for offline sessions, real IntelliSense for Java | Push and pull, outbox, feedback requests, device management in the app, pack B of 6, promo-code reporting, pack update flow; the Eclipse JDT Language Server as a downloadable editor plugin behind a flag through `@codemirror/lsp-client` | Website dashboard | Java: 16 | Launch pack and pack B | Two devices show identical history; an offline session gets feedback after reconnecting; 15 problems live | 6 | Sync edge cases eating the schedule; mitigated by append-only design |
@@ -1403,7 +1419,7 @@ Ordered by when you need it. "Minimum" is what the plan actually requires, not m
 | Phase 0 | Product discovery and pricing | You pick the first 15 problems and the price from what users say | How to run a 20-minute user interview without leading; how to read a pricing survey | "The Mom Test" (Fitzpatrick) and five interviews this month |
 | Phase 1 | React with TypeScript, TanStack Query, MUI | The app UI and the website | Components, hooks, query caching, forms, routing | Rebuild the prototype's three views in React as the learning project; the official React docs "Learn" track |
 | Phase 1a | Rust basics and Tauri 2 | The shell, engine launcher, keychain, later the updater and native checks | Ownership and borrowing, `Result` and `?`, structs, enums and traits, Cargo and modules, `std::process::Command`, Tokio basics; Tauri commands and events, capabilities and permissions, the shell plugin, bundle resources, `tauri.conf.json` | The official Rust book chapters 1 to 10, the Tauri 2 quick start, then the sprint exercise in `docs/learning/phase-1a.md`: a window that launches the prototype's `Server.java` and shows its dashboard |
-| Phase 1 | Desktop packaging and signing | Users see a warning or they do not | Developer ID, notarization, hardened runtime; Windows code-signing certificate types and the hardware or cloud key rule; SmartScreen reputation | Apple's "Notarizing macOS software before distribution"; Microsoft's SmartScreen reputation page; sign a hello-world app on both OSes before touching Dryrun |
+| Phase 1 | Desktop packaging and signing | Users see a warning or they do not | Developer ID, notarization, hardened runtime; Windows code-signing certificate types and the hardware or cloud key rule; SmartScreen reputation | Apple's "Notarizing macOS software before distribution"; Microsoft's SmartScreen reputation page; sign a hello-world app on both OSes before touching Intervue |
 | Phase 1 | Auth and security | Device flow, tokens, signed URLs, encryption at rest | RFC 8628 device authorization, JWT lifetimes, refresh token rotation, Ed25519 signatures, AES-GCM, X25519 key wrapping, presigned URLs | Read RFC 8628 once; implement the flow against your own backend in a spike; OWASP cheat sheets for JWT and key storage |
 | Phase 1 | Payments | Webhooks create entitlements | Hosted checkout, webhook signature verification, idempotency, refunds and disputes, test mode | Your provider's webhook docs and a sandbox integration with replayed events |
 | Phase 1 | Tax and compliance basics | So the accountant's questions make sense | GST threshold and export treatment at a glance, what a merchant of record changes, DPDP consent and breach duties | One meeting with a CA with the questions from section 8.4 written down |
@@ -1449,7 +1465,7 @@ Ranked by likelihood times impact. Likelihood and impact are my judgement, not m
 | 16 | Download size on slow connections | Low with Tauri (about 50 MB) | Low | Per-arch builds; toolchains downloaded only when a language is chosen; the WebView2 bootstrapper only where the runtime is missing |
 | 17 | Proctoring mode legal exposure and detection arms race | Medium (later) | High (later) | Consent and notice by design; integrity report with raw events rather than verdicts; lawyer review before the first company; detection from enumeration, not screenshots |
 | 18 | AI edits damaging a user's work or trust (wrong file, lost typing, half-applied change) | Medium | High | The applier's rules in 2.8: allowed paths, base hash, exact match, per-edit snapshots, one-click undo, reset from source; every rule has a test; edits never touch read-only files or the pack source |
-| 19 | Assisted sessions blurring the product's promise of a realistic rehearsal | Medium | Medium | Assisted label on the score and dashboard; solved and best score require unassisted interview sessions; the reviewer judges control of the AI from edit events |
+| 19 | Assistant use blurring the product's promise of a realistic rehearsal | Medium | Medium | Point-and-explain rules keep the assistant from handing over solutions in Interview sessions; the AI edit count is shown on the result page; the reviewer scores control of the AI from edit events (ADR 0006) |
 | 20 | Language servers heavy or flaky on low-end laptops | Medium | Low | Optional download, started only during a session, heap capped, silent fallback to built-in completion, warning-level health check |
 
 ## 13. First two weeks
@@ -1484,7 +1500,7 @@ If the certificate is still pending on day 14, Phase 1 engineering starts anyway
 5. **Desktop shell: decided, Tauri 2 in Rust.** Chosen on 2026-10-14 for the small download and for native work in one toolchain, accepting a two to three week Rust learning sprint at the start of Phase 1a. The UI stays React and TypeScript. The shell stays free of logic (section 5), so Electron remains the fallback if the sprint overruns.
 
 6. **Launch content and order of work: decided.** A base working app with 10 problems first (Phase 1a), then accounts, packs and the payment page (1b), then website, installers and launch (1c), each run from its prompt file through the pipeline in section 15.
-7. **Assistant and sessions: decided (section 2.8).** Two session types, Interview and Practice; two assistant channels, Ask and Write code, available in both; an Interview session with AI edits applied at a run or at finish is scored "assisted" and does not count as solved; Practice has three-level authored hints with an online "explain further", no clock limit by default and no proctoring; edits apply immediately with undo on the session's copy and the source is never changed; Write code costs three message-equivalents; the assistant edits the whole project unless the user names a file or a method; the reviewer sees edit events. Editor: built-in autocomplete and compiler diagnostics at launch, language-server IntelliSense as per-language plugins from Phase 2.
+7. **Assistant and sessions: decided (section 2.8).** Two session types, Interview and Practice; two assistant channels, Ask and Write code, available in both; an Interview session with AI edits applied at a run or at finish is recorded as "assisted", which no longer changes the label, solved or the best score (ADR 0006, 2026-10-14); in Interview sessions the assistant follows the point-and-explain rules of 2.8; Practice has three-level authored hints with an online "explain further", no clock limit by default and no proctoring; edits apply immediately with undo on the session's copy and the source is never changed; Write code costs three message-equivalents; the assistant edits the whole project unless the user names a file or a method; the reviewer sees edit events. Editor: built-in autocomplete and compiler diagnostics at launch, language-server IntelliSense as per-language plugins from Phase 2.
 
 8. **Claude CLI for your own testing: decided (section 2.5).** In developer mode the engine routes assistant calls to the Claude CLI with Sonnet 5.5 at low effort when the CLI is present, signed in and above a configurable remaining-allowance threshold (default 50%), otherwise to the backend. End-user builds never use the CLI. How the remaining allowance is read is a research item; until verified, a local window budget stands in for it.
 
@@ -1526,12 +1542,12 @@ The first version of this plan had CI gates and contributing rules but no prompt
 ### 15.6 What to set up before Phase 1a
 
 1. Install superpowers and add Context7 with your key, using the commands in `docs/process/pipeline.md`. Skip gstack for now.
-2. Create the GitHub repository from `D:\projects\AICoding\dryrun`, protect `main` with required CI, and label PRs by part.
+2. Create the GitHub repository from `D:\projects\AICoding\intervue`, protect `main` with required CI, and label PRs by part.
 3. On day 1 of Phase 1a let the pipeline build the Gradle and pnpm skeleton with the gates marked Phase 1a already wired, so every later PR is checked from the first commit.
 4. Add the pre-commit hook that runs `spotlessApply` and `prettier --write` once those tools exist.
 5. Read `CLAUDE.md` and the process documents once yourself, do the learning sprint in `docs/learning/phase-1a.md`, then run `/phase docs/prompts/phase-1a-base-app.md`.
 
 ### 15.7 Learning per phase
 
-`docs/learning/` has one file per phase with four parts: the minimal concepts for that phase and nothing more, why each matters in Dryrun, the official sources, and a tutor prompt written for your background that you paste into an AI assistant. The prompt asks the tutor to explain each concept in two sentences with a Dryrun example, check your understanding with one question before moving on, and finish with a 30-minute exercise that produces something the phase needs.
+`docs/learning/` has one file per phase with four parts: the minimal concepts for that phase and nothing more, why each matters in Intervue, the official sources, and a tutor prompt written for your background that you paste into an AI assistant. The prompt asks the tutor to explain each concept in two sentences with a Intervue example, check your understanding with one question before moving on, and finish with a 30-minute exercise that produces something the phase needs.
 

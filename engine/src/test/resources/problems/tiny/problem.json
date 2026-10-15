@@ -1,0 +1,10 @@
+{
+  "formatVersion": 1, "id": "tiny", "version": 1, "section": "coding-round",
+  "title": "Tiny", "summary": "Two phases for engine tests.", "difficulty": "Easy",
+  "techniques": ["arrays"], "domain": "test", "minutes": 10,
+  "phases": [
+    {"id": 1, "title": "Fix", "brief": "brief/phase1.md", "hints": "hints/phase1.md", "weight": 20, "allOrNothing": true, "timeoutRefMs": 30000},
+    {"id": 2, "title": "Grow", "brief": "brief/phase2.md", "hints": "hints/phase2.md", "weight": 50, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why?"], "languages": ["java"]
+}

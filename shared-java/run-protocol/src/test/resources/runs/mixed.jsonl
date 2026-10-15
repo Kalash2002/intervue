@@ -1,0 +1,8 @@
+{"protocol":1,"t":"start","runner":"java-kit/2.0","language":"java","factor":1.3}
+{"t":"suite","name":"Phase2Tests","tests":3}
+{"t":"test","suite":"Phase2Tests","name":"singleHold","status":"pass","ms":11}
+{"t":"test","suite":"Phase2Tests","name":"sampleFile","status":"fail","ms":4,"detail":"expected <255049> but was <255048>","at":"Phase2Tests.sampleFile(Phase2Tests.java:118)"}
+{"t":"test","suite":"Phase2Tests","name":"harness","status":"error","ms":0,"detail":"NoSuchMethodException"}
+{"t":"suite","name":"Phase3Tests","tests":1}
+{"t":"test","suite":"Phase3Tests","name":"oneBusyAccount","status":"timeout","ms":7800,"limitMs":7800}
+{"t":"summary","passed":1,"failed":1,"timeouts":1,"compileError":false,"wallMs":9120}

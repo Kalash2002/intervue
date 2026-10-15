@@ -1,6 +1,6 @@
 # Learning per phase
 
-One file per phase. Each has four parts: the minimal concepts for that phase and nothing more, why each matters in Dryrun, the official sources to read, and a tutor prompt written for your background. Paste the prompt into an AI assistant (Claude, or any model) at the start of the phase and work through it before running `/phase`.
+One file per phase. Each has four parts: the minimal concepts for that phase and nothing more, why each matters in Intervue, the official sources to read, and a tutor prompt written for your background. Paste the prompt into an AI assistant (Claude, or any model) at the start of the phase and work through it before running `/phase`.
 
 Your background, as every prompt states it: backend engineer with about two years of Java and Spring Boot, comfortable with REST, SQL and Docker basics, knows JavaScript, React, Redux and MUI, can read TypeScript, no Rust, Python or Go yet, working part-time with 8 to 20 hours a week.
 
