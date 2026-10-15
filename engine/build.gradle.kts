@@ -9,7 +9,8 @@ dependencies {
     testImplementation(libs.archunit)
     // Session tests run real code through the real packages; main code never sees them (ArchitectureTest).
     testRuntimeOnly(project(":languages:java:runner"))
-    testRuntimeOnly(project(":sections:coding-round:java"))
+    rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
+        .forEach { testRuntimeOnly(it) }
 }
 
 tasks.test {
@@ -22,9 +23,11 @@ tasks.test {
 // every dependency and the installed packages, found through the manifest Class-Path. A separate
 // jar task, because the packages depend on the engine's own jar.
 val bundledPackages by configurations.creating
+// Every section package (settings.gradle.kts finds them by folder) runs in tests and ships in the dist.
+val sectionPackages = rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
 dependencies {
     bundledPackages(project(":languages:java:runner"))
-    bundledPackages(project(":sections:coding-round:java"))
+    sectionPackages.forEach { bundledPackages(it) }
 }
 val engineLibs = files(configurations.runtimeClasspath, bundledPackages)
     .filter { !it.startsWith(layout.buildDirectory.get().asFile) }

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
@@ -78,5 +79,25 @@ class ContentStoreTest {
 
     assertThatThrownBy(() -> store.load("../free")).isInstanceOf(ContentException.class);
     assertThatThrownBy(() -> store.load("no-such-problem")).isInstanceOf(ContentException.class);
+  }
+
+  @Test
+  void listsBothRoots() throws IOException {
+    copyTree(PROBLEMS.resolve("hold-exposure"), temp.resolve("a/hold-exposure"));
+    copyTree(PROBLEMS.resolve("corridor-router"), temp.resolve("b/corridor-router"));
+    ContentStore store = new PlainFolderSource(List.of(temp.resolve("a"), temp.resolve("b")));
+
+    assertThat(store.ids()).containsExactly("hold-exposure", "corridor-router");
+    assertThat(store.load("corridor-router").problem().title()).isEqualTo("Corridor Router");
+  }
+
+  @Test
+  void duplicateIdAcrossRootsThrows() throws IOException {
+    copyTree(PROBLEMS.resolve("hold-exposure"), temp.resolve("a/hold-exposure"));
+    copyTree(PROBLEMS.resolve("hold-exposure"), temp.resolve("b/hold-exposure"));
+
+    assertThatThrownBy(() -> new PlainFolderSource(List.of(temp.resolve("a"), temp.resolve("b"))))
+        .isInstanceOf(ContentException.class)
+        .hasMessageContaining("hold-exposure");
   }
 }

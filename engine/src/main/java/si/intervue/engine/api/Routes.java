@@ -39,7 +39,8 @@ final class Routes {
       List<String> tags,
       int minutes,
       int phases,
-      boolean free) {}
+      boolean free,
+      List<String> coveredBy) {}
 
   private final Engine engine;
 
@@ -157,7 +158,8 @@ final class Routes {
         p.tags(),
         p.minutes(),
         p.phases().size(),
-        free);
+        free,
+        p.coveredBy());
   }
 
   /** Practice rules: Helpful unless the room asks for Interview rules. */

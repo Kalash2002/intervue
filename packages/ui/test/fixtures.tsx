@@ -21,12 +21,14 @@ export const problem = (id: string, title: string, over: Partial<ProblemSummary>
   minutes: 60,
   phases: 3,
   free: false,
+  coveredBy: [],
   ...over,
 });
 
 export const summary = (over: Partial<SessionSummary>): SessionSummary => ({
   id: 's',
   problemId: 'hold-exposure',
+  sectionId: 'coding-round',
   type: 'INTERVIEW',
   startedAt: 0,
   finished: true,
@@ -51,6 +53,7 @@ export const check = (over: Partial<CheckResult>): CheckResult => ({
 export const session = {
   id: 'new-1',
   problemId: 'hold-exposure',
+  sectionId: 'coding-round',
   section: 'coding-round',
   type: 'PRACTICE',
   minutes: 60,

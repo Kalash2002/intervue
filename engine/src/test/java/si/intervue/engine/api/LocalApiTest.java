@@ -35,6 +35,8 @@ class LocalApiTest {
   void start() throws Exception {
     Path problems = root.resolve("problems");
     copyTree(Path.of(getClass().getResource("/problems/tiny").toURI()), problems.resolve("tiny"));
+    copyTree(
+        Path.of(getClass().getResource("/dsa/tiny-dsa").toURI()), root.resolve("dsa/tiny-dsa"));
     open(false);
   }
 
@@ -169,6 +171,33 @@ class LocalApiTest {
     assertThat(answer.get("figures").size()).isEqualTo(1);
     assertThat(answer.get("figures").get("figures/stack.svg").asString())
         .startsWith("data:image/svg+xml;base64,");
+  }
+
+  @Test
+  void problemsListCarriesSectionAndCoveredBy() throws Exception {
+    JsonNode problems = call("GET", "/problems", null);
+
+    JsonNode dsa = problems.get(1);
+    assertThat(dsa.get("id").asString()).isEqualTo("tiny-dsa");
+    assertThat(dsa.get("section").asString()).isEqualTo("dsa-quick");
+    assertThat(dsa.get("coveredBy").get(0).asString()).isEqualTo("tiny");
+    assertThat(problems.get(0).get("coveredBy").size()).isZero();
+  }
+
+  @Test
+  void historyRowCarriesSectionId() throws Exception {
+    JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
+    call("POST", "/sessions/" + session.get("id").asString() + "/finish", null);
+
+    assertThat(call("GET", "/sessions", null).get(0).get("sectionId").asString())
+        .isEqualTo("coding-round");
+  }
+
+  @Test
+  void aOnePhaseProblemHasAWalkthrough() throws Exception {
+    // Starting a session on it waits for the dsa-quick package (Task 4); the brief is tested in
+    // SessionBriefTest.
+    assertThat(call("GET", "/problems/tiny-dsa/walkthrough", null).toString()).contains("Approach");
   }
 
   @Test

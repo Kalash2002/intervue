@@ -1,0 +1,3 @@
+{"language": "java", "minToolchain": "21", "main": "Main",
+ "readOnly": ["Phase1Tests.java", "data/numbers.txt"],
+ "tests": {"1": "Phase1Tests"}}

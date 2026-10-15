@@ -90,7 +90,8 @@ public final class Engine implements AutoCloseable {
     LanguageRegistry languages = LanguageRegistry.load();
     SectionRegistry sections = SectionRegistry.load();
     ProcessControl processes = new ProcessControl();
-    ContentStore content = new PlainFolderSource(problemsDir);
+    ContentStore content =
+        new PlainFolderSource(List.of(problemsDir, problemsDir.resolveSibling("dsa")));
     Sessions sessions =
         new Sessions(
             new SessionStore(db),

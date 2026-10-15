@@ -1,0 +1,9 @@
+{
+  "formatVersion": 1, "id": "tiny-dsa", "version": 1, "section": "dsa-quick",
+  "title": "Tiny DSA", "summary": "One phase for engine tests.", "difficulty": "Easy",
+  "techniques": ["arrays"], "domain": "test", "minutes": 10,
+  "phases": [
+    {"id": 1, "title": "Solve", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": true, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why?"], "languages": ["java"], "coveredBy": ["tiny"]
+}

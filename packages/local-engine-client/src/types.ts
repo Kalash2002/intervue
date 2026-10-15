@@ -17,6 +17,8 @@ export interface ProblemSummary {
   phases: number;
   /** In the free list (ADR 0001). */
   free: boolean;
+  /** Coding-round problem ids this question covers (DSA); empty otherwise. */
+  coveredBy: string[];
 }
 
 export interface PhaseResult {
@@ -109,6 +111,7 @@ export interface SessionView {
 export interface SessionSummary {
   id: string;
   problemId: string;
+  sectionId: string;
   type: SessionType;
   startedAt: number;
   finished: boolean;
