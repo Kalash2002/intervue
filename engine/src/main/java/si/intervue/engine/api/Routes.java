@@ -55,7 +55,7 @@ final class Routes {
         && path.size() == 3
         && path.get(0).equals("problems")
         && path.get(2).equals("walkthrough")) {
-      return Map.of("text", engine.sessions().walkthrough(path.get(1)));
+      return engine.sessions().walkthrough(path.get(1));
     }
     String route = method + " /" + String.join("/", path);
     return switch (route) {

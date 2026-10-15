@@ -185,3 +185,92 @@ table.tests code {
   white-space: pre-wrap;
   overflow-wrap: anywhere;
 }
+
+/* The Answer page: a reading column with figures and prompt cards, an aside that sticks. */
+.answer .reading {
+  min-width: 0;
+  max-width: 88ch;
+  width: 100%;
+  justify-self: center;
+}
+.answer .reading .md.wide {
+  max-width: none;
+  font-size: 15px;
+  line-height: 1.65;
+}
+.answer .reading .md h2 {
+  scroll-margin-top: var(--space-5);
+}
+@media (min-width: 1280px) {
+  .answer .aside {
+    position: sticky;
+    top: var(--space-5);
+    align-self: start;
+  }
+}
+.toc ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.toc li {
+  margin: 2px 0;
+}
+.toc button {
+  width: 100%;
+  padding: 5px 8px;
+  border: 0;
+  border-radius: var(--radius-s);
+  background: transparent;
+  color: var(--text-2);
+  text-align: left;
+  font-size: 13px;
+}
+.toc button:hover {
+  background: var(--panel-2);
+  color: var(--text);
+}
+.fig {
+  margin: 22px 0;
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+  text-align: center;
+}
+.fig img {
+  max-width: 100%;
+  height: auto;
+}
+.fig figcaption {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 13px;
+}
+.fig.missing {
+  padding: 10px 14px;
+  text-align: left;
+}
+/* A ```text fence is a prompt the candidate sends, drawn as an outgoing chat bubble. */
+.md pre:has(> code.language-text) {
+  position: relative;
+  padding-top: 30px;
+  background: var(--chat-out);
+  color: var(--chat-out-ink);
+  border-color: transparent;
+}
+.md pre:has(> code.language-text)::before {
+  content: 'Prompt';
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  font: 650 11px/1 var(--ui);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.md pre > code.language-text {
+  font-family: var(--ui);
+  font-size: 14px;
+  white-space: pre-wrap;
+}

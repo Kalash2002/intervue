@@ -1,6 +1,6 @@
 // The coding round's result page body (section.json resultParts): score with its label, the strip,
 // then phases and how the session went, the walkthrough, and follow-ups with notes.
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import type { SessionResult, SessionView } from '@intervue/local-engine-client';
 import { clockText, failed, Markdown, plural, useApp, type SectionResultProps } from '@intervue/ui';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
@@ -40,12 +40,22 @@ export function ResultParts({ session }: SectionResultProps) {
       )}
       {tab === 'Walkthrough' && (
         <div className="rtab">
-          <Markdown source={result.walkthrough || 'No walkthrough yet.'} wide />
+          <WalkthroughTab problemId={session.problemId} text={result.walkthrough} />
         </div>
       )}
       {tab === 'Follow-ups and notes' && <FollowUps session={session} result={result} />}
     </>
   );
+}
+
+/** The stored text shows at once; the figures arrive with the problem's walkthrough. */
+function WalkthroughTab({ problemId, text }: { problemId: string; text: string }) {
+  const { client, notify } = useApp();
+  const [figures, setFigures] = useState<Record<string, string>>({});
+  useEffect(() => {
+    client.walkthrough(problemId).then((w) => setFigures(w.figures), failed(notify));
+  }, [client, notify, problemId]);
+  return <Markdown source={text || 'No walkthrough yet.'} figures={figures} wide />;
 }
 
 function ScoreLine({ session, result }: { session: SessionView; result: SessionResult }) {

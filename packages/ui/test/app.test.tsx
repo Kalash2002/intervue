@@ -59,7 +59,12 @@ describe('shell', () => {
 });
 
 describe('answer and navigation', () => {
-  const answer = vi.fn(async () => ({ text: '## Minutes 0 to 6: read before you run' }));
+  const answer = vi.fn(async () => ({
+    text: ['## Minutes 0 to 6: read before you run', 'text', '## DSA reference', '- [Two Sum](dsa://two-sum)'].join(
+      '\n\n',
+    ),
+    figures: {},
+  }));
 
   it('opens a problem answer from the section page before any session', async () => {
     const client = fakeClient({ walkthrough: answer });
@@ -70,6 +75,15 @@ describe('answer and navigation', () => {
 
     expect(await screen.findByRole('heading', { name: 'Minutes 0 to 6: read before you run' })).toBeInTheDocument();
     expect(client.walkthrough).toHaveBeenCalledWith('hold-exposure');
+    // The contents list fills in a passive effect after the walkthrough renders.
+    const contents = await screen.findByRole('navigation', { name: 'On this page' });
+    expect(
+      within(contents)
+        .getAllByRole('button')
+        .map((b) => b.textContent),
+    ).toEqual(['Minutes 0 to 6: read before you run', 'DSA reference']);
+    expect(within(screen.getByLabelText('Practise')).getByRole('button', { name: 'Two Sum' })).toHaveClass('chip');
+    expect(screen.getByLabelText('This problem')).toHaveTextContent('Topic group: Graphs');
   });
 
   it('goes from the result to the answer and back home', async () => {

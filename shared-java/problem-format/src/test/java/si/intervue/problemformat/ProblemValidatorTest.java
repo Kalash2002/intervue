@@ -19,6 +19,12 @@ class ProblemValidatorTest {
       "## Level 1\nLook at the parser.\n\n## Level 2\nSort by start.\n\n## Level 3\nSweep the"
           + " events.\n";
 
+  private static final String WALKTHROUGH =
+      "# How a strong round goes\n\n## Phase 1\n\ntext\n\n## DSA reference\n\n### Theory\n\n"
+          + "![A stack](figures/stack.svg)\n\n### Code\n\ncode\n\n### Complexity\n\ntable\n\n"
+          + "### Practise the technique\n\n- [Two Sum](dsa://two-sum)\n\n## Time budget\n\ntable\n\n"
+          + "## Follow-up answers\n\ntext\n";
+
   @TempDir Path root;
   private Path dir;
 
@@ -45,11 +51,12 @@ class ProblemValidatorTest {
         """);
     write("variants/java/starter/Phase1Tests.java", "class Phase1Tests {}");
     write("variants/java/starter/data/holds.csv", "a,b");
-    for (String file :
-        List.of("brief/intro.md", "brief/phase1.md", "brief/phase2.md", "walkthrough.md")) {
+    for (String file : List.of("brief/intro.md", "brief/phase1.md", "brief/phase2.md")) {
       write(file, "text");
     }
+    write("walkthrough.md", WALKTHROUGH);
     write("grading/NOTES.md", "notes");
+    write("figures/stack.svg", "<svg xmlns='http://www.w3.org/2000/svg'/>");
     write("hints/phase1.md", HINT);
     write("hints/phase2.md", HINT);
   }
@@ -112,6 +119,26 @@ class ProblemValidatorTest {
     replaceInProblem(
         "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"tags\":[\"graphs\",\"graphs\"]");
     assertThat(errors()).anyMatch(e -> e.contains("tags"));
+  }
+
+  @Test
+  void refusesAWalkthroughWithoutTheDsaReference() throws IOException {
+    write("walkthrough.md", WALKTHROUGH.replace("## DSA reference\n", "## Technique\n"));
+    assertThat(errors()).anyMatch(e -> e.contains("DSA reference"));
+  }
+
+  @Test
+  void refusesWalkthroughHeadingsOutOfOrder() throws IOException {
+    write(
+        "walkthrough.md",
+        WALKTHROUGH.replace("## Time budget\n\ntable\n\n", "") + "\n## Time budget\n\ntable\n");
+    assertThat(errors()).anyMatch(e -> e.contains("Follow-up answers"));
+  }
+
+  @Test
+  void refusesAFigureThatDoesNotExist() throws IOException {
+    write("walkthrough.md", WALKTHROUGH.replace("figures/stack.svg", "figures/heap.svg"));
+    assertThat(errors()).anyMatch(e -> e.contains("figures/heap.svg"));
   }
 
   @Test

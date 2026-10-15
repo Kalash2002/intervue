@@ -36,6 +36,9 @@ public final class ProblemValidator {
     for (String file : List.of("brief/intro.md", "walkthrough.md", "grading/NOTES.md")) {
       requireFile(folder.dir(), file, errors);
     }
+    if (Files.isRegularFile(folder.dir().resolve("walkthrough.md"))) {
+      checkWalkthrough(folder.dir(), errors);
+    }
     return errors;
   }
 
@@ -102,6 +105,41 @@ public final class ProblemValidator {
     }
     if (weights != CORRECTNESS_POINTS) {
       errors.add("phase weights sum to " + weights + ", must be " + CORRECTNESS_POINTS);
+    }
+  }
+
+  /** The headings every walkthrough has (docs/contracts/problem-format.md), in order. */
+  static final List<String> WALKTHROUGH_HEADINGS =
+      List.of(
+          "## DSA reference",
+          "### Theory",
+          "### Code",
+          "### Complexity",
+          "### Practise the technique",
+          "## Time budget",
+          "## Follow-up answers");
+
+  private static final Pattern FIGURE = Pattern.compile("\\]\\((figures/[^)\\s]+)\\)");
+
+  /**
+   * The DSA reference and the closing sections exist in order, and every figure it shows exists.
+   */
+  private static void checkWalkthrough(Path dir, List<String> errors) {
+    String text = readString(dir.resolve("walkthrough.md"));
+    int at = 0;
+    for (String heading : WALKTHROUGH_HEADINGS) {
+      int found = text.indexOf("\n" + heading + "\n", at);
+      if (found < 0) {
+        errors.add("walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
+      } else {
+        at = found;
+      }
+    }
+    java.util.regex.Matcher m = FIGURE.matcher(text);
+    while (m.find()) {
+      if (!Files.isRegularFile(dir.resolve(m.group(1)))) {
+        errors.add("walkthrough.md shows " + m.group(1) + " which does not exist");
+      }
     }
   }
 

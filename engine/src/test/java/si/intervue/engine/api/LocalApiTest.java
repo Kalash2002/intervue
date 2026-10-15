@@ -151,8 +151,24 @@ class LocalApiTest {
 
   @Test
   void aWalkthroughIsServedWithoutASession() throws Exception {
-    assertThat(call("GET", "/problems/tiny/walkthrough", null).get("text").asString()).isNotBlank();
+    JsonNode answer = call("GET", "/problems/tiny/walkthrough", null);
+    assertThat(answer.get("text").asString()).isNotBlank();
+    assertThat(answer.get("figures").size()).isZero();
     assertThat(send("GET", "/problems/nope/walkthrough", null, TOKEN).statusCode()).isEqualTo(400);
+  }
+
+  @Test
+  void walkthroughFiguresAreInlinedAsDataUris() throws Exception {
+    Path figures = root.resolve("problems/tiny/figures");
+    Files.createDirectories(figures);
+    Files.writeString(figures.resolve("stack.svg"), "<svg xmlns='http://www.w3.org/2000/svg'/>");
+    Files.writeString(figures.resolve("notes.txt"), "not a figure");
+
+    JsonNode answer = call("GET", "/problems/tiny/walkthrough", null);
+
+    assertThat(answer.get("figures").size()).isEqualTo(1);
+    assertThat(answer.get("figures").get("figures/stack.svg").asString())
+        .startsWith("data:image/svg+xml;base64,");
   }
 
   @Test

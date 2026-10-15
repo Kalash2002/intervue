@@ -9,9 +9,11 @@ import java.time.Clock;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 import si.intervue.engine.content.ContentException;
 import si.intervue.engine.content.ContentStore;
 import si.intervue.engine.languages.LanguagePackage;
@@ -268,11 +270,37 @@ public final class Sessions {
    * A problem's walkthrough for the answer page, which opens from the dashboard before any session.
    * Only listed ids are read, so a crafted id cannot reach outside the problems folder.
    */
-  public String walkthrough(String problemId) {
+  public Walkthrough walkthrough(String problemId) {
     if (!content.ids().contains(problemId)) {
       throw new SessionException("No problem " + problemId);
     }
-    return walkthroughOf(content.load(problemId));
+    ProblemFolder problem = content.load(problemId);
+    return new Walkthrough(walkthroughOf(problem), figuresOf(problem));
+  }
+
+  /**
+   * Every SVG or PNG under {@code figures/}, inlined as a data URI; small files, read on demand.
+   */
+  static Map<String, String> figuresOf(ProblemFolder problem) {
+    Path dir = problem.dir().resolve("figures");
+    if (!Files.isDirectory(dir)) {
+      return Map.of();
+    }
+    Map<String, String> figures = new LinkedHashMap<>();
+    try (Stream<Path> files = Files.list(dir)) {
+      for (Path file : files.sorted().toList()) {
+        String name = file.getFileName().toString();
+        String mime =
+            name.endsWith(".svg") ? "image/svg+xml" : name.endsWith(".png") ? "image/png" : null;
+        if (mime != null) {
+          String data = Base64.getEncoder().encodeToString(Files.readAllBytes(file));
+          figures.put("figures/" + name, "data:" + mime + ";base64," + data);
+        }
+      }
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
+    }
+    return figures;
   }
 
   static String walkthroughOf(ProblemFolder problem) {

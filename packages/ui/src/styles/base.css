@@ -6,6 +6,8 @@
 html,
 body {
   height: 100%;
+  /* No elastic bounce past the ends: WebView2 otherwise drags the whole window and springs back. */
+  overscroll-behavior: none;
 }
 body {
   margin: 0;
