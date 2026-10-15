@@ -59,6 +59,7 @@ export function createEngineClient({ baseUrl, token }: EngineConnection) {
     ping: () => call<{ ok: boolean }>('GET', '/local/ping'),
     problems: () => call<ProblemSummary[]>('GET', '/problems'),
     history: () => call<SessionSummary[]>('GET', '/sessions'),
+    walkthrough: (problemId: string) => call<{ text: string }>('GET', `/problems/${enc(problemId)}/walkthrough`),
     createSession: (problemId: string, type: SessionType) =>
       call<SessionView>('POST', '/sessions', { problemId, type }),
     session: (id: string) => call<SessionView>('GET', s(id)),

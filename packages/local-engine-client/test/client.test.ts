@@ -93,6 +93,7 @@ describe('engine client', () => {
     await c.fakeEditIds();
     await c.health();
     reply.body = {};
+    await c.walkthrough('hold-exposure');
     await c.session('s');
     await c.writeFile('s', 'A.java', 'class A {}');
     await c.createFile('s', 'B.java');
@@ -115,6 +116,7 @@ describe('engine client', () => {
       'GET /sessions/s/hints?phase=2',
       'GET /fake-edits',
       'GET /health',
+      'GET /problems/hold-exposure/walkthrough',
       'GET /sessions/s',
       'PUT /sessions/s/file?path=A.java',
       'POST /sessions/s/files',
