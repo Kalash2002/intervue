@@ -13,7 +13,7 @@
   font-weight: 750;
   font-size: 18px;
   letter-spacing: -0.02em;
-  color: var(--accent);
+  color: var(--link);
 }
 .home-intro {
   margin: 56px 0 44px;
@@ -131,7 +131,7 @@
 }
 .state.progress span[aria-hidden],
 .state.attempted span[aria-hidden] {
-  color: var(--accent);
+  color: var(--link);
 }
 .state.new {
   color: var(--muted);
@@ -182,7 +182,7 @@
   padding: 18px 20px;
 }
 .choice:hover:not(:disabled) {
-  border-color: var(--accent);
+  border-color: var(--link);
 }
 .choice h2 {
   font-size: 18px;
@@ -227,12 +227,12 @@
 .home-head .back {
   border-color: transparent;
   padding-left: 0;
-  color: var(--accent);
+  color: var(--link);
 }
 .choice.selected {
-  border-color: var(--accent);
+  border-color: var(--link);
   background: var(--accent-soft);
-  box-shadow: inset 0 0 0 1px var(--accent);
+  box-shadow: inset 0 0 0 1px var(--link);
 }
 .overview-phases {
   display: grid;

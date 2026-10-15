@@ -1,5 +1,7 @@
-/* Design tokens: fonts, the palette for both themes, radii and the spacing scale. One accent
-   (primary actions and progress); pass, fail, warn and prompt carry meaning, not decoration. */
+/* Design tokens: fonts, the palette for both themes, radii and the spacing scale. Values come from
+   docs/design/palette.md (dark grey and purple); this is the only stylesheet with a colour literal.
+   --accent is the violet button fill (text on it is --accent-ink); coloured text uses --link.
+   pass, fail, warn and prompt carry meaning, not decoration, and always sit next to a word or icon. */
 @font-face {
   font-family: 'Hanken Grotesk';
   src: url('../assets/fonts/hanken-grotesk-latin-wght-normal.woff2') format('woff2');
@@ -14,21 +16,33 @@
 }
 
 :root {
-  --bg: #12151c;
-  --panel: #191d27;
-  --panel-2: #212634;
-  --line: #2c3343;
-  --text: #d5dae3;
-  --muted: #8f98aa;
-  --accent: #9bb2ea;
-  --accent-ink: #0c1428;
-  --accent-soft: rgba(155, 178, 234, 0.12);
-  --pass: #8ccfb3;
-  --fail: #e6a29a;
-  --warn: #e0c58e;
-  --prompt: #c2b4ee;
-  --link: var(--accent);
-  --select: rgba(155, 178, 234, 0.2);
+  --bg: #0b0a10;
+  --panel: #15121d;
+  --panel-2: #201a2b;
+  --input: #251f30;
+  --line: #332b3e;
+  --outline: #83748f;
+  --text: #f5f1fa;
+  --text-2: #c2b8cf;
+  --muted: #a79bb7;
+  --accent: #7c3aed;
+  --accent-ink: #ffffff;
+  --accent-soft: rgba(124, 58, 237, 0.16);
+  --link: #c4b5fd;
+  --select: #352345;
+  --select-ink: #f5f1fa;
+  --pass: #a0d9af;
+  --pass-bg: #193625;
+  --warn: #e9c57b;
+  --warn-bg: #3b2e15;
+  --fail: #ffb4bc;
+  --fail-bg: #491b26;
+  --prompt: #a78bfa;
+  --chat-bg: #09090d;
+  --chat-in: #20202b;
+  --chat-in-ink: #f5f5fa;
+  --chat-out: #4c287d;
+  --chat-out-ink: #faf7ff;
   /* Pastel syntax colours: calm on the dark background, still telling kinds apart. */
   --syn-keyword: #c3a2ef;
   --syn-type: #8fd2c4;
@@ -36,7 +50,9 @@
   --syn-number: #efb993;
   --syn-def: #95b4ef;
   --syn-meta: #b7c0d0;
-  --backdrop: rgba(6, 9, 15, 0.62);
+  --backdrop: rgba(11, 10, 16, 0.62);
+  /* The Home wash: at most 4.5% in dark (palette rules); nowhere else. */
+  --wash: radial-gradient(60% 50% at 20% 0%, rgba(124, 58, 237, 0.045), transparent 70%);
   --radius: 12px;
   --radius-s: 8px;
   --space-1: 4px;
@@ -50,26 +66,40 @@
   color-scheme: dark;
 }
 :root[data-theme='light'] {
-  --bg: #f4f5f8;
+  --bg: #fcfaff;
   --panel: #ffffff;
-  --panel-2: #eef0f5;
-  --line: #dce0e8;
-  --text: #1a1f2c;
-  --muted: #586276;
-  --accent: #2f58c9;
+  --panel-2: #f3eef9;
+  --input: #f0ebf6;
+  --line: #e5dcea;
+  --outline: #82718f;
+  --text: #21182b;
+  --text-2: #62566f;
+  --muted: #71617d;
+  --accent: #6d28d9;
   --accent-ink: #ffffff;
-  --accent-soft: rgba(47, 88, 201, 0.09);
-  --pass: #127a57;
-  --fail: #bd3b2e;
-  --warn: #8d5b00;
-  --prompt: #6449cc;
-  --select: rgba(47, 88, 201, 0.15);
+  --accent-soft: rgba(109, 40, 217, 0.09);
+  --link: #6d28d9;
+  --select: #ede3fa;
+  --select-ink: #32144f;
+  --pass: #21663c;
+  --pass-bg: #e7f3e9;
+  --warn: #775000;
+  --warn-bg: #fff1cc;
+  --fail: #b32632;
+  --fail-bg: #fbe8eb;
+  --prompt: #6d28d9;
+  --chat-bg: #fcfaff;
+  --chat-in: #f0eaf6;
+  --chat-in-ink: #21182b;
+  --chat-out: #e6d8fa;
+  --chat-out-ink: #32144f;
   --syn-keyword: #7a46b0;
   --syn-type: #17766b;
   --syn-string: #5a7a1e;
   --syn-number: #a5582a;
   --syn-def: #2f58c9;
   --syn-meta: #586276;
-  --backdrop: rgba(26, 31, 44, 0.38);
+  --backdrop: rgba(33, 24, 43, 0.38);
+  --wash: radial-gradient(60% 50% at 20% 0%, rgba(109, 40, 217, 0.025), transparent 70%);
   color-scheme: light;
 }

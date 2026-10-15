@@ -75,13 +75,14 @@ button.icon:hover {
   color: var(--text);
 }
 select {
-  background: var(--panel-2);
+  background: var(--input);
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
   padding: 4px 8px;
 }
 .notice {
   border: 1px solid var(--fail);
+  background: var(--fail-bg);
   border-radius: var(--radius-s);
   padding: 10px 12px;
   margin-bottom: 14px;
@@ -215,7 +216,7 @@ select {
 }
 .modal-box input {
   width: 100%;
-  background: var(--bg);
+  background: var(--input);
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
   padding: 7px 10px;
@@ -279,8 +280,13 @@ select {
   border-color: var(--prompt);
 }
 .label.interview {
-  color: var(--accent);
-  border-color: var(--accent);
+  color: var(--link);
+  border-color: var(--link);
+}
+.label.free {
+  color: var(--pass);
+  border-color: var(--pass);
+  background: var(--pass-bg);
 }
 .hint {
   color: var(--muted);
@@ -291,7 +297,8 @@ select {
   width: 100%;
   resize: vertical;
   min-height: 64px;
-  background: var(--bg);
+  background: var(--chat-in);
+  color: var(--chat-in-ink);
   border: 1px solid var(--line);
   border-radius: var(--radius-s);
   padding: 8px 10px;
@@ -303,7 +310,7 @@ select {
   font-weight: 650;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--link);
 }
 .pill {
   display: inline-flex;
@@ -318,12 +325,18 @@ select {
 }
 .pill.easy {
   color: var(--pass);
+  background: var(--pass-bg);
+  border-color: transparent;
 }
 .pill.medium {
   color: var(--warn);
+  background: var(--warn-bg);
+  border-color: transparent;
 }
 .pill.hard {
   color: var(--fail);
+  background: var(--fail-bg);
+  border-color: transparent;
 }
 .card {
   background: var(--panel);

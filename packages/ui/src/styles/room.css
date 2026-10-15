@@ -19,7 +19,7 @@
 }
 .topbar .back {
   font-weight: 750;
-  color: var(--accent);
+  color: var(--link);
   border-color: transparent;
   padding: 4px 6px;
 }
@@ -34,7 +34,7 @@
   font-family: var(--mono);
   font-size: 20px;
   font-weight: 600;
-  color: var(--accent);
+  color: var(--link);
   min-width: 5ch;
   text-align: right;
   font-variant-numeric: tabular-nums;
@@ -154,7 +154,7 @@
 .tabs .tab.active {
   color: var(--text);
   background: var(--bg);
-  box-shadow: inset 0 -2px 0 var(--accent);
+  box-shadow: inset 0 -2px 0 var(--link);
 }
 .editor-wrap {
   position: relative;
@@ -196,7 +196,7 @@
   background: var(--panel);
 }
 .cm-editor .cm-cursor {
-  border-left: 2px solid var(--accent);
+  border-left: 2px solid var(--link);
 }
 .cm-editor.cm-focused .cm-selectionBackground,
 .cm-editor .cm-selectionBackground {
@@ -335,11 +335,11 @@
   opacity: 0.55;
 }
 .dots li.open {
-  border-color: var(--accent);
+  border-color: var(--link);
   opacity: 1;
 }
 .dots li.passed {
   background: var(--accent);
-  border-color: var(--accent);
+  border-color: var(--link);
   opacity: 1;
 }
