@@ -107,6 +107,12 @@ class LocalApiTest {
   }
 
   @Test
+  void aWalkthroughIsServedWithoutASession() throws Exception {
+    assertThat(call("GET", "/problems/tiny/walkthrough", null).get("text").asString()).isNotBlank();
+    assertThat(send("GET", "/problems/nope/walkthrough", null, TOKEN).statusCode()).isEqualTo(400);
+  }
+
+  @Test
   void anInterviewSessionRunsEndToEnd() throws Exception {
     JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
     String s = "/sessions/" + session.get("id").asString();

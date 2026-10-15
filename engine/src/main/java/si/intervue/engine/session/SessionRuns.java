@@ -1,6 +1,5 @@
 package si.intervue.engine.session;
 
-import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
@@ -121,13 +120,12 @@ final class SessionRuns {
     FinalResults finals =
         SessionStore.JSON.readValue(s.finalResultsJson(), new TypeReference<FinalResults>() {});
     Score score = SessionStore.JSON.readValue(s.scoreJson(), Score.class);
-    Path walkthrough = c.problem().dir().resolve("walkthrough.md");
     return new SessionResult(
         score,
         finals.phases(),
         finals.compileError(),
         TimelineReport.of(store.events(s.id()), s.activeMs()),
-        Files.exists(walkthrough) ? Sessions.readString(walkthrough) : "",
+        Sessions.walkthroughOf(c.problem()),
         c.problem().problem().followUps());
   }
 
