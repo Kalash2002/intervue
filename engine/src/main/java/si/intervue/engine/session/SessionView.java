@@ -24,6 +24,7 @@ public record SessionView(
     int unlocked,
     int phases,
     List<String> phaseTitles,
+    List<String> tags,
     Map<Integer, Long> phasesPassed,
     Map<Integer, Integer> hintsUsed,
     int aiEditsActive,

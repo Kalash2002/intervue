@@ -39,6 +39,7 @@ class CodingRoundSectionTest {
         "s",
         "Easy",
         List.of("x"),
+        List.of(),
         "d",
         60,
         phases,

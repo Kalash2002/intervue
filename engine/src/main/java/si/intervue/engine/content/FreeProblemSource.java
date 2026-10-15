@@ -43,6 +43,11 @@ public final class FreeProblemSource implements ContentStore {
   }
 
   @Override
+  public boolean isFree(String id) {
+    return ids.contains(id);
+  }
+
+  @Override
   public ProblemFolder load(String id) {
     if (!ids.contains(id)) {
       throw new ContentException("Problem " + id + " is not one of the free problems");

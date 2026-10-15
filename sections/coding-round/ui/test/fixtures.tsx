@@ -19,6 +19,7 @@ export function view(over: Partial<SessionView> = {}): SessionView {
     unlocked: 1,
     phases: 2,
     phaseTitles: ['Fix', 'Grow'],
+    tags: [],
     phasesPassed: {},
     hintsUsed: {},
     aiEditsActive: 0,

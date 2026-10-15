@@ -115,6 +115,37 @@ class LocalApiTest {
 
     assertThat(problems.get(0).get("id").asString()).isEqualTo("tiny");
     assertThat(problems.get(0).get("phases").asInt()).isEqualTo(2);
+    assertThat(problems.get(0).get("section").asString()).isEqualTo("coding-round");
+    assertThat(problems.get(0).get("techniques").get(0).asString()).isEqualTo("arrays");
+    assertThat(problems.get(0).get("tags").isArray()).isTrue();
+    assertThat(problems.get(0).get("tags").size()).isZero();
+    assertThat(problems.get(0).get("free").asBoolean()).isFalse();
+  }
+
+  @Test
+  void aFreeListNextToTheProblemsMarksProblemsFree() throws Exception {
+    Path free = root.resolve("free");
+    Files.createDirectories(free);
+    Files.writeString(free.resolve("free.json"), "{\"formatVersion\":1,\"problems\":[\"tiny\"]}");
+    open(false);
+
+    assertThat(call("GET", "/problems", null).get(0).get("free").asBoolean()).isTrue();
+  }
+
+  @Test
+  void aSessionViewCarriesTheProblemTags() throws Exception {
+    Path json = root.resolve("problems/tiny/problem.json");
+    Files.writeString(
+        json,
+        Files.readString(json)
+            .replace(
+                "\"domain\": \"test\"", "\"domain\": \"test\", \"tags\": [\"arrays\", \"test\"]"));
+    open(false);
+    JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
+
+    assertThat(session.get("tags").get(1).asString()).isEqualTo("test");
+    assertThat(call("GET", "/problems", null).get(0).get("tags").get(0).asString())
+        .isEqualTo("arrays");
   }
 
   @Test

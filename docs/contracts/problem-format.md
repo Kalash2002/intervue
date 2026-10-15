@@ -28,6 +28,7 @@ content/problems/<problem-id>/
 | `section` | string | `coding-round` in Phase 1a |
 | `title`, `summary`, `difficulty`, `domain` | string | non-empty; `difficulty` is `Easy`, `Medium` or `Hard` |
 | `techniques` | string array | track ids, at least one |
+| `tags` | string array, optional (added 2026-10-15, additive) | free-text tags shown as chips and used by the section page's filters; each `[a-z0-9]+(-[a-z0-9]+)*`, no repeats; absent means empty |
 | `minutes` | integer | Interview time limit |
 | `phases` | array | ids `1..N` in order, N at least 1 |
 | `phases[].title`, `.brief`, `.hints` | string | `brief` and `hints` are paths that exist |

@@ -86,6 +86,34 @@ class ProblemValidatorTest {
   }
 
   @Test
+  void tagsAreOptionalAndDefaultToEmpty() {
+    assertThat(ProblemReader.read(dir).problem().tags()).isEmpty();
+    assertThat(errors()).isEmpty();
+  }
+
+  @Test
+  void acceptsLowerCaseTags() throws IOException {
+    replaceInProblem(
+        "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"tags\":[\"intervals\",\"fintech\"]");
+    assertThat(ProblemReader.read(dir).problem().tags()).containsExactly("intervals", "fintech");
+    assertThat(errors()).isEmpty();
+  }
+
+  @Test
+  void refusesTagsThatAreNotLowerCaseWithDashes() throws IOException {
+    replaceInProblem(
+        "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"tags\":[\"Graphs\",\"two pointers\"]");
+    assertThat(errors()).anyMatch(e -> e.contains("tags"));
+  }
+
+  @Test
+  void refusesDuplicateTags() throws IOException {
+    replaceInProblem(
+        "\"domain\":\"fintech\"", "\"domain\":\"fintech\",\"tags\":[\"graphs\",\"graphs\"]");
+    assertThat(errors()).anyMatch(e -> e.contains("tags"));
+  }
+
+  @Test
   void refusesAnIdThatDiffersFromTheFolder() throws IOException {
     replaceInProblem("\"id\":\"hold-exposure\"", "\"id\":\"other\"");
     assertThat(errors()).anyMatch(e -> e.contains("id"));

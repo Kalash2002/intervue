@@ -142,6 +142,7 @@ public final class Sessions {
         s.unlocked(),
         c.problem().problem().phases().size(),
         c.problem().problem().phases().stream().map(p -> p.title()).toList(),
+        c.problem().problem().tags(),
         phasesPassed(events),
         s.hintsUsed(),
         store.activeEdits(id),

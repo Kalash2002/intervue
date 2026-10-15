@@ -13,9 +13,13 @@ const problem = (id: string, title: string): ProblemSummary => ({
   id,
   title,
   summary: `${title} summary`,
+  section: 'coding-round',
   difficulty: 'Medium',
+  techniques: ['graphs'],
+  tags: [],
   minutes: 60,
   phases: 3,
+  free: false,
 });
 
 const summary = (over: Partial<SessionSummary>): SessionSummary => ({
@@ -49,7 +53,8 @@ const session = {
   minutes: 60,
   phases: 3,
   phaseTitles: ['Fix the bug', 'Peak and breach', 'Busy books'],
-} as SessionView;
+  tags: [],
+} as unknown as SessionView;
 
 function fakeClient(over: Partial<EngineClient> = {}): EngineClient {
   return {

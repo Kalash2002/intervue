@@ -14,4 +14,9 @@ public interface ContentStore {
 
   /** The problem, read and validated; {@link ContentException} if unknown or invalid. */
   ProblemFolder load(String id);
+
+  /** Whether the problem is in the free list (ADR 0001); shown as a pill, never a gate here. */
+  default boolean isFree(String id) {
+    return false;
+  }
 }

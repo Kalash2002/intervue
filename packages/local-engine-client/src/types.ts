@@ -4,11 +4,19 @@ export type SessionType = 'INTERVIEW' | 'PRACTICE';
 
 export interface ProblemSummary {
   id: string;
+  /** The section the problem belongs to, as in problem.json. */
+  section: string;
   title: string;
   summary: string;
   difficulty: string;
+  /** Track ids (PLAN.md 7.2), at least one. */
+  techniques: string[];
+  /** Free-text tags from problem.json; may be empty. */
+  tags: string[];
   minutes: number;
   phases: number;
+  /** In the free list (ADR 0001). */
+  free: boolean;
 }
 
 export interface PhaseResult {
@@ -81,6 +89,7 @@ export interface SessionView {
   phases: number;
   /** Every phase's title, for the overview and the phase cards. */
   phaseTitles: string[];
+  tags: string[];
   /** Phase id (as a JSON key) to the active ms when it first passed. */
   phasesPassed: Record<string, number>;
   /** Phase id to the highest hint level revealed. */

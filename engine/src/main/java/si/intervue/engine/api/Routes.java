@@ -30,7 +30,16 @@ final class Routes {
 
   /** One dashboard row; the full problem is only read when a session starts. */
   record ProblemSummary(
-      String id, String title, String summary, String difficulty, int minutes, int phases) {}
+      String id,
+      String section,
+      String title,
+      String summary,
+      String difficulty,
+      List<String> techniques,
+      List<String> tags,
+      int minutes,
+      int phases,
+      boolean free) {}
 
   private final Engine engine;
 
@@ -133,14 +142,22 @@ final class Routes {
 
   private List<ProblemSummary> problems() {
     return engine.content().ids().stream()
-        .map(id -> engine.content().load(id).problem())
-        .map(Routes::summary)
+        .map(id -> summary(engine.content().load(id).problem(), engine.content().isFree(id)))
         .toList();
   }
 
-  private static ProblemSummary summary(Problem p) {
+  private static ProblemSummary summary(Problem p, boolean free) {
     return new ProblemSummary(
-        p.id(), p.title(), p.summary(), p.difficulty(), p.minutes(), p.phases().size());
+        p.id(),
+        p.section(),
+        p.title(),
+        p.summary(),
+        p.difficulty(),
+        p.techniques(),
+        p.tags(),
+        p.minutes(),
+        p.phases().size(),
+        free);
   }
 
   /** Practice rules: Helpful unless the room asks for Interview rules. */
