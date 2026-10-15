@@ -11,44 +11,16 @@ import {
 } from '../src/lib/progress.ts';
 import { streak, weekStrip } from '../src/lib/streak.ts';
 import { TRACKS } from '../src/lib/tracks.ts';
+import { problem as fixture, summary } from './fixtures.tsx';
 
-const problem = (over: Partial<ProblemSummary>): ProblemSummary => ({
-  id: 'p',
-  section: 'coding-round',
-  title: 'P',
-  summary: '',
-  difficulty: 'Easy',
-  techniques: ['arrays'],
-  tags: [],
-  minutes: 30,
-  phases: 3,
-  free: false,
-  ...over,
-});
+const problem = (over: Partial<ProblemSummary>): ProblemSummary =>
+  fixture('p', 'P', { difficulty: 'Easy', techniques: ['arrays'], minutes: 30, ...over });
 
-const finished = (total: number, type: SessionSummary['type'], label: string): SessionSummary => ({
-  id: `${label}-${total}`,
-  problemId: 'p',
-  type,
-  startedAt: 0,
-  finished: true,
-  total,
-  label,
-  solved: false,
-  countsAsSolved: false,
-});
+const finished = (total: number, type: SessionSummary['type'], label: string): SessionSummary =>
+  summary({ id: `${label}-${total}`, problemId: 'p', type, total, label, solved: false, countsAsSolved: false });
 
-const solvedSession = (problemId: string, startedAt = 0): SessionSummary => ({
-  id: `s-${problemId}-${startedAt}`,
-  problemId,
-  type: 'INTERVIEW',
-  startedAt,
-  finished: true,
-  total: 90,
-  label: 'Interview',
-  solved: true,
-  countsAsSolved: true,
-});
+const solvedSession = (problemId: string, startedAt = 0): SessionSummary =>
+  summary({ id: `s-${problemId}-${startedAt}`, problemId, startedAt, total: 90 });
 
 describe('progress', () => {
   it('takes the best score from Interview sessions, assisted or not, never Practice (ADR 0006)', () => {

@@ -24,7 +24,6 @@ public final class ProblemValidator {
   private static final int CORRECTNESS_POINTS = 70;
   private static final Set<String> DIFFICULTIES = Set.of("Easy", "Medium", "Hard");
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
-  private static final Pattern TAG = ID;
 
   private ProblemValidator() {}
 
@@ -72,7 +71,7 @@ public final class ProblemValidator {
     if (nullToEmpty(p.techniques()).isEmpty()) {
       errors.add("techniques needs at least one track");
     }
-    if (p.tags().stream().anyMatch(t -> !TAG.matcher(t).matches())) {
+    if (p.tags().stream().anyMatch(t -> !ID.matcher(t).matches())) {
       errors.add("tags must be lowercase letters, digits and dashes");
     }
     if (p.tags().stream().distinct().count() != p.tags().size()) {

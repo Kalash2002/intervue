@@ -3,7 +3,6 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { forgetFilters } from '../src/pages/SectionPage.tsx';
 import { fakeClient, problem, renderApp, session, summary } from './fixtures.tsx';
 
 const today = new Date(2026, 9, 15, 15).getTime();
@@ -42,7 +41,7 @@ function client() {
 
 afterEach(() => {
   vi.useRealTimers();
-  forgetFilters();
+  sessionStorage.clear();
 });
 
 describe('home', () => {
@@ -96,7 +95,11 @@ describe('section page', () => {
     return screen.findByRole('heading', { name: 'AI-assisted coding' });
   };
   const cards = () =>
-    screen.queryAllByRole('article').filter((a) => a.classList.contains('card') && !a.classList.contains('track'));
+    screen
+      .queryAllByRole('article')
+      .filter(
+        (a) => a.classList.contains('card') && !a.classList.contains('track') && !a.classList.contains('continue'),
+      );
   const titles = () => cards().map((c) => within(c).getByRole('heading').textContent);
 
   it('shows the stat tiles, next up, the free pill and the tags', async () => {

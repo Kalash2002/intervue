@@ -1,13 +1,12 @@
 // Home: a greeting with the streak in the aside, what to continue, one track card per section and
 // the last finished sessions. Everything comes from the problem list and the history; the stat
 // tiles live on the section page.
-import { useEffect, useState } from 'react';
-import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
-import { failed, useApp } from '../app-context.ts';
+import type { SessionSummary } from '@intervue/local-engine-client';
+import { useApp } from '../app-context.ts';
 import { ContinueCard } from '../components/ContinueCard.tsx';
-import { useOpeners } from '../components/ProblemCard.tsx';
 import { PlannedTrackCard, TrackCard } from '../components/TrackCard.tsx';
-import { dateText } from '../lib/format.ts';
+import { titleOf, useCatalogue, useOpeners, type Catalogue } from '../hooks.ts';
+import { dateText, plural } from '../lib/format.ts';
 import { nextUp } from '../lib/progress.ts';
 import { streak, weekStrip } from '../lib/streak.ts';
 
@@ -15,21 +14,8 @@ import { streak, weekStrip } from '../lib/streak.ts';
 const PLANNED = [{ id: 'dsa-quick', title: 'DSA' }];
 const RECENT = 5;
 
-interface Data {
-  problems: ProblemSummary[];
-  history: SessionSummary[];
-}
-
 export function HomePage() {
-  const { client, notify } = useApp();
-  const [data, setData] = useState<Data | null>(null);
-
-  useEffect(() => {
-    Promise.all([client.problems(), client.history()])
-      .then(([problems, history]) => setData({ problems, history }))
-      .catch(failed(notify));
-  }, [client, notify]);
-
+  const data = useCatalogue();
   return (
     <main className="page with-aside home-wash">
       <header className="page-head">
@@ -55,56 +41,56 @@ function greeting(): string {
   return h < 12 ? 'Good morning.' : h < 18 ? 'Good afternoon.' : 'Good evening.';
 }
 
-function Continue({ problems, history }: Data) {
+function Continue({ problems, history }: Catalogue) {
   const { go, sections } = useApp();
   const { open } = useOpeners();
-  const title = (id: string) => problems.find((p) => p.id === id)?.title ?? id;
   const openSessions = history.filter((s) => !s.finished).slice(0, 3);
-  const next = sections
-    .map((s) => ({
-      section: s,
-      problem: nextUp(
-        problems.filter((p) => p.section === s.id),
-        history,
-      ),
-    }))
-    .filter((n) => n.problem !== null);
+  const next = sections.flatMap((section) => {
+    const problem = nextUp(
+      problems.filter((p) => p.section === section.id),
+      history,
+    );
+    return problem ? [{ section, problem }] : [];
+  });
   return (
     <section aria-label="Continue">
       <h2>Continue</h2>
       <div className="cards">
-        {openSessions.map((s) => (
-          <ContinueCard
-            key={s.id}
-            eyebrow={s.type === 'PRACTICE' ? 'Practice in progress' : 'Interview in progress'}
-            title={title(s.problemId)}
-            detail={`Started ${dateText(s.startedAt)}`}
-            action="Resume"
-            onAction={() => open(s.id)}
-          />
-        ))}
-        {openSessions.length === 0 &&
+        {openSessions.length > 0 ? (
+          openSessions.map((s) => (
+            <ContinueCard
+              key={s.id}
+              eyebrow={s.type === 'PRACTICE' ? 'Practice in progress' : 'Interview in progress'}
+              title={titleOf(problems, s.problemId)}
+              detail={`Started ${dateText(s.startedAt)}`}
+              action="Resume"
+              onAction={() => open(s.id)}
+            />
+          ))
+        ) : next.length > 0 ? (
           next.map(({ section, problem }) => (
             <ContinueCard
               key={section.id}
               eyebrow={section.title}
               title={
                 <>
-                  Next: <span>{problem?.title}</span>
+                  Next: <span>{problem.title}</span>
                 </>
               }
-              detail={`${problem?.difficulty}, ${problem?.minutes} minutes`}
+              detail={`${problem.difficulty}, ${problem.minutes} minutes`}
               action="Start"
-              onAction={() => problem && go({ name: 'start', problem })}
+              onAction={() => go({ name: 'start', problem })}
             />
-          ))}
-        {openSessions.length === 0 && next.length === 0 && <p className="hint">Every problem is solved. Well done.</p>}
+          ))
+        ) : (
+          <p className="hint">Every problem is solved. Well done.</p>
+        )}
       </div>
     </section>
   );
 }
 
-function Tracks({ problems, history }: Data) {
+function Tracks({ problems, history }: Catalogue) {
   const { go, sections } = useApp();
   return (
     <section aria-label="Tracks">
@@ -128,10 +114,9 @@ function Tracks({ problems, history }: Data) {
   );
 }
 
-function Recent({ problems, history }: Data) {
+function Recent({ problems, history }: Catalogue) {
   const { go } = useApp();
   const { result } = useOpeners();
-  const title = (id: string) => problems.find((p) => p.id === id)?.title ?? id;
   const rows = history
     .filter((s) => s.finished)
     .sort((a, b) => b.startedAt - a.startedAt)
@@ -141,31 +126,32 @@ function Recent({ problems, history }: Data) {
       <h2>Recent results</h2>
       <div className="rows">
         {rows.length === 0 && <div className="empty-row">No finished sessions yet.</div>}
-        {rows.map((s) => (
-          <div className="row" key={s.id}>
-            <div>
-              <h3>
-                {title(s.problemId)}
-                <span className="level">{s.total} / 100</span>
-              </h3>
-              <p className="meta">
-                <span className={`label ${s.type.toLowerCase()}`}>{s.label ?? s.type}</span> {dateText(s.startedAt)}
-              </p>
+        {rows.map((s) => {
+          const problem = problems.find((p) => p.id === s.problemId);
+          return (
+            <div className="row" key={s.id}>
+              <div>
+                <h3>
+                  {problem?.title ?? s.problemId}
+                  <span className="level">{s.total} / 100</span>
+                </h3>
+                <p className="meta">
+                  <span className={`label ${s.type.toLowerCase()}`}>{s.label ?? s.type}</span> {dateText(s.startedAt)}
+                </p>
+              </div>
+              <div className="actions">
+                <button className="ghost" type="button" onClick={() => result(s.id)}>
+                  Result
+                </button>
+                {problem && (
+                  <button className="ghost" type="button" onClick={() => go({ name: 'answer', problem })}>
+                    Answer
+                  </button>
+                )}
+              </div>
             </div>
-            <div className="actions">
-              <button className="ghost" type="button" onClick={() => result(s.id)}>
-                Result
-              </button>
-              <button
-                className="ghost"
-                type="button"
-                onClick={() => go({ name: 'answer', problemId: s.problemId, title: title(s.problemId) })}
-              >
-                Answer
-              </button>
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </section>
   );
@@ -179,9 +165,7 @@ function StreakCard({ history }: { history: SessionSummary[] }) {
       <div className="card" aria-label="Streak">
         <p className="eyebrow">Streak</p>
         <p className="streak">
-          <b>
-            {current} {current === 1 ? 'day' : 'days'}
-          </b>
+          <b>{plural(current, 'day')}</b>
           <span className="hint">best {best}</span>
         </p>
         <ol className="week" aria-label="Last seven days">

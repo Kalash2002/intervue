@@ -16,7 +16,5 @@ public interface ContentStore {
   ProblemFolder load(String id);
 
   /** Whether the problem is in the free list (ADR 0001); shown as a pill, never a gate here. */
-  default boolean isFree(String id) {
-    return false;
-  }
+  boolean isFree(String id);
 }

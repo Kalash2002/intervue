@@ -5,24 +5,21 @@ import { describe, expect, it, vi } from 'vitest';
 import { AppContext, Markdown, type AppServices } from '../src/index.ts';
 
 const services = { notify: vi.fn(), go: vi.fn(), sections: [], languages: [] } as unknown as AppServices;
-const renderMd = (source: string, onDsa?: (id: string) => void) =>
+const renderMd = (source: string) =>
   render(
     <AppContext.Provider value={services}>
-      <Markdown source={source} onDsa={onDsa} />
+      <Markdown source={source} />
     </AppContext.Provider>,
   );
 
 describe('Markdown', () => {
-  it('renders a dsa:// link as a chip that reports its question id when clicked', () => {
-    const onDsa = vi.fn();
-    renderMd('Practice [Two Sum](dsa://two-sum) and [Top K](dsa://top-k-frequent-elements).', onDsa);
+  it('renders a dsa:// link as a chip carrying its question id', () => {
+    renderMd('Practice [Two Sum](dsa://two-sum) and [Top K](dsa://top-k-frequent-elements).');
 
     const chip = screen.getByRole('link', { name: 'Two Sum' });
     expect(chip.tagName).toBe('SPAN');
     expect(chip).toHaveClass('dsa-chip');
     expect(chip).toHaveAttribute('data-id', 'two-sum');
-    fireEvent.click(chip);
-    expect(onDsa).toHaveBeenCalledWith('two-sum');
     expect(screen.getByRole('link', { name: 'Top K' })).toHaveAttribute('data-id', 'top-k-frequent-elements');
   });
 

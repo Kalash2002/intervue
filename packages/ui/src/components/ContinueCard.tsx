@@ -8,6 +8,7 @@ export function ContinueCard({
   action,
   onAction,
 }: {
+  /** Also names the card for assistive tech. */
   eyebrow: string;
   title: ReactNode;
   detail: string;
@@ -15,7 +16,7 @@ export function ContinueCard({
   onAction: () => void;
 }) {
   return (
-    <article className="card continue">
+    <article className="card continue" aria-label={eyebrow}>
       <p className="eyebrow">{eyebrow}</p>
       <h3>{title}</h3>
       <p className="summary">{detail}</p>

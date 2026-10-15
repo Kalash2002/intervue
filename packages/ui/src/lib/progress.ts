@@ -6,6 +6,14 @@ import { TRACKS, trackOf, type Track } from './tracks.ts';
 
 export type ProblemState = 'solved' | 'progress' | 'attempted' | 'new';
 
+/** How each state is shown, in the order the status filter lists them. */
+export const STATE_LABEL: Record<ProblemState, { icon: string; label: string }> = {
+  solved: { icon: '✓', label: 'Solved' },
+  progress: { icon: '▶', label: 'In progress' },
+  attempted: { icon: '◐', label: 'Attempted' },
+  new: { icon: '○', label: 'Not started' },
+};
+
 export interface ProblemProgress {
   state: ProblemState;
   attempts: number;
@@ -60,9 +68,10 @@ export function dashboardStats(
 }
 
 const RANK: Record<string, number> = { Easy: 0, Medium: 1, Hard: 2 };
+const rank = (p: ProblemSummary) => RANK[p.difficulty] ?? 9;
 
 export function byDifficulty(problems: readonly ProblemSummary[]): ProblemSummary[] {
-  return [...problems].sort((a, b) => (RANK[a.difficulty] ?? 9) - (RANK[b.difficulty] ?? 9));
+  return [...problems].sort((a, b) => rank(a) - rank(b));
 }
 
 /** Track order, then difficulty, then title: the order of the grouped list and of "next up". */
@@ -71,10 +80,7 @@ export function byTrack(problems: readonly ProblemSummary[]): ProblemSummary[] {
     const t = trackOf(p.techniques);
     return t ? TRACKS.indexOf(t) : TRACKS.length;
   };
-  return [...problems].sort(
-    (a, b) =>
-      order(a) - order(b) || (RANK[a.difficulty] ?? 9) - (RANK[b.difficulty] ?? 9) || a.title.localeCompare(b.title),
-  );
+  return [...problems].sort((a, b) => order(a) - order(b) || rank(a) - rank(b) || a.title.localeCompare(b.title));
 }
 
 export interface TrackCell {

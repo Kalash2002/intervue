@@ -2,21 +2,17 @@
 // problem without tags, so callers never check.
 import type { ProblemSummary } from '@intervue/local-engine-client';
 import { useApp } from '../app-context.ts';
+import { Chip } from './Chip.tsx';
 
 export function TagChips({ problem }: { problem: Pick<ProblemSummary, 'section' | 'tags'> }) {
   const { go } = useApp();
   if (problem.tags.length === 0) return null;
   return (
-    <p className="tags" aria-label="Tags">
+    <p className="chips" aria-label="Tags">
       {problem.tags.map((tag) => (
-        <button
-          key={tag}
-          type="button"
-          className="chip"
-          onClick={() => go({ name: 'section', sectionId: problem.section, tag })}
-        >
+        <Chip key={tag} onClick={() => go({ name: 'section', sectionId: problem.section, tag })}>
           {tag}
-        </button>
+        </Chip>
       ))}
     </p>
   );

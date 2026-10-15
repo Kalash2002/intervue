@@ -1,12 +1,15 @@
 // One section's page under Practice: its description, its track card, the filter bar and the list
 // grouped by NeetCode topic (or flat), with "next up" and the stat tiles in the aside. Fed by the
-// section registry; it never imports a section package. Filters are kept per section while the app runs.
+// section registry; it never imports a section package. The filter is kept per section in
+// sessionStorage, so it survives navigation and dies with the window.
 import { useEffect, useState } from 'react';
 import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
-import { failed, useApp } from '../app-context.ts';
+import { useApp } from '../app-context.ts';
+import { ContinueCard } from '../components/ContinueCard.tsx';
 import { FilterBar } from '../components/FilterBar.tsx';
 import { ProblemCard } from '../components/ProblemCard.tsx';
 import { TrackCard } from '../components/TrackCard.tsx';
+import { useCatalogue, type Catalogue } from '../hooks.ts';
 import {
   applyFilter,
   byDifficulty,
@@ -19,41 +22,38 @@ import {
 } from '../lib/progress.ts';
 import { TRACKS, trackOf, type Track } from '../lib/tracks.ts';
 
-interface Data {
-  problems: ProblemSummary[];
-  history: SessionSummary[];
-}
-
 const OTHER: Track = { id: 'other', title: 'Other', techniques: [] };
-const remembered = new Map<string, Filter>();
+const storageKey = (sectionId: string) => `intervue.filter.${sectionId}`;
 
-/** Drops the remembered filters; tests call it between cases. */
-export function forgetFilters() {
-  remembered.clear();
-}
-
-function initialFilter(sectionId: string, tag?: string): Filter {
-  const kept = remembered.get(sectionId) ?? EMPTY_FILTER;
-  return tag ? { ...EMPTY_FILTER, view: kept.view, tags: [tag] } : kept;
+function storedFilter(sectionId: string): Filter {
+  try {
+    const raw = sessionStorage.getItem(storageKey(sectionId));
+    return raw ? { ...EMPTY_FILTER, ...(JSON.parse(raw) as Partial<Filter>) } : EMPTY_FILTER;
+  } catch {
+    return EMPTY_FILTER;
+  }
 }
 
 export function SectionPage({ sectionId, tag, track }: { sectionId: string; tag?: string; track?: string }) {
-  const { client, notify, go, sections } = useApp();
+  const { notify, go, sections } = useApp();
   const section = sections.find((s) => s.id === sectionId);
-  const [data, setData] = useState<Data | null>(null);
-  const [filter, setFilter] = useState<Filter>(() => initialFilter(sectionId, tag));
-
+  const catalogue = useCatalogue();
+  const [filter, setFilter] = useState<Filter>(() =>
+    tag ? { ...EMPTY_FILTER, tags: [tag] } : storedFilter(sectionId),
+  );
+  // A tag arriving from a chip replaces the filter (the view switch is kept); derived during render,
+  // as React recommends for state that follows a prop, so no effect and no extra paint.
+  const [seenTag, setSeenTag] = useState(tag);
+  if (tag !== seenTag) {
+    setSeenTag(tag);
+    if (tag) setFilter({ ...EMPTY_FILTER, view: filter.view, tags: [tag] });
+  }
   useEffect(() => {
-    remembered.set(sectionId, filter);
+    sessionStorage.setItem(storageKey(sectionId), JSON.stringify(filter));
   }, [sectionId, filter]);
 
-  useEffect(() => {
-    Promise.all([client.problems(), client.history()])
-      .then(([problems, history]) => setData({ problems: problems.filter((p) => p.section === sectionId), history }))
-      .catch(failed(notify));
-  }, [client, notify, sectionId]);
-
   if (!section) return <p className="loading">No section named {sectionId}.</p>;
+  const data = catalogue && { ...catalogue, problems: catalogue.problems.filter((p) => p.section === sectionId) };
   const shown = data ? applyFilter(data.problems, data.history, filter) : [];
   const random = () => {
     const unsolved = shown.filter((p) => progressFor(p, data?.history ?? []).state !== 'solved');
@@ -93,7 +93,7 @@ export function SectionPage({ sectionId, tag, track }: { sectionId: string; tag?
   );
 }
 
-function Grouped({ problems, history, openOnly }: Data & { openOnly?: string }) {
+function Grouped({ problems, history, openOnly }: Catalogue & { openOnly?: string }) {
   const groups = [...TRACKS, OTHER]
     .map((t) => ({
       track: t,
@@ -127,25 +127,20 @@ function Grouped({ problems, history, openOnly }: Data & { openOnly?: string }) 
   );
 }
 
-function Aside({ problems, history }: Data) {
+function Aside({ problems, history }: { problems: ProblemSummary[]; history: SessionSummary[] }) {
   const { go } = useApp();
   const next = nextUp(problems, history);
   const s = dashboardStats(problems, history);
   return (
     <aside className="aside">
       {next && (
-        <div className="card" aria-label="Next up">
-          <p className="eyebrow">Next up</p>
-          <h3>{next.title}</h3>
-          <p className="summary">
-            {next.difficulty}, {next.minutes} minutes
-          </p>
-          <div className="actions">
-            <button className="primary" type="button" onClick={() => go({ name: 'start', problem: next })}>
-              Start
-            </button>
-          </div>
-        </div>
+        <ContinueCard
+          eyebrow="Next up"
+          title={next.title}
+          detail={`${next.difficulty}, ${next.minutes} minutes`}
+          action="Start"
+          onAction={() => go({ name: 'start', problem: next })}
+        />
       )}
       <dl className="stats" aria-label="Your progress">
         <Stat value={`${s.solved} of ${s.problems}`} label="Solved" />

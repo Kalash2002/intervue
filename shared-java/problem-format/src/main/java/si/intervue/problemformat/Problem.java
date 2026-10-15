@@ -1,5 +1,7 @@
 package si.intervue.problemformat;
 
+import static si.intervue.problemformat.ProblemReader.nullToEmpty;
+
 import java.util.List;
 
 /** The language-neutral {@code problem.json}. */
@@ -21,6 +23,6 @@ public record Problem(
 
   /** {@code tags} is optional on disk; every reader sees a list. */
   public Problem {
-    tags = tags == null ? List.of() : List.copyOf(tags);
+    tags = List.copyOf(nullToEmpty(tags));
   }
 }

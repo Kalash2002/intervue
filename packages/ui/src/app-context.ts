@@ -14,7 +14,7 @@ export type Screen =
   | { name: 'overview'; session: TimedSession }
   | { name: 'room'; session: TimedSession }
   | { name: 'result'; session: SessionView }
-  | { name: 'answer'; problemId: string; title: string }
+  | { name: 'answer'; problem: ProblemSummary }
   | { name: 'doctor'; firstRun: boolean };
 
 export interface AppServices {

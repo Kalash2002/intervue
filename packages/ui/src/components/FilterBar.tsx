@@ -1,15 +1,17 @@
 // The section page's filter bar: search, difficulty, status and tag chips, the view switch, Random
-// unsolved and Reset. Owns no state: it renders a Filter and reports changes.
-import { useState } from 'react';
-import { EMPTY_FILTER, type Filter, type ProblemState } from '../lib/progress.ts';
+// unsolved and Reset. Owns only the "More" toggle: it renders a Filter and reports changes.
+import { useState, type ReactNode } from 'react';
+import { EMPTY_FILTER, STATE_LABEL, type Filter, type ProblemState } from '../lib/progress.ts';
+import { Chip } from './Chip.tsx';
 
-const DIFFICULTIES = ['Easy', 'Medium', 'Hard'];
-const STATUSES: [ProblemState, string][] = [
-  ['solved', 'Solved'],
-  ['progress', 'In progress'],
-  ['attempted', 'Attempted'],
-  ['new', 'Not started'],
-];
+type Kind = 'difficulty' | 'status' | 'tags';
+type Option<K extends Kind> = { value: Filter[K][number]; label: ReactNode };
+
+const DIFFICULTIES: Option<'difficulty'>[] = ['Easy', 'Medium', 'Hard'].map((d) => ({ value: d, label: d }));
+const STATUSES: Option<'status'>[] = (Object.keys(STATE_LABEL) as ProblemState[]).map((value) => ({
+  value,
+  label: STATE_LABEL[value].label,
+}));
 const SHOWN_TAGS = 10;
 
 function toggled<T>(list: readonly T[], item: T): T[] {
@@ -28,7 +30,15 @@ export function FilterBar({
   onRandom: () => void;
 }) {
   const [more, setMore] = useState(false);
-  const shown = more ? tags : tags.slice(0, SHOWN_TAGS);
+  const tagOptions: Option<'tags'>[] = (more ? tags : tags.slice(0, SHOWN_TAGS)).map(({ tag, count }) => ({
+    value: tag,
+    label: (
+      <>
+        {tag}
+        <span className="count">{count}</span>
+      </>
+    ),
+  }));
   return (
     <div className="filter-bar">
       <div className="filter-row">
@@ -40,21 +50,13 @@ export function FilterBar({
           value={filter.query}
           onChange={(e) => onChange({ ...filter, query: e.target.value })}
         />
-        <Kinds filter={filter} onChange={onChange} />
+        <ChipGroup kind="difficulty" label="Difficulty" options={DIFFICULTIES} filter={filter} onChange={onChange} />
+        <ChipGroup kind="status" label="Status" options={STATUSES} filter={filter} onChange={onChange} />
         <ViewActions filter={filter} onChange={onChange} onRandom={onRandom} />
       </div>
       {tags.length > 0 && (
         <div className="chips" role="group" aria-label="Filter by tag">
-          {shown.map(({ tag, count }) => (
-            <Chip
-              key={tag}
-              on={filter.tags.includes(tag)}
-              onClick={() => onChange({ ...filter, tags: toggled(filter.tags, tag) })}
-            >
-              {tag}
-              <span className="count">{count}</span>
-            </Chip>
-          ))}
+          <ChipGroup kind="tags" options={tagOptions} filter={filter} onChange={onChange} />
           {tags.length > SHOWN_TAGS && (
             <button className="ghost small" type="button" onClick={() => setMore(!more)}>
               {more ? 'Fewer' : `More (${tags.length - SHOWN_TAGS})`}
@@ -66,32 +68,34 @@ export function FilterBar({
   );
 }
 
-function Kinds({ filter, onChange }: { filter: Filter; onChange: (next: Filter) => void }) {
+/** One kind of filter as toggle chips; OR within the kind, so every chip is independent. */
+function ChipGroup<K extends Kind>({
+  kind,
+  label,
+  options,
+  filter,
+  onChange,
+}: {
+  kind: K;
+  /** Names the group for assistive tech; the tag group is named by its parent. */
+  label?: string;
+  options: Option<K>[];
+  filter: Filter;
+  onChange: (next: Filter) => void;
+}) {
+  const chosen = filter[kind] as readonly Filter[K][number][];
   return (
-    <>
-      <div className="chips" role="group" aria-label="Difficulty">
-        {DIFFICULTIES.map((d) => (
-          <Chip
-            key={d}
-            on={filter.difficulty.includes(d)}
-            onClick={() => onChange({ ...filter, difficulty: toggled(filter.difficulty, d) })}
-          >
-            {d}
-          </Chip>
-        ))}
-      </div>
-      <div className="chips" role="group" aria-label="Status">
-        {STATUSES.map(([state, label]) => (
-          <Chip
-            key={state}
-            on={filter.status.includes(state)}
-            onClick={() => onChange({ ...filter, status: toggled(filter.status, state) })}
-          >
-            {label}
-          </Chip>
-        ))}
-      </div>
-    </>
+    <div className="chips" role={label ? 'group' : undefined} aria-label={label}>
+      {options.map((o) => (
+        <Chip
+          key={String(o.value)}
+          on={chosen.includes(o.value)}
+          onClick={() => onChange({ ...filter, [kind]: toggled(chosen, o.value) })}
+        >
+          {o.label}
+        </Chip>
+      ))}
+    </div>
   );
 }
 
@@ -121,13 +125,5 @@ function ViewActions({
         Reset
       </button>
     </div>
-  );
-}
-
-function Chip({ on, onClick, children }: { on: boolean; onClick: () => void; children: React.ReactNode }) {
-  return (
-    <button type="button" className={on ? 'chip on' : 'chip'} aria-pressed={on} onClick={onClick}>
-      {children}
-    </button>
   );
 }

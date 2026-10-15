@@ -1,7 +1,6 @@
 // Briefs, hints and walkthroughs are pack content, so their HTML is sanitised even though
 // markdown-it already escapes raw HTML with `html: false`. Links to in-app DSA questions
-// (`dsa://<question-id>`) become chips; the click reaches `onDsa`, or a toast until the DSA
-// section ships (Phase 1ad).
+// (`dsa://<question-id>`) become chips; until the DSA section ships (Phase 1ad) a click says so.
 import DOMPurify from 'dompurify';
 import MarkdownIt from 'markdown-it';
 import type { RenderRule } from 'markdown-it/lib/renderer.mjs';
@@ -26,21 +25,11 @@ markdown.renderer.rules.link_open = (tokens, idx, options, env, self) => {
 markdown.renderer.rules.link_close = (tokens, idx, options, env, self) =>
   tokens[idx]?.meta?.chip ? '</span>' : closeDefault(tokens, idx, options, env, self);
 
-export function Markdown({
-  source,
-  wide = false,
-  onDsa,
-}: {
-  source: string;
-  wide?: boolean;
-  /** Called with the question id when a dsa:// chip is clicked; the default says the section is coming. */
-  onDsa?: (id: string) => void;
-}) {
+export function Markdown({ source, wide = false }: { source: string; wide?: boolean }) {
   const { notify } = useApp();
   const html = useMemo(() => DOMPurify.sanitize(markdown.render(source)), [source]);
   const onClick = (e: MouseEvent<HTMLDivElement>) => {
-    const id = (e.target as HTMLElement).closest('.dsa-chip')?.getAttribute('data-id');
-    if (id) (onDsa ?? (() => notify('DSA arrives in the next release.')))(id);
+    if ((e.target as HTMLElement).closest('.dsa-chip')) notify('DSA arrives in the next release.');
   };
   return <div className={wide ? 'md wide' : 'md'} onClick={onClick} dangerouslySetInnerHTML={{ __html: html }} />;
 }

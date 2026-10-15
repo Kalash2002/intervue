@@ -53,7 +53,7 @@ export function Shell({ screen, children }: { screen: Screen; children: ReactNod
             active={screen.name === 'doctor'}
             onClick={() => go({ name: 'doctor', firstRun: false })}
           />
-          <ThemeButton className="menu-item" />
+          <ThemeButton menu />
         </div>
       </nav>
       <div className="main">{children}</div>

@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import type { LanguageEditor } from '@intervue/editor';
-import { AppContext, type AppServices, type Screen } from './app-context.ts';
+import { AppContext, useApp, type AppServices, type Screen } from './app-context.ts';
 import { Shell } from './components/Shell.tsx';
 import { applyTheme, storedTheme } from './components/TopBar.tsx';
 import { AnswerPage } from './pages/AnswerPage.tsx';
@@ -69,11 +69,7 @@ export function App({ client, sections, languages }: AppProps) {
 
   // The room takes the whole window; every other screen sits beside the menu.
   const body =
-    screen.name === 'loading' ? (
-      <p className="loading">Starting the engine…</p>
-    ) : (
-      <CurrentScreen screen={screen} sections={sections} />
-    );
+    screen.name === 'loading' ? <p className="loading">Starting the engine…</p> : <CurrentScreen screen={screen} />;
   return (
     <AppContext.Provider value={services}>
       {screen.name === 'room' || screen.name === 'loading' ? body : <Shell screen={screen}>{body}</Shell>}
@@ -82,42 +78,32 @@ export function App({ client, sections, languages }: AppProps) {
   );
 }
 
-function CurrentScreen({
-  screen,
-  sections,
-}: {
-  screen: Exclude<Screen, { name: 'loading' }>;
-  sections: readonly SectionUi[];
-}) {
-  const sectionOf = (id: string) => sections.find((s) => s.id === id);
+function CurrentScreen({ screen }: { screen: Exclude<Screen, { name: 'loading' }> }) {
   switch (screen.name) {
     case 'dashboard':
       return <HomePage />;
     case 'section':
-      return (
-        <SectionPage key={sectionKey(screen)} sectionId={screen.sectionId} tag={screen.tag} track={screen.track} />
-      );
+      return <SectionPage key={screen.sectionId} sectionId={screen.sectionId} tag={screen.tag} track={screen.track} />;
     case 'start':
       return <StartScreen problem={screen.problem} />;
     case 'overview':
       return <OverviewPage session={screen.session} />;
     case 'room':
-      return <Room section={sectionOf(screen.session.view.section)} screen={screen} />;
     case 'result':
-      return <ResultPage session={screen.session} Parts={sectionOf(screen.session.section)?.Result} />;
+      return <SectionScreen screen={screen} />;
     case 'answer':
-      return <AnswerPage problemId={screen.problemId} title={screen.title} />;
+      return <AnswerPage problem={screen.problem} />;
     case 'doctor':
       return <DoctorPage firstRun={screen.firstRun} />;
   }
 }
 
-/** A new tag or track from a chip remounts the page so its filter starts from that choice. */
-function sectionKey(screen: Extract<Screen, { name: 'section' }>): string {
-  return [screen.sectionId, screen.tag ?? '', screen.track ?? ''].join(':');
-}
-
-function Room({ section, screen }: { section: SectionUi | undefined; screen: Extract<Screen, { name: 'room' }> }) {
-  if (!section) return <p className="loading">No section UI for {screen.session.view.section}.</p>;
-  return <section.Room key={screen.session.view.id} session={screen.session} />;
+/** The two screens a section package draws: its room and its result parts. */
+function SectionScreen({ screen }: { screen: Extract<Screen, { name: 'room' | 'result' }> }) {
+  const { sections } = useApp();
+  const id = screen.name === 'room' ? screen.session.view.section : screen.session.section;
+  const section = sections.find((s) => s.id === id);
+  if (!section) return <p className="loading">No section UI for {id}.</p>;
+  if (screen.name === 'room') return <section.Room key={screen.session.view.id} session={screen.session} />;
+  return <ResultPage session={screen.session} Parts={section.Result} />;
 }
