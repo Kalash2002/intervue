@@ -122,6 +122,11 @@ function AnswerAside({
 
 /** The coding-round problems that practise this DSA question; each opens its Answer page. */
 function UsedIn({ problem }: { problem: ProblemSummary }) {
+  return problem.coveredBy.length ? <UsedInCards problem={problem} /> : null;
+}
+
+// Split from UsedIn so the catalogue is fetched only when there is something to show.
+function UsedInCards({ problem }: { problem: ProblemSummary }) {
   const catalogue = useCatalogue();
   const usedIn = catalogue ? covering(problem, catalogue.problems) : [];
   if (!usedIn.length) return null;

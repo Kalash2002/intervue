@@ -1,4 +1,4 @@
-import { fireEvent, render as rtlRender, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render as rtlRender, screen, waitFor, within } from '@testing-library/react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { describe, expect, it, vi } from 'vitest';
 import { App } from '../src/index.ts';
@@ -85,6 +85,20 @@ describe('answer and navigation', () => {
     ).toEqual(['Minutes 0 to 6: read before you run', 'DSA reference']);
     expect(within(screen.getByLabelText('Practise')).getByRole('button', { name: 'Two Sum' })).toHaveClass('chip');
     expect(screen.getByLabelText('This problem')).toHaveTextContent('Topic group: Graphs');
+  });
+
+  it('does not load the catalogue for an answer nothing covers', async () => {
+    const client = fakeClient({ walkthrough: answer });
+    renderApp(client);
+    fireEvent.click(await screen.findByRole('button', { name: 'AI-assisted coding' }));
+    await screen.findAllByRole('button', { name: 'Answer' });
+    const before = vi.mocked(client.history).mock.calls.length;
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Answer' })[0]);
+    await screen.findByLabelText('This problem');
+    await act(async () => {});
+
+    expect(vi.mocked(client.history).mock.calls.length).toBe(before);
   });
 
   it('goes from the result to the answer and back home', async () => {
