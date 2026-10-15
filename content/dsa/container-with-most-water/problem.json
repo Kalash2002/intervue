@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "container-with-most-water",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Container With Most Water",
+  "summary": "Pick two vertical walls so that the tank between them holds as much water as possible.",
+  "difficulty": "Medium",
+  "techniques": ["two-pointers"],
+  "tags": ["array", "greedy"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is it safe to move the shorter wall and never the taller one?", "How would you also return the two wall positions?", "How does the problem change if water between the two walls may also be held by taller walls in between?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

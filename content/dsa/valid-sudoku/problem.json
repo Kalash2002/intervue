@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "valid-sudoku",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Valid Sudoku",
+  "summary": "Check that a partly filled 9 by 9 sudoku board breaks none of the repeat rules.",
+  "difficulty": "Medium",
+  "techniques": ["arrays-hashing"],
+  "tags": ["matrix", "hash-set", "grid"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you check the whole board in a single pass over its cells?", "How would you store the seen digits in one integer per row, column and box?", "How would you go on to decide whether the board can be completed?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "valid-anagram",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Valid Anagram",
+  "summary": "Say whether one word can be rearranged to spell exactly the other.",
+  "difficulty": "Easy",
+  "techniques": ["arrays-hashing"],
+  "tags": ["string", "hash-table", "counting"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the text can contain any Unicode character, not just lowercase letters?", "How would you group a long list of words into sets of anagrams?", "Can you do it with one pass over each string?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "encode-and-decode-strings",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Encode and Decode Strings",
+  "summary": "Pack a list of strings into one string and unpack it again without losing anything.",
+  "difficulty": "Medium",
+  "techniques": ["arrays-hashing"],
+  "tags": ["string", "design", "serialization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you change it to read the encoded text as a stream, without holding all of it in memory?", "What if the strings were bytes, not characters?", "How would you version the format so older encoded data stays readable?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

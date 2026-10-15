@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "two-sum-ii-input-array-is-sorted",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Two Sum II: Sorted Input",
+  "summary": "Find the two positions in a sorted array whose values add up to a target, using no extra memory.",
+  "difficulty": "Medium",
+  "techniques": ["two-pointers"],
+  "tags": ["array", "sorted", "binary-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if there could be several valid pairs and you had to return all of them?", "How would you do it with a binary search for each value, and how does that compare?", "How would the answer change if the array were not sorted?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

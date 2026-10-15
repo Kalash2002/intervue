@@ -1,0 +1,5 @@
+# Grader notes: 3Sum
+
+Tests cover: the sample, an array of fewer than three values, all zeros (the same triple from many positions), repeats that would give the same triple twice, an array with no triple, a triple that needs two equal values, a single zero (it cannot be used three times), and a mixed array with repeated negatives. Triples are compared after sorting each one and then the list, because any order is allowed. Two large inputs of 5,000 values follow: 4,997 numbers that cannot form a triple among themselves plus three that form exactly one, and 5,000 zeros (a result of one triple, however many copies exist). The first large input has exactly one triple because every filler value leaves a remainder of 1 when divided by 5; the three planted values `-3`, `1` and `2` are the only combination whose remainders add up to a multiple of 5.
+
+The naive solution tries every group of three and removes repeats with a set; that is cubic and times out on both large tests at the limit and at 3x. The reference sorts and uses two positions.

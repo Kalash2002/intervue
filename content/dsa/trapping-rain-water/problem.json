@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "trapping-rain-water",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Trapping Rain Water",
+  "summary": "Work out how much rain a row of bars of different heights holds after a downpour.",
+  "difficulty": "Hard",
+  "techniques": ["two-pointers"],
+  "tags": ["array", "prefix-maximum", "terrain"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you do it with two extra arrays, and what does the two-position version save?", "Can you solve it with a stack, and what does it count on each pop?", "How would the problem change in two dimensions, with a grid of heights?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

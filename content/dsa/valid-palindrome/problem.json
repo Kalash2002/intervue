@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "valid-palindrome",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Valid Palindrome",
+  "summary": "Say whether a sentence reads the same backwards once case and punctuation are ignored.",
+  "difficulty": "Easy",
+  "techniques": ["two-pointers"],
+  "tags": ["string", "palindrome"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you allow deleting at most one character to make it a palindrome?", "What changes if the text can contain accented letters and other Unicode?", "How would you find the longest palindrome inside a string?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "product-of-array-except-self",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Product of Array Except Self",
+  "summary": "For each position, find the product of all the other numbers in the array.",
+  "difficulty": "Medium",
+  "techniques": ["arrays-hashing"],
+  "tags": ["array", "prefix-product", "prefix-sum"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you use only O(1) extra space besides the answer array?", "Why is dividing the total product by each number a poor idea here?", "How would you answer many queries after changing single values in the array?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
