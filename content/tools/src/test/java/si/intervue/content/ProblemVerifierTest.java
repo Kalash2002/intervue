@@ -263,6 +263,18 @@ class ProblemVerifierTest {
   }
 
   @Test
+  void onePhaseNaiveMayNotError() throws IOException {
+    // The JVM dying mid-test is reported as ERROR, not FAIL.
+    String crash =
+        "java.util.stream.IntStream.of(n).map(x -> { Runtime.getRuntime().halt(3); return x; }).sum()";
+
+    VerifyReport report = verifyOnePhase(crash, 10_000);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+  }
+
+  @Test
   void multiPhaseWithoutNaiveStillFails() throws IOException {
     Path dir = root.resolve("problems").resolve("tiny");
     verify(BUGGY_F, CORRECT_F, 0, CORRECT_F, 10_000);

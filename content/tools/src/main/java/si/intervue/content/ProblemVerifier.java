@@ -231,10 +231,11 @@ public final class ProblemVerifier {
 
   private static String naiveRule(RunResults r, String last, boolean onePhase) {
     // With one phase there is no earlier phase to pass, so the naive must be correct on every test
-    // it does not time out on; otherwise a wrong solution would count as "slow".
+    // it does not time out on; a FAIL or an ERROR (crash) would otherwise count as "slow".
     boolean othersPass =
         onePhase
-            ? r.tests().stream().noneMatch(t -> t.status() == TestStatus.FAIL)
+            ? r.tests().stream()
+                .allMatch(t -> t.status() == TestStatus.PASS || t.status() == TestStatus.TIMEOUT)
             : r.tests().stream()
                 .filter(t -> !t.suite().equals(last))
                 .allMatch(t -> t.status() == TestStatus.PASS);
