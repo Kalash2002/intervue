@@ -11,6 +11,7 @@ on:
 jobs:
   rust:
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
@@ -33,6 +34,7 @@ jobs:
     if: startsWith(github.ref, 'refs/tags/app-v')
     needs: rust
     strategy:
+      fail-fast: false
       matrix:
         os: [windows-latest, macos-latest]
     runs-on: ${{ matrix.os }}
