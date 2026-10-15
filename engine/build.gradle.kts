@@ -1,4 +1,7 @@
 // The local engine: HTTP API, sessions, store, runners. Layer rules are enforced by ArchitectureTest.
+// Every section package (settings.gradle.kts finds them by folder) runs in tests and ships in the dist.
+val sectionPackages = rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
+
 dependencies {
     // The language SPI exposes Variant, so packages compiled against the engine see it too.
     api(project(":shared-java:problem-format"))
@@ -9,8 +12,7 @@ dependencies {
     testImplementation(libs.archunit)
     // Session tests run real code through the real packages; main code never sees them (ArchitectureTest).
     testRuntimeOnly(project(":languages:java:runner"))
-    rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
-        .forEach { testRuntimeOnly(it) }
+    sectionPackages.forEach { testRuntimeOnly(it) }
 }
 
 tasks.test {
@@ -23,8 +25,6 @@ tasks.test {
 // every dependency and the installed packages, found through the manifest Class-Path. A separate
 // jar task, because the packages depend on the engine's own jar.
 val bundledPackages by configurations.creating
-// Every section package (settings.gradle.kts finds them by folder) runs in tests and ships in the dist.
-val sectionPackages = rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
 dependencies {
     bundledPackages(project(":languages:java:runner"))
     sectionPackages.forEach { bundledPackages(it) }
