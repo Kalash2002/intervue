@@ -126,6 +126,18 @@ public final class SessionAssistant {
   }
 
   /**
+   * Route pre-check: throws before the stream opens so the refusal is a real HTTP 400. The ask,
+   * write and explain methods repeat the check as defence in depth. {@code needsHints} adds the
+   * hint gate for "explain this hint".
+   */
+  public void preflight(String id, AssistantChannel channel, boolean needsHints) {
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), channel));
+    if (needsHints && !SessionHints.allowed(c)) {
+      throw new SessionException("Hints are not available in this Interview session.");
+    }
+  }
+
+  /**
    * The single channel gate: a section without the channel is refused before any model call or
    * allowance accounting (ADR 0012).
    */

@@ -9,6 +9,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import si.intervue.engine.api.LocalApi.BadRequest;
 import si.intervue.engine.api.LocalApi.NotFound;
+import si.intervue.engine.sections.AssistantChannel;
 import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.SessionAssistant;
 import si.intervue.engine.session.Sessions;
@@ -123,12 +124,18 @@ final class Routes {
       case "POST finish" -> engine.assistant().finish(id, flag(body, "early"));
       case "GET chat" -> engine.assistant().chat(id);
       case "GET review" -> engine.assistant().review(id);
-      case "POST ask" ->
-          new Streamed(d -> engine.assistant().ask(id, text(body, "message"), rules(body), d));
-      case "POST write" ->
-          new Streamed(d -> engine.assistant().write(id, text(body, "message"), rules(body)));
-      case "POST hints/explain" ->
-          new Streamed(d -> engine.assistant().explainHint(id, number(body, "phase"), d));
+      case "POST ask" -> {
+        engine.assistant().preflight(id, AssistantChannel.ASK, false);
+        yield new Streamed(d -> engine.assistant().ask(id, text(body, "message"), rules(body), d));
+      }
+      case "POST write" -> {
+        engine.assistant().preflight(id, AssistantChannel.WRITE_CODE, false);
+        yield new Streamed(d -> engine.assistant().write(id, text(body, "message"), rules(body)));
+      }
+      case "POST hints/explain" -> {
+        engine.assistant().preflight(id, AssistantChannel.ASK, true);
+        yield new Streamed(d -> engine.assistant().explainHint(id, number(body, "phase"), d));
+      }
       default -> throw new NotFound("No session route " + route);
     };
   }

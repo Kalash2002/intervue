@@ -230,31 +230,30 @@ class LocalApiTest {
 
   @Test
   void askOnADsaSessionIs400() throws Exception {
-    JsonNode line =
-        firstStreamLine(start("tiny-dsa", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}");
+    String s = start("tiny-dsa", "INTERVIEW");
+    HttpResponse<String> response = send("POST", s + "/ask", "{\"message\":\"hi\"}", TOKEN);
 
-    assertThat(line.get("t").asString()).isEqualTo("error");
-    assertThat(line.get("reason").asString()).contains("no assistant");
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("no assistant");
   }
 
   @Test
   void writeOnADsaSessionIs400() throws Exception {
-    JsonNode line =
-        firstStreamLine(start("tiny-dsa", "INTERVIEW") + "/write", "{\"message\":\"hi\"}");
+    String s = start("tiny-dsa", "INTERVIEW");
+    HttpResponse<String> response = send("POST", s + "/write", "{\"message\":\"hi\"}", TOKEN);
 
-    assertThat(line.get("t").asString()).isEqualTo("error");
-    assertThat(line.get("reason").asString()).contains("cannot write code");
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("cannot write code");
   }
 
   @Test
   void hintExplainOnADsaSessionIs400() throws Exception {
     String s = start("tiny-dsa", "INTERVIEW");
     call("POST", s + "/hints", "{\"phase\":1}");
+    HttpResponse<String> response = send("POST", s + "/hints/explain", "{\"phase\":1}", TOKEN);
 
-    JsonNode line = firstStreamLine(s + "/hints/explain", "{\"phase\":1}");
-
-    assertThat(line.get("t").asString()).isEqualTo("error");
-    assertThat(line.get("reason").asString()).contains("no assistant");
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("no assistant");
   }
 
   @Test
