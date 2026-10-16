@@ -71,12 +71,31 @@ describe('the DSA room', () => {
     expect(screen.getByRole('dialog', { name: 'End the session?' })).toBeInTheDocument();
   });
 
-  it('offers hints only in Practice', async () => {
-    const { unmount } = renderWith(<SolveRoom session={timed(view())} />, client());
-    expect(screen.queryByRole('tab', { name: 'Hints' })).toBeNull();
-    unmount();
+  it.each(['INTERVIEW', 'PRACTICE'] as const)('%s: Hints, no Assistant', (type) => {
+    renderWith(<SolveRoom session={timed(view({ type }))} />, client());
 
-    renderWith(<SolveRoom session={timed(view({ type: 'PRACTICE' }))} />, client());
+    expect(screen.getByRole('tab', { name: 'Hints' })).toHaveAttribute('aria-selected', 'true');
+    expect(screen.queryByRole('tab', { name: 'Assistant' })).toBeNull();
+  });
+
+  it('shows no Assistant tab when channels are empty, whatever the section', () => {
+    renderWith(<SolveRoom session={timed(view({ section: 'other-section' }))} />, client());
+
+    expect(screen.queryByRole('tab', { name: 'Assistant' })).toBeNull();
+  });
+
+  it('shows the Assistant tab, first, when channels hold ASK', () => {
+    renderWith(<SolveRoom session={timed(view({ channels: ['ASK'] }))} />, client());
+
+    expect(screen.getByRole('tab', { name: 'Assistant' })).toHaveAttribute('aria-selected', 'true');
     expect(screen.getByRole('tab', { name: 'Hints' })).toBeInTheDocument();
+  });
+
+  it('shows no side panel when neither hints nor assistant apply', () => {
+    renderWith(<SolveRoom session={timed(view({ hintsAllowed: false }))} />, client());
+
+    expect(screen.queryByRole('tab', { name: 'Hints' })).toBeNull();
+    expect(screen.queryByRole('tab', { name: 'Assistant' })).toBeNull();
+    expect(screen.queryByRole('complementary')).toBeNull();
   });
 });

@@ -1,6 +1,10 @@
 /* The DSA room's own layout: statement | editor over output | side panel. Theme tokens only. */
 .work.dsa {
-  --files-w: 380px;
+  --statement-w: 460px;
+  grid-template-columns: var(--statement-w) 5px minmax(0, 1fr) 5px var(--right-w, 430px);
+}
+.work.dsa.solo {
+  grid-template-columns: var(--statement-w) 5px minmax(0, 1fr);
 }
 .statement {
   overflow: auto;
@@ -8,4 +12,39 @@
   background: var(--panel);
   min-width: 0;
   min-height: 0;
+}
+.stmt-heading {
+  margin: 16px 0 6px;
+  font-size: 13px;
+}
+.example {
+  margin: 12px 0;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--panel-2);
+}
+.example-name {
+  margin: 0 0 6px;
+  font-size: 13px;
+}
+.example dl,
+.example dd {
+  margin: 0;
+}
+.example-row {
+  display: grid;
+  grid-template-columns: 90px minmax(0, 1fr);
+  gap: 8px;
+  padding: 3px 0;
+}
+.example dt {
+  color: var(--muted);
+}
+.example code {
+  font-family: var(--mono);
+  overflow-wrap: anywhere;
+}
+.example .md p {
+  margin: 0;
 }

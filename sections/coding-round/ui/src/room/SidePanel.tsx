@@ -97,6 +97,7 @@ function Hints({
             phase={phase}
             used={view.hintsUsed[String(phase)] ?? 0}
             disabled={view.finished}
+            channels={view.channels}
             onRevealed={onChange}
             beforeExplain={beforeExplain}
           />

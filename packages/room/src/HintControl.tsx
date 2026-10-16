@@ -10,6 +10,7 @@ export function HintControl({
   phase,
   used,
   disabled = false,
+  channels,
   onRevealed,
   beforeExplain = async () => {},
 }: {
@@ -17,6 +18,8 @@ export function HintControl({
   phase: number;
   used: number;
   disabled?: boolean;
+  /** The session's assistant channels; "Explain this hint" needs ASK. */
+  channels: readonly string[];
   onRevealed: (view: SessionView) => void;
   /** Saves unsaved typing so the explanation reads the code on screen. */
   beforeExplain?: () => Promise<void>;
@@ -46,7 +49,7 @@ export function HintControl({
           <Markdown source={text} />
         </div>
       ))}
-      {texts.length > 0 && (
+      {texts.length > 0 && channels.includes('ASK') && (
         <Explain sessionId={sessionId} phase={phase} onDone={onRevealed} beforeExplain={beforeExplain} />
       )}
       {next <= LEVELS ? (

@@ -7,6 +7,7 @@ const clamp = (value: number, low: number, high: number) => Math.max(low, Math.m
 /** The new size in px for a pointer at (x, y), given the work area and its center column. */
 export const SIZES = {
   '--files-w': (x: number, _y: number, work: DOMRect) => clamp(x - work.left, 140, 420),
+  '--statement-w': (x: number, _y: number, work: DOMRect) => clamp(x - work.left, 300, 640),
   '--right-w': (x: number) => clamp(window.innerWidth - x, 300, window.innerWidth - 520),
   '--out-h': (_x: number, y: number, _work: DOMRect, center: DOMRect) =>
     clamp(center.bottom - y, 80, center.height - 140),

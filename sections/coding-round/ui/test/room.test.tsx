@@ -158,7 +158,7 @@ describe('hints', () => {
       const level = revealHint.mock.calls.length;
       return { phase, level, text: `Level ${level} text` };
     });
-    renderWith(<HintControl sessionId="s1" phase={1} used={0} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={1} used={0} channels={['ASK']} onRevealed={vi.fn()} />, {
       revealHint,
       revealedHints: vi.fn(async () => []),
       session: vi.fn(async () => view({ type: 'PRACTICE' })),

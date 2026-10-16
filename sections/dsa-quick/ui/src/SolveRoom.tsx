@@ -1,9 +1,9 @@
 // The DSA solving room: statement on the left, one editable file with the output below it, and a
-// side panel with the assistant (and hints in Practice). It must not show a file tree or phases.
+// side panel with hints and, where the section allows it, the assistant. It must not show a file tree or phases.
 import { useState } from 'react';
 import { languageFor } from '@intervue/editor';
 import type { FileEntry, SessionView } from '@intervue/local-engine-client';
-import { Markdown, TopBar, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
+import { TopBar, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
 import {
   AssistantPanel,
   CodeEditor,
@@ -18,6 +18,7 @@ import {
   useRoomActions,
   useWorkspace,
 } from '@intervue/room';
+import { Statement } from './Statement.tsx';
 import { solutionFiles } from './solutionFiles.ts';
 import './dsa.css';
 
@@ -32,6 +33,7 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
   const actions = useRoomActions(view, ws, refresh);
   const activeMs = useActiveMs(session);
   const [target, setTarget] = useState('phase:1');
+  const hasSide = view.hintsAllowed || view.channels.length > 0;
 
   return (
     <div className="room dsa">
@@ -41,12 +43,12 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
         <RoomClock view={view} activeMs={activeMs} />
         <FinishControl view={view} actions={actions} />
       </TopBar>
-      <div className="work dsa">
+      <div className={hasSide ? 'work dsa' : 'work dsa solo'}>
         <section className="statement" aria-label="Statement">
           {/* A one-phase problem has an empty intro: skip blanks so no empty block renders. */}
-          {view.brief.map((part, i) => (part ? <Markdown key={i} source={part} /> : null))}
+          {view.brief.map((part, i) => (part ? <Statement key={i} source={part} /> : null))}
         </section>
-        <Splitter size="--files-w" label="Resize the statement" />
+        <Splitter size="--statement-w" label="Resize the statement" />
         <section className="center">
           <EditorArea ws={ws} finished={view.finished} actions={actions} onRun={() => actions.run(target)} />
           <Splitter size="--out-h" label="Resize the output pane" />
@@ -59,8 +61,12 @@ export function SolveRoom({ session: initial }: SectionRoomProps) {
             targets={phaseTargets(view)}
           />
         </section>
-        <Splitter size="--right-w" label="Resize the side panel" />
-        <SidePanel view={view} actions={actions} onChange={refresh} />
+        {hasSide && (
+          <>
+            <Splitter size="--right-w" label="Resize the side panel" />
+            <SidePanel view={view} actions={actions} onChange={refresh} />
+          </>
+        )}
       </div>
     </div>
   );
@@ -97,7 +103,9 @@ function FinishControl({ view, actions }: { view: SessionView; actions: RoomActi
   );
 }
 
-/** The assistant always; hints only in Practice (PLAN.md 2.8). */
+type Tab = 'Hints' | 'Assistant';
+
+/** Hints when the session allows them, the assistant only when it has a channel (ADR 0012). */
 function SidePanel({
   view,
   actions,
@@ -107,8 +115,11 @@ function SidePanel({
   actions: RoomActions;
   onChange: (v: SessionView) => void;
 }) {
-  const [tab, setTab] = useState<'Hints' | 'Assistant'>('Assistant');
-  const tabs = view.type === 'PRACTICE' ? (['Assistant', 'Hints'] as const) : (['Assistant'] as const);
+  const tabs: Tab[] = [];
+  if (view.channels.length > 0) tabs.push('Assistant');
+  if (view.hintsAllowed) tabs.push('Hints');
+  const [picked, setTab] = useState<Tab | null>(null);
+  const tab = picked && tabs.includes(picked) ? picked : tabs[0];
   return (
     <aside className="right">
       <div className="tabs side" role="tablist">
@@ -133,6 +144,7 @@ function SidePanel({
             phase={1}
             used={view.hintsUsed['1'] ?? 0}
             disabled={view.finished}
+            channels={view.channels}
             onRevealed={onChange}
             beforeExplain={actions.saveFiles}
           />
