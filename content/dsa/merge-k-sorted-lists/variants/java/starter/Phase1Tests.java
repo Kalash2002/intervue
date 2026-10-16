@@ -56,6 +56,7 @@ public class Phase1Tests {
     @Test(order = 4)
     void someListsEmpty() {
         expect(new int[][] {{}, {-2, 3}, {}, {0}}, new int[] {-2, 0, 3});
+        expect(new int[][] {{}, {6, 6}, {}}, new int[] {6, 6});
     }
 
     @Test(order = 5)

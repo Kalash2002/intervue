@@ -12,8 +12,9 @@ public class Phase1Tests {
         LRUCache cache = new LRUCache(2);
         cache.put(5, 50);
         cache.put(8, 80);
-        assertEquals(50, cache.get(5));
-        cache.put(3, 30); // 8 is now the least recently used
+        assertEquals(80, cache.get(8));
+        assertEquals(50, cache.get(5)); // 8 is now the least recently used
+        cache.put(3, 30);
         assertEquals(-1, cache.get(8));
         assertEquals(30, cache.get(3));
     }

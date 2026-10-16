@@ -116,7 +116,7 @@ static ListNode merge(ListNode[] lists) {
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(N k) | O(k) |
-| Better: merge in rounds of pairs | O(N log k) | O(1) |
+| Better: merge in rounds of pairs | O(N log k) | O(1), overwrites the input array |
 | Optimal: a min-heap of the fronts | O(N log k + k) | O(k) |
 
 ## Where it shows up

@@ -12,7 +12,7 @@ What the scan searches for, the map could hand you directly. Keep the order in a
 
 The JDK packages exactly this structure as `LinkedHashMap` in access order, which is the short version; writing the list yourself is what the question is really asking about.
 
-Walk Example 1 with capacity 2. `put(5, 50)`: list 5. `put(8, 80)`: list 8, 5 (front first). `get(5)` returns 50 and moves 5 to the front: 5, 8. `put(3, 30)` finds the cache full and evicts the back, 8; list 3, 5. `get(8)` misses, -1. `get(3)` returns 30.
+Walk Example 1 with capacity 2. `put(5, 50)`: list 5. `put(8, 80)`: list 8, 5 (front first). `get(8)` returns 80; 8 is already at the front. `get(5)` returns 50 and moves 5 to the front: 5, 8. `put(3, 30)` finds the cache full and evicts the back, 8; list 3, 5. `get(8)` misses, -1.
 
 ![Example 1 just before 3 is stored: the map points to entries 5 and 8 in a list from head to tail sentinels; 8, at the back, is evicted in purple](figures/lru.svg)
 

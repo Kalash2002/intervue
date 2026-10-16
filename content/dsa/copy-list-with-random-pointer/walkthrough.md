@@ -66,7 +66,7 @@ static Node copy(Node head) {
 }
 ```
 
-**Complexity:** time O(n) on average, O(n²) in the worst case (`Node` is not `Comparable`, so a crowded bucket stays a list), extra space O(n) for the map.
+**Complexity:** time O(n) on average, O(n²) in the worst case (if many nodes share a hash, a tree bin cannot order keys that are not `Comparable`, so a lookup scans them), extra space O(n) for the map.
 
 **Prefer it when:** the input may not be changed even briefly, for example because another thread reads it while you copy, or when the clearer code matters more than the memory.
 

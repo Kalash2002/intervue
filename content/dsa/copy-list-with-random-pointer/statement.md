@@ -20,9 +20,9 @@ A list is written head first as `[[val, randomIndex], ...]`, where `randomIndex`
 
 ## Example 3
 
-**Input:** `head = []`
-**Output:** `[]`
-**Explanation:** The copy of an empty list (`null`) is an empty list.
+**Input:** `head = [[-7,0]]`
+**Output:** `[[-7,0]]`
+**Explanation:** The single node's `random` points at itself, so the new node's `random` must point at the new node, not at the input node.
 
 ## Constraints
 

@@ -44,6 +44,7 @@ public class Phase1Tests {
 
     @Test(order = 4)
     void singleNodeLinkingToItself() {
+        expect(new Integer[][] {{-7, 0}});
         expect(new Integer[][] {{0, 0}});
     }
 

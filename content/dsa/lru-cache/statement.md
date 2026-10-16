@@ -12,9 +12,9 @@ In the examples, the input is the sequence of calls on a new cache, and the outp
 
 ## Example 1
 
-**Input:** `["LRUCache(2)", "put(5, 50)", "put(8, 80)", "get(5)", "put(3, 30)", "get(8)", "get(3)"]`
-**Output:** `[50, -1, 30]`
-**Explanation:** Reading 5 makes 8 the least recently used key, so storing 3 evicts 8.
+**Input:** `["LRUCache(2)", "put(5, 50)", "put(8, 80)", "get(8)", "get(5)", "put(3, 30)", "get(8)"]`
+**Output:** `[80, 50, -1]`
+**Explanation:** Reading 8 and then 5 leaves 8 as the least recently used key, so storing 3 evicts 8.
 
 ## Example 2
 
@@ -33,7 +33,7 @@ In the examples, the input is the sequence of calls on a new cache, and the outp
 - `1 <= capacity <= 2 * 10^5`
 - `0 <= key <= 10^6`
 - `0 <= value <= 10^9`
-- `1 <= number of calls on one cache <= 6 * 10^5`
+- `1 <= number of get and put calls on one cache <= 6 * 10^5`
 
 ## Follow-up
 

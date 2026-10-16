@@ -29,7 +29,7 @@
 <path d="M 366 125 L 386 125"/>
 <path d="M 440 125 L 460 125"/>
 <path d="M 514 125 L 534 125"/>
-<path d="M 588 125 L 606 125"/>
+<path d="M 588 125 L 598 125"/>
 </g>
 
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
@@ -49,6 +49,6 @@
 <text x="563" y="96">after</text>
 </g>
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
-<text x="608" y="129">null</text>
+<text x="602" y="129">null</text>
 </g>
 </svg>

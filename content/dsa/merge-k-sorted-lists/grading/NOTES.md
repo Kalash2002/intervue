@@ -1,6 +1,6 @@
 # Grader notes: Merge K Sorted Lists
 
-Tests cover: the sample, an empty array, an array of only empty lists, empty lists mixed with non-empty ones, a single list, equal values spread over several lists, values at the constraint limits, one long list with two one-node lists, and 50,000 lists of 4 random sorted values each (200,000 nodes, fixed seed) whose expected order the test gets by sorting all values. Every list check counts nodes against the expected total (so a loop fails instead of hanging) and checks that each node of the result is one of the given nodes, used once.
+Tests cover: the sample, an empty array, an array of only empty lists, empty lists mixed with non-empty ones (including `[[],[6,6],[]]`, where one list holds every node), a single list, equal values spread over several lists, values at the constraint limits, one long list with two one-node lists, and 50,000 lists of 4 random sorted values each (200,000 nodes, fixed seed) whose expected order the test gets by sorting all values. Every list check counts nodes against the expected total (so a loop fails instead of hanging) and checks that each node of the result is one of the given nodes, used once.
 
 Traps from the walkthrough and hints, and the tests that grade them:
 - Putting `null` heads into the heap: a scratch version fails `everyListEmpty` and `someListsEmpty` with `NullPointerException`.

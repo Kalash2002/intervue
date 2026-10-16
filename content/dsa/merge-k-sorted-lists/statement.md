@@ -18,9 +18,9 @@ Implement `MergeK.merge(ListNode[] lists)` in `MergeK.java`. `ListNode` (in `Lis
 
 ## Example 3
 
-**Input:** `lists = []`
-**Output:** `[]`
-**Explanation:** With no lists at all, the merged list is empty (`null`).
+**Input:** `lists = [[],[6,6],[]]`
+**Output:** `[6,6]`
+**Explanation:** Only one list has nodes, so the result is that list as it is, repeated value included.
 
 ## Constraints
 
