@@ -219,7 +219,7 @@ Prompt 1af.2, close the phase:
 
 ## Order from here (ADR 0009, 2026-10-16)
 
-After 1af: Phase 2 is the catalogue to 60 (`phase-7-dsa-section.md`, content only), Phase 3 the system design section (`phase-8-system-design.md`). Only then accounts, packs and the AI gateway (the section below, now Phase 4), website, installers and launch (Phase 5), sync (Phase 6), the website dashboard (Phase 7), and the other languages (Phases 8 to 10). The sections below keep their original headings.
+After 1af: Phase 2 is the catalogue to 60 (`phase-7-dsa-section.md`, content only); Phase 3 the website and installers (`phase-1c-website-installers-launch.md`, edited first to drop the store, sign-in and the paid pack: ADR 0010); Phase 4 the system design section (`phase-8-system-design.md`); Phase 5 accounts, packs, the payment page, the AI gateway and admin (the 1b section below); Phase 6 sync; Phase 7 the website dashboard; then the other languages (Phases 8 to 10) and industry mode. The sections below keep their original headings.
 
 ---
 

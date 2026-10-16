@@ -1,6 +1,6 @@
 # Phase prompts
 
-One file per roadmap phase (PLAN.md section 10), run with `/phase docs/prompts/<file>.md`. Phase 1 is split so that a base working app exists first. Since 2026-10-15 the first product is Java only on Windows (ADR 0007), and since 2026-10-16 the complete Java system comes before anything that needs a certificate, an API key or a backend (ADR 0009): after the catalogue come IntelliSense, the catalogue to 60 and the system design section; accounts, payment and launch are Phases 4 and 5; the other languages are last. File names keep their original phase numbers; the table gives the order.
+One file per roadmap phase (PLAN.md section 10), run with `/phase docs/prompts/<file>.md`. Phase 1 is split so that a base working app exists first. Since 2026-10-15 the first product is Java only on Windows (ADR 0007), and since 2026-10-16 the base product comes first (ADR 0009, 0010): after the catalogue come IntelliSense and the catalogue to 60, then the website and installers, then the system design section, then the backend with accounts, packs, payment, the AI gateway and admin, then sync and the website dashboard, and the other languages last. File names keep their original phase numbers; the table gives the order.
 
 | File | Phase | Delivers |
 |---|---|---|
@@ -10,10 +10,10 @@ One file per roadmap phase (PLAN.md section 10), run with `/phase docs/prompts/<
 | `phase-1ae-catalogue-java.md` | 1ae | Scenario problems written in NeetCode roadmap order from `content/dsa/NEETCODE-150.md`, each covering the next two or three questions of a group until all 150 are covered (about 50 problems); the first 24 are the launch catalogue |
 | `phase-1ad-fixes-dsa.md` | 1ad fixes | The DSA hand-test fixes: no assistant in DSA rooms but hints in both session types, LeetCode-shaped statements, answers from brute force through better to optimal with a figure, `java.util` imports in starters and auto-import on completion |
 | `phase-1af-java-intellisense.md` | 1af | The Eclipse JDT language server as a downloadable plugin: completion with signatures and auto-import, hover, diagnostics, go-to-definition; built-in completion as the fallback |
-| `phase-7-dsa-section.md` | 2 (was 7, then 4) | Catalogue to 60, content only |
-| `phase-8-system-design.md` | 3 (was 8, then 5) | System design section, no backend |
-| `phase-1b-accounts-packs-ai.md` | 4 (was 1b) | Backend, device sign-in, catalog and plans, entitlements, redeem codes, payment page with mock and manual UPI adapters, encrypted packs, AI gateway with Ask, Write code and hint explanation |
-| `phase-1c-website-installers-launch.md` | 5 (was 1c) | Website, signed installers for Windows and macOS, updater, Doctor, beta and launch |
+| `phase-7-dsa-section.md` | 2 (was 7) | Catalogue to 60, content only |
+| `phase-1c-website-installers-launch.md` | 3 (was 1c) | Website (landing, set-up guides, download), unsigned Windows installer, updater, Doctor, five testers; the store, sign-in and the paid pack move to Phase 5 (edit the prompt before running it) |
+| `phase-8-system-design.md` | 4 (was 8) | System design section, no backend |
+| `phase-1b-accounts-packs-ai.md` | 5 (was 1b) | Backend, device sign-in, catalog and plans, entitlements, redeem codes, payment page with mock and manual UPI adapters, encrypted packs, AI gateway with Ask, Write code and hint explanation |
 | `phase-2-sync-feedback.md` | 6 (was 2) | Session sync, deferred AI feedback, device management, pack B, promo reporting (the language server moved to 1af) |
 | `phase-3-dashboard-content.md` | 7 (was 3) | Website dashboard, catalogue to 36, authoring workbench, gateway adapter if still pending |
 | `phase-4-python.md` | 8 (was 4) | Python language package and full port |
