@@ -48,6 +48,21 @@ curl localhost:1420/engine/sessions                          # history rows, eac
 
 Screenshots follow the Phase 1ac recipe below (headless Edge with `--disable-extensions`), into `docs/plans/phase-1ad-evidence/`.
 
+### Phase 1ad fixes: DSA shape, channels, low-memory verify
+
+```sh
+./gradlew :content:tools:verify --offline -Pids=two-sum,valid-anagram,group-anagrams   # a few ids at a time on a low-memory machine
+./gradlew :shared-java:problem-format:test --offline          # validator rules, incl. the DSA statement and answer cases
+./gradlew :engine:test --offline                              # channel refusals (HTTP 400)
+pnpm -C packages/editor test && pnpm -C sections/dsa-quick/ui test   # auto-import, Statement, hints/no-Assistant room
+```
+
+- Verify now checks every `dsa-quick` question's `statement.md` (Example blocks, Constraints), `walkthrough.md` (headings in order, brute force, better, optimal, one figure that exists) and starter (`import java.util.*;`). A wrong shape fails with the file and the missing heading. These rules key on the section id `dsa-quick`.
+- A section without a channel gets a real HTTP 400 before the stream opens: `POST /sessions/<id>/ask`, `/write` and `/hints/explain` on a DSA session (no ASK or WRITE), and hints where the section has none. The coding round keeps ask, write and hints. Check: `curl -i -X POST localhost:1420/engine/sessions/<id>/ask -H 'content-type: application/json' -d '{"message":"hi"}'` on a DSA session returns `400`.
+- The session view carries `channels` and `hintsAllowed`; the DSA room reads them (Hints shown, Assistant tab absent).
+- Low memory: verify runs three JVM passes per question. Do not run all 49 DSA plus the 10 coding-round problems with other builds open; pass `-Pids` with three to five ids at a time and repeat until all 59 have passed. Run `./gradlew --stop` between chunks if memory is tight.
+- Evidence recipe is unchanged (headless Edge, `--disable-extensions`), into `docs/plans/phase-1ad-fixes-evidence/`.
+
 ## Phase 1ac: shell, Home, section page, theme, tags
 
 ### Gates added in this phase

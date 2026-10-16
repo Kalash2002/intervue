@@ -4,6 +4,13 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- docs: ADR 0012 (DSA statement and answer shapes, hints without the assistant; supersedes ADR 0008 in part), `content/templates/dsa-statement.md` and `dsa-walkthrough.md` (2026-10-16)
+- shared-java: the problem validator applies DSA statement (Example blocks, Constraints), answer (brute force, better, optimal, complexity table, one figure) and `java.util.*` starter-import rules, keyed on section `dsa-quick`; this closes the one-phase coding-round Later note (2026-10-16)
+- engine, shared-java: a section's channels are enforced for every section: a missing channel gets an HTTP 400 on ask, write and hints/explain, before the stream opens; Interview hints come from the new SPI default `hintsInInterview()`; `SessionView` carries `channels` and `hintsAllowed` (2026-10-16)
+- sections/dsa-quick/ui, packages/room: the DSA room shows Hints in Interview and Practice and no Assistant tab; "Explain this hint" is hidden without ASK; `Statement.tsx` renders Example blocks and Constraints; the statement column is wider (`--statement-w`) and narrow windows stack (2026-10-16)
+- packages/editor: completing a `java.util` type adds its import; no import for project symbols or on import lines (2026-10-16)
+- content: all 49 DSA questions rewritten: LeetCode-shaped statements; answers from brute force to better to optimal, each with code and complexity; one figure per question; starters import `java.util.*`; stock and folk examples removed; latent test and constraint defects fixed; reference changes in group-anagrams (count key), permutation-in-string (matching counter), longest-valid-parentheses (counters); versions bumped (2026-10-16)
+
 - sections/dsa-quick: the DSA section (id `dsa-quick`, Java only): one-phase questions scored Correctness 80 and Time 20 (Interview and Practice, labels as in ADR 0006), result parts `score`, `tests`, `time`, `walkthrough`, its own Ask and Write code prompts; Practice keeps the Time part, unlike the coding round (2026-10-15)
 - sections/dsa-quick/ui, packages/room: the DSA solving page (statement beside the editor, "Run tests", the result page with a walkthrough tab; the room fills the window at 1366x768; it opens the solution file, with small tabs when several files qualify; a one-phase problem reads "1 phase"); the room pieces the coding round and DSA share (editor, output pane, file tree, splitters, assistant panel) move to the new `@intervue/room` package (2026-10-15)
 - packages/sections: new `@intervue/sections`, the one list of section UIs; a new section adds its folder and one line there. `desktop/src/main.tsx` reads that list instead of naming sections (ADR 0008) (2026-10-15)
