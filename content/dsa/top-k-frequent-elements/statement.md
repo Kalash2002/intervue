@@ -26,8 +26,8 @@ Implement `TopKFrequent.topK(int[] nums, int k)` in `TopKFrequent.java`. Return 
 
 - `1 <= nums.length <= 2 * 10^5`
 - `-2^31 <= nums[i] <= 2^31 - 1`
-- `1 <= k <=` the number of distinct values in `nums`
 - `1 <= k <= distinct(nums)`, where `distinct(nums)` is the number of distinct values in `nums`
+- The answer is unique, as described above.
 
 ## Follow-up
 
