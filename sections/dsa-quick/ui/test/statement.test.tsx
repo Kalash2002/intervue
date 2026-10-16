@@ -71,6 +71,6 @@ describe('dsa.css', () => {
   it('sets the column grid only inside a media block, so room.css can stack it', () => {
     const outside = css.replace(/@media[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '');
     expect(outside).not.toMatch(/\.work\.dsa[^{]*\{[^}]*grid-template-columns/);
-    expect(css).toMatch(/@media not \(max-width: 1000px\)[^@]*grid-template-columns/);
+    expect(css).toMatch(/@media \(min-width: 1001px\)[^@]*grid-template-columns/);
   });
 });
