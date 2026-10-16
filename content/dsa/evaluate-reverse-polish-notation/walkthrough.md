@@ -72,9 +72,9 @@ private static int evalFrom(String[] tokens, int[] next) {
 }
 ```
 
-**Complexity:** time O(n), extra space O(d) for the call stack, where d is the depth of the expression, up to n / 2; at this question's depth (about 10^5) the recursion overflows the call stack.
+**Complexity:** time O(n), extra space O(d) for the call stack, where d is the depth of the expression, up to n / 2; for this question the depth can reach about 5 * 10^4, and the recursion overflows Java's default call stack there (the 50,000-operand test fails with a stack overflow).
 
-**Prefer it when:** the expressions are shallow and you want the structure of the expression (the calls follow its tree). It is the wrong choice for this question's inputs, since a long chain of additions makes the calls as deep as the expression, and depths around 10^5 overflow, and this question's tests reach 50,000 nested calls, which already do Java's call stack.
+**Prefer it when:** the expressions are shallow and you want the structure of the expression (the calls follow its tree). It is the wrong choice for this question's inputs, since a long chain of additions makes the calls as deep as the expression, and here the depth can reach about 5 * 10^4, which overflows Java's default call stack: the 50,000-operand test fails with a stack overflow.
 
 ## Optimal: a stack of values
 
@@ -110,7 +110,7 @@ static int evaluate(String[] tokens) {
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(n²) | O(n) |
-| Better: recursion from the last token | O(n) | O(d) call stack, up to O(n); overflows at depth about 10^5 |
+| Better: recursion from the last token | O(n) | O(d) call stack, up to O(n); about 5 * 10^4 for this question, which overflows |
 | Optimal: a stack of values | O(n) | O(n) |
 
 ## Where it shows up
