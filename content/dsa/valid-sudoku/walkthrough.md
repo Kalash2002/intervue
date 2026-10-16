@@ -78,7 +78,7 @@ static boolean repeats(int[] seen, int kind, char cell) {
 
 **Complexity:** time O(1) for the fixed board, 27 groups of 9 cells, so 243 cell reads (each cell is read three times), extra space O(1), three integers at a time. On an N by N board it is O(N²).
 
-**Prefer it when:** you want to report which group broke the rule, since at the `return false` the code knows `g` and the kind of group. It also uses three integers where the one-pass version below keeps 27 small arrays.
+**Prefer it when:** memory matters more than speed. It keeps three integers at a time where the one-pass version below keeps 27 small arrays, at the cost of reading every cell three times (243 cell reads against 81).
 
 ## Optimal: one pass with a record for every group
 

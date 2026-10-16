@@ -66,7 +66,7 @@ static int[] topK(int[] nums, int k) {
 }
 ```
 
-**Complexity:** time O(n + d log d), extra space O(d).
+**Complexity:** time O(n + d log d) average (the map is O(n) on average; Java treeifies crowded buckets, so a log factor in the worst case), extra space O(d).
 
 **Prefer it when:** you want the shortest code that is obviously right, or you need the whole ranking and not only the top `k`. It sorts the full list, so the first `k` entries come out ordered by count as a bonus.
 
@@ -95,7 +95,7 @@ static int[] topK(int[] nums, int k) {
 }
 ```
 
-**Complexity:** time O(n + d log k), extra space O(d) for the map plus O(k) for the heap.
+**Complexity:** time O(n + d log k) average (the map is O(n) on average; Java treeifies crowded buckets, so a log factor in the worst case), extra space O(d) for the map plus O(k) for the heap.
 
 **Prefer it when:** `k` is much smaller than the number of distinct values. Each value costs one heap operation of O(log k) instead of taking part in a sort of all `d`, and the ranking structure never grows past `k` entries.
 
@@ -144,8 +144,8 @@ static int[] topK(int[] nums, int k) {
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(n · d), so O(n²) when most values differ | O(d) |
-| Better: map, then sort the distinct values | O(n + d log d) | O(d) |
-| Better: map, then a min-heap of size k | O(n + d log k) | O(d + k) |
+| Better: map, then sort the distinct values | O(n + d log d) average, O(n log n) worst | O(d) |
+| Better: map, then a min-heap of size k | O(n + d log k) average, O(n log n) worst | O(d + k) |
 | Optimal: map, then buckets by count | O(n) average, O(n log n) worst | O(n) |
 
 ## Where it shows up

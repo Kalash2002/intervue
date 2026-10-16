@@ -30,7 +30,7 @@ For every list `L`, `decode(encode(L))` must equal `L`: the same strings, in the
 ## Constraints
 
 - `0 <= strings.size() <= 10^5`
-- `0 <=` the total number of characters over all strings `<= 2 * 10^6`
+- `0 <= total characters over all strings <= 2 * 10^6`
 - A string may be empty and may contain any character: digits, `#`, commas, spaces, newlines, accents or emoji.
 
 ## Follow-up

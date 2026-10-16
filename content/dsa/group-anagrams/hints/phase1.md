@@ -5,4 +5,4 @@ Two words belong together exactly when they have the same letters. Think about a
 Words in a group differ only in the order of their letters, so anything that ignores order can be that value. Once you have it, what structure lets you collect the words that share it?
 
 ## Level 3
-Compute a key from each word that all of its anagrams share and no other word does, and keep a map from key to the list of words that produced it.
+A key that all anagrams share and no other word does, and a map from that key to the list of words.

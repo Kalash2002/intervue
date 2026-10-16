@@ -70,7 +70,7 @@ static List<List<String>> group(String[] words) {
 }
 ```
 
-**Complexity:** time O(n · L log L) plus hashing each key, extra space O(n · L).
+**Complexity:** time O(n · L log L) average, with a log factor more per map operation in the worst case (Java treeifies crowded buckets), extra space O(n · L).
 
 **Prefer it when:** words are short or may contain any characters. The key is just the sorted word, so it works unchanged for uppercase, digits or accents, and for a very short word, sorting a handful of characters costs about as much as filling a 26-slot key.
 
@@ -93,15 +93,15 @@ static List<List<String>> group(String[] words) {
 }
 ```
 
-**Complexity:** time O(n · (L + 26)), which is O(n · L) for a fixed alphabet, extra space O(n · L). Hashing a key costs O(26), a constant.
+**Complexity:** time O(n · L) average for a fixed alphabet (hashing a 26-char key is a constant), with a log factor more per map operation in the worst case (Java treeifies crowded buckets), extra space O(n · L).
 
 ## Complexity
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(n · g · L) | O(n · L) |
-| Better: sorted letters as the key | O(n · L log L) | O(n · L) |
-| Optimal: letter counts as the key | O(n · L) | O(n · L) |
+| Better: sorted letters as the key | O(n · L log L) average, log factor more worst case | O(n · L) |
+| Optimal: letter counts as the key | O(n · L) average, log factor more worst case | O(n · L) |
 
 ## Where it shows up
 

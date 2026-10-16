@@ -30,4 +30,4 @@ Implement `Products.exceptSelf(int[] nums)` in `Products.java`. Return a new arr
 
 ## Follow-up
 
-Can you do it in O(n) time without using division?
+Can you do it in O(n) time and O(1) extra space, not counting the output?
