@@ -155,6 +155,14 @@ Prompt 1ad.2, repeat per batch until all 150 verify:
 > Continue Phase 1ad with the next topic-group batch from content/dsa/INDEX.md (10 to 20 questions), verify them three ways, update INDEX.md and docs/status.md, and open the PR.
 ```
 
+Prompt 1ad.2b, the hand-test fixes (added 2026-10-16 after the owner's first DSA session; run before closing the phase):
+
+```
+> /phase docs/prompts/phase-1ad-fixes-dsa.md
+```
+
+Human: open a DSA question in Interview and in Practice: no Assistant tab, Hints in both; the statement shows Example blocks and Constraints like a LeetCode page; type `Map<Integer, Integer> m = new HashMap<>();` and run; read the Answer page from the brute force down to the optimal approach.
+
 Prompt 1ad.3, close the phase:
 
 ```
@@ -186,6 +194,32 @@ Prompt 1ae.3, close the phase:
 ```
 > Manual results for Phase 1ae: <...>. Record them, fix blockers, re-run gates, confirm every exit criterion in docs/prompts/phase-1ae-catalogue-java.md. Tag app-v0.2.0 and write docs/retro/phase-1ae.md.
 ```
+
+---
+
+## Phase 1af: Java IntelliSense (moved up from Phase 2, ADR 0009)
+
+Runs after 1ae. Human first: nothing; the JDT language server downloads on first use.
+
+Prompt 1af.1:
+
+```
+> /phase docs/prompts/phase-1af-java-intellisense.md
+```
+
+Human: in a Java session type `new HashMap<>()` without an import and accept the completion; hover `HashMap`; jump from a call to a project class into its file; turn the flag off and check the built-in completion still works.
+
+Prompt 1af.2, close the phase:
+
+```
+> Manual results for Phase 1af: <...>. Record them, fix blockers, re-run gates, confirm every exit criterion in docs/prompts/phase-1af-java-intellisense.md. Tag app-v0.3.0 and write docs/retro/phase-1af.md.
+```
+
+---
+
+## Order from here (ADR 0009, 2026-10-16)
+
+After 1af: Phase 2 is the catalogue to 60 (`phase-7-dsa-section.md`, content only); Phase 3 the website and installers (`phase-1c-website-installers-launch.md`, edited first to drop the store, sign-in and the paid pack: ADR 0010); Phase 4 the system design section (`phase-8-system-design.md`); Phase 5 accounts, packs, the payment page, the AI gateway and admin on the mock adapters and a recorded model client (the 1b section below, edited first to drop the real gateway adapter and the provider key); Phase 6 sync; Phase 7 the website dashboard; Phase 8 everything that needs a credential, the real payment gateway, the provider key, signing and notarization (ADR 0011, prompt written when it is near); then the other languages (Phases 9 to 11) and industry mode. The sections below keep their original headings.
 
 ---
 
