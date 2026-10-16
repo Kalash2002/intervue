@@ -1,6 +1,6 @@
 # 0008: DSA section, one-phase problems, a second content root, discovered section lists
 
-Date: 2026-10-15. Status: accepted.
+Date: 2026-10-15. Status: accepted; superseded in part by 0012 (the DSA statement and answer shapes and the section-id keying).
 
 ## Context
 
@@ -13,7 +13,7 @@ ADR 0007 puts a DSA section (Phase 1ad) before the catalogue growth. Three thing
 ## Decision
 
 - **Section.** `dsa-quick`, `name` "DSA", `runnerKind` `code-tests`, `graderKind` `tests`, `uiMode` `editor`; channels ASK and WRITE_CODE; `supportsHints()` true; result parts `score`, `tests`, `time`, `walkthrough`. Score: correctness 80 x passed / total (timeouts and failures count as not passed); time 20 only when every test passed within its limit. Interview and Practice are labelled as in ADR 0006.
-- **One-phase problems, no `formatVersion` bump.** The change is additive. A problem with exactly one phase has weight 80, `statement.md` as its brief, `hints/phase1.md`, and no `brief/intro.md`; `grading/NOTES.md` is still required. Its walkthrough headings, in order, are `## Approach`, `## Complexity`, `## Where it shows up`, `## Follow-up answers`. `naive/` is optional. Without one, time is not separately graded and `grading/NOTES.md` says so. With one, the naive solution must pass every test that did not time out, time out at least once, and still time out at 3x the limits (`NAIVE_MARGIN`); the reference keeps the 5x headroom rule. Problems with several phases keep today's rules (weights sum to 70, intro required, the DSA reference headings).
+- **One-phase problems, no `formatVersion` bump.** The change is additive. A problem with exactly one phase has weight 80, `statement.md` as its brief, `hints/phase1.md`, and no `brief/intro.md`; `grading/NOTES.md` is still required. Its walkthrough headings, in order, are `## Approach`, `## Complexity`, `## Where it shows up`, `## Follow-up answers` (superseded by ADR 0012: the DSA statement and answer shapes, and keying the rules on section id `dsa-quick` instead of phase count, are in `docs/contracts/problem-format.md`). `naive/` is optional. Without one, time is not separately graded and `grading/NOTES.md` says so. With one, the naive solution must pass every test that did not time out, time out at least once, and still time out at 3x the limits (`NAIVE_MARGIN`); the reference keeps the 5x headroom rule. Problems with several phases keep today's rules (weights sum to 70, intro required, the DSA reference headings).
 - **`coveredBy[]`.** An optional list of coding-round problem ids in a DSA question's `problem.json`. The verify tool proves that every `coveredBy` id exists in `content/problems/`, every `dsa://<id>` link in `content/**/*.md` exists in `content/dsa/`, no id exists in both roots, and no `neetcode.io` or `leetcode.com` link appears under `content/`.
 - **Two content roots.** The engine reads `content/problems/` and `content/dsa/` (the latter optional). Ids are unique across both. Question ids are LeetCode slugs (Phase 1ac, `content/dsa/INDEX.md`).
 - **Local API.** `ProblemSummary` gains `coveredBy: string[]`. No contract file exists for the local API, so this ADR is its record.

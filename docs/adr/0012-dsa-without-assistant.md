@@ -1,6 +1,6 @@
 # 0012: DSA without the assistant, hints in Interview, section-keyed validation
 
-Date: 2026-10-16. Status: accepted.
+Date: 2026-10-16. Status: accepted; supersedes (in part) 0008.
 
 ## Context
 
