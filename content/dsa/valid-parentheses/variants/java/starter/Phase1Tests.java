@@ -6,7 +6,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(true, Brackets.isBalanced("([]){}"));
+        assertEquals(true, Brackets.isBalanced("[()]{}()"));
     }
 
     @Test(order = 2)
@@ -19,18 +19,18 @@ public class Phase1Tests {
         assertEquals(true, Brackets.isBalanced("()"));
         assertEquals(true, Brackets.isBalanced("[]"));
         assertEquals(true, Brackets.isBalanced("{}"));
-        assertEquals(true, Brackets.isBalanced("()[]{}"));
+        assertEquals(true, Brackets.isBalanced("{}[]()"));
     }
 
     @Test(order = 4)
     void deepNesting() {
-        assertEquals(true, Brackets.isBalanced("{[({[]})]}"));
+        assertEquals(true, Brackets.isBalanced("({[[]]})"));
     }
 
     @Test(order = 5)
     void crossedPairs() {
-        assertEquals(false, Brackets.isBalanced("([)]"));
-        assertEquals(false, Brackets.isBalanced("{[}]"));
+        assertEquals(false, Brackets.isBalanced("[{]}"));
+        assertEquals(false, Brackets.isBalanced("({)}"));
     }
 
     @Test(order = 6)
@@ -42,13 +42,13 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void openerNeverClosed() {
-        assertEquals(false, Brackets.isBalanced("(("));
+        assertEquals(false, Brackets.isBalanced("[[("));
         assertEquals(false, Brackets.isBalanced("{[]"));
     }
 
     @Test(order = 8)
     void wrongKind() {
-        assertEquals(false, Brackets.isBalanced("(]"));
+        assertEquals(false, Brackets.isBalanced("[)"));
         assertEquals(false, Brackets.isBalanced("{)"));
     }
 

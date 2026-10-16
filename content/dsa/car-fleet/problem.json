@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "car-fleet",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Car Fleet",
   "summary": "Count how many groups of cars arrive at a gate when no car may overtake the car ahead.",

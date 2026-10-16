@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "sliding-window-maximum",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Sliding Window Maximum",
   "summary": "Report the largest value in every window of k consecutive elements.",

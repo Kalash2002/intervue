@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the shortest stretch of a text that covers the characters of another string. */
 public class Cover {
 

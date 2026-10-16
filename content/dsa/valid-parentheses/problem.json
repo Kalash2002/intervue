@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "valid-parentheses",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Valid Parentheses",
   "summary": "Say whether every bracket in a string is closed by the right kind, in the right order.",

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Looks for rearrangements of a word inside a text. */
 public class Scramble {
 

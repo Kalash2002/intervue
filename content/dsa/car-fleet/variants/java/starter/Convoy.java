@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Counts the groups of cars that reach a gate when overtaking is not possible. */
 public class Convoy {
 

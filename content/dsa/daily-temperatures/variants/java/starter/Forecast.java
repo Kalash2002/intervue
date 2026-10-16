@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Answers "how long until it gets warmer" questions about a row of daily temperatures. */
 public class Forecast {
 

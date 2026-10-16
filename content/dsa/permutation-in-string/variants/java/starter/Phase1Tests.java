@@ -20,6 +20,7 @@ public class Phase1Tests {
     void wordLongerThanText() {
         assertEquals(false, Scramble.appearsIn("abc", "ab"));
         assertEquals(false, Scramble.appearsIn("a", ""));
+        assertEquals(false, Scramble.appearsIn("rune", "un"));
     }
 
     @Test(order = 4)
@@ -41,7 +42,7 @@ public class Phase1Tests {
     @Test(order = 7)
     void repeatedLettersThatMatch() {
         assertEquals(true, Scramble.appearsIn("aabb", "bbaabb"));
-        assertEquals(true, Scramble.appearsIn("stop", "xxpotsy"));
+        assertEquals(true, Scramble.appearsIn("tide", "xxeditz"));
     }
 
     @Test(order = 8)

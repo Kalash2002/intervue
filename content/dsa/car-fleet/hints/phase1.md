@@ -5,4 +5,4 @@ For one car on its own, how long would it need to reach the gate? Think about wh
 Process cars from the one nearest the gate backwards. A car is blocked exactly when it would arrive no later than the group in front of it. What do you need to remember about the cars already processed?
 
 ## Level 3
-Sort the cars by start position, then go from the front. Keep the arrival time of the group at the head of the line. A car with a longer time than that starts a new group and becomes the new head; a car with a shorter or equal time joins the group. Think about how to compare times that are equal.
+A car can never arrive before the group ahead of it, so each car's own time alone is compared with only one number, the slowest time among the cars in front of it. Think about how to compare two times exactly when they may not be whole numbers.

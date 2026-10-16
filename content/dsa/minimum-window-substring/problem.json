@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "minimum-window-substring",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Minimum Window Substring",
   "summary": "Find the shortest stretch of a text that contains every letter of a given word, counting repeats.",

@@ -33,12 +33,12 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void increasingValues() {
-        expect(new int[] {1, 2, 3, 4, 5}, 3, 3, 4, 5);
+        expect(new int[] {2, 4, 5, 9, 12}, 3, 5, 9, 12);
     }
 
     @Test(order = 6)
     void decreasingValues() {
-        expect(new int[] {9, 7, 5, 3, 1}, 2, 9, 7, 5, 3);
+        expect(new int[] {20, 14, 11, 6, 1}, 2, 20, 14, 11, 6);
     }
 
     @Test(order = 7)

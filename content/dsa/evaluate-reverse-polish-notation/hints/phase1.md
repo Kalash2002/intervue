@@ -5,4 +5,4 @@ When you reach an operator, which values does it work on? Think about which valu
 An operator always applies to the two most recent unused values. After computing, the result becomes a value that later operators may use. What structure gives you the most recent items first?
 
 ## Level 3
-Read tokens left to right. Push every number; at an operator, take the top value as the right operand and the one below it as the left operand, compute, and push the result. Be careful with a token such as a minus sign followed by digits, which is a number, and with how division rounds for negative results.
+Each operator consumes the two values read most recently and leaves one result behind, which later operators may use in turn. Watch which of the two is the left operand, since it matters for subtraction and division, and how a token like "-5" differs from the operator.

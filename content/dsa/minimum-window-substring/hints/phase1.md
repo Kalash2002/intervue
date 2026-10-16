@@ -5,4 +5,4 @@ A stretch either covers the needed letters or it does not. If a stretch covers t
 Checking every start and end is slow. Once a stretch covers the need, you want it as short as possible, and the right end is already fixed by how you got there. What can you do from the left side to make it shorter, and when must you stop?
 
 ## Level 3
-Keep counts of what is still missing. Move the right end until nothing is missing, then move the left end while nothing becomes missing again, recording the shortest stretch seen. Then let the left end go one step further so something is missing, and carry on with the right end.
+Both ends of the stretch only ever move to the right. The right end widens the stretch until the need is covered, and the left end narrows it for as long as the need stays covered.

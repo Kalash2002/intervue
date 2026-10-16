@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "evaluate-reverse-polish-notation",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Evaluate Reverse Polish Notation",
   "summary": "Compute the value of an arithmetic expression written with the operator after its two operands.",

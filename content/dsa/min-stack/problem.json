@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "min-stack",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Min Stack",
   "summary": "Design a stack that can report its smallest value at any moment in constant time.",

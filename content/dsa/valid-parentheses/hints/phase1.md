@@ -5,4 +5,4 @@ When a closing bracket arrives, which opening bracket must it match? Think about
 You always need the latest unmatched opener, and once it is matched it is gone and the one before it becomes the latest. Which data structure gives you that?
 
 ## Level 3
-Scan the string with a stack. Push each opening bracket. For a closing bracket, fail if the stack is empty or its top is a different kind; otherwise pop. At the end the string is balanced only if the stack is empty.
+Opening brackets wait in last-in, first-out order, and a closing bracket either meets the one on top or proves the string wrong. Think about what must be true of the waiting brackets when the string ends.

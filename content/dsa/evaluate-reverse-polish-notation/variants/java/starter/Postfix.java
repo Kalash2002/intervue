@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Evaluates arithmetic expressions written in postfix notation. */
 public class Postfix {
 

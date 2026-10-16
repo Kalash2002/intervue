@@ -5,4 +5,4 @@ A normal stack gives you push, pop and top for free. The hard part is the minimu
 The minimum at any moment depends only on what is currently in the stack, and the stack changes only at the top. So the minimum that applied just before a value was pushed is a fact about that moment. Could you store something next to each value?
 
 ## Level 3
-Alongside each value, store the smallest value in the stack up to and including that entry. Then getMin reads the top entry, and a pop discards both. Think about what you store when the new value equals the current minimum.
+Once a value is in the stack, the minimum of everything up to and including it never changes while it stays. So the answer to "what is the minimum now" can be worked out once, when each value is pushed, and removed together with it. Think about what to store when the new value equals the current minimum.

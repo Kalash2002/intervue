@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "permutation-in-string",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Permutation in String",
   "summary": "Decide whether some stretch of a text is a rearrangement of the letters of a given word.",
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["How would you return the start positions of all such stretches?", "How would you avoid comparing all 26 counters at every step?", "What changes if the text and the word can contain any Unicode character?"],
+  "followUps": ["How would you return the start positions of all such stretches?", "What changes if the text and the word can contain any Unicode character?"],
   "languages": ["java"],
   "coveredBy": []
 }

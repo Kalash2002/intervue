@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** A stack of integers that reports its smallest value in constant time. */
 public class MinStack {
 

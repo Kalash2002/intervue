@@ -1,8 +1,66 @@
-# How a strong round goes: Daily Temperatures
+## The question
 
-## Approach
+Given the temperature for each day, report for every day how many days pass until a strictly warmer day, or 0 if none comes. The input array is read-only.
 
-The slow way scans forward from every day until it finds a warmer one, which is quadratic when the temperatures fall or stay level. The faster way turns the question around: a day that has not yet met a warmer day is still waiting, and a new day answers every waiting day that is colder than it. I keep the waiting days on a stack of positions. Because a new day pops every colder day before it is pushed, the temperatures on the stack never rise from bottom to top, so the colder days are always on top and the ones to answer are exactly those I pop first. For each popped day the answer is the distance between today and its position. A day that is only equal to the top does not answer it, since the statement asks for strictly warmer, so the loop pops only while the top is strictly colder. Days left on the stack at the end never met a warmer day and keep their default of zero. Each day is pushed once and popped at most once.
+What makes it harder than it looks: "strictly" matters, since an equal temperature does not answer the question and must be skipped. A long run of equal or falling days, with one warm day at the end, makes the obvious scan walk far for every day: 200,000 days is about 20 billion steps. And the answer is a distance in days, not the warmer temperature, so you need positions, not only values.
+
+## How to think about it
+
+The first idea is to look forward from each day until a warmer one shows up. It repeats work: days 3 and 4 in the same cold spell both walk over the same days to find the same warm one. The days that are still waiting for an answer have a pattern. A day is still waiting only because every day after it has been no warmer, so going from the oldest waiting day to the newest, temperatures never rise. A new day can answer only waiting days that are colder than it, and since the newest are the coldest, those sit at the newest end; it stops at the first waiting day that is not colder, because everything older is at least as warm. That is a stack of waiting days.
+
+Walk Example 1, `temps = [20, 18, 25, 19, 19, 30]`. Day 0 (20) has nothing to answer and waits. Day 1 (18) is colder than 20, so it waits above it. Day 2 (25) is warmer than 18: day 1 waits one day. It is also warmer than 20: day 0 waits two days. Then day 2 waits. Day 3 (19) waits above 25. Day 4 (19) is not warmer than the 19 below it, so it waits too. Day 5 (30) is warmer than all three waiting days: day 4 waits one day, day 3 two days, day 2 three days. Day 5 and anything left waiting get 0. The answer is `[2, 1, 3, 2, 1, 0]`.
+
+![The stack of waiting days after each day of Example 1: day 0; days 0 and 1; day 2 alone after it answers days 1 and 0; days 2 and 3; days 2, 3 and 4; day 5 alone after it answers days 4, 3 and 2](figures/waiting-days.svg)
+
+## Brute force
+
+For each day, look at the following days one by one and stop at the first strictly warmer one. It is what you say first, and it fixes the answer every faster version must agree with. It is correct because the nearest later warmer day is by definition the first one met, and a day that never meets one keeps its 0.
+
+```java
+static int[] daysToWarmer(int[] temps) {
+    int[] answer = new int[temps.length]; // zero means no warmer day follows
+    for (int day = 0; day < temps.length; day++) {
+        for (int later = day + 1; later < temps.length; later++) {
+            if (temps[later] > temps[day]) { // strictly warmer: equal does not count
+                answer[day] = later - day;
+                break;
+            }
+        }
+    }
+    return answer;
+}
+```
+
+**Complexity:** time O(n²) in the worst case, such as a long run of equal days (every day scans to the end), extra space O(1) beyond the answer array.
+
+## Better: walk from the right and jump through earlier answers
+
+Fill the answers from the last day to the first. For a day, start at the next day. While that day is not warmer, jump forward by its own answer, which is the distance to the next day that is warmer than it: the jump from a day that is not warmer than today lands on the first day warmer than it, so every day skipped is no warmer than that day, and therefore not warmer than today. Stop when you reach a warmer day, or when the day you stand on has answer 0, meaning nothing warmer follows it, and then nothing warmer follows this day either.
+
+```java
+static int[] daysToWarmer(int[] temps) {
+    int n = temps.length;
+    int[] answer = new int[n];
+    for (int day = n - 2; day >= 0; day--) { // the last day always keeps 0
+        int next = day + 1;
+        while (temps[next] <= temps[day] && answer[next] != 0) {
+            next += answer[next]; // skip to the first day warmer than the one we stand on
+        }
+        if (temps[next] > temps[day]) {
+            answer[day] = next - day;
+        }
+    }
+    return answer;
+}
+```
+
+**Complexity:** time O(n) (each jump passes over days that no earlier day will have to look at again), extra space O(1) beyond the answer array.
+
+**Prefer it when:** memory is tight and the answer array is the only space you can spend: it needs no stack. The price is a trickier invariant than the stack's, which is why the stack version is the one to write first.
+
+## Optimal: a stack of waiting days
+
+Go through the days in order, keeping a stack of positions of days still waiting for a warmer one, with temperatures that do not rise toward the top. For each new day, while the day on top is strictly colder, pop it and record `day - popped`; then push the new day. Equal days stay on the stack, because equal is not warmer. Whatever is on the stack at the end keeps 0. This is the reference solution.
 
 ```java
 static int[] daysToWarmer(int[] temps) {
@@ -20,21 +78,24 @@ static int[] daysToWarmer(int[] temps) {
 }
 ```
 
+**Complexity:** time O(n), extra space O(n) (the stack can hold every day, for example when temperatures fall or stay equal).
+
 ## Complexity
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
-| From every day, scan forward for a warmer day | O(n squared) | O(1) besides the answer |
-| Stack of days still waiting | O(n) | O(n) |
+| Brute force | O(n²) | O(1) |
+| Better: walk from the right and jump | O(n) | O(1) |
+| Optimal: a stack of waiting days | O(n) | O(n) |
 
 ## Where it shows up
 
-Matching each event with the next one that exceeds it is the "next greater element" pattern. It appears in monitoring, where each reading is paired with the next reading above a threshold of its own value, and in price tools that show how many days a stock stayed below each day's close before it passed it.
+No coding-round problem is linked to this question. The pattern, "the next element to the right that is larger", is the next greater element, and it appears wherever each event waits for the next one that exceeds it: the next day a stock closes higher than today, the next sample in a load trace that exceeds the current one, or the next taller building in a skyline. The stack of waiting items is also the core of the histogram and rain-water questions.
 
 ## Follow-up answers
 
-**How would you solve it without a stack by walking from the right and jumping through earlier answers?** Go from the last day to the first. For day `i`, start at `i + 1` and, while that day is not warmer, jump ahead by its stored answer; a stored zero means nothing warmer follows and you stop with zero. This is still linear because the jumps skip over days already known to be no warmer.
+**Can you solve it without a stack of waiting days?** Yes, by walking from the right and jumping through the answers already filled in, as in the Better solution: the answers of later days link each day to the next warmer one, so the jump follows a chain that the stack would otherwise hold. It uses no memory beyond the answer array.
 
-**How would you return the warmer temperature itself instead of the number of days?** When you pop a day, store `temps[day]` in the answer for that popped position instead of the distance. Days left on the stack get a marker such as `-1`.
+**How would you return the warmer temperature itself instead of the number of days?** In the stack version, write `temps[day]` instead of `day - earlier` when a waiting day is popped. For days that never find a warmer one, use a marker that cannot be a temperature in the data, or keep the 0 if 0 cannot occur.
 
-**How would you handle a circular week, where the days after the last one wrap around to the first?** Walk the array twice, using index `i % n` and pushing positions only during the first pass. The second pass lets days near the end find a warmer day at the start. Each day still gets pushed once, so the cost stays linear.
+**How would you handle a circular week, where the days after the last one wrap around to the first?** Walk positions 0 to 2n - 1, reading day `i mod n`, with the same stack. Pop and answer as before, with the distance `i - popped`, but push only during the first n steps. A day then waits at most n - 1 days for its answer, and a day that is the warmest of all never finds one and keeps 0.

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the maximum of every window of k consecutive elements. */
 public class WindowMax {
 

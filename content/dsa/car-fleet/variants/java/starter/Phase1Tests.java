@@ -17,7 +17,7 @@ public class Phase1Tests {
 
     @Test(order = 3)
     void nobodyCatchesUp() {
-        assertEquals(3, Convoy.groups(12, new int[] {0, 4, 8}, new int[] {1, 2, 4}));
+        assertEquals(3, Convoy.groups(12, new int[] {8, 0, 4}, new int[] {4, 1, 2}));
     }
 
     @Test(order = 4)

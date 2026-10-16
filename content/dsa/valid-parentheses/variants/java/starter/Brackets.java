@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Checks that brackets are closed by the right kind in the right order. */
 public class Brackets {
 

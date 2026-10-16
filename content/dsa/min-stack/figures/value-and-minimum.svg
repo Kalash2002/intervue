@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 232" width="640" height="232" role="img">
+<title>Min Stack on push(4), push(7), pop(): each entry holds a value and the smallest value at or below it</title>
+<text x="120" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">after push(4)</text>
+<rect x="55" y="100" width="130" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="120" y="120" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">4  | min 4</text>
+<path d="M 49 134 L 191 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="320" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">after push(7)</text>
+<rect x="255" y="100" width="130" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="320" y="120" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">4  | min 4</text>
+<rect x="255" y="70" width="130" height="30" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="320" y="90" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">7  | min 4</text>
+<path d="M 249 134 L 391 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="520" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">after pop()</text>
+<rect x="455" y="100" width="130" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="520" y="120" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">4  | min 4</text>
+<path d="M 449 134 L 591 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="20" y="196" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Each entry stores its value and the smallest value in the stack up to it.</text>
+<text x="20" y="218" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">getMin() reads the top entry's minimum (4); top() reads its value (7).</text>
+</svg>
