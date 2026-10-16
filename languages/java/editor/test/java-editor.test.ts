@@ -19,4 +19,11 @@ describe('Java editor support', () => {
 
     expect(snippets.map((s) => s.label)).toEqual(expect.arrayContaining(['fori', 'foreach', 'sout', 'main']));
   });
+
+  it('offers java.util types for import and no java.lang types', () => {
+    const types = javaEditor.importableTypes ?? [];
+
+    expect(types).toContainEqual({ name: 'ArrayList', pkg: 'java.util' });
+    expect(types.every((t) => t.pkg === 'java.util')).toBe(true);
+  });
 });

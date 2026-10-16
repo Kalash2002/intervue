@@ -10,6 +10,7 @@ import {
   showDiagnostics,
   symbolCompletionSource,
   wordCompletionSource,
+  importCompletionSource,
   type AiEditMark,
   type LanguageEditor,
 } from '@intervue/editor';
@@ -29,6 +30,15 @@ export interface CodeEditorProps {
   onRun: () => void;
 }
 
+/** Project symbols, the language's words, and its importable library types. */
+function completionSourcesFor(language: LanguageEditor | undefined, symbols: () => readonly SourceSymbol[]) {
+  return [
+    symbolCompletionSource(symbols),
+    wordCompletionSource(language?.words ?? []),
+    ...(language?.importableTypes ? [importCompletionSource(language.importableTypes)] : []),
+  ];
+}
+
 export function CodeEditor(props: CodeEditorProps) {
   const host = useRef<HTMLDivElement>(null);
   const view = useRef<EditorView | null>(null);
@@ -46,10 +56,7 @@ export function CodeEditor(props: CodeEditorProps) {
         doc: latest.current.text,
         extensions: editorExtensions({
           language: language?.language() ?? [],
-          completionSources: [
-            symbolCompletionSource(() => latest.current.symbols),
-            wordCompletionSource(language?.words ?? []),
-          ],
+          completionSources: completionSourcesFor(language, () => latest.current.symbols),
           readOnly,
           onChange: (doc) => latest.current.onChange(doc),
           onUndoAiEdit: (id) => latest.current.onUndo(id),
