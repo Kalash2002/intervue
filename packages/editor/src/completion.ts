@@ -76,13 +76,27 @@ function importingApply(pkg: string) {
   };
 }
 
-/** Offers JDK types the file may not import yet; accepting one adds the import. */
-export function importCompletionSource(types: readonly ImportableType[]): CompletionSource {
+/**
+ * Offers JDK types the file may not import yet; accepting one adds the import. `taken` names the
+ * project's own types, which win: importing a same-named JDK type would clash with them.
+ */
+export function importCompletionSource(
+  types: readonly ImportableType[],
+  taken: () => readonly string[] = () => [],
+): CompletionSource {
   const options = types.map((t): Completion => ({
     label: t.name,
     type: 'class',
     detail: t.pkg,
     apply: importingApply(t.pkg),
   }));
-  return (context) => wordResult(context, options);
+  return (context) => {
+    // On an unfinished import or package line a new import would corrupt it.
+    if (/^\s*(import|package)(\s|$)/.test(context.state.doc.lineAt(context.pos).text)) return null;
+    const own = new Set(taken());
+    return wordResult(
+      context,
+      options.filter((o) => !own.has(o.label)),
+    );
+  };
 }

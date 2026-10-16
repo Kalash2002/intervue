@@ -35,7 +35,9 @@ function completionSourcesFor(language: LanguageEditor | undefined, symbols: () 
   return [
     symbolCompletionSource(symbols),
     wordCompletionSource(language?.words ?? []),
-    ...(language?.importableTypes ? [importCompletionSource(language.importableTypes)] : []),
+    ...(language?.importableTypes
+      ? [importCompletionSource(language.importableTypes, () => symbols().map((x) => x.name))]
+      : []),
   ];
 }
 

@@ -189,4 +189,21 @@ describe('importCompletionSource', () => {
     expect(out.doc).toBe('import java.util.ArrayList;\n\n/** Doc. */\nclass A {}\nArrayList');
     expect(out.head).toBe(out.doc.length);
   });
+
+  it('yields to a project symbol of the same name, so one Stack entry shows and no import is added', () => {
+    const stack = [{ name: 'Stack', pkg: 'java.util' }];
+    const doc = 'Sta';
+    const state = EditorState.create({ doc });
+    const context = new CompletionContext(state, doc.length, false);
+    const labels = [
+      symbolCompletionSource(() => [symbol('Stack', 'class')]),
+      importCompletionSource(stack, () => ['Stack']),
+    ].flatMap((source) => (source(context) as CompletionResult).options.map((o) => o.label));
+
+    expect(labels).toEqual(['Stack']);
+  });
+
+  it('offers nothing on an unfinished import line', () => {
+    expect(completeAt('import java.util.Arr', importCompletionSource(types))).toBeNull();
+  });
 });
