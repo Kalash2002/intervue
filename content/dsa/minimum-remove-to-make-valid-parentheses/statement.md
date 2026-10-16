@@ -8,13 +8,29 @@ Several different choices of brackets can reach the same minimum, so the choice 
 
 Implement `Expression.tidy(String text)` in `Expression.java`.
 
-## Examples
+## Example 1
 
-- `text = "go(a(b)c"` returns `"goa(b)c"`: the `)` pairs with the second `(`, so the first `(` is unpaired and is removed.
-- `text = "x)y)(z"` returns `"xyz"`: both `)` have nothing to close and the `(` is never closed.
-- `text = "((a))("` returns `"((a))"`: only the last `(` is unpaired.
+**Input:** `text = "go(a(b)c"`
+**Output:** `"goa(b)c"`
+**Explanation:** The `)` pairs with the second `(`, the nearest one before it, so the first `(` is unpaired and is removed.
+
+## Example 2
+
+**Input:** `text = "x)y)(z"`
+**Output:** `"xyz"`
+**Explanation:** Both `)` have nothing to close, and the `(` is never closed. All three go.
+
+## Example 3
+
+**Input:** `text = "((a))("`
+**Output:** `"((a))"`
+**Explanation:** The two pairs nest around the `a`, and only the last `(` is unpaired.
 
 ## Constraints
 
-- 0 <= `text.length()` <= 400,000
-- `text` contains only lowercase letters, `(` and `)`.
+- `0 <= text.length() <= 4 * 10^5`
+- `text[i]` is a lowercase letter, `(` or `)`
+
+## Follow-up
+
+How would you return the number of removed brackets instead of the text?

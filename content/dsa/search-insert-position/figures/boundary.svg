@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Search Insert Position on 10, 20, 20, 30, 50 with target 20: the range shrinks from the whole array to the first 20 at index 1</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="110" y="36" width="52" height="32"/>
+<rect x="230" y="36" width="52" height="32"/><rect x="290" y="36" width="52" height="32"/><rect x="350" y="36" width="52" height="32"/>
+</g>
+<rect x="170" y="36" width="52" height="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="136" y="58">10</text><text x="196" y="58" fill="#ffffff">20</text><text x="256" y="58">20</text><text x="316" y="58">30</text><text x="376" y="58">50</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="136" y="86">0</text><text x="196" y="86">1</text><text x="256" y="86">2</text><text x="316" y="86">3</text><text x="376" y="86">4</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 110 104 L 402 104"/>
+<path d="M 110 130 L 222 130"/>
+<path d="M 110 156 L 162 156"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f">
+<text x="14" y="108">low 0, high 5</text>
+<text x="14" y="134">low 0, high 2</text>
+<text x="14" y="160">low 0, high 1</text>
+<text x="14" y="186">low 1, high 1</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="430" y="108">mid 2 is 20: high = 2</text>
+<text x="430" y="134">mid 1 is 20: high = 1</text>
+<text x="430" y="160">mid 0 is 10: low = 1</text>
+<text x="430" y="186">empty: answer 1</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="222">A 20 is not smaller than 20, so high keeps moving down onto the first 20.</text>
+</g>
+</svg>

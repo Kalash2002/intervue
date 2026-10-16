@@ -7,16 +7,32 @@ Implement the class `CallCounter` in `CallCounter.java`:
 - `CallCounter(int window)` creates a counter that looks back `window` milliseconds.
 - `int ping(int t)` records a call arriving at millisecond `t` and returns how many recorded calls, including this one, have an arrival time in the closed range from `t - window` to `t`.
 
-Both ends of the range count: a call that arrived exactly `window` milliseconds ago is still inside. Every call arrives strictly later than the one before it.
+Both ends of the range count: a call that arrived exactly `window` milliseconds ago is still inside.
 
-## Examples
+## Example 1
 
-- `window = 10`, calls at `4, 9, 14, 15, 25` return `1, 2, 3, 3, 2`. At 14 the range is 4 to 14, so the call at 4 still counts. At 15 it is 5 to 15, so it has dropped out.
-- `window = 1`, calls at `1, 2, 3` return `1, 2, 2`: at 3 the range is 2 to 3.
-- `window = 5`, calls at `100, 103, 108, 109` return `1, 2, 2, 2`: at 108 the range is 103 to 108, and at 109 it is 104 to 109.
+**Input:** `window = 10`, calls at `4, 9, 14, 15, 25`
+**Output:** `1, 2, 3, 3, 2`
+**Explanation:** At 14 the range is 4 to 14, so the call at 4 still counts. At 15 it is 5 to 15, so it has dropped out. At 25 the range is 15 to 25, which holds only the calls at 15 and 25.
+
+## Example 2
+
+**Input:** `window = 1`, calls at `1, 2, 3`
+**Output:** `1, 2, 2`
+**Explanation:** At 3 the range is 2 to 3, so the call at 1 is out.
+
+## Example 3
+
+**Input:** `window = 5`, calls at `10, 15, 16`
+**Output:** `1, 2, 2`
+**Explanation:** The call at 10 is exactly 5 milliseconds old at 15, so it still counts. At 16 the range is 11 to 16 and it has dropped out.
 
 ## Constraints
 
-- 1 <= `window` <= 1,000,000,000
-- 1 <= `t` <= 1,000,000,000, strictly increasing from one call to the next.
-- At most 200,000 calls per counter.
+- `1 <= window <= 10^9`
+- `1 <= t <= 10^9`, and `t` is larger than in the previous call to `ping` on the same counter.
+- At most `2 * 10^5` calls per counter.
+
+## Follow-up
+
+What if calls can arrive out of order?

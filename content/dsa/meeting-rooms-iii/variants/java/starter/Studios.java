@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Assigns booking requests to numbered studio rooms. */
 public class Studios {
 

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Hands arriving jobs to machines by weight. */
 public class Dispatcher {
 

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Measures balanced stretches in a string of round brackets. */
 public class Brackets {
 

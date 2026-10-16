@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "search-suggestions-system",
-  "version": 2,
+  "version": 3,
   "section": "dsa-quick",
   "title": "Search Suggestions System",
   "summary": "After each letter typed into a search box, list the first few catalogue words, in dictionary order, that start with what has been typed.",

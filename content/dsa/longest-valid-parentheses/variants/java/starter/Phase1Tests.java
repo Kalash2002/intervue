@@ -6,9 +6,9 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(4, Brackets.longestBalanced("(()()"));
-        assertEquals(4, Brackets.longestBalanced("())(())"));
-        assertEquals(6, Brackets.longestBalanced("(())()("));
+        assertEquals(6, Brackets.longestBalanced("()(()))()"));
+        assertEquals(4, Brackets.longestBalanced("))(())("));
+        assertEquals(0, Brackets.longestBalanced("((("));
     }
 
     @Test(order = 2)
@@ -31,7 +31,7 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void unmatchedOpenerSplitsTheString() {
-        assertEquals(2, Brackets.longestBalanced("()(()"));
+        assertEquals(2, Brackets.longestBalanced("((()(()"));
     }
 
     @Test(order = 6)

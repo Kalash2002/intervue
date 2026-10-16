@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Positions in a sorted array. */
 public class SortedSlots {
 

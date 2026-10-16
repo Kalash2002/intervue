@@ -9,6 +9,7 @@ public class Phase1Tests {
         assertEquals(1, Mailboxes.countDistinct(new String[] {"sam.k@mail.org", "samk+news@mail.org", "sa.mk@mail.org"}));
         assertEquals(3, Mailboxes.countDistinct(new String[] {"lee@a.com", "lee@b.com", "lee@ac.om"}));
         assertEquals(2, Mailboxes.countDistinct(new String[] {"ann+1@z.net", "ann+2@z.net", "a.nnb@z.net"}));
+        assertEquals(2, Mailboxes.countDistinct(new String[] {"a.+x@k.io", "a@k.io", "a.+@k.org"}));
     }
 
     @Test(order = 2)

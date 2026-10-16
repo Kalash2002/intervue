@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 312" width="640" height="312" role="img">
+<title>Longest Valid Parentheses on ()(()))(): the stack of positions after each character, with the length measured at every match</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="28">i</text><text x="62" y="28">char</text><text x="110" y="28">stack after (bottom to top)</text><text x="340" y="28">length</text><text x="490" y="28">best</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="110" y="40" width="52" height="22"/><rect x="168" y="40" width="52" height="22"/>
+<rect x="110" y="66" width="52" height="22"/>
+<rect x="110" y="92" width="52" height="22"/><rect x="168" y="92" width="52" height="22"/>
+<rect x="110" y="118" width="52" height="22"/><rect x="168" y="118" width="52" height="22"/><rect x="226" y="118" width="52" height="22"/>
+<rect x="110" y="144" width="52" height="22"/><rect x="168" y="144" width="52" height="22"/>
+<rect x="110" y="170" width="52" height="22"/>
+<rect x="110" y="196" width="52" height="22"/>
+<rect x="110" y="222" width="52" height="22"/><rect x="168" y="222" width="52" height="22"/>
+<rect x="110" y="248" width="52" height="22"/>
+</g>
+<rect x="330" y="170" width="115" height="22" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="56">0</text><text x="70" y="56">(</text>
+<text x="20" y="82">1</text><text x="70" y="82">)</text>
+<text x="20" y="108">2</text><text x="70" y="108">(</text>
+<text x="20" y="134">3</text><text x="70" y="134">(</text>
+<text x="20" y="160">4</text><text x="70" y="160">)</text>
+<text x="20" y="186">5</text><text x="70" y="186">)</text>
+<text x="20" y="212">6</text><text x="70" y="212">)</text>
+<text x="20" y="238">7</text><text x="70" y="238">(</text>
+<text x="20" y="264">8</text><text x="70" y="264">)</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="136" y="56">-1</text><text x="194" y="56">0</text>
+<text x="136" y="82">-1</text>
+<text x="136" y="108">-1</text><text x="194" y="108">2</text>
+<text x="136" y="134">-1</text><text x="194" y="134">2</text><text x="252" y="134">3</text>
+<text x="136" y="160">-1</text><text x="194" y="160">2</text>
+<text x="136" y="186">-1</text>
+<text x="136" y="212">6</text>
+<text x="136" y="238">6</text><text x="194" y="238">7</text>
+<text x="136" y="264">6</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="340" y="56">push</text>
+<text x="340" y="82">1 - (-1) = 2</text>
+<text x="340" y="108">push</text>
+<text x="340" y="134">push</text>
+<text x="340" y="160">4 - 2 = 2</text>
+<text x="340" y="212">cut: push 6</text>
+<text x="340" y="238">push</text>
+<text x="340" y="264">8 - 6 = 2</text>
+<text x="490" y="56">0</text><text x="490" y="82">2</text><text x="490" y="108">2</text><text x="490" y="134">2</text><text x="490" y="160">2</text><text x="490" y="186">6</text><text x="490" y="212">6</text><text x="490" y="238">6</text><text x="490" y="264">6</text>
+</g>
+<text x="340" y="186" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff">5 - (-1) = 6</text>
+
+<text x="20" y="298" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">The ) at 6 empties the stack, so 6 becomes the cut. The answer is 6.</text>
+</svg>

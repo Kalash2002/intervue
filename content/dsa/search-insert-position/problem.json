@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "search-insert-position",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Search Insert Position",
   "summary": "Find where a number sits in a sorted array, or where it would have to be inserted to keep the order.",

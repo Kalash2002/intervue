@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Search Suggestions System on the sorted names kiln, kind, kit, kite, lamp with limit 3: the block of names for each typed prefix</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="20" y="36" width="80" height="32"/><rect x="106" y="36" width="80" height="32"/>
+<rect x="364" y="36" width="80" height="32"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="192" y="36" width="80" height="32"/><rect x="278" y="36" width="80" height="32"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="60" y="57">kiln</text><text x="146" y="57">kind</text><text x="232" y="57" fill="#ffffff">kit</text><text x="318" y="57" fill="#ffffff">kite</text><text x="404" y="57">lamp</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="60" y="88">0</text><text x="146" y="88">1</text><text x="232" y="88">2</text><text x="318" y="88">3</text><text x="404" y="88">4</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 20 106 L 358 106"/>
+<path d="M 20 132 L 358 132"/>
+<path d="M 192 158 L 358 158"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="464" y="110">"k" starts at 0</text>
+<text x="464" y="136">"ki" starts at 0</text>
+<text x="464" y="162">"kit" starts at 2</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="196">Sorted once, the names with a prefix are one block, and the first 3 of it show.</text>
+<text x="20" y="218">The block for k and for ki holds four names, so the last one is cut off.</text>
+<text x="20" y="240">The block for kit is kit, kite: kit equals the prefix, so it comes first.</text>
+</g>
+</svg>

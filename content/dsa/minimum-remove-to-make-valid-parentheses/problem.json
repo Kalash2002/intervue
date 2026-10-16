@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "minimum-remove-to-make-valid-parentheses",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Minimum Remove to Make Valid Parentheses",
   "summary": "Delete the fewest round brackets from a text so that the rest is balanced, keeping every other character in place.",

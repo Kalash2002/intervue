@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "longest-valid-parentheses",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Longest Valid Parentheses",
   "summary": "Find the length of the longest unbroken stretch of a bracket string that is correctly matched.",

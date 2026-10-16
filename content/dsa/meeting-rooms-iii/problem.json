@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "meeting-rooms-iii",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Meeting Rooms III",
   "summary": "Simulate booking requests into numbered rooms, delaying those that find every room busy, and name the room used most.",

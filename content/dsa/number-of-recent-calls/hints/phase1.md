@@ -5,4 +5,4 @@ After a new call arrives, which of the earlier calls can still matter, and which
 A call that is too old now will be too old for every later call as well. Which structure lets you look at the oldest remembered call and discard it, and add the newest on the other end?
 
 ## Level 3
-Keep the arrival times in a queue. On each call, add its time at the back, then remove from the front while the front is older than the start of the range. The answer is the size of the queue.
+You only ever remove calls from the old end and add them at the new end, and each call leaves at most once. Think about what that does to the total work over all the pings, even when one ping drops many calls.

@@ -58,9 +58,18 @@ public class Phase1Tests {
 
     @Test(order = 8)
     void dictionaryOrderIsDecidedLetterByLetter() {
-        String[] products = {"mobile", "moat", "mouse", "mop", "monitor"};
-        assertEquals(List.of(List.of("moat", "mobile", "monitor"), List.of("moat", "mobile", "monitor"), List.of("mop")),
-                Autocomplete.suggest(products, "mop", 3));
+        String[] products = {"waltz", "wagon", "walnut", "wasp", "wallet"};
+        assertEquals(List.of(List.of("wagon", "wallet", "walnut"), List.of("wagon", "wallet", "walnut"), List.of("wallet", "walnut", "waltz")),
+                Autocomplete.suggest(products, "wal", 3));
+    }
+
+    /** Writes digits as the letters a to j so the products stay lowercase; the order of the digits is kept. */
+    private static String spell(String digits) {
+        StringBuilder letters = new StringBuilder();
+        for (char digit : digits.toCharArray()) {
+            letters.append((char) ('a' + (digit - '0')));
+        }
+        return letters.toString();
     }
 
     @Test(order = 9, timeoutMs = 3000)
@@ -74,19 +83,19 @@ public class Phase1Tests {
         int n = 50_000;
         List<String> list = new ArrayList<>(n);
         for (int i = 0; i < n; i++) {
-            list.add(base + Integer.toString(100_000 + i).substring(1)); // distinct, and smaller numbers sort first
+            list.add(base + spell(Integer.toString(100_000 + i).substring(1))); // distinct, and smaller numbers sort first
         }
         Collections.shuffle(list, random);
-        String typed = base + "00123";
+        String typed = base + spell("00123");
 
-        List<String> firstThree = List.of(base + "00000", base + "00001", base + "00002");
+        List<String> firstThree = List.of(base + spell("00000"), base + spell("00001"), base + spell("00002"));
         List<List<String>> expected = new ArrayList<>();
-        for (int length = 1; length <= 602; length++) { // the base, then "0" and "00": ids 0 to 9999 and 0 to 999
+        for (int length = 1; length <= 602; length++) { // the base, then the spelling of "0" and of "00"
             expected.add(firstThree);
         }
-        expected.add(List.of(base + "00100", base + "00101", base + "00102")); // "001"
-        expected.add(List.of(base + "00120", base + "00121", base + "00122")); // "0012"
-        expected.add(List.of(base + "00123")); // "00123"
+        expected.add(List.of(base + spell("00100"), base + spell("00101"), base + spell("00102"))); // "001"
+        expected.add(List.of(base + spell("00120"), base + spell("00121"), base + spell("00122"))); // "0012"
+        expected.add(List.of(base + spell("00123"))); // "00123"
         assertEquals(expected, Autocomplete.suggest(list.toArray(new String[0]), typed, 3));
     }
 }

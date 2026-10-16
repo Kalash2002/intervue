@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 /** Suggestions for a search box. */
 public class Autocomplete {

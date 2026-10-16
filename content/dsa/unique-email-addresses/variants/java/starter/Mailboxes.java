@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Counts mailboxes behind a list of addresses. */
 public class Mailboxes {
 

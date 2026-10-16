@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "number-of-recent-calls",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Number of Recent Calls",
   "summary": "Count how many calls arrived within the last stretch of time, each time a new call comes in.",

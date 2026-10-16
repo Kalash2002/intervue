@@ -5,4 +5,4 @@ Ask which brackets can never be part of a balanced text. A `)` is hopeless when 
 At each `)` you need to know whether an earlier `(` is still unpaired, and which one is the nearest. Remembering the waiting openers in the order they appeared is enough. Which data structure hands you the most recent one?
 
 ## Level 3
-Keep positions rather than characters, so that you can mark exactly which brackets to drop. When the scan is over, build the answer from the positions you did not mark.
+Two brackets can look the same and still only one of them must go, so a bracket to drop has to be named by where it sits, not by what it is. Decide how to record which positions go, and build the answer from the rest.

@@ -42,7 +42,7 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void delayedFinishesPastTheIntRange() {
-        // two rooms, five long sessions: the delayed ones end near 2e9 and 3e9
+        // two rooms, six long sessions: the delayed ones end near 2e9 and 3e9
         int[][] bookings = {
             {0, 1_000_000_000}, {1, 1_000_000_000}, {2, 1_000_000_000},
             {3, 1_000_000_000}, {4, 1_000_000_000}, {5, 1_000_000_000}};

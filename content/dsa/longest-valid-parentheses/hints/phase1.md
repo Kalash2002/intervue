@@ -5,4 +5,4 @@ Think about what ends a balanced stretch. Which characters can never be part of 
 An unmatched `)` or an unmatched `(` cuts the string into pieces. If you could remember where the last such cut was, the length of a balanced stretch ending at the current position would be a difference of two positions.
 
 ## Level 3
-Use a stack of positions instead of characters, with one extra position placed just before the string to stand for "the last cut". Work out what each `(` and each `)` should do to that stack, and what the top of the stack means right after a successful match. The length of a balanced stretch ending at position `i` is then `i` minus something on the stack.
+A stack can hold positions as well as characters. Think about what is left beneath a bracket once it has been matched, and what that tells you about the stretch it just completed.

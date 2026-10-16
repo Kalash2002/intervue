@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Counts the calls that arrived within a recent window of milliseconds. */
 public class CallCounter {
     private final int window;

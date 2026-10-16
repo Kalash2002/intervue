@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "unique-email-addresses",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Unique Email Addresses",
   "summary": "Count how many different mailboxes a list of email addresses reaches, once dots and plus-tags in the name are ignored.",
