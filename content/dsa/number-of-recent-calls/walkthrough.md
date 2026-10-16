@@ -60,9 +60,9 @@ int ping(int t) {
 }
 ```
 
-**Complexity:** time O(log n) per ping, so O(n log n) over n pings; extra space O(n).
+**Complexity:** time O(log n) per ping, amortized (the array doubles when full, so one ping can copy O(n) values), so O(n log n) over n pings; extra space O(n).
 
-**Prefer it when:** you must also answer questions about the same history with another window length or an earlier moment. The search takes the start of the range as a value, so only `t - window` would change to the new bound. The queue throws old calls away and cannot answer those.
+**Prefer it when:** you must also answer questions about the same history with another window length or an earlier moment. The code as shown answers only for the call just made, so both uses need a change: take the window as a parameter, and for an earlier moment also search for the end of the range, because the history holds later calls. The queue throws old calls away and cannot answer those.
 
 ## Optimal: a queue with expiry from the front
 
@@ -90,7 +90,7 @@ The loop cannot empty the queue, because the call just added is never older than
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(calls inside the window) per ping, O(n²) worst case over n pings | O(n) |
-| Better: history and binary search | O(log n) per ping | O(n) |
+| Better: history and binary search | O(log n) per ping, amortized | O(n) |
 | Optimal: queue with expiry | O(1) amortized per ping, O(n) over n pings | O(calls inside the window), O(n) worst case |
 
 ## Where it shows up

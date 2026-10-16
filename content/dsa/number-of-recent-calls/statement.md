@@ -30,7 +30,8 @@ Both ends of the range count: a call that arrived exactly `window` milliseconds 
 ## Constraints
 
 - `1 <= window <= 10^9`
-- `1 <= t <= 10^9`, and `t` is larger than in the previous call to `ping` on the same counter.
+- `1 <= t <= 10^9`
+- `t` is larger than in the previous call to `ping` on the same counter.
 - At most `2 * 10^5` calls per counter.
 
 ## Follow-up

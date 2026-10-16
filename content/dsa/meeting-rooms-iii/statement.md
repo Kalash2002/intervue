@@ -29,7 +29,8 @@ Implement `Studios.busiest(int rooms, int[][] bookings)` in `Studios.java`. Retu
 
 - `1 <= rooms <= 10^5`
 - `1 <= bookings.length <= 10^5`
-- `0 <= start < end <= 10^9`, and all `start` values are different.
+- `0 <= start < end <= 10^9`
+- All `start` values are different.
 
 ## Follow-up
 

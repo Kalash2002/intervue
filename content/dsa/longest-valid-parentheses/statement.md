@@ -1,6 +1,6 @@
 # Longest Valid Parentheses
 
-A build log is reduced to a string `s` made only of the characters `(` and `)`. A stretch of consecutive characters is balanced when every `(` in it is closed by a later `)` in the same stretch, every `)` closes an earlier `(` in it, and the pairs nest without crossing. So `(())()` is balanced, while `)(` and `(()` are not.
+A build log is reduced to a string `s` made only of the characters `(` and `)`. A stretch of consecutive characters is balanced when every `(` in it is closed by a later `)` in the same stretch, every `)` closes an earlier `(` in it, and the pairs nest without crossing. So `(())()` is balanced, while `)(` and `())(` are not.
 
 Implement `Brackets.longestBalanced(String s)` in `Brackets.java`. Return the length of the longest balanced stretch of consecutive characters of `s`, or `0` if there is none, including for the empty string. A stretch must be unbroken: characters picked from scattered places do not count.
 

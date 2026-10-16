@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["How would you return the groups of addresses that reach the same mailbox?", "What if a new rule is added, such as ignoring case in the name?", "What if the list is too large to keep every normalised address in memory?"],
+  "followUps": ["How would you return the groups of addresses that reach the same mailbox?", "What if a new rule is added, such as ignoring case in the name?", "What if the list is too large to keep every reduced address in memory?"],
   "languages": ["java"],
   "coveredBy": ["playlist-dedupe"]
 }

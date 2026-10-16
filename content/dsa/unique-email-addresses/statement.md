@@ -38,8 +38,10 @@ Implement `Mailboxes.countDistinct(String[] emails)` in `Mailboxes.java`. It ret
 - `0 <= emails.length <= 10^5`
 - `3 <= emails[i].length() <= 100`
 - `emails[i]` has exactly one `@`.
-- The name before the `@` holds lowercase letters, `.` and `+`, and starts with a letter.
-- The domain after the `@` holds lowercase letters and `.`, and starts and ends with a letter.
+- The name before the `@` holds only lowercase letters, `.` and `+`.
+- The name starts with a letter.
+- The domain after the `@` holds only lowercase letters and `.`.
+- The domain starts and ends with a letter.
 
 ## Follow-up
 
