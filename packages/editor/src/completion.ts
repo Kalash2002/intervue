@@ -51,7 +51,9 @@ const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 /** Where a new import line goes: after the last import, else after `package`, else the top. */
 function importEdit(doc: Text, pkg: string, name: string): { at: number; text: string } | null {
   const text = doc.toString();
-  if (new RegExp(`^\\s*import\\s+${escape(pkg)}\\.(${escape(name)}|\\*)\\s*;`, 'm').test(text)) return null;
+  // Any import of this simple name, from any package, wins: a second one would not compile.
+  if (new RegExp(`^\\s*import\\s+(static\\s+)?[\\w.]+\\.${escape(name)}\\s*;`, 'm').test(text)) return null;
+  if (new RegExp(`^\\s*import\\s+${escape(pkg)}\\.\\*\\s*;`, 'm').test(text)) return null;
   const line = `import ${pkg}.${name};\n`;
   const lastOf = (re: RegExp) => [...text.matchAll(re)].pop();
   const found = lastOf(/^[ \t]*import\s[^\n]*$/gm) ?? lastOf(/^[ \t]*package\s[^\n]*$/gm);

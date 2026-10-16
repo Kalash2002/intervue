@@ -169,6 +169,10 @@ describe('importCompletionSource', () => {
     expect(accept('import java.util.ArrayList;\n').doc).toBe('import java.util.ArrayList;\nArrayList');
   });
 
+  it('adds nothing when a different type of the same name is already imported', () => {
+    expect(accept('import java.awt.ArrayList;\n').doc).toBe('import java.awt.ArrayList;\nArrayList');
+  });
+
   it('puts a new import after the last existing import', () => {
     const out = accept('import java.io.File;\nimport java.util.List;\n\nclass A {}\n');
 
