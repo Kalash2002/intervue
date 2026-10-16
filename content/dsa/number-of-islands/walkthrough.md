@@ -56,7 +56,7 @@ private static void mark(String[] rows, boolean[][] seen, int r, int c) {
 
 ## Better: union-find over land cells
 
-Give every cell a parent, starting with itself. Scan the map once; each land cell starts as a new island, and if the cell above it or to its left is land, merge the two groups, subtracting one from the count whenever the merge joins two groups that were different. Looking only up and left covers every side-sharing pair exactly once. Merging by size and halving paths while searching keeps the trees flat, and nothing recurses.
+Union-find is a different tool at the same cost, not a faster one: it reaches the same count without any search, and it is the one to reach for when land arrives over time. Give every cell a parent, starting with itself. Scan the map once; each land cell starts as a new island, and if the cell above it or to its left is land, merge the two groups, subtracting one from the count whenever the merge joins two groups that were different. Looking only up and left covers every side-sharing pair exactly once. Merging by size and halving paths while searching keeps the trees flat, and nothing recurses.
 
 ```java
 static int countIslands(String[] rows) {
@@ -115,9 +115,9 @@ private static boolean union(int[] parent, int[] size, int a, int b) {
 }
 ```
 
-**Complexity:** time O(R × C × α(R × C)), where α is the inverse Ackermann function and is at most 4 for any map that fits in memory; extra space O(R × C).
+**Complexity:** time O(R × C × α(R × C)), amortized, where α is the inverse Ackermann function and is at most 4 for any map that fits in memory; extra space O(R × C).
 
-**Prefer it when:** land arrives one cell at a time and you must report the count after each addition, because each new cell is one scan step of this code and the count is always current. For a single count on a fixed map it does more work per cell than the flood fill below.
+**Prefer it when:** land arrives one cell at a time and you must report the count after each addition, because a new cell is one more island and each merge that joins two groups lowers the count by one, so the count is always current. The code shown must change for that: cells can arrive in any order, so a new cell is merged with all four neighbours that are already land, not only the ones above and to the left. For a single count on a fixed map it does more work per cell than the flood fill below.
 
 ## Optimal: flood fill with an explicit stack
 
@@ -171,7 +171,7 @@ private static int visit(String[] rows, boolean[] seen, int[] stack, int top, in
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force: recursive depth-first search | O(R × C) | O(R × C) call stack, which overflows on a long snake-shaped island |
-| Better: union-find | O(R × C × α(R × C)) | O(R × C) |
+| Better: union-find | O(R × C × α(R × C)) amortized | O(R × C) |
 | Optimal: flood fill with an explicit stack | O(R × C) | O(R × C) |
 
 R is the number of rows and C the number of columns. There is no approach that looks at fewer than every cell, so none is meaningfully faster in the worst case.

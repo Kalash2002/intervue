@@ -87,7 +87,7 @@ static int minSlots(char[] jobs, int gap) {
 
 **Complexity:** time O(n log 26), which is O(n), since each job is one heap step and the heap holds at most 26 counts; extra space O(1).
 
-**Prefer it when:** the schedule itself is needed. The loop already decides which kind runs in every slot, so recording that kind, and an idle marker for each skipped slot, writes the order out. It is also the base to extend when kinds have their own cool-downs, where the formula no longer applies.
+**Prefer it when:** the schedule itself is needed. The code shown keeps only counts, so it cannot say which kind ran; carry the kind letter beside each count (and an idle marker on a jump) and the same loop yields the schedule. It is also the base to extend when kinds have their own cool-downs, where the formula no longer applies.
 
 ## Optimal: count the kinds and use the frame formula
 

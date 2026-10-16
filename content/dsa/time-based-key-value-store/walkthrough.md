@@ -30,10 +30,11 @@ String get(String key, int timestamp) {
     if (stamps == null) {
         return ""; // the key was never set
     }
+    List<String> history = values.get(key);
     String found = "";
     for (int i = 0; i < stamps.size(); i++) { // look at every record from the oldest
         if (stamps.get(i) <= timestamp) {
-            found = values.get(key).get(i); // later qualifying records overwrite earlier ones
+            found = history.get(i); // later qualifying records overwrite earlier ones
         }
     }
     return found;

@@ -49,7 +49,7 @@ private static long explore(List<List<int[]>> out, int city, int to, int flights
 }
 ```
 
-**Complexity:** with k = `maxStops + 1` flights allowed and up to d flights out of a city, time O(d^k), exponential in the stop limit; extra space O(k) for the recursion.
+**Complexity:** with k = `maxStops + 1` flights allowed and up to d flights out of a city, time O(d^k), exponential in the stop limit; extra space O(V + E) for the adjacency lists plus O(k) for the recursion.
 
 ## Better: Dijkstra over (city, flights used)
 
@@ -123,15 +123,15 @@ static int cheapest(int n, int[][] flights, int from, int to, int maxStops) {
 }
 ```
 
-**Complexity:** time O(k × E) with k = `maxStops + 1` rounds, extra space O(V) for the two tables. No hashing is involved, so this is a true worst case.
+**Complexity:** time O(k × (E + V)) with k = `maxStops + 1` rounds, since each round clones a table of V prices and tries E flights, extra space O(V) for the two tables. No hashing is involved, so this is a true worst case.
 
 ## Complexity
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
-| Brute force: depth-first over every trip | O(d^k), exponential in the stop limit | O(k) |
+| Brute force: depth-first over every trip | O(d^k), exponential in the stop limit | O(V + E + k) |
 | Better: Dijkstra over (city, flights used) | O(k × E × log(k × E)) | O(V × k + k × E) |
-| Optimal: rounds of relaxation | O(k × E) | O(V) |
+| Optimal: rounds of relaxation | O(k × (E + V)) | O(V) |
 
 V is the number of cities, E the number of flights, d the most flights out of one city and k = `maxStops + 1`. Plain Dijkstra on price alone, ignoring the limit, is not in the table because it gives wrong answers.
 
