@@ -62,6 +62,18 @@ function ChatLog({ turns, streaming }: { turns: ShownTurn[]; streaming: boolean 
   );
 }
 
+function RulesSelect({ rules, onChange }: { rules: RulesChoice; onChange: (r: RulesChoice) => void }) {
+  return (
+    <label className="chat-options">
+      Rules
+      <select aria-label="Rules" value={rules} onChange={(e) => onChange(e.target.value as RulesChoice)}>
+        <option value="helpful">Helpful</option>
+        <option value="interview">Interview rules</option>
+      </select>
+    </label>
+  );
+}
+
 function Composer({
   view,
   chat,
@@ -88,15 +100,7 @@ function Composer({
   };
   return (
     <div className="chat-form">
-      {view.type === 'PRACTICE' && (
-        <label className="chat-options">
-          Rules
-          <select aria-label="Rules" value={rules} onChange={(e) => setRules(e.target.value as RulesChoice)}>
-            <option value="helpful">Helpful</option>
-            <option value="interview">Interview rules</option>
-          </select>
-        </label>
-      )}
+      {view.type === 'PRACTICE' && <RulesSelect rules={rules} onChange={setRules} />}
       <textarea
         className="chat-input"
         aria-label="Message"
