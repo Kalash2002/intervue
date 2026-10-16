@@ -40,7 +40,7 @@ const type = (text: string) =>
 describe('the assistant panel', () => {
   it('shows the reason and no controls when the route is off', async () => {
     renderWith(
-      <AssistantPanel view={view()} actions={actions()} onChange={vi.fn()} />,
+      <AssistantPanel canWrite view={view()} actions={actions()} onChange={vi.fn()} />,
       client({ aiStatus: vi.fn(async () => ({ developer: false, available: false, reason: NO_ROUTE })) }),
     );
 
@@ -54,7 +54,7 @@ describe('the assistant panel', () => {
     const order: string[] = [];
     const c = client({ ask: vi.fn(async () => (order.push('ask'), 'ok')) });
     const saveFiles = vi.fn(async () => void order.push('save'));
-    renderWith(<AssistantPanel view={view()} actions={actions({ saveFiles })} onChange={vi.fn()} />, c);
+    renderWith(<AssistantPanel canWrite view={view()} actions={actions({ saveFiles })} onChange={vi.fn()} />, c);
 
     await screen.findByRole('button', { name: 'Ask' });
     type('is the visited check right?');
@@ -65,7 +65,7 @@ describe('the assistant panel', () => {
 
   it('streams an Ask reply into the chat log', async () => {
     const c = client();
-    renderWith(<AssistantPanel view={view()} actions={actions()} onChange={vi.fn()} />, c);
+    renderWith(<AssistantPanel canWrite view={view()} actions={actions()} onChange={vi.fn()} />, c);
 
     await screen.findByRole('button', { name: 'Ask' });
     type('fix it');
@@ -79,7 +79,7 @@ describe('the assistant panel', () => {
 
   it('lets Practice choose the rules, Helpful by default', async () => {
     const c = client();
-    renderWith(<AssistantPanel view={view({ type: 'PRACTICE' })} actions={actions()} onChange={vi.fn()} />, c);
+    renderWith(<AssistantPanel canWrite view={view({ type: 'PRACTICE' })} actions={actions()} onChange={vi.fn()} />, c);
 
     await screen.findByRole('button', { name: 'Ask' });
     type('hi');
@@ -93,7 +93,7 @@ describe('the assistant panel', () => {
   });
 
   it('offers no rules switch in an Interview session', async () => {
-    renderWith(<AssistantPanel view={view()} actions={actions()} onChange={vi.fn()} />, client());
+    renderWith(<AssistantPanel canWrite view={view()} actions={actions()} onChange={vi.fn()} />, client());
 
     await screen.findByRole('button', { name: 'Ask' });
     expect(screen.queryByRole('combobox', { name: 'Rules' })).toBeNull();
@@ -129,7 +129,7 @@ describe('the assistant panel', () => {
       ],
     };
     const a = actions({ reply, writeCode: vi.fn(async () => reply) });
-    renderWith(<AssistantPanel view={view()} actions={a} onChange={vi.fn()} />, client());
+    renderWith(<AssistantPanel canWrite view={view()} actions={a} onChange={vi.fn()} />, client());
 
     await screen.findByRole('button', { name: 'Write code' });
     type('widen it in twice');
@@ -150,18 +150,25 @@ describe('the assistant panel', () => {
         event(3, 'aiCall', 3, { kind: 'edit' }),
       ],
     });
-    renderWith(<AssistantPanel view={v} actions={actions()} onChange={vi.fn()} />, client());
+    renderWith(<AssistantPanel canWrite view={v} actions={actions()} onChange={vi.fn()} />, client());
 
     expect(await screen.findByText('Write code calls this session: 2')).toBeInTheDocument();
   });
 
   it('shows the recorded-reply demo only in developer mode', async () => {
     renderWith(
-      <AssistantPanel view={view()} actions={actions()} onChange={vi.fn()} />,
+      <AssistantPanel canWrite view={view()} actions={actions()} onChange={vi.fn()} />,
       client({ aiStatus: vi.fn(async () => ({ developer: false, available: true, reason: null })) }),
     );
 
     await screen.findByRole('button', { name: 'Ask' });
     expect(screen.queryByRole('button', { name: 'Replay' })).toBeNull();
+  });
+
+  it('shows no Write code when the session has no WRITE_CODE channel', async () => {
+    renderWith(<AssistantPanel view={view({ channels: ['ASK'] })} actions={actions()} onChange={vi.fn()} canWrite={false} />, client());
+
+    await screen.findByRole('button', { name: 'Ask' });
+    expect(screen.queryByRole('button', { name: 'Write code' })).toBeNull();
   });
 });

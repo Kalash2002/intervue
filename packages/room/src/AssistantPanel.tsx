@@ -12,10 +12,13 @@ import type { RoomActions } from './useRoomActions.ts';
 export function AssistantPanel({
   view,
   actions,
+  canWrite,
   onChange,
 }: {
   view: SessionView;
   actions: RoomActions;
+  /** Whether the section has the WRITE_CODE channel; callers pass view.channels.includes. */
+  canWrite: boolean;
   onChange: (v: SessionView) => void;
 }) {
   const { client } = useApp();
@@ -27,7 +30,7 @@ export function AssistantPanel({
       {status.available ? (
         <>
           <ChatLog turns={chat.turns} streaming={chat.busy} />
-          <Composer view={view} chat={chat} actions={actions} />
+          <Composer view={view} chat={chat} actions={actions} canWrite={canWrite} />
           <Outcomes reply={actions.reply} onUndo={actions.undo} />
         </>
       ) : (
@@ -63,10 +66,12 @@ function Composer({
   view,
   chat,
   actions,
+  canWrite,
 }: {
   view: SessionView;
   chat: ReturnType<typeof useChat>;
   actions: RoomActions;
+  canWrite: boolean;
 }) {
   const [message, setMessage] = useState('');
   const [rules, setRules] = useState<RulesChoice>('helpful');
@@ -100,14 +105,19 @@ function Composer({
         onChange={(e) => setMessage(e.target.value)}
       />
       <div className="chat-send">
-        <span className="hint">Write code calls this session: {writes}</span>
+        <span className="hint">{canWrite ? `Write code calls this session: ${writes}` : ''}</span>
         <span>
           <button className="ghost small" type="button" disabled={disabled} onClick={() => submit('ask')}>
             Ask
-          </button>{' '}
-          <button className="primary small" type="button" disabled={disabled} onClick={() => submit('write')}>
-            Write code
           </button>
+          {canWrite && (
+            <>
+              {' '}
+              <button className="primary small" type="button" disabled={disabled} onClick={() => submit('write')}>
+                Write code
+              </button>
+            </>
+          )}
         </span>
       </div>
     </div>

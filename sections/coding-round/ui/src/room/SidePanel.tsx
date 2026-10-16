@@ -47,7 +47,12 @@ export function SidePanel({
         )}
         {tab === 'Brief' && <Brief view={view} onSkip={actions.skip} />}
         {tab === 'Hints' && <Hints view={view} onChange={onChange} beforeExplain={actions.saveFiles} />}
-        {tab === 'Assistant' && <AssistantPanel view={view} actions={actions} onChange={onChange} />}
+        {tab === 'Assistant' && <AssistantPanel
+          view={view}
+          actions={actions}
+          canWrite={view.channels.includes('WRITE_CODE')}
+          onChange={onChange}
+        />}
       </div>
     </aside>
   );
