@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img">
+<title>k = 3: the first group already reads 30, 20, 10; before is 10, the next group runs from first 40 to last 60, and 70 is a short group</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="94" y="40">reversed group</text>
+<text x="316" y="40">next group, k = 3</text>
+<text x="20" y="190">after reversal, before points at 60 and 40 points at 70</text>
+</g>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 94 50 L 94 58 L 292 58 L 292 50"/>
+<path d="M 316 50 L 316 58 L 514 58 L 514 50"/>
+</g>
+
+<rect x="20" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5" stroke-dasharray="4 3"/>
+<rect x="94" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="168" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="242" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="316" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="390" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="464" y="110" width="50" height="30" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<rect x="538" y="110" width="50" height="30" fill="none" stroke="#83748f" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 70 125 L 90 125"/>
+<path d="M 144 125 L 164 125"/>
+<path d="M 218 125 L 238 125"/>
+<path d="M 292 125 L 312 125"/>
+<path d="M 366 125 L 386 125"/>
+<path d="M 440 125 L 460 125"/>
+<path d="M 514 125 L 534 125"/>
+<path d="M 588 125 L 606 125"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="45" y="130">dummy</text>
+<text x="119" y="130">30</text>
+<text x="193" y="130">20</text>
+<text x="267" y="130">10</text>
+<text x="341" y="130">40</text>
+<text x="415" y="130">50</text>
+<text x="489" y="130" fill="#ffffff">60</text>
+<text x="563" y="130">70</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="267" y="96">before</text>
+<text x="341" y="96">first</text>
+<text x="489" y="96">last</text>
+<text x="563" y="96">after</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="608" y="129">null</text>
+</g>
+</svg>

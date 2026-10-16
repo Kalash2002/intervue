@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "merge-k-sorted-lists",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Merge K Sorted Lists",
+  "summary": "Relink the nodes of k sorted linked lists into one sorted list.",
+  "difficulty": "Hard",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "min-heap", "divide-and-conquer", "k-way-merge"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is merging the lists one after another into a growing result slow?", "How would you merge k sorted files that are too large to fit in memory?", "When would you choose the pairwise rounds over the heap?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
