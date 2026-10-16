@@ -101,6 +101,10 @@ export interface SessionView {
   aiEditsActive: number;
   aiEditsApplied: number;
   aiEditsUndone: number;
+  /** The assistant channels the section enables ("ASK", "WRITE_CODE"); empty means no assistant. */
+  channels: string[];
+  /** Whether this session may reveal hints (Practice, or a section that allows them in Interview). */
+  hintsAllowed: boolean;
   /** The intro, then one entry per phase; null while that phase is locked. */
   brief: (string | null)[];
   notes: string;

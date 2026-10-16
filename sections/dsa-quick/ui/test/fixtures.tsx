@@ -27,6 +27,8 @@ export function view(over: Partial<SessionView> = {}): SessionView {
     aiEditsActive: 0,
     aiEditsApplied: 0,
     aiEditsUndone: 0,
+    channels: [],
+    hintsAllowed: true,
     // A one-phase problem has no intro: index 0 is empty and index 1 is the statement.
     brief: ['', 'Find two indices whose values add up to the target.'],
     notes: '',

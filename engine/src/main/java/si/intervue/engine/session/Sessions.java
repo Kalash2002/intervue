@@ -151,6 +151,8 @@ public final class Sessions {
         store.activeEdits(id),
         count(events, "aiEdit"),
         count(events, "aiEditUndo"),
+        c.section().channels().stream().sorted().map(Enum::name).toList(),
+        SessionHints.allowed(c),
         brief(c),
         s.notes(),
         events.stream().map(e -> new EventView(e.seq(), e.tMs(), e.type(), e.data())).toList(),

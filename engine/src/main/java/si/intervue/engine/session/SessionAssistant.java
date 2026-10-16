@@ -14,6 +14,7 @@ import si.intervue.engine.ai.AiClient;
 import si.intervue.engine.ai.AiReply;
 import si.intervue.engine.ai.AiRequest;
 import si.intervue.engine.ai.AiUnavailableException;
+import si.intervue.engine.sections.AssistantChannel;
 import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.PromptBuilder.Rules;
 import si.intervue.engine.session.Sessions.Context;
@@ -92,7 +93,7 @@ public final class SessionAssistant {
   }
 
   public String ask(String id, String message, String rules, Consumer<String> deltas) {
-    Context c = locked(() -> sessions.requireOpen(id));
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), AssistantChannel.ASK));
     AiRequest request =
         locked(() -> PromptBuilder.ask(c, rules(c, rules), history(c, events(c)), message));
     AiReply reply = call("chat", c, () -> ai.chat(request, deltas));
@@ -105,7 +106,7 @@ public final class SessionAssistant {
     Prepared p =
         locked(
             () -> {
-              Context c = sessions.requireOpen(id);
+              Context c = requireChannel(sessions.requireOpen(id), AssistantChannel.WRITE_CODE);
               List<StoredEvent> events = events(c);
               String replyId = "w" + (count(events, "edit") + 1);
               return new Prepared(
@@ -124,11 +125,25 @@ public final class SessionAssistant {
         });
   }
 
-  /** Practice only, and only for a level the candidate has already revealed. */
+  /**
+   * The single channel gate: a section without the channel is refused before any model call or
+   * allowance accounting (ADR 0012).
+   */
+  private static Context requireChannel(Context c, AssistantChannel channel) {
+    if (!c.section().channels().contains(channel)) {
+      throw new SessionException(
+          channel == AssistantChannel.ASK
+              ? "This section has no assistant."
+              : "This section's assistant cannot write code.");
+    }
+    return c;
+  }
+
+  /** Where hints are allowed, needs the ASK channel, and only a level already revealed. */
   public String explainHint(String id, int phase, Consumer<String> deltas) {
-    Context c = locked(() -> sessions.requireOpen(id));
-    if (c.session().type() != SessionType.PRACTICE) {
-      throw new SessionException("Hints are for Practice sessions.");
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), AssistantChannel.ASK));
+    if (!SessionHints.allowed(c)) {
+      throw new SessionException("Hints are not available in this Interview session.");
     }
     List<String> revealed = locked(() -> sessions.revealedHints(id, phase));
     if (revealed.isEmpty()) {

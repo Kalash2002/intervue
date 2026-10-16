@@ -120,7 +120,12 @@ public final class DsaQuickSection implements SectionPackage {
 
   @Override
   public Set<AssistantChannel> channels() {
-    return EnumSet.of(AssistantChannel.ASK, AssistantChannel.WRITE_CODE);
+    return EnumSet.noneOf(AssistantChannel.class);
+  }
+
+  @Override
+  public boolean hintsInInterview() {
+    return true;
   }
 
   @Override

@@ -26,6 +26,8 @@ export function view(over: Partial<SessionView> = {}): SessionView {
     aiEditsActive: 0,
     aiEditsApplied: 0,
     aiEditsUndone: 0,
+    channels: ['ASK', 'WRITE_CODE'],
+    hintsAllowed: false,
     brief: ['# Intro', '## Phase 1: fix the bug\n\nTwice adds one too many. Fix it and keep the change small.', null],
     notes: '',
     events: [],

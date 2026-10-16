@@ -216,6 +216,85 @@ class LocalApiTest {
         .isEqualTo("dsa-quick");
   }
 
+  /** The first line a streaming route answers with; refusals arrive as one error line. */
+  private JsonNode firstStreamLine(String path, String body) throws Exception {
+    return JSON.readTree(send("POST", path, body, TOKEN).body().lines().findFirst().orElseThrow());
+  }
+
+  private String start(String problem, String type) throws Exception {
+    return "/sessions/"
+        + call("POST", "/sessions", "{\"problemId\":\"" + problem + "\",\"type\":\"" + type + "\"}")
+            .get("id")
+            .asString();
+  }
+
+  @Test
+  void askOnADsaSessionIs400() throws Exception {
+    JsonNode line =
+        firstStreamLine(start("tiny-dsa", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}");
+
+    assertThat(line.get("t").asString()).isEqualTo("error");
+    assertThat(line.get("reason").asString()).contains("no assistant");
+  }
+
+  @Test
+  void writeOnADsaSessionIs400() throws Exception {
+    JsonNode line =
+        firstStreamLine(start("tiny-dsa", "INTERVIEW") + "/write", "{\"message\":\"hi\"}");
+
+    assertThat(line.get("t").asString()).isEqualTo("error");
+    assertThat(line.get("reason").asString()).contains("cannot write code");
+  }
+
+  @Test
+  void hintExplainOnADsaSessionIs400() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+    call("POST", s + "/hints", "{\"phase\":1}");
+
+    JsonNode line = firstStreamLine(s + "/hints/explain", "{\"phase\":1}");
+
+    assertThat(line.get("t").asString()).isEqualTo("error");
+    assertThat(line.get("reason").asString()).contains("no assistant");
+  }
+
+  @Test
+  void dsaInterviewSessionRevealsHints() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+
+    assertThat(call("POST", s + "/hints", "{\"phase\":1}").get("level").asInt()).isEqualTo(1);
+  }
+
+  @Test
+  void codingRoundInterviewStillRefusesHints() throws Exception {
+    String s = start("tiny", "INTERVIEW");
+
+    assertThat(send("POST", s + "/hints", "{\"phase\":1}", TOKEN).statusCode()).isEqualTo(400);
+  }
+
+  @Test
+  void codingRoundAskStillWorks() throws Exception {
+    open(true);
+    JsonNode line = firstStreamLine(start("tiny", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}");
+
+    // Past the channel check the call reaches the assistant; only a model reply or a model
+    // availability problem may answer, never a channel refusal.
+    assertThat(String.valueOf(line.path("reason").asString(""))).doesNotContain("no assistant");
+  }
+
+  @Test
+  void sessionViewCarriesChannelsAndHintsAllowed() throws Exception {
+    JsonNode dsa = call("GET", start("tiny-dsa", "INTERVIEW"), null);
+    JsonNode coding = call("GET", start("tiny", "INTERVIEW"), null);
+    JsonNode codingPractice = call("GET", start("tiny", "PRACTICE"), null);
+
+    assertThat(dsa.get("channels").size()).isZero();
+    assertThat(dsa.get("hintsAllowed").asBoolean()).isTrue();
+    assertThat(coding.get("channels").get(0).asString()).isEqualTo("ASK");
+    assertThat(coding.get("channels").get(1).asString()).isEqualTo("WRITE_CODE");
+    assertThat(coding.get("hintsAllowed").asBoolean()).isFalse();
+    assertThat(codingPractice.get("hintsAllowed").asBoolean()).isTrue();
+  }
+
   @Test
   void anInterviewSessionRunsEndToEnd() throws Exception {
     JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");

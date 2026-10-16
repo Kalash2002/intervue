@@ -34,7 +34,7 @@ class SessionHintsTest {
 
     assertThatThrownBy(() -> sessions.hint(id, 1))
         .isInstanceOf(SessionException.class)
-        .hasMessageContaining("Practice");
+        .hasMessageContaining("not available");
   }
 
   @Test

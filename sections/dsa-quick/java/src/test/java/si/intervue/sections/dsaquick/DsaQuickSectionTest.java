@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ServiceLoader;
 import org.junit.jupiter.api.Test;
-import si.intervue.engine.sections.AssistantChannel;
 import si.intervue.engine.sections.PhaseResult;
 import si.intervue.engine.sections.SectionPackage;
 import si.intervue.problemformat.Phase;
@@ -70,9 +69,9 @@ class DsaQuickSectionTest {
   }
 
   @Test
-  void offersBothChannelsAndHints() {
-    assertThat(section.channels())
-        .containsExactlyInAnyOrder(AssistantChannel.ASK, AssistantChannel.WRITE_CODE);
+  void offersNoChannelsAndHintsInInterview() {
+    assertThat(section.channels()).isEmpty();
+    assertThat(section.hintsInInterview()).isTrue();
     assertThat(section.supportsHints()).isTrue();
   }
 
