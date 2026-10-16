@@ -132,8 +132,8 @@ public final class SessionAssistant {
    */
   public void preflight(String id, AssistantChannel channel, boolean needsHints) {
     Context c = locked(() -> requireChannel(sessions.requireOpen(id), channel));
-    if (needsHints && !SessionHints.allowed(c)) {
-      throw new SessionException("Hints are not available in this Interview session.");
+    if (needsHints) {
+      SessionHints.require(c);
     }
   }
 
@@ -154,9 +154,7 @@ public final class SessionAssistant {
   /** Where hints are allowed, needs the ASK channel, and only a level already revealed. */
   public String explainHint(String id, int phase, Consumer<String> deltas) {
     Context c = locked(() -> requireChannel(sessions.requireOpen(id), AssistantChannel.ASK));
-    if (!SessionHints.allowed(c)) {
-      throw new SessionException("Hints are not available in this Interview session.");
-    }
+    SessionHints.require(c);
     List<String> revealed = locked(() -> sessions.revealedHints(id, phase));
     if (revealed.isEmpty()) {
       throw new SessionException("Reveal a hint for phase " + phase + " first.");

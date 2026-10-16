@@ -27,12 +27,17 @@ final class SessionHints {
     return c.session().type() == SessionType.PRACTICE || c.section().hintsInInterview();
   }
 
-  /** Reveals the next authored hint level of an unlocked phase, where {@link #allowed} says so. */
-  HintView reveal(Context c, int phase) {
-    String id = c.session().id();
+  /** Throws where {@link #allowed} says no; one message for reveal, explain and preflight. */
+  static void require(Context c) {
     if (!allowed(c)) {
       throw new SessionException("Hints are not available in this Interview session.");
     }
+  }
+
+  /** Reveals the next authored hint level of an unlocked phase, where {@link #allowed} says so. */
+  HintView reveal(Context c, int phase) {
+    String id = c.session().id();
+    require(c);
     if (phase < 1 || phase > c.session().unlocked()) {
       throw new SessionException("Phase " + phase + " is not open yet.");
     }
