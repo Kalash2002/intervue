@@ -21,10 +21,11 @@ final class SessionHints {
 
   /**
    * The one rule for hint availability, shared by reveal, explain and the session view: Practice
-   * always, Interview only when the section opts in (ADR 0012).
+   * always, Interview only when the section opts in (ADR 0012); a section without hints has none.
    */
   static boolean allowed(Context c) {
-    return c.session().type() == SessionType.PRACTICE || c.section().hintsInInterview();
+    return c.section().supportsHints()
+        && (c.session().type() == SessionType.PRACTICE || c.section().hintsInInterview());
   }
 
   /** Throws where {@link #allowed} says no; one message for reveal, explain and preflight. */
