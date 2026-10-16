@@ -2,7 +2,7 @@
 
 Given a string, find the length of the longest stretch of consecutive characters in which no character appears twice. Characters can be any Java `char`, and case matters.
 
-What makes it harder than it looks is what to do when a repeat shows up. Throwing the stretch away and restarting loses good characters: in `"dvdf"` the answer is `"vdf"`, which starts inside the stretch that just broke. And an earlier copy of a character may lie before the current start, where it no longer matters. With 100,000 characters from any script, extending from every start can also run to a quadratic amount of work.
+What makes it harder than it looks is what to do when a repeat shows up. Throwing the stretch away and restarting loses good characters: in `"xyxzw"` the answer is `"yxzw"`, which starts inside the stretch that just broke. And an earlier copy of a character may lie before the current start, where it no longer matters. With 100,000 characters from any script, extending from every start can also run to a quadratic amount of work.
 
 ## How to think about it
 

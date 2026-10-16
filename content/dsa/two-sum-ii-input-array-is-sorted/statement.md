@@ -1,6 +1,6 @@
 # Two Sum II: Sorted Input
 
-You are given an array of whole numbers in non-decreasing order, and a target. Exactly one pair of different positions has values that add up to the target.
+You are given an array of whole numbers in non-decreasing order, and a target. Find the pair of different positions whose values add up to the target.
 
 Implement `SortedPair.find(int[] numbers, int target)` in `SortedPair.java`. Return an array `{i, j}` with `i < j` and `numbers[i] + numbers[j] == target`. Positions count from 0. A position cannot be used twice, but two positions may hold the same value.
 

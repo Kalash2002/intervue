@@ -28,12 +28,12 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void wholeStringFitsExactly() {
-        assertEquals(4, Relabel.longestRun("ABAB", 2));
+        assertEquals(5, Relabel.longestRun("TUUTU", 2));
     }
 
     @Test(order = 6)
     void wholeStringFallsOneShort() {
-        assertEquals(3, Relabel.longestRun("ABAB", 1));
+        assertEquals(4, Relabel.longestRun("TUUTU", 1));
     }
 
     @Test(order = 7)

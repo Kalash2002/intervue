@@ -37,7 +37,7 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void slideRatherThanRestart() {
-        assertEquals(3, Streaks.longestDistinct("dvdf"));
+        assertEquals(4, Streaks.longestDistinct("xyxzw"));
     }
 
     @Test(order = 8)
