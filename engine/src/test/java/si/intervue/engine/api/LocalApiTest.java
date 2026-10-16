@@ -12,6 +12,14 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
+import si.intervue.engine.ai.AiClient;
+import si.intervue.engine.ai.AiReply;
+import si.intervue.engine.ai.AiRequest;
+import si.intervue.engine.ai.AiStatus;
+import si.intervue.engine.ai.AiUsage;
+import si.intervue.engine.ai.UnavailableAiClient;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,6 +38,42 @@ class LocalApiTest {
   private Engine engine;
   private LocalApi api;
   private final HttpClient http = HttpClient.newHttpClient();
+  private final AtomicInteger aiCalls = new AtomicInteger();
+
+  /** A model double that answers every call and counts them; no test reaches a real CLI. */
+  private final AiClient stubAi =
+      new AiClient() {
+        private AiReply answer(Consumer<String> deltas) {
+          aiCalls.incrementAndGet();
+          deltas.accept("ok");
+          return new AiReply("ok", new AiUsage("stub", "test-model", 1, 1, 0));
+        }
+
+        @Override
+        public AiReply chat(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply edit(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply hintExplain(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply feedback(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiStatus status() {
+          return new AiStatus(true, true, null);
+        }
+      };
 
   @BeforeEach
   void start() throws Exception {
@@ -48,7 +92,11 @@ class LocalApiTest {
     }
     engine =
         Engine.open(
-            root.resolve("data"), root.resolve("problems"), Clock.systemUTC(), developerMode);
+            root.resolve("data"),
+            root.resolve("problems"),
+            Clock.systemUTC(),
+            developerMode,
+            developerMode ? stubAi : new UnavailableAiClient(AiStatus.off()));
     api = LocalApi.start(engine, TOKEN, 0);
   }
 
@@ -216,11 +264,6 @@ class LocalApiTest {
         .isEqualTo("dsa-quick");
   }
 
-  /** The first line a streaming route answers with; refusals arrive as one error line. */
-  private JsonNode firstStreamLine(String path, String body) throws Exception {
-    return JSON.readTree(send("POST", path, body, TOKEN).body().lines().findFirst().orElseThrow());
-  }
-
   private String start(String problem, String type) throws Exception {
     return "/sessions/"
         + call("POST", "/sessions", "{\"problemId\":\"" + problem + "\",\"type\":\"" + type + "\"}")
@@ -273,11 +316,37 @@ class LocalApiTest {
   @Test
   void codingRoundAskStillWorks() throws Exception {
     open(true);
-    JsonNode line = firstStreamLine(start("tiny", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}");
+    HttpResponse<String> response =
+        send("POST", start("tiny", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}", TOKEN);
 
-    // Past the channel check the call reaches the assistant; only a model reply or a model
-    // availability problem may answer, never a channel refusal.
-    assertThat(String.valueOf(line.path("reason").asString(""))).doesNotContain("no assistant");
+    // Past the channel check the call reaches the assistant and the stub model answers.
+    assertThat(response.statusCode()).as(response.body()).isNotEqualTo(400);
+    assertThat(aiCalls.get()).isEqualTo(1);
+  }
+
+  @Test
+  void finishingADsaSessionMakesNoModelCallAndHasNoReview() throws Exception {
+    open(true);
+    String s = start("tiny-dsa", "INTERVIEW");
+    call("POST", s + "/finish", null);
+
+    JsonNode review = call("GET", s + "/review", null);
+
+    assertThat(review.get("status").asString()).isEqualTo("unavailable");
+    assertThat(review.get("reason").asString()).contains("no written review");
+    assertThat(aiCalls.get()).isZero();
+  }
+
+  @Test
+  void finishingACodingRoundSessionStillRequestsTheReview() throws Exception {
+    open(true);
+    String s = start("tiny", "INTERVIEW");
+    call("POST", s + "/finish", null);
+
+    for (int i = 0; i < 100 && aiCalls.get() == 0; i++) {
+      Thread.sleep(50);
+    }
+    assertThat(aiCalls.get()).isEqualTo(1);
   }
 
   @Test

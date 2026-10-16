@@ -171,6 +171,14 @@ public final class SessionAssistant {
     return reply.text();
   }
 
+  /** Shown for a section without the ASK channel: it has no written review. */
+  static final Review NO_REVIEW =
+      new Review("unavailable", null, "This section has no written review.");
+
+  private boolean hasReview(String id) {
+    return sessions.context(id).section().channels().contains(AssistantChannel.ASK);
+  }
+
   /** Ends the session; the first finish starts the written review. */
   public SessionView finish(String id, boolean early) {
     return locked(
@@ -186,7 +194,7 @@ public final class SessionAssistant {
 
   /** Starts the written review in the background; at most one per session at a time. */
   public void requestReview(String id) {
-    if (!reviewing.add(id)) {
+    if (!locked(() -> hasReview(id)) || !reviewing.add(id)) {
       return;
     }
     reviews.execute(
@@ -219,6 +227,9 @@ public final class SessionAssistant {
    * before reviews existed) gets one requested here, so pending always means a review is running.
    */
   public Review review(String id) {
+    if (!locked(() -> hasReview(id))) {
+      return NO_REVIEW;
+    }
     boolean finished = locked(() -> sessions.context(id).session().finished());
     if (finished && locked(() -> records.review(id)) == null) {
       requestReview(id);
