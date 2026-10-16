@@ -37,13 +37,13 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 31 | Binary search | Search in Rotated Sorted Array | `search-in-rotated-sorted-array` | ✓ | |
 | 32 | Binary search | Time Based Key-Value Store | `time-based-key-value-store` | ✓ | shift-roster-lookup |
 | 33 | Binary search | Median of Two Sorted Arrays | `median-of-two-sorted-arrays` | ✓ | |
-| 34 | Linked list | Reverse Linked List | `reverse-linked-list` | | |
-| 35 | Linked list | Merge Two Sorted Lists | `merge-two-sorted-lists` | | |
-| 36 | Linked list | Reorder List | `reorder-list` | | |
-| 37 | Linked list | Remove Nth Node From End of List | `remove-nth-node-from-end-of-list` | | |
+| 34 | Linked list | Reverse Linked List | `reverse-linked-list` | ✓ | |
+| 35 | Linked list | Merge Two Sorted Lists | `merge-two-sorted-lists` | ✓ | |
+| 36 | Linked list | Reorder List | `reorder-list` | ✓ | |
+| 37 | Linked list | Remove Nth Node From End of List | `remove-nth-node-from-end-of-list` | ✓ | |
 | 38 | Linked list | Copy List with Random Pointer | `copy-list-with-random-pointer` | | |
 | 39 | Linked list | Add Two Numbers | `add-two-numbers` | | |
-| 40 | Linked list | Linked List Cycle | `linked-list-cycle` | | |
+| 40 | Linked list | Linked List Cycle | `linked-list-cycle` | ✓ | |
 | 41 | Linked list | Find the Duplicate Number | `find-the-duplicate-number` | | |
 | 42 | Linked list | LRU Cache | `lru-cache` | | |
 | 43 | Linked list | Merge K Sorted Lists | `merge-k-sorted-lists` | | |

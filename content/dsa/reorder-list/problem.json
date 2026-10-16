@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reorder-list",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reorder List",
+  "summary": "Relink a linked list in place so it alternates between nodes from the front and nodes from the back.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "fast-slow-pointers", "in-place"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you undo the reordering and get the original list back?", "Why does the first half keep the middle node when the length is odd, and what breaks if the split is off by one?", "Could you use the same split-and-reverse steps to check whether a list reads the same forwards and backwards?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

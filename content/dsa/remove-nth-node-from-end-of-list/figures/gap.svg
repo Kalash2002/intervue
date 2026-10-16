@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Removing the 2nd node from the end of [6,11,2,19,30]: lead and trail stay two nodes apart, then 19 is skipped</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="59">start</text>
+<text x="20" y="149">stop</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="90" y="40" width="48" height="28" stroke-dasharray="4 3"/><rect x="156" y="40" width="48" height="28"/><rect x="222" y="40" width="48" height="28"/>
+<rect x="288" y="40" width="48" height="28"/><rect x="354" y="40" width="48" height="28"/><rect x="420" y="40" width="48" height="28"/>
+<rect x="90" y="130" width="48" height="28" stroke-dasharray="4 3"/><rect x="156" y="130" width="48" height="28"/><rect x="222" y="130" width="48" height="28"/>
+<rect x="288" y="130" width="48" height="28"/><rect x="420" y="130" width="48" height="28"/>
+</g>
+<rect x="354" y="130" width="48" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 138 54 L 152 54"/><path d="M 204 54 L 218 54"/><path d="M 270 54 L 284 54"/><path d="M 336 54 L 350 54"/>
+<path d="M 402 54 L 416 54"/><path d="M 468 54 L 482 54"/>
+<path d="M 138 144 L 152 144"/><path d="M 204 144 L 218 144"/><path d="M 270 144 L 284 144"/><path d="M 468 144 L 482 144"/>
+<path d="M 312 160 Q 378 200 440 162"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="114" y="59">dummy</text><text x="180" y="59">6</text><text x="246" y="59">11</text>
+<text x="312" y="59">2</text><text x="378" y="59">19</text><text x="444" y="59">30</text>
+<text x="114" y="149">dummy</text><text x="180" y="149">6</text><text x="246" y="149">11</text>
+<text x="312" y="149">2</text><text x="378" y="149" fill="#ffffff">19</text><text x="444" y="149">30</text>
+<text x="504" y="59">null</text><text x="504" y="149">null</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="114" y="32">trail</text><text x="246" y="32">lead</text>
+<text x="312" y="122">trail</text><text x="444" y="122">lead</text>
+</g>
+<text x="20" y="228" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">Lead starts 2 nodes ahead; when it reaches 30, trail is at 2 and skips 19.</text>
+</svg>

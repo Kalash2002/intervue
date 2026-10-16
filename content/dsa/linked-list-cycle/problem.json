@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "linked-list-cycle",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Linked List Cycle",
+  "summary": "Decide whether following next links from the head ever comes back to a node already visited.",
+  "difficulty": "Easy",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "fast-slow-pointers", "cycle-detection"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you find the node where the cycle begins?", "How would you find the length of the cycle?", "Why must the fast pointer meet the slow one instead of jumping over it?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
