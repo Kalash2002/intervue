@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "daily-temperatures",
-  "version": 2,
+  "version": 3,
   "section": "dsa-quick",
   "title": "Daily Temperatures",
   "summary": "For each day, count how many days pass until a strictly warmer day, or zero if none comes.",

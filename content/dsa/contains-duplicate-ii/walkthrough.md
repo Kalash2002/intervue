@@ -6,11 +6,11 @@ What makes it harder than it looks: a code can repeat many times, and only the c
 
 ## How to think about it
 
-The first idea is to compare each position with the next `gap` positions. It is correct, but it re-reads the same stretch of the list over and over. Look at what actually matters for the code at position `j`: the only earlier position worth comparing with is the nearest earlier one with the same code. If that one is more than `gap` places back, every older one is further still. So per code I only need to remember the last position where I saw it, and a hash map from code to position answers "where was it last?" in one step. A lighter variant remembers only the codes still inside the window: the last `gap` codes in a set, dropping the oldest as the window slides, where a failed insert means a repeat. Which of the two I pick depends on whether memory or the position of the match matters.
+The first idea is to compare each position with the next `gap` positions. It is correct, but it re-reads the same stretch of the list over and over. Look at what actually matters for the code at position `j`: the only earlier position worth comparing with is the nearest earlier one with the same code. If that one is more than `gap` places back, every older one is further still. So per code I only need to remember the last position where I saw it, and a hash map from code to position answers "where was it last?" in one step. The map still keeps codes that are long out of range, though. Since a code more than `gap` places back can never match, I can forget it: keep only the last `gap` codes in a set, dropping the oldest as the window slides, where a failed insert means a repeat. The set gives up the position of the match, which the yes or no answer does not need.
 
-Walk Example 1, `codes = [4, 9, 4]`, `gap = 2`. At position 0 the code 4 is not in the map: store 4 at 0. At position 1 the code 9 is not in the map: store 9 at 1. At position 2 the code 4 is in the map at position 0, and 2 - 0 = 2 is at most 2, so the answer is `true`. The map is updated after the check, and on every step, so a later repeat compares with the closest position.
+Walk Example 1, `codes = [4, 9, 4]`, `gap = 2`. At position 0 the code 4 is added to the empty set. At position 1 the code 9 is added: the set holds 4 and 9. At position 2 nothing has fallen out of range yet (that would be position 2 - 2 - 1 = -1), and adding 4 fails because 4 is already in the set, so the answer is `true`.
 
-![Contains Duplicate II on Example 1: the map from code to last position after each step, with the 4 at position 2 finding the 4 stored at position 0](figures/last-seen-map.svg)
+![Contains Duplicate II on Example 1: the window set after each step, with the 4 at position 2 failing to enter because the set already holds a 4](figures/last-seen-map.svg)
 
 ## Brute force
 
@@ -32,9 +32,31 @@ static boolean repeatsNearby(int[] codes, int gap) {
 
 **Complexity:** time O(n times min(n, gap)), extra space O(1).
 
-## Better: a hash set holding the last gap codes
+## Better: a map from each code to its last position
 
-Keep a set of the codes at the `gap` positions just before the current one. At position `j`, first drop the code that has just fallen out of range, which is `codes[j - gap - 1]`, then try to add `codes[j]`: if it is already in the set, that code sits within `gap` places, so the answer is `true`. A repeat of a code inside the window would already have been caught, so the set never holds two copies and removing by value is safe.
+This is the same O(n) time with a different memory bill: it remembers every code ever seen, where the window below forgets the old ones. Walk the list once with a map from code to the last position where it was seen. At position `j`, look the code up: if it is present and `j - last <= gap`, return `true`. Whether or not it matched, store `j` as the new last position, so the next occurrence compares with the closest one.
+
+```java
+static boolean repeatsNearby(int[] codes, int gap) {
+    Map<Integer, Integer> lastSeen = new HashMap<>();
+    for (int j = 0; j < codes.length; j++) {
+        Integer last = lastSeen.get(codes[j]);
+        if (last != null && j - last <= gap) {
+            return true;
+        }
+        lastSeen.put(codes[j], j); // always the latest, so the next match is the closest
+    }
+    return false;
+}
+```
+
+**Complexity:** time O(n) on average, O(n log n) in the worst case (Java's `HashMap` turns a crowded bucket of `Integer` keys into a tree), extra space O(n).
+
+**Prefer it when:** you need to know where the matching position was, or the closest pair of equal positions: the map keeps the position, which the window set throws away.
+
+## Optimal: a hash set holding the last gap codes
+
+Keep a set of the codes at the `gap` positions just before the current one. At position `j`, first drop the code that has just fallen out of range, which is `codes[j - gap - 1]`, then try to add `codes[j]`: if it is already in the set, that code sits within `gap` places, so the answer is `true`. A repeat of a code inside the window would already have been caught, so the set never holds two copies and removing by value is safe. It never holds more than `gap` codes, so it also works on a stream that cannot be kept whole. This is the reference solution.
 
 ```java
 static boolean repeatsNearby(int[] codes, int gap) {
@@ -51,37 +73,15 @@ static boolean repeatsNearby(int[] codes, int gap) {
 }
 ```
 
-**Complexity:** time O(n) on average, O(n log n) in the worst case (Java's `HashMap` and `HashSet` turn a crowded bucket of `Integer` keys into a tree), extra space O(min(n, gap)).
-
-**Prefer it when:** memory is the concern and `gap` is much smaller than `n`: it never holds more than `gap` codes, so it also works on a stream that cannot be kept whole. It cannot say where the matching position was.
-
-## Optimal: a map from each code to its last position
-
-Walk the list once with a map from code to the last position where it was seen. At position `j`, look the code up: if it is present and `j - last <= gap`, return `true`. Whether or not it matched, store `j` as the new last position, so the next occurrence compares with the closest one. This is the reference solution.
-
-```java
-static boolean repeatsNearby(int[] codes, int gap) {
-    Map<Integer, Integer> lastSeen = new HashMap<>();
-    for (int j = 0; j < codes.length; j++) {
-        Integer last = lastSeen.get(codes[j]);
-        if (last != null && j - last <= gap) {
-            return true;
-        }
-        lastSeen.put(codes[j], j); // always the latest, so the next match is the closest
-    }
-    return false;
-}
-```
-
-**Complexity:** time O(n) on average, O(n log n) in the worst case (the tree fallback for crowded buckets), extra space O(n).
+**Complexity:** time O(n) on average, O(n log n) in the worst case (Java's `HashSet` turns a crowded bucket of `Integer` keys into a tree), extra space O(min(n, gap)).
 
 ## Complexity
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force: compare with the next `gap` positions | O(n times min(n, gap)) | O(1) |
-| Better: hash set of the last `gap` codes | O(n) average, O(n log n) worst | O(min(n, gap)) |
-| Optimal: map from code to last position | O(n) average, O(n log n) worst | O(n) |
+| Better: map from code to last position | O(n) average, O(n log n) worst | O(n) |
+| Optimal: hash set of the last `gap` codes | O(n) average, O(n log n) worst | O(min(n, gap)) |
 
 ## Where it shows up
 
@@ -91,8 +91,8 @@ In practice the same check flags a card charged twice within a short time, a sen
 
 ## Follow-up answers
 
-**How would you do it keeping only the last gap values in memory?** Use a set as a window. Before adding each code, remove the code that left the window, which is `codes[j - gap - 1]`. If adding a code finds it already present, that is a repeat within range. Memory is at most `gap` codes.
+**How would you do it keeping only the last gap values in memory?** Use a set as a window, as in the Optimal solution. Before adding each code, remove the code that left the window, which is `codes[j - gap - 1]`. If adding a code finds it already present, that is a repeat within range. Memory is at most `gap` codes.
 
-**How would you return the closest pair of equal positions instead of a yes or no?** Keep the map of last positions and a best distance. At each position where the code is present, compare `j - last` with the best so far, then store `j`. The smallest distance ever seen is the answer.
+**How would you return the closest pair of equal positions instead of a yes or no?** Use the map of the Better solution: keep the map of last positions and a best distance. At each position where the code is present, compare `j - last` with the best so far, then store `j`. The smallest distance ever seen is the answer.
 
 **What changes if two values count as repeats when they differ by at most a small amount?** A plain map no longer finds neighbours. Bucket the values by their size divided by the allowed difference plus one; then a match can only be in the same bucket or the two next to it, and each bucket holds the latest value inside the window.

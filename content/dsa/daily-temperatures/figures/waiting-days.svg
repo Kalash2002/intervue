@@ -1,41 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
-<title>Daily Temperatures on [20, 18, 25, 19, 19, 30]: the stack of days still waiting, after each day</title>
-<text x="62" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 0: 20</text>
-<rect x="25" y="112" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="62" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d0 20</text>
-<path d="M 19 144 L 105 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="166" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 1: 18</text>
-<rect x="129" y="112" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="166" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d0 20</text>
-<rect x="129" y="84" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="166" y="103" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d1 18</text>
-<path d="M 123 144 L 209 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="270" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 2: 25</text>
-<rect x="233" y="112" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="270" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d2 25</text>
-<path d="M 227 144 L 313 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="270" y="166" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d1 = 1</text>
-<text x="270" y="184" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d0 = 2</text>
-<text x="374" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 3: 19</text>
-<rect x="337" y="112" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="374" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d2 25</text>
-<rect x="337" y="84" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="374" y="103" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d3 19</text>
-<path d="M 331 144 L 417 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="478" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 4: 19</text>
-<rect x="441" y="112" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="478" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d2 25</text>
-<rect x="441" y="84" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="478" y="103" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d3 19</text>
-<rect x="441" y="56" width="74" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="478" y="75" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d4 19</text>
-<path d="M 435 144 L 521 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="582" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">day 5: 30</text>
-<rect x="545" y="112" width="74" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
-<text x="582" y="131" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">d5 30</text>
-<path d="M 539 144 L 625 144" stroke="#83748f" stroke-width="1.5" fill="none"/>
-<text x="582" y="166" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d4 = 1  d3 = 2</text>
-<text x="582" y="184" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">d2 = 3</text>
-<text x="20" y="214" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">A day waits on the stack until a strictly warmer day arrives, then gets its gap.</text>
-<text x="20" y="236" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Day 4 (19) is not warmer than day 3 (19), so it joins the stack; day 5 empties it.</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Daily Temperatures on [20, 18, 25, 19, 19, 30]: each day looks at its neighbour and jumps through the neighbour's answer, filled from the last day to the first</title>
+<rect x="124" y="104" width="316" height="24" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="28">day</text><text x="70" y="28">temp</text><text x="130" y="28">looks at (right to left)</text><text x="500" y="28">answer</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="62">d5</text><text x="70" y="62">30</text><text x="130" y="62" fill="#83748f">start: last day keeps 0</text><text x="520" y="62">0</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="92">d4</text><text x="70" y="92">19</text><text x="130" y="92" fill="#83748f">d5 (30) warmer</text><text x="520" y="92">1</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="122">d3</text><text x="70" y="122">19</text><text x="130" y="122" fill="#ffffff">d4 (19) no, jump 1; d5 (30) warmer</text><text x="520" y="122">2</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="152">d2</text><text x="70" y="152">25</text><text x="130" y="152" fill="#83748f">d3 (19) no, jump 2; d5 (30) warmer</text><text x="520" y="152">3</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="182">d1</text><text x="70" y="182">18</text><text x="130" y="182" fill="#83748f">d2 (25) warmer</text><text x="520" y="182">1</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f"><text x="20" y="212">d0</text><text x="70" y="212">20</text><text x="130" y="212" fill="#83748f">d1 (18) no, jump 1; d2 (25) warmer</text><text x="520" y="212">2</text></g>
+<text x="20" y="262" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">Each day starts at its neighbour and hops by the neighbour's answer.</text>
+<text x="20" y="284" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">Day 3 hops over day 4 and lands on day 5, the first warmer day.</text>
 </svg>

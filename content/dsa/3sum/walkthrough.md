@@ -38,7 +38,7 @@ static List<List<Integer>> zeroSum(int[] nums) {
 }
 ```
 
-**Complexity:** time O(n³) average (every matching triple costs one set operation, and an all-zero array makes nearly all of them match), O(n³ log n) worst case (Java treeifies a crowded bucket), extra space O(n + k) for the sorted copy, the set and the result of k triples.
+**Complexity:** time O(n³) average (every matching triple costs one set operation, and an all-zero array makes nearly all of them match), worse if many triples land in one hash bucket (a `List` is not `Comparable`, so Java's treeified bucket gives no O(log n) here and each operation scans the bucket; the triple hash spreads well, so this is not expected), extra space O(n + k) for the sorted copy, the set and the result of k triples.
 
 ## Better: sort, fix one value, look up the third in a hash set
 
@@ -114,7 +114,7 @@ static List<List<Integer>> zeroSum(int[] nums) {
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
-| Brute force | O(n³) average, O(n³ log n) worst | O(n + k) |
+| Brute force | O(n³) average, worse with colliding triple hashes | O(n + k) |
 | Better: sort, fix one value, hash set | O(n²) average, O(n² log n) worst | O(n) |
 | Optimal: sort, fix one value, two positions | O(n²) | O(n) |
 
