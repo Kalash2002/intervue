@@ -227,7 +227,7 @@ One backend path for every model call. The app never holds an API key.
 |---|---|---|
 | `POST /v1/ai/chat` (SSE) | Assistant reply for a session | Body: `{sessionId, problemRef:{packId, problemId, lang}, mode, message, files:[{path, content, readOnly}], history:[last N turns]}`. The backend holds the brief and the rules, so the app sends only files and history |
 | `POST /v1/ai/edit` (SSE) | Write code channel | Same body as chat plus `target` (optional file or method named by the user) and per-file hashes; streams the edit protocol of section 2.8; costs three message-equivalents |
-| `POST /v1/ai/hint-explain` (SSE) | Practice only | Body: `{sessionId, problemRef, phase, level, files, history}`; the backend reads the authored hint text from the pack; Ask rules; one message-equivalent |
+| `POST /v1/ai/hint-explain` (SSE) | Wherever hints are allowed, in sections with the Ask channel | Body: `{sessionId, problemRef, phase, level, files, history}`; the backend reads the authored hint text from the pack; Ask rules; one message-equivalent |
 | `POST /v1/ai/feedback` | Written review | Body: `{sessionId}`; the backend reads the synced session including edit and hint events. Returns a job id; result delivered by SSE or by pull |
 | `GET /v1/ai/usage` | Remaining allowance | Shown in the app header |
 
@@ -358,7 +358,7 @@ The session type is chosen on the start screen and recorded in `sessions.session
 
 - **Ask**: today's chat. Receives the brief, the files, the history and the message; replies in text.
 - **Write code**: the same context plus the section's `prompts/write-code.md`, which asks the model to return edits in the protocol below and a short note for the chat. If the user names a file or a method in the message, the prompt instructs the model to confine edits to it; otherwise every editable file is in scope. Read-only files are listed as "do not edit" and the engine enforces it regardless.
-- **Explain this hint**: Practice only, online only, and only in sections with the Ask channel; the revealed hint text plus files and history, Ask rules, one message-equivalent.
+- **Explain this hint**: wherever hints are allowed, online only, and only in sections with the Ask channel; the revealed hint text plus files and history, Ask rules, one message-equivalent.
 
 #### Edit protocol
 
