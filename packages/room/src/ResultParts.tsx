@@ -3,6 +3,11 @@ import { useEffect, useState, type ReactNode } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown, failed, useApp } from '@intervue/ui';
 
+/** Hints revealed over all phases of a session. */
+export function totalHints(view: SessionView): number {
+  return Object.values(view.hintsUsed).reduce((a, b) => a + b, 0);
+}
+
 /** The stored text shows at once; the figures arrive with the problem's walkthrough. */
 export function WalkthroughTab({ problemId, text }: { problemId: string; text: string }) {
   const { client, notify } = useApp();

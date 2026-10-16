@@ -2,6 +2,7 @@
 // with aligned Input/Output/Explanation labels, then Constraints and the optional Follow-up. The
 // shape is owned by content/templates/dsa-statement.md; text that does not match it renders as
 // plain Markdown. Blocks are React elements, so only text segments ever reach Markdown.
+import { memo, useMemo } from 'react';
 import { Markdown } from '@intervue/ui';
 
 interface Section {
@@ -68,8 +69,9 @@ function Titled({ heading, body }: Section) {
   );
 }
 
-export function Statement({ source }: { source: string }) {
-  const { lead, sections } = split(source);
+/** Memoised: SolveRoom re-renders every second while the clock ticks. */
+export const Statement = memo(function Statement({ source }: { source: string }) {
+  const { lead, sections } = useMemo(() => split(source), [source]);
   if (!sections.some((s) => s.heading === 'Example 1')) return <Markdown source={source} />;
   return (
     <div className="stmt">
@@ -83,4 +85,4 @@ export function Statement({ source }: { source: string }) {
       )}
     </div>
   );
-}
+});

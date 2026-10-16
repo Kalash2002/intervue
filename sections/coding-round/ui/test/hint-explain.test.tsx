@@ -5,7 +5,7 @@ import { renderWith, view } from './fixtures.tsx';
 
 describe('explain this hint', () => {
   it('is offered only once a level is revealed', async () => {
-    renderWith(<HintControl sessionId="s1" phase={1} used={0} channels={['ASK']} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={1} used={0} canExplain onRevealed={vi.fn()} />, {
       revealedHints: vi.fn(async () => []),
     });
 
@@ -19,7 +19,7 @@ describe('explain this hint', () => {
       onDelta('the total is built.');
       return 'Look where the total is built.';
     });
-    renderWith(<HintControl sessionId="s1" phase={2} used={1} channels={['ASK']} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={2} used={1} canExplain onRevealed={vi.fn()} />, {
       revealedHints: vi.fn(async () => ['Level one text']),
       explainHint,
       session: vi.fn(async () => view({ type: 'PRACTICE' })),
@@ -33,7 +33,7 @@ describe('explain this hint', () => {
   });
 
   it('shows why when the assistant cannot answer', async () => {
-    renderWith(<HintControl sessionId="s1" phase={1} used={1} channels={['ASK']} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={1} used={1} canExplain onRevealed={vi.fn()} />, {
       revealedHints: vi.fn(async () => ['Level one text']),
       explainHint: vi.fn(async () => Promise.reject(new Error('Assistant unavailable: sign-in arrives in Phase 1b'))),
       session: vi.fn(async () => view({ type: 'PRACTICE' })),
@@ -45,7 +45,7 @@ describe('explain this hint', () => {
   });
 
   it('has no Explain button without the ASK channel', async () => {
-    renderWith(<HintControl sessionId="s1" phase={1} used={1} channels={[]} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={1} used={1} canExplain={false} onRevealed={vi.fn()} />, {
       revealedHints: vi.fn(async () => ['Level one text']),
     });
 

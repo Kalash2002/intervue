@@ -2,7 +2,7 @@
 // It must not reproduce the coding round's phases or timeline.
 import { useState } from 'react';
 import { clockText, type SectionResultProps } from '@intervue/ui';
-import { ScoreLine, WalkthroughTab } from '@intervue/room';
+import { ScoreLine, totalHints, WalkthroughTab } from '@intervue/room';
 
 export function DsaResult({ session }: SectionResultProps) {
   const [open, setOpen] = useState(false);
@@ -11,7 +11,7 @@ export function DsaResult({ session }: SectionResultProps) {
   const { score } = result;
   const total = result.finalResults.reduce((n, p) => n + p.passed + p.failed + p.timeouts + p.notRun, 0);
   const passed = result.finalResults.reduce((n, p) => n + p.passed, 0);
-  const hints = Object.values(session.hintsUsed).reduce((a, b) => a + b, 0);
+  const hints = totalHints(session);
   return (
     <>
       <ScoreLine session={session} score={score}>

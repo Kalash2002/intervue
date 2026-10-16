@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import type { SessionResult, SessionView } from '@intervue/local-engine-client';
 import { clockText, failed, plural, useApp, type SectionResultProps } from '@intervue/ui';
-import { ScoreLine, WalkthroughTab } from '@intervue/room';
+import { ScoreLine, totalHints, WalkthroughTab } from '@intervue/room';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
 import { WrittenReview } from './WrittenReview.tsx';
 
@@ -95,7 +95,7 @@ function Phases({ session, result }: { session: SessionView; result: SessionResu
 function HowYouWorked({ session, result }: { session: SessionView; result: SessionResult }) {
   const r = result.report;
   const count = (type: string) => session.events.filter((e) => e.type === type).length;
-  const hints = Object.values(session.hintsUsed).reduce((a, b) => a + b, 0);
+  const hints = totalHints(session);
   const fact = (label: string, value: string) => [
     <dt key={`${label}t`}>{label}</dt>,
     <dd key={`${label}d`}>{value}</dd>,

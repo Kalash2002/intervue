@@ -118,8 +118,8 @@ function SidePanel({
   const tabs: Tab[] = [];
   if (view.channels.length > 0) tabs.push('Assistant');
   if (view.hintsAllowed) tabs.push('Hints');
-  const [picked, setTab] = useState<Tab | null>(null);
-  const tab = picked && tabs.includes(picked) ? picked : tabs[0];
+  // Tabs are fixed for the session, so the first one is the starting tab.
+  const [tab, setTab] = useState<Tab | undefined>(tabs[0]);
   return (
     <aside className="right">
       <div className="tabs side" role="tablist">
@@ -144,7 +144,7 @@ function SidePanel({
             phase={1}
             used={view.hintsUsed['1'] ?? 0}
             disabled={view.finished}
-            channels={view.channels}
+            canExplain={view.channels.includes('ASK')}
             onRevealed={onChange}
             beforeExplain={actions.saveFiles}
           />
