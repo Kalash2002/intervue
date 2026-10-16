@@ -47,9 +47,9 @@ static int min(int[] nums) {
 }
 ```
 
-**Complexity:** time O(k) per call, where k is the index of the minimum; O(n) in the worst case. Extra space O(1).
+**Complexity:** time O(n - r) per call when rotated, since the minimum sits at index n - r; O(n) when not rotated or when r = 1. Extra space O(1).
 
-**Prefer it when:** the rotation is known to be small, as in a circular buffer that has only just wrapped, so the drop is a few steps from the start.
+**Prefer it when:** the drop is known to be near the start (r close to n), as in a circular buffer that has only just wrapped.
 
 ## Optimal: binary search against the last value
 
@@ -78,7 +78,7 @@ static int min(int[] nums) {
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(n) per call | O(1) |
-| Better: stop at the drop | O(k) per call, O(n) worst case | O(1) |
+| Better: stop at the drop | O(n - r) per call when rotated, O(n) when not rotated or r = 1 | O(1) |
 | Optimal: binary search against the last value | O(log n) per call | O(1) |
 
 ## Where it shows up

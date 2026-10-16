@@ -21,11 +21,11 @@
 
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
 <text x="370" y="56">0..11: mid 5 = (1, 1)</text>
-<text x="370" y="76">  23 &lt; 31, low = 6</text>
+<text x="386" y="76">23 &lt; 31, low = 6</text>
 <text x="370" y="108">6..11: mid 8 = (2, 0)</text>
-<text x="370" y="128">  44 &gt; 31, high = 7</text>
+<text x="386" y="128">44 &gt; 31, high = 7</text>
 <text x="370" y="160">6..7: mid 6 = (1, 2)</text>
-<text x="370" y="180">  31 found</text>
+<text x="386" y="180">31 found</text>
 </g>
 
 <g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">

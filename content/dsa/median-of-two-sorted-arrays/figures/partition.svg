@@ -27,9 +27,9 @@
 
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
 <text x="360" y="44">i = 1, j = 3:</text>
-<text x="360" y="62">  b's 13 &gt; a's 8, take more</text>
+<text x="376" y="62">b's 13 &gt; a's 8, take more</text>
 <text x="360" y="92">i = 2, j = 2:</text>
-<text x="360" y="110">  8 &lt;= 13 and 10 &lt;= 21, right</text>
+<text x="376" y="110">8 &lt;= 13 and 10 &lt;= 21, right</text>
 <text x="360" y="140">odd count: max(8, 10) = 10</text>
 </g>
 

@@ -20,7 +20,7 @@ Implement `RotatedSearch.indexOf(int[] nums, int target)` in `RotatedSearch.java
 
 **Input:** `nums = [9, 3]`, `target = 3`
 **Output:** `1`
-**Explanation:** The sorted array `[3, 9]` was rotated by one. With two values, the middle of the range is its first index, so a search must still decide correctly which half is in order.
+**Explanation:** The sorted array `[3, 9]` was rotated by one. 3 is now at index 1.
 
 ## Constraints
 

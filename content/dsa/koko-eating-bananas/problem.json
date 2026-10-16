@@ -4,7 +4,7 @@
   "version": 1,
   "section": "dsa-quick",
   "title": "Koko Eating Bananas",
-  "summary": "Find the slowest whole-number printing rate that finishes a queue of jobs, one job per hour, before a deadline.",
+  "summary": "Find the slowest whole-number eating speed that clears every pile, one pile per hour, within a time limit.",
   "difficulty": "Medium",
   "techniques": ["binary-search"],
   "tags": ["array", "binary-search-on-answer"],
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["Can you find the rate in O(n log m) time, where m is the largest job?", "What if the printer could switch to another job in the same hour once one ends?", "What if there were several printers working in parallel?"],
+  "followUps": ["Can you find the speed in O(n log m) time, where m is the largest pile?", "What if Koko could move on to another pile in the same hour once one is finished?", "What if several eaters shared the piles?"],
   "languages": ["java"],
   "coveredBy": []
 }
