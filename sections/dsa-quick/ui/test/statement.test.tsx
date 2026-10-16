@@ -1,4 +1,5 @@
 import { screen, within } from '@testing-library/react';
+import css from '../src/dsa.css?raw';
 import { describe, expect, it } from 'vitest';
 import { Statement } from '../src/Statement.tsx';
 import { renderWith } from './fixtures.tsx';
@@ -52,5 +53,22 @@ describe('Statement', () => {
     expect(container.querySelector('section.example')).toBeNull();
     expect(container.querySelectorAll('.md').length).toBe(1);
     expect(screen.getByRole('heading', { name: 'Notes' })).toBeInTheDocument();
+  });
+
+  it('renders several code spans in one value as separate code elements', () => {
+    const src = '# T\n\nd\n\n## Example 1\n\n**Input:** `nums = [2,7]`, `target = 9`\n**Output:** `[0,1]`';
+    const { container } = renderWith(<Statement source={src} />, {});
+
+    const row = container.querySelectorAll('.example-row')[0] as HTMLElement;
+    expect(row.querySelectorAll('code').length).toBe(2);
+    expect(row.textContent).not.toContain('`');
+  });
+});
+
+describe('dsa.css', () => {
+  it('sets the column grid only inside a min-width media block, so room.css can stack it', () => {
+    const outside = css.replace(/@media[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '');
+    expect(outside).not.toMatch(/\.work\.dsa[^{]*\{[^}]*grid-template-columns/);
+    expect(css).toMatch(/@media \(min-width: 1001px\)[^@]*grid-template-columns/);
   });
 });

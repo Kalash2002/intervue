@@ -40,7 +40,13 @@ function fields(body: string): Record<string, string> {
   return out;
 }
 
-const unquote = (value: string) => value.replace(/^`+|`+$/g, '');
+const SINGLE_SPAN = /^`([^`]+)`$/;
+
+/** One code span is shown as is; several spans (and the text between them) go through inline Markdown. */
+function Value({ text }: { text: string }) {
+  const single = SINGLE_SPAN.exec(text);
+  return single ? <code>{single[1]}</code> : <Markdown source={text} />;
+}
 
 function Example({ name, body }: { name: string; body: string }) {
   const values = fields(body);
@@ -55,7 +61,7 @@ function Example({ name, body }: { name: string; body: string }) {
               {label === 'Explanation' ? (
                 <Markdown source={values[label] ?? ''} />
               ) : (
-                <code>{unquote(values[label] ?? '')}</code>
+                <Value text={values[label] ?? ''} />
               )}
             </dd>
           </div>

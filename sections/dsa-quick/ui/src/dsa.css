@@ -1,10 +1,16 @@
 /* The DSA room's own layout: statement | editor over output | side panel. Theme tokens only. */
 .work.dsa {
   --statement-w: 460px;
-  grid-template-columns: var(--statement-w) 5px minmax(0, 1fr) 5px var(--right-w, 430px);
 }
-.work.dsa.solo {
-  grid-template-columns: var(--statement-w) 5px minmax(0, 1fr);
+/* Wide windows only: room.css stacks .work in one column at 1000px and below, and a rule here
+   with higher specificity would undo that. */
+@media (min-width: 1001px) {
+  .work.dsa {
+    grid-template-columns: var(--statement-w) 5px minmax(0, 1fr) 5px var(--right-w, 430px);
+  }
+  .work.dsa.solo {
+    grid-template-columns: var(--statement-w) 5px minmax(0, 1fr);
+  }
 }
 .statement {
   overflow: auto;
