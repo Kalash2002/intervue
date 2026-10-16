@@ -58,7 +58,7 @@ public class Phase1Tests {
         assertEquals(n, Convoy.groups(n, start, speed)); // equal speeds: nobody gains on anybody
     }
 
-    @Test(order = 10, timeoutMs = 2000)
+    @Test(order = 10, timeoutMs = 500)
     void largeAllArriveTogether() {
         int n = 100_000;
         int[] start = new int[n];
