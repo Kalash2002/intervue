@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "two-sum",
-  "version": 2,
+  "version": 3,
   "section": "dsa-quick",
   "title": "Two Sum",
   "summary": "Find the two positions in an array whose values add up to a target.",

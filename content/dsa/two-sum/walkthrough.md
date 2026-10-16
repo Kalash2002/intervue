@@ -1,20 +1,20 @@
 ## The question
 
-Given an array of integers and a target, find the two positions whose values add up to the target; exactly one such pair exists. Return both positions, smaller first.
+Given an array of integers and a target, find the two positions whose values add up to the target; exactly one such pair exists. Return both positions, in either order.
 
-What makes it harder than it looks: one value must never pair with itself (target 10 and a single 5 is not an answer), yet two equal values at different positions are a valid pair (`[3, 3]` with target 6). Negatives mean you cannot skip a value because it is already bigger than the target. And at 300,000 values, checking every pair is about 45 billion sums, far too slow.
+What makes it harder than it looks: one value must never pair with itself (target 10 and a single 5 is not an answer), yet two equal values at different positions are a valid pair (`[7, 2, 7]` with target 14). Negatives mean you cannot skip a value because it is already bigger than the target. And at 300,000 values, checking every pair is about 45 billion sums, far too slow.
 
 ## How to think about it
 
-The first idea is to try every pair. That works, but look at what it repeats: for each value it scans the whole rest of the array asking "is my partner here?". The partner is not a mystery. For a value `x` it is exactly `target - x`. So the question for each value becomes "have I already seen `target - x`?", and a hash map from value to position answers that in constant time on average.
+The first idea is to try every pair. That works, but look at what it repeats: for each value it scans the whole rest of the array asking "is my partner here?". The partner is not a mystery. For a value `x` it is exactly `target - x`. Ordering the values lets you discard one per step; remembering them lets you skip the sort. Remembering is the stronger move: the question for each value becomes "have I already seen `target - x`?", and a hash map from value to position answers that in constant time on average.
 
-Walk Example 1, `nums = [4, 9, 2, 6]`, `target = 10`. At 4 I need 6: not seen, store 4 at 0. At 9 I need 1: not seen, store 9 at 1. At 2 I need 8: not seen, store 2 at 2. At 6 I need 4: seen at 0, so the answer is `[0, 3]`. The lookup comes before the store, so a value can only ever find an earlier position, never its own. That one ordering handles the self-pair trap and the equal-values case together: the second 3 finds the first.
+Walk Example 1, `nums = [4, 9, 2, 6]`, `target = 10`. At 4 I need 6: not seen, store 4 at 0. At 9 I need 1: not seen, store 9 at 1. At 2 I need 8: not seen, store 2 at 2. At 6 I need 4: seen at 0, so the answer is `[0, 3]`. The lookup comes before the store, so a value can only ever find an earlier position, never its own. That one ordering handles the self-pair trap and the equal-values case together: in `[7, 2, 7]` the second 7 finds the first at position 0.
 
 ![The value-to-position map after each step of Example 1: 4, 9 and 2 are stored with no match, and at position 3 the value 6 looks up 4 and finds it at position 0](figures/hash-map.svg)
 
 ## Brute force
 
-Try every pair of positions `i < j`. It is correct because it checks every pair there is, so it cannot miss the one that adds up, and `j` starts after `i`, so a position never pairs with itself.
+Try every pair of positions `i < j`. It comes first because it is what you say out loud first, and it fixes the answer every faster version must agree with. It is correct because it checks every pair there is, so it cannot miss the one that adds up, and `j` starts after `i`, so a position never pairs with itself.
 
 ```java
 static int[] indices(int[] nums, int target) {
@@ -33,21 +33,20 @@ static int[] indices(int[] nums, int target) {
 
 ## Better: sort, then two pointers
 
-Sorting lets you stop guessing. Put one pointer at the smallest value and one at the largest. If their sum is too small, the smallest value cannot pair with anything (the largest is already too small for it), so move the left pointer right. If the sum is too big, the largest value is useless, so move the right pointer left. Each step discards one value for good, so the pointers meet the pair. Sorting loses the original positions, so sort `(value, position)` pairs and read the positions back at the end.
+Sorting lets you stop guessing. Put one pointer at the smallest value and one at the largest. If their sum is too small, the smallest value cannot pair with anything (the largest is already too small for it), so move the left pointer right. If the sum is too big, the largest value is useless, so move the right pointer left. Each step discards one value for good, so the pointers meet the pair. Sorting loses the original positions, so pack each value and its position into one `long`, value in the high half, and sort those: a signed high half sorts by value, negatives first.
 
 ```java
 static int[] indices(int[] nums, int target) {
-    int[][] pairs = new int[nums.length][];
+    long[] packed = new long[nums.length];
     for (int i = 0; i < nums.length; i++) {
-        pairs[i] = new int[] {nums[i], i}; // keep the original position with its value
+        packed[i] = ((long) nums[i] << 32) | i; // value high, position low (i >= 0, no sign bits)
     }
-    Arrays.sort(pairs, (a, b) -> Integer.compare(a[0], b[0]));
-    int lo = 0, hi = pairs.length - 1;
+    Arrays.sort(packed); // orders by value because the value sits in the signed high half
+    int lo = 0, hi = packed.length - 1;
     while (lo < hi) { // lo < hi: never the same entry twice
-        int sum = pairs[lo][0] + pairs[hi][0];
+        int sum = (int) (packed[lo] >> 32) + (int) (packed[hi] >> 32);
         if (sum == target) {
-            int a = pairs[lo][1], b = pairs[hi][1];
-            return new int[] {Math.min(a, b), Math.max(a, b)}; // sorting scrambled the order
+            return new int[] {(int) packed[lo], (int) packed[hi]}; // the low half is the position
         }
         if (sum < target) lo++; else hi--; // drop the value that cannot be in any pair
     }
@@ -55,9 +54,9 @@ static int[] indices(int[] nums, int target) {
 }
 ```
 
-**Complexity:** time O(n log n), extra space O(n) for the pairs.
+**Complexity:** time O(n log n), extra space O(n) for the packed copy.
 
-**Prefer it when:** the input is already sorted, where you skip the sort and the pairs array and it runs in O(n) time and O(1) space. It also fits when the data can be reordered and you would rather keep a flat array than a hash map of boxed integers, or when you need every pair rather than one.
+**Prefer it when:** the input is already sorted, where you skip the packing and the sort and it runs in O(n) time and O(1) space. It also fits when memory is tight: the packed copy is one flat `long` per value, where a `HashMap<Integer, Integer>` spends tens of bytes per entry on nodes and boxed keys and values.
 
 ## Optimal: one pass with a hash map
 
@@ -77,7 +76,7 @@ static int[] indices(int[] nums, int target) {
 }
 ```
 
-**Complexity:** time O(n) on average, extra space O(n).
+**Complexity:** time O(n) on average, O(n log n) in the worst case (Java's `HashMap` turns a crowded bucket of `Integer` keys into a tree), extra space O(n).
 
 ## Complexity
 
@@ -85,7 +84,7 @@ static int[] indices(int[] nums, int target) {
 | --- | --- | --- |
 | Brute force | O(n²) | O(1) |
 | Better: sort, then two pointers | O(n log n) | O(n) |
-| Optimal: one pass with a hash map | O(n) on average | O(n) |
+| Optimal: one pass with a hash map | O(n) average, O(n log n) worst | O(n) |
 
 ## Where it shows up
 
@@ -97,4 +96,4 @@ No coding-round problem is linked to this question. The pattern, "remember what 
 
 **What if several pairs add up to the target and you must return all of them?** Keep walking after a match instead of returning. With repeated values, store a list of positions per value, so a value that matches pairs with every earlier copy of its partner. The output itself can be large, so the cost is O(n plus the number of pairs).
 
-**What if the numbers do not fit in memory?** Sort them externally and run the two-pointer pass over the sorted file, reading from both ends. Or split by a hash of the value so that `x` and `target - x` always land in the same partition (for example, partition on `min(x, target - x)`), then run the map version on each partition in memory.
+**What if the numbers do not fit in memory?** Write `(value, position)` records, sort them externally by value, and run the two-pointer pass over the sorted file, reading from both ends; the positions travel with the values. Or split by a hash of the value so that `x` and `target - x` always land in the same partition (for example, partition on `min(x, target - x)`), keeping each value's position with it, then run the map version on each partition in memory.

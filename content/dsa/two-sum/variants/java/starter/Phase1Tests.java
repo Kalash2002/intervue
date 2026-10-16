@@ -21,7 +21,7 @@ public class Phase1Tests {
 
     @Test(order = 2)
     void equalValuesFormThePair() {
-        expect(new int[] {3, 3}, 6, 0, 1);
+        expect(new int[] {7, 2, 7}, 14, 0, 2);
     }
 
     @Test(order = 3)

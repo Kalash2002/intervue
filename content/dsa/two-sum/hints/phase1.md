@@ -5,4 +5,4 @@ Checking every pair works, but it gets slow when the array is long. Ask what you
 For a value you are looking at, the partner you need is fixed: target minus that value. Can you find out quickly whether you have already passed it?
 
 ## Level 3
-Walk the array once. Keep a map from each value seen so far to its position. Before storing the current value, look up target minus the current value; if it is there, you have both positions. Store afterwards, so a value never pairs with itself.
+Remember the values you have already walked past, together with where they were. Then each new value only has to ask one question about its fixed partner, and it must ask before it is remembered itself.

@@ -1,8 +1,8 @@
 # Two Sum
 
-You are given an array of integers `nums` and an integer `target`. Exactly one pair of different positions holds values that add up to `target`. Return those two positions.
+You are given an array of integers `nums` and an integer `target`. Find the two different positions whose values add up to `target` and return them.
 
-Implement `TwoSum.indices(int[] nums, int target)` in `TwoSum.java`. Return an array of length 2 with the smaller position first. You may not use the same position twice, but the same value may appear at two positions.
+Implement `TwoSum.indices(int[] nums, int target)` in `TwoSum.java`. Return an array of length 2 holding the two positions, in either order. You may not use the same position twice, but the same value may appear at two positions.
 
 ## Example 1
 
@@ -18,16 +18,17 @@ Implement `TwoSum.indices(int[] nums, int target)` in `TwoSum.java`. Return an a
 
 ## Example 3
 
-**Input:** `nums = [3, 3]`, `target = 6`
-**Output:** `[0, 1]`
-**Explanation:** The two 3s sit at different positions, so they form the pair. One 3 used twice would not count.
+**Input:** `nums = [7, 2, 7]`, `target = 14`
+**Output:** `[0, 2]`
+**Explanation:** The two 7s sit at different positions, so they form the pair. The pairs sum to 9, 14 and 9, so this is the only answer; one 7 used twice would not count.
 
 ## Constraints
 
-- 2 <= `nums.length` <= 300,000
-- Values and `target` fit in an `int`, and the sum of any two values does not overflow an `int`.
+- `2 <= nums.length <= 3 * 10^5`
+- `-10^9 <= nums[i] <= 10^9`
+- `-2 * 10^9 <= target <= 2 * 10^9`
 - Exactly one valid pair exists.
 
 ## Follow-up
 
-Checking every pair takes O(n²) time. Can you find the pair in one pass over the array?
+Can you beat O(n²) time?
