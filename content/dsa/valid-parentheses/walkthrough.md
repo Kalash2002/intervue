@@ -64,7 +64,7 @@ private static char closerFor(char opener) {
 
 **Complexity:** time O(n), extra space O(d) for the call stack, where d is the nesting depth, up to n/2; at this question's depth (about 10^5) the recursion overflows the call stack.
 
-**Prefer it when:** the nesting is known to be shallow and you want the structure itself, for example to build a tree of the groups: the calls mirror the groups one to one. It is the wrong choice for this question's input sizes, because Java's call stack holds only a few thousand to some tens of thousands of frames, and a string nested 200,000 deep makes it fail with a stack overflow.
+**Prefer it when:** the nesting is known to be shallow and you want the structure itself, for example to build a tree of the groups: the calls mirror the groups one to one. It is the wrong choice for this question's input sizes, because Java's call stack holds only a few thousand to some tens of thousands of frames, and depths around 10^5, such as this question's 200,000, make it fail with a stack overflow.
 
 ## Optimal: a stack of open brackets
 
