@@ -166,7 +166,10 @@ describe('the assistant panel', () => {
   });
 
   it('shows no Write code when the session has no WRITE_CODE channel', async () => {
-    renderWith(<AssistantPanel view={view({ channels: ['ASK'] })} actions={actions()} onChange={vi.fn()} canWrite={false} />, client());
+    renderWith(
+      <AssistantPanel view={view({ channels: ['ASK'] })} actions={actions()} onChange={vi.fn()} canWrite={false} />,
+      client(),
+    );
 
     await screen.findByRole('button', { name: 'Ask' });
     expect(screen.queryByRole('button', { name: 'Write code' })).toBeNull();
