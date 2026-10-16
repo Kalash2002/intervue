@@ -11,12 +11,14 @@ export function DsaResult({ session }: SectionResultProps) {
   const { score } = result;
   const total = result.finalResults.reduce((n, p) => n + p.passed + p.failed + p.timeouts + p.notRun, 0);
   const passed = result.finalResults.reduce((n, p) => n + p.passed, 0);
+  const hints = Object.values(session.hintsUsed).reduce((a, b) => a + b, 0);
   return (
     <>
       <ScoreLine session={session} score={score}>
         <p>
           {total === 0 ? 'Tests not run: the code did not compile in the final run' : `Tests passed ${passed}/${total}`}
         </p>
+        <p>Hints used {hints}</p>
         <p>Time spent {clockText(session.activeMs)}</p>
       </ScoreLine>
       {result.finalCompileError && <p className="bad">The final code did not compile, so no test ran.</p>}

@@ -41,7 +41,9 @@ describe('Statement', () => {
     for (const label of ['Input', 'Output', 'Explanation']) {
       expect(within(boxes[0] as HTMLElement).getByText(label)).toBeInTheDocument();
     }
-    expect(container.querySelector('.example code')?.textContent).toBe('nums = [2,7], target = 9');
+    const codes = container.querySelectorAll('.example-row')[0]?.querySelectorAll('code');
+    expect(codes?.length).toBe(1);
+    expect(codes?.[0]?.textContent).toBe('nums = [2,7], target = 9');
     const items = within(screen.getByLabelText('Constraints')).getAllByRole('listitem');
     expect(items.map((i) => i.textContent)).toEqual(['2 <= nums.length <= 1000', 'exactly one answer exists']);
     expect(screen.getByText('Can you do it in one pass?')).toBeInTheDocument();
@@ -66,9 +68,9 @@ describe('Statement', () => {
 });
 
 describe('dsa.css', () => {
-  it('sets the column grid only inside a min-width media block, so room.css can stack it', () => {
+  it('sets the column grid only inside a media block, so room.css can stack it', () => {
     const outside = css.replace(/@media[^{]*\{(?:[^{}]*\{[^{}]*\})*[^{}]*\}/g, '');
     expect(outside).not.toMatch(/\.work\.dsa[^{]*\{[^}]*grid-template-columns/);
-    expect(css).toMatch(/@media \(min-width: 1001px\)[^@]*grid-template-columns/);
+    expect(css).toMatch(/@media not \(max-width: 1000px\)[^@]*grid-template-columns/);
   });
 });

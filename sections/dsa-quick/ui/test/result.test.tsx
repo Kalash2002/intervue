@@ -49,6 +49,12 @@ describe('the DSA result', () => {
     expect(screen.getByText('Use a hash map')).toBeInTheDocument();
   });
 
+  it('shows the hints used across the session', () => {
+    renderWith(<DsaResult session={{ ...finished, hintsUsed: { 1: 2, 2: 1 } }} />, {} as never);
+
+    expect(screen.getByText('Hints used 3')).toBeInTheDocument();
+  });
+
   it('rounds score points to one decimal', () => {
     const rounded = {
       ...finished,

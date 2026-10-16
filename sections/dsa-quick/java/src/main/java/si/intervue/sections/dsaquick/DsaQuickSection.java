@@ -21,8 +21,9 @@ import tools.jackson.databind.DeserializationFeature;
 import tools.jackson.databind.json.JsonMapper;
 
 /**
- * The DSA section (docs/contracts/section-contract.md): one-phase questions graded by tests, both
- * assistant channels, authored hints. Identity comes from {@code section.json} in the jar.
+ * The DSA section (docs/contracts/section-contract.md): one-phase questions graded by tests, no
+ * assistant channels, authored hints (in Interview too). Identity comes from {@code section.json}
+ * in the jar.
  */
 public final class DsaQuickSection implements SectionPackage {
 

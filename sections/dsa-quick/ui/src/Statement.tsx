@@ -40,14 +40,6 @@ function fields(body: string): Record<string, string> {
   return out;
 }
 
-const SINGLE_SPAN = /^`([^`]+)`$/;
-
-/** One code span is shown as is; several spans (and the text between them) go through inline Markdown. */
-function Value({ text }: { text: string }) {
-  const single = SINGLE_SPAN.exec(text);
-  return single ? <code>{single[1]}</code> : <Markdown source={text} />;
-}
-
 function Example({ name, body }: { name: string; body: string }) {
   const values = fields(body);
   return (
@@ -58,11 +50,7 @@ function Example({ name, body }: { name: string; body: string }) {
           <div className="example-row" key={label}>
             <dt>{label}</dt>
             <dd>
-              {label === 'Explanation' ? (
-                <Markdown source={values[label] ?? ''} />
-              ) : (
-                <Value text={values[label] ?? ''} />
-              )}
+              <Markdown source={values[label] ?? ''} />
             </dd>
           </div>
         ))}
