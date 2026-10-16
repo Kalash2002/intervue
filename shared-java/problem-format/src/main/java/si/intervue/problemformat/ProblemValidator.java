@@ -152,9 +152,8 @@ public final class ProblemValidator {
           "## Where it shows up",
           "## Follow-up answers");
 
-  /** Approach sections that must show code and a stated cost. */
-  private static final List<String> DSA_APPROACH_PREFIXES =
-      List.of("## Brute force", "## Better: ", "## Optimal: ");
+  /** Approach sections that must show code and a stated cost: Brute force, Better, Optimal. */
+  private static final List<String> DSA_APPROACH_PREFIXES = DSA_ANSWER_HEADINGS.subList(2, 5);
 
   private static final Pattern FIGURE = Pattern.compile("\\]\\((figures/[^)\\s]+)\\)");
   private static final Pattern IMAGE = Pattern.compile("!\\[[^\\]]*\\]\\(figures/[^)\\s]+\\)");
@@ -213,19 +212,10 @@ public final class ProblemValidator {
     List<Section> all = sections(text);
     int at = 0;
     for (String want : DSA_ANSWER_HEADINGS) {
-      boolean prefix = want.endsWith(": ");
-      int found = -1;
-      for (int i = at; i < all.size() && found < 0; i++) {
-        String h = all.get(i).heading();
-        if (prefix ? h.startsWith(want) && !h.substring(want.length()).isBlank() : h.equals(want)) {
-          found = i;
-        }
-      }
+      int found = find(all, at, want);
       if (found < 0) {
-        errors.add(
-            "walkthrough.md needs the heading \""
-                + (prefix ? want + "<name>" : want)
-                + "\" after the previous ones");
+        String shown = want.endsWith(": ") ? want + "<name>" : want;
+        errors.add("walkthrough.md needs the heading \"" + shown + "\" after the previous ones");
         continue;
       }
       at = found + 1;
@@ -236,18 +226,35 @@ public final class ProblemValidator {
         at++;
       }
     }
-    for (Section s : all) {
-      if (DSA_APPROACH_PREFIXES.stream().anyMatch(s.heading()::startsWith)) {
-        if (!s.body().contains("```java")) {
-          errors.add("walkthrough.md \"" + s.heading() + "\" needs a ```java block");
-        }
-        if (s.body().lines().noneMatch(l -> l.startsWith("**Complexity:**"))) {
-          errors.add("walkthrough.md \"" + s.heading() + "\" needs a \"**Complexity:**\" line");
-        }
-      }
-    }
+    checkApproachBlocks(all, errors);
     if (!IMAGE.matcher(text).find()) {
       errors.add("walkthrough.md needs at least one figure ![...](figures/...)");
+    }
+  }
+
+  /** Index of the first section from {@code from} matching {@code want}, or -1. */
+  private static int find(List<Section> all, int from, String want) {
+    boolean named = want.endsWith(": ");
+    for (int i = from; i < all.size(); i++) {
+      String h = all.get(i).heading();
+      if (named ? h.startsWith(want) && !h.substring(want.length()).isBlank() : h.equals(want)) {
+        return i;
+      }
+    }
+    return -1;
+  }
+
+  private static void checkApproachBlocks(List<Section> all, List<String> errors) {
+    for (Section s : all) {
+      if (DSA_APPROACH_PREFIXES.stream().noneMatch(s.heading()::startsWith)) {
+        continue;
+      }
+      if (!s.body().contains("```java")) {
+        errors.add("walkthrough.md \"" + s.heading() + "\" needs a ```java block");
+      }
+      if (s.body().lines().noneMatch(l -> l.startsWith("**Complexity:**"))) {
+        errors.add("walkthrough.md \"" + s.heading() + "\" needs a \"**Complexity:**\" line");
+      }
     }
   }
 
@@ -271,18 +278,17 @@ public final class ProblemValidator {
       errors.add(name + " needs a \"# \" title line first");
     }
     List<Section> all = sections(text);
+    checkTail(all, checkExamples(all, name, errors), name, errors);
+  }
+
+  /** Checks the numbered examples and returns the index of the first section after them. */
+  private static int checkExamples(List<Section> all, String name, List<String> errors) {
     int i = 0;
     int n = 1;
     while (i < all.size() && all.get(i).heading().equals("## Example " + n)) {
       for (String label : List.of("Input", "Output", "Explanation")) {
-        String prefix = "**" + label + ":**";
-        boolean ok =
-            all.get(i)
-                .body()
-                .lines()
-                .anyMatch(l -> l.startsWith(prefix) && !l.substring(prefix.length()).isBlank());
-        if (!ok) {
-          errors.add(name + " Example " + n + " has no \"" + prefix + "\" text");
+        if (!hasLabel(all.get(i).body(), label)) {
+          errors.add(name + " Example " + n + " has no \"**" + label + ":**\" text");
         }
       }
       i++;
@@ -291,22 +297,34 @@ public final class ProblemValidator {
     if (n == 1) {
       errors.add(name + " needs \"## Example 1\"");
     }
+    return i;
+  }
+
+  /** A line that starts with the bold label and has text after it. */
+  private static boolean hasLabel(String body, String label) {
+    String prefix = "**" + label + ":**";
+    return body.lines()
+        .anyMatch(l -> l.startsWith(prefix) && !l.substring(prefix.length()).isBlank());
+  }
+
+  /** Constraints right after the examples, then an optional Follow-up, then nothing else. */
+  private static void checkTail(List<Section> all, int i, String name, List<String> errors) {
     if (i >= all.size() || !all.get(i).heading().equals("## Constraints")) {
       errors.add(
           name
               + " needs \"## Constraints\" right after the examples"
               + (i < all.size() ? " (found \"" + all.get(i).heading() + "\")" : ""));
-    } else {
-      if (all.get(i).body().lines().noneMatch(l -> l.startsWith("- "))) {
-        errors.add(name + " \"## Constraints\" needs at least one \"- \" line");
-      }
+      return;
+    }
+    if (all.get(i).body().lines().noneMatch(l -> l.startsWith("- "))) {
+      errors.add(name + " \"## Constraints\" needs at least one \"- \" line");
+    }
+    i++;
+    if (i < all.size() && all.get(i).heading().equals("## Follow-up")) {
       i++;
-      if (i < all.size() && all.get(i).heading().equals("## Follow-up")) {
-        i++;
-      }
-      if (i < all.size()) {
-        errors.add(name + " has an unexpected heading \"" + all.get(i).heading() + "\"");
-      }
+    }
+    if (i < all.size()) {
+      errors.add(name + " has an unexpected heading \"" + all.get(i).heading() + "\"");
     }
   }
 
