@@ -50,6 +50,8 @@ Phase 1a installer check (2026-10-15): `app-v0.1.0-rc.1` built on CI but the ins
 
 ## Later (out of scope findings to revisit)
 
+- Phase 1ad fixes: the editor's auto-import ignores comments and strings (an `import` line inside a block comment counts as an import) and handles one cursor only; multiple cursors insert the import once per accepted range.
+- Phase 1ad fixes: `Statement.tsx` `fields()` drops or flattens non-label lines inside an Example (a figure, multi-paragraph Explanation, list or code). The validator accepts these, but no current question uses them.
 - Phase 1ac: DSA question ids are the LeetCode slugs, not NeetCode's own (the 1ac prompt's examples), because NeetCode's slugs differ per question and could not be verified offline; `content/dsa/INDEX.md` says so. Phase 1ad keeps one scheme and may add NeetCode's slug as an alias field if deep links to neetcode.io are ever wanted.
 - Phase 1ac: six referenced questions are outside the NeetCode 150 (`INDEX.md` marks them); Phase 1ad writes them after the 150 or swaps the reference for the nearest question in the set.
 - Phase 1ac: the result and answer pages each call `problems()` to find the problem's tags and free flag; a `GET /problems/{id}` route is cleaner when a third page needs it.
