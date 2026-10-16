@@ -18,9 +18,8 @@ export function SidePanel({
   const [tab, setTab] = useState<Tab>('Guide');
   // Kept here, not in the Guide tab: the tab unmounts on every switch.
   const [started, setStarted] = useState<ReadonlySet<number>>(new Set());
-  // Hints exist only in Practice (PLAN.md 2.8); an Interview room never offers the tab.
-  const tabs: Tab[] =
-    view.type === 'PRACTICE' ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
+  // The engine decides where hints exist (Practice today); the tab follows it.
+  const tabs: Tab[] = view.hintsAllowed ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
   return (
     <aside className="right">
       <div className="tabs side" role="tablist">
