@@ -419,6 +419,88 @@ class ProblemValidatorTest {
   }
 
   @Test
+  void dsaAnswerWithOptimalBeforeBetterIsRefused() throws IOException {
+    makeDsa(80);
+    write(
+        "walkthrough.md",
+        DSA_ANSWER
+            .replace("## Better: Sort first", "## Optimal: X")
+            .replace("## Optimal: One pass", "## Better: Y"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Optimal: <name>"));
+  }
+
+  @Test
+  void dsaAnswerWithBruteForceAfterBetterIsRefused() throws IOException {
+    makeDsa(80);
+    write(
+        "walkthrough.md",
+        DSA_ANSWER
+            .replace("## Brute force", "## Better: A")
+            .replace("## Better: Sort first", "## Brute force"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Better: <name>"));
+  }
+
+  @Test
+  void dsaAnswerWithTwoBettersInOrderPasses() throws IOException {
+    makeDsa(80);
+    String second =
+        "## Better: Use a map\n\n```java\nint d = 1;\n```\n\n**Complexity:** time O(n), extra"
+            + " space O(n).\n\n## Optimal: One pass";
+    write("walkthrough.md", DSA_ANSWER.replace("## Optimal: One pass", second));
+    assertThat(errors()).isEmpty();
+  }
+
+  @Test
+  void dsaStatementWithSkippedExampleNumberIsRefused() throws IOException {
+    makeDsa(80);
+    write("brief/statement.md", DSA_STATEMENT.replace("## Example 2", "## Example 3"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Constraints") && e.contains("Example 3"));
+  }
+
+  @Test
+  void dsaStatementWithoutTitleIsRefused() throws IOException {
+    makeDsa(80);
+    write("brief/statement.md", DSA_STATEMENT.replace("# Hold Exposure", "Hold Exposure"));
+    assertThat(errors()).anyMatch(e -> e.contains("title line"));
+  }
+
+  @Test
+  void dsaStatementWithStrayHeadingBeforeConstraintsIsRefused() throws IOException {
+    makeDsa(80);
+    write(
+        "brief/statement.md",
+        DSA_STATEMENT.replace("## Constraints", "## Notes\n\ntext\n\n## Constraints"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Constraints") && e.contains("## Notes"));
+  }
+
+  @Test
+  void dsaStatementFollowUpIsOptional() throws IOException {
+    makeDsa(80);
+    write("brief/statement.md", DSA_STATEMENT.substring(0, DSA_STATEMENT.indexOf("## Follow-up")));
+    assertThat(errors()).isEmpty();
+  }
+
+  @Test
+  void dsaStatementWithHeadingAfterConstraintsOrFollowUpIsRefused() throws IOException {
+    makeDsa(80);
+    String noFollowUp = DSA_STATEMENT.substring(0, DSA_STATEMENT.indexOf("## Follow-up"));
+    write("brief/statement.md", noFollowUp + "## Notes\n\ntext\n");
+    assertThat(errors()).anyMatch(e -> e.contains("unexpected heading") && e.contains("## Notes"));
+    write("brief/statement.md", DSA_STATEMENT + "\n## Notes\n\ntext\n");
+    assertThat(errors()).anyMatch(e -> e.contains("unexpected heading") && e.contains("## Notes"));
+  }
+
+  @Test
+  void dsaStarterImportRuleSkipsMainAndReadOnlyFilesButNamesOtherEditableOnes() throws IOException {
+    makeDsa(80);
+    // Main.java (no import) and the read-only test file (no import) are exempt.
+    write("variants/java/starter/Phase1Tests.java", "class Phase1Tests {}");
+    assertThat(errors()).isEmpty();
+    write("variants/java/starter/Extra.java", "class Extra {}");
+    assertThat(errors()).hasSize(1).allMatch(e -> e.contains("Extra.java"));
+  }
+
+  @Test
   void codingRoundStillUsesItsHeadings() throws IOException {
     assertThat(errors()).isEmpty();
     write("walkthrough.md", WALKTHROUGH.replace("## DSA reference\n", "## Technique\n"));
