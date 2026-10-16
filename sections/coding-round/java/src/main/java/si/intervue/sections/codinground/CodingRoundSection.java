@@ -68,8 +68,9 @@ public final class CodingRoundSection implements SectionPackage {
       if (!definition.id().equals(folder.problem().section())) {
         errors.add("section must be " + definition.id() + " for this package");
       }
-      // The shared validator applies one-phase rules (weight 80) by phase count; the round's
-      // time and rhythm parts would then push the total past 100.
+      // The shared validator applies its one-phase rules only to section dsa-quick (ADR 0012), so
+      // a one-phase coding-round problem would pass it; the round's phase weights, time and
+      // rhythm are built around several phases, hence this schema refuses fewer than 2.
       if (folder.problem().phases().size() < 2) {
         errors.add("a coding-round problem needs at least 2 phases");
       }
