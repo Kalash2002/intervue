@@ -6,11 +6,11 @@
 
 ## Goal
 
-Every device shows the same history, a session done offline receives AI feedback after the app reconnects, and Java gets real IntelliSense through a language-server plugin.
+Every device shows the same history and a session done offline receives AI feedback after the app reconnects. (Java IntelliSense moved to `phase-1af-java-intellisense.md`, ADR 0009.)
 
 ## In scope
 
-Sync push and pull with the outbox and cursors, including edit and hint events and the `assisted` and `session_type` fields; `sync-contracts` versioning; deferred feedback requests and delivery by pull; device management screen in the app; pack B of 6 problems with hints to reach 16; promo code reporting; pack update flow (background download, swap at next start); Doctor copy-report polish; the Eclipse JDT Language Server as a downloadable plugin declared in `languages/java/editor/lsp.json` (Java 21 minimum, runs on the bundled runtime), started by the engine during Java sessions, bridged to `@codemirror/lsp-client`, behind a flag, with the warning-level health check; website activation of feedback requests is out, the app only.
+Sync push and pull with the outbox and cursors, including edit and hint events and the `assisted` and `session_type` fields; `sync-contracts` versioning; deferred feedback requests and delivery by pull; device management screen in the app; pack B of 6 problems with hints to reach 16; promo code reporting; pack update flow (background download, swap at next start); Doctor copy-report polish; website activation of feedback requests is out, the app only.
 
 ## Out of scope
 
