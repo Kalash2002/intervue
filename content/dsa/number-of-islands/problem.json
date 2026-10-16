@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "number-of-islands",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Number of Islands",
   "summary": "Count the separate pieces of land on a grid map.",

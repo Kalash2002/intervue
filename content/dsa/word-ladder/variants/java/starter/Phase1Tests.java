@@ -9,33 +9,33 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(4, Ladder.fewestChanges("cold", "warm", List.of("cord", "card", "ward", "warm", "worm")));
+        assertEquals(3, Ladder.fewestChanges("rope", "mule", List.of("mile", "mole", "role", "rose", "mule", "pole")));
     }
 
     @Test(order = 2)
     void oneChange() {
-        assertEquals(1, Ladder.fewestChanges("map", "mat", List.of("mat", "man", "mad")));
+        assertEquals(1, Ladder.fewestChanges("tin", "tip", List.of("tip", "pin", "tan")));
     }
 
     @Test(order = 3)
     void sameWordNeedsNoChange() {
-        assertEquals(0, Ladder.fewestChanges("abc", "abc", List.of()));
+        assertEquals(0, Ladder.fewestChanges("kit", "kit", List.of()));
     }
 
     @Test(order = 4)
     void endIsNotAllowed() {
-        assertEquals(-1, Ladder.fewestChanges("dog", "dot", List.of("dig", "dug")));
-        assertEquals(-1, Ladder.fewestChanges("dog", "dot", List.of()));
+        assertEquals(-1, Ladder.fewestChanges("sun", "sub", List.of("sin", "fun")));
+        assertEquals(-1, Ladder.fewestChanges("sun", "sub", List.of()));
     }
 
     @Test(order = 5)
     void endIsAllowedButCannotBeReached() {
-        assertEquals(-1, Ladder.fewestChanges("cold", "warm", List.of("cord", "card", "warm", "worm")));
+        assertEquals(-1, Ladder.fewestChanges("rope", "mule", List.of("role", "pole", "mule", "rose")));
     }
 
     @Test(order = 6)
     void beginMayBeInTheList() {
-        assertEquals(2, Ladder.fewestChanges("hat", "cot", List.of("hat", "hot", "cat", "cot")));
+        assertEquals(2, Ladder.fewestChanges("cub", "tab", List.of("cub", "cab", "tab", "tub")));
     }
 
     @Test(order = 7)

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Measures rectangles that fit inside a skyline of bars. */
 public class Skyline {
 

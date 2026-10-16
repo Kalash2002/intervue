@@ -5,4 +5,4 @@ Each key has its own history, so start with one structure per key. Within a key,
 You want the last record whose timestamp is at most the query. If the timestamps of a key sit in a sorted list, you do not have to look at all of them.
 
 ## Level 3
-Keep a map from key to two parallel lists: timestamps and values, appended on each set (they stay sorted because timestamps increase). For a get, binary search the timestamps for the rightmost index whose timestamp is at most the query; return the value at that index, or the empty string if no index qualifies.
+A history that only ever grows at the end stays sorted by time, so "the last record at or before t" can be found by halving the range, remembering the best index seen so far.

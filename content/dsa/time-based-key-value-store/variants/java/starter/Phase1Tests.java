@@ -10,7 +10,9 @@ public class Phase1Tests {
         TimeMap map = new TimeMap();
         map.set("door", "locked", 10);
         map.set("door", "open", 20);
-        assertEquals("locked", map.get("door", 15));
+        map.set("door", "locked", 45);
+        map.set("door", "open", 70);
+        assertEquals("locked", map.get("door", 50));
         assertEquals("open", map.get("door", 20));
         assertEquals("", map.get("door", 5));
     }

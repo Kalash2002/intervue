@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "word-ladder",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Word Ladder",
   "summary": "Find the fewest one-letter changes that turn one word into another using only listed words.",

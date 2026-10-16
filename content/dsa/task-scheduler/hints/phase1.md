@@ -5,4 +5,4 @@ Look at the kind that has the most jobs. Whatever else you do, its jobs have to 
 Imagine the busiest kind laid out first with the required gaps between its jobs. The slots in between are empty frames waiting to be filled. Which other jobs can go in them, and what happens if there are more of them than frames?
 
 ## Level 3
-The busiest kind decides a minimum length from its count and the gap. Kinds that tie for busiest add to the last frame. If there are so many jobs that every frame is full, no slot is idle and the answer is simply the number of jobs. The answer is the larger of the two.
+The answer can never be smaller than the number of jobs, and never smaller than what the busiest kind alone forces on the schedule. It turns out to be exactly the larger of those two numbers.

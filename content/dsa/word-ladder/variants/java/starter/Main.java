@@ -1,7 +1,7 @@
-import java.util.List;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Ladder.fewestChanges("cold", "warm", List.of("cord", "card", "ward", "warm", "worm")));
+        System.out.println(Ladder.fewestChanges("rope", "mule", List.of("mile", "mole", "role", "rose", "mule", "pole")));
     }
 }

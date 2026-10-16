@@ -3,6 +3,8 @@ public class Main {
         TimeMap map = new TimeMap();
         map.set("door", "locked", 10);
         map.set("door", "open", 20);
-        System.out.println(map.get("door", 15));
+        map.set("door", "locked", 45);
+        map.set("door", "open", 70);
+        System.out.println(map.get("door", 50));
     }
 }

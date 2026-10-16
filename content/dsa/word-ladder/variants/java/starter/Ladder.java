@@ -1,4 +1,4 @@
-import java.util.List;
+import java.util.*;
 
 /** Finds shortest word ladders. */
 public class Ladder {

@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Number of Islands on the 4 by 5 map of Example 1: the scan finds four unvisited land cells, one per island</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="22">land cells are numbered by the island the scan counts them in</text></g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="100" y="40" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="40" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="180" y="40" width="36" height="36"/>
+<rect x="60" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="180" y="80" width="36" height="36"/>
+<rect x="20" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="60" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="120" width="36" height="36"/>
+<rect x="140" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="180" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="20" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="60" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="180" y="160" width="36" height="36"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="20" y="40" width="36" height="36"/>
+<rect x="60" y="40" width="36" height="36"/>
+<rect x="20" y="80" width="36" height="36"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="38" y="63" fill="#ffffff">1</text>
+<text x="78" y="63" fill="#ffffff">1</text>
+<text x="38" y="103" fill="#ffffff">1</text>
+<text x="198" y="63">2</text>
+<text x="198" y="103">2</text>
+<text x="118" y="143">3</text>
+<text x="198" y="183">4</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="270" y="58">scan in row order:</text>
+<text x="270" y="82">(0,0) new land: island 1, fills 3 cells</text>
+<text x="270" y="106">(0,4) new land: island 2, fills 2 cells</text>
+<text x="270" y="130">(2,2) new land: island 3, fills 1 cell</text>
+<text x="270" y="154">(3,4) new land: island 4, fills 1 cell</text>
+<text x="270" y="178">every other land cell was already marked</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="226">The count is the number of times the scan meets land that no earlier</text>
+<text x="20" y="246">flood fill has marked: 4.</text></g>
+</svg>

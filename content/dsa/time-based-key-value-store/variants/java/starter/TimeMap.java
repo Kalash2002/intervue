@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Remembers the values of keys over time. */
 public class TimeMap {
 

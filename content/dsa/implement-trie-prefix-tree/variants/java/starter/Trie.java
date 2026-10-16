@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Stores words and answers whole-word and prefix lookups. */
 public class Trie {
 

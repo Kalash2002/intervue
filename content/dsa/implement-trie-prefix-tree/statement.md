@@ -8,13 +8,32 @@ Implement the class `Trie` in `Trie.java` with three methods:
 - `boolean search(String word)` returns `true` only if exactly this word was inserted earlier.
 - `boolean startsWith(String prefix)` returns `true` if at least one inserted word begins with `prefix`. A word counts as beginning with itself.
 
-## Examples
+## Example 1
 
-- After `insert("tram")`: `search("tram")` is `true`, `search("tra")` is `false` (only a beginning of a word, not a word), and `startsWith("tra")` is `true`.
-- After `insert("tram")` and `insert("trap")`: `startsWith("tr")` is `true`, `startsWith("tre")` is `false`, `search("trap")` is `true`.
-- On an empty trie, `search("a")` and `startsWith("a")` are both `false`.
+**Input:** `insert("tram")`, `insert("trap")`, `insert("tab")`, then `search("tra")`, `startsWith("tra")` and `search("trap")`
+**Output:** `false`, `true` and `true`
+**Explanation:** `"tra"` is only the beginning of `"tram"` and `"trap"`, not a word that was inserted, so `search` says no while `startsWith` says yes. `"trap"` was inserted as a whole word.
+
+## Example 2
+
+**Input:** `insert("car")`, `insert("cart")`, then `search("car")`, `startsWith("cart")` and `search("carts")`
+**Output:** `true`, `true` and `false`
+**Explanation:** A word can also be the beginning of a longer word. Both `"car"` and `"cart"` were inserted, and nothing as long as `"carts"` was.
+
+## Example 3
+
+**Input:** `search("a")` and `startsWith("a")` on an empty trie
+**Output:** `false` and `false`
+**Explanation:** Nothing has been inserted, so there is no word and no beginning of a word.
 
 ## Constraints
 
-- Words and prefixes contain only lowercase letters `a` to `z` and are non-empty.
-- Up to 200,000 calls in one run, over up to 50,000 inserted words.
+- `0 <= number of insert calls <= 5 * 10^4`
+- `0 <= number of search and startsWith calls <= 2 * 10^5`
+- `1 <= word.length <= 20`
+- `1 <= prefix.length <= 20`
+- `word` and `prefix` use only lowercase letters `a` to `z`.
+
+## Follow-up
+
+How would you return every word that starts with a prefix?

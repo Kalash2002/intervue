@@ -10,9 +10,11 @@ public class Phase1Tests {
     void sample() {
         Trie trie = new Trie();
         trie.insert("tram");
-        assertEquals(true, trie.search("tram"));
+        trie.insert("trap");
+        trie.insert("tab");
         assertEquals(false, trie.search("tra"));
         assertEquals(true, trie.startsWith("tra"));
+        assertEquals(true, trie.search("trap"));
     }
 
     @Test(order = 2)
@@ -41,7 +43,8 @@ public class Phase1Tests {
         assertEquals(true, trie.search("car"));
         assertEquals(true, trie.search("cart"));
         assertEquals(true, trie.startsWith("car"));
-        assertEquals(false, trie.search("cartx"));
+        assertEquals(false, trie.search("carts"));
+        assertEquals(true, trie.startsWith("cart"));
     }
 
     @Test(order = 5)

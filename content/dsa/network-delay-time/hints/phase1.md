@@ -5,4 +5,4 @@ Each node receives the signal at the earliest time any route can bring it. If yo
 The delays are not all equal, so counting links does not give the earliest time. Which node's earliest time can you be sure of right now? Once you are sure of it, what does it tell you about its neighbours?
 
 ## Level 3
-Always settle the not-yet-settled node with the smallest known time, then try to improve the times of the nodes it links to. A priority queue gives you that node quickly. When the queue runs out, check whether every node was settled.
+Of the nodes that are not settled yet, the one with the smallest known arrival time can never be improved later, because delays are not negative. Settle it, then see what it does for its neighbours.

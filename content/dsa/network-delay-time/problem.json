@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "network-delay-time",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Network Delay Time",
   "summary": "Find how long a signal takes to reach every node of a directed network, or report that some are unreachable.",

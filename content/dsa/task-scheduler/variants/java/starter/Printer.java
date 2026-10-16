@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Plans print jobs that need a cool-down between jobs of the same kind. */
 public class Printer {
 

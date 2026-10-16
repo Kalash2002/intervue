@@ -7,16 +7,33 @@ Implement the class `TimeMap` in `TimeMap.java` with two methods:
 - `void set(String key, String value, int timestamp)` records that `key` took `value` at `timestamp`.
 - `String get(String key, int timestamp)` returns the value recorded for `key` with the largest timestamp that is less than or equal to `timestamp`. If the key has no such record, return the empty string `""`.
 
-For a given key, calls to `set` always arrive with strictly increasing timestamps.
+## Example 1
 
-## Examples
+**Input:** `set("door", "locked", 10)`, `set("door", "open", 20)`, `set("door", "locked", 45)`, `set("door", "open", 70)`, then `get("door", 50)`, `get("door", 20)` and `get("door", 5)`
+**Output:** `"locked"`, `"open"` and `""`
+**Explanation:** At time 50 the latest record at or before it is the one at 45, which holds `"locked"`. Time 20 matches a record exactly, so its value `"open"` counts. Time 5 is before the first record, so there is nothing to return.
 
-- After `set("door", "locked", 10)` and `set("door", "open", 20)`: `get("door", 15)` returns `"locked"`, `get("door", 20)` returns `"open"`, and `get("door", 5)` returns `""`.
-- `get("window", 100)` on a key that was never set returns `""`.
-- After `set("a", "x", 1)` and `set("b", "y", 2)`: `get("a", 50)` returns `"x"`; keys do not affect each other.
+## Example 2
+
+**Input:** `set("a", "x", 1)`, `set("b", "y", 2)`, then `get("a", 50)` and `get("c", 50)`
+**Output:** `"x"` and `""`
+**Explanation:** Keys do not affect each other, so `"a"` still holds `"x"` at time 50. The key `"c"` was never set, so it has no record.
+
+## Example 3
+
+**Input:** `set("k", "start", 0)`, then `get("k", 0)` and `get("k", 1000000000)`
+**Output:** `"start"` and `"start"`
+**Explanation:** Timestamp 0 is allowed, and a query at the largest possible time still returns the last record there is.
 
 ## Constraints
 
-- Up to 300,000 calls to `set` and 300,000 calls to `get` in one run.
-- 0 <= `timestamp` <= 1,000,000,000
-- Keys and values are non-empty strings.
+- `0 <= number of set calls <= 3 * 10^5`
+- `0 <= number of get calls <= 3 * 10^5`
+- `0 <= timestamp <= 10^9`
+- `1 <= key.length <= 20`
+- `1 <= value.length <= 20`
+- For each key, the timestamps passed to `set` are strictly increasing.
+
+## Follow-up
+
+What if timestamps for a key may be set out of order?

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Times how a signal spreads over a directed network. */
 public class Signals {
 

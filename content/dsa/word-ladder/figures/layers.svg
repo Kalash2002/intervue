@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Word Ladder on Example 1: breadth-first layers from rope, each step joining words that share a blanked shape, and the ladder rope, role, mole, mule in purple</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<line x1="120" y1="100" x2="190" y2="75"/>
+<line x1="120" y1="100" x2="190" y2="125"/>
+<line x1="290" y1="75" x2="360" y2="75"/>
+<line x1="290" y1="75" x2="360" y2="125"/>
+<line x1="460" y1="75" x2="530" y2="75"/>
+<line x1="460" y1="75" x2="530" y2="125"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="190" y="110" width="100" height="30"/>
+<rect x="360" y="110" width="100" height="30"/>
+<rect x="530" y="110" width="100" height="30"/>
+</g><g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="20" y="85" width="100" height="30"/>
+<rect x="190" y="60" width="100" height="30"/>
+<rect x="360" y="60" width="100" height="30"/>
+<rect x="530" y="60" width="100" height="30"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="70" y="105" fill="#ffffff">rope</text>
+<text x="240" y="80" fill="#ffffff">role</text>
+<text x="240" y="130">rose</text>
+<text x="410" y="80" fill="#ffffff">mole</text>
+<text x="410" y="130">pole</text>
+<text x="580" y="80" fill="#ffffff">mule</text>
+<text x="580" y="130">mile</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="70" y="38">0 changes</text>
+<text x="240" y="38">1 change</text>
+<text x="410" y="38">2 changes</text>
+<text x="580" y="38">3 changes</text>
+<text x="240" y="172">via ro*e</text>
+<text x="410" y="172">via *ole</text>
+<text x="580" y="172">via m*le</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="206">Words one change apart share a shape, the word with one letter blanked.</text>
+<text x="20" y="228">mule is reached in layer 3, so the answer is 3 changes.</text></g>
+</svg>

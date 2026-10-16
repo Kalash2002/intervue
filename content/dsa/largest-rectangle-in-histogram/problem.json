@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "largest-rectangle-in-histogram",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Largest Rectangle in Histogram",
   "summary": "Find the area of the largest rectangle that fits inside a row of bars of different heights.",
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["Why does each bar get pushed and popped at most once?", "How would you find the largest rectangle of ones in a grid of zeros and ones using this?", "How would you do it with two arrays and no stack, and what do they hold?"],
+  "followUps": ["Can you beat O(n²) time?", "How would you find the largest rectangle of ones in a grid of zeros and ones using this?", "How would you do it with two arrays and no stack, and what do they hold?"],
   "languages": ["java"],
   "coveredBy": []
 }

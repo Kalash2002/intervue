@@ -28,22 +28,22 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void risingBarsNeedTheFinalFlush() {
-        assertEquals(9, Skyline.biggestBlock(new int[] {1, 2, 3, 4, 5}));
+        assertEquals(15, Skyline.biggestBlock(new int[] {2, 3, 5, 6, 8}));
     }
 
     @Test(order = 6)
     void fallingBars() {
-        assertEquals(9, Skyline.biggestBlock(new int[] {5, 4, 3, 2, 1}));
+        assertEquals(14, Skyline.biggestBlock(new int[] {9, 7, 4, 3, 1}));
     }
 
     @Test(order = 7)
     void widerBeatsTaller() {
-        assertEquals(12, Skyline.biggestBlock(new int[] {6, 2, 5, 4, 5, 1, 6}));
+        assertEquals(15, Skyline.biggestBlock(new int[] {5, 2, 6, 5, 6, 1, 4}));
     }
 
     @Test(order = 8)
     void shortestBarSpansEverything() {
-        assertEquals(16, Skyline.biggestBlock(new int[] {4, 9, 5, 6}));
+        assertEquals(28, Skyline.biggestBlock(new int[] {7, 12, 8, 9}));
     }
 
     @Test(order = 9)

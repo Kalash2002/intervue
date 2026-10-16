@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Prices trips over a network of one-way flights. */
 public class Fares {
 

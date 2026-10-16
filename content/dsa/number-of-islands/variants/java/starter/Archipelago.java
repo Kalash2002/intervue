@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Counts the islands on a text map of land and water. */
 public class Archipelago {
 

@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "implement-trie-prefix-tree",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Implement Trie (Prefix Tree)",
   "summary": "Build a tree that stores words and answers whole-word and prefix lookups.",

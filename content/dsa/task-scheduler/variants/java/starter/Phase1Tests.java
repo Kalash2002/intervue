@@ -25,13 +25,14 @@ public class Phase1Tests {
 
     @Test(order = 4)
     void zeroGapNeedsNoIdleSlots() {
-        assertEquals(4, Printer.minSlots(jobs("ABAB"), 0));
-        assertEquals(5, Printer.minSlots(jobs("AAAAA"), 0));
+        assertEquals(5, Printer.minSlots(jobs("CDDCE"), 0));
+        assertEquals(6, Printer.minSlots(jobs("MMMMMM"), 0));
     }
 
     @Test(order = 5)
     void enoughKindsMeansNoIdleSlot() {
-        assertEquals(6, Printer.minSlots(jobs("AABBCC"), 1));
+        assertEquals(5, Printer.minSlots(jobs("PPQQR"), 1)); // P Q R P Q
+        assertEquals(11, Printer.minSlots(jobs("KKKLLLMMMNN"), 1)); // frame gives 7, the job count 11 wins
     }
 
     @Test(order = 6)
@@ -41,13 +42,13 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void kindsTieForHighestCount() {
-        assertEquals(8, Printer.minSlots(jobs("AAABBB"), 2));
-        assertEquals(11, Printer.minSlots(jobs("AAAABBBBCC"), 2));
+        assertEquals(10, Printer.minSlots(jobs("XXXYYY"), 3)); // X Y _ _ X Y _ _ X Y
+        assertEquals(18, Printer.minSlots(jobs("QQQQQRRRRRS"), 3)); // four frames of 4 slots plus Q R
     }
 
     @Test(order = 8)
     void dominantKindAmongManySmallOnes() {
-        assertEquals(16, Printer.minSlots(jobs("AAAAAABCDEFG"), 2));
+        assertEquals(13, Printer.minSlots(jobs("TTTTTUVWXYZ"), 2)); // T U V T W X T Y Z T _ _ T
     }
 
     @Test(order = 9)
