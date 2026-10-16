@@ -43,18 +43,22 @@ DSA questions live in `content/dsa/<question-id>/` with the same shape and one p
 
 ## One-phase problems (DSA, added 2026-10-15, additive, no `formatVersion` bump)
 
-A problem with exactly one phase differs from the multi-phase rules in this file:
+The DSA rules are keyed on the section id `dsa-quick` (ADR 0012; ADR 0008 keyed them on phase count). A `dsa-quick` problem has exactly one phase and differs from the multi-phase rules in this file:
 
 | Item | Rule |
 |---|---|
 | Phase | one, weight `80` (not 70); its brief is `statement.md`; hints are `hints/phase1.md` |
 | `brief/intro.md` | not present |
 | `grading/NOTES.md` | still required |
-| Walkthrough headings, in order | `## Approach`, `## Complexity`, `## Where it shows up`, `## Follow-up answers` |
+| Statement | `statement.md`, in order: `# <Title>`; description; `## Example 1` to `## Example N` (N at least 1), each with lines starting `**Input:**`, `**Output:**` and `**Explanation:**`; `## Constraints` followed by a `-` list; optional `## Follow-up`. Shape: `content/templates/dsa-statement.md` |
+| Walkthrough headings, in order | `## The question`, `## How to think about it`, `## Brute force`, one or more `## Better: <name>`, `## Optimal: <name>`, `## Complexity` (one table over every approach), `## Where it shows up`, `## Follow-up answers`. Shape: `content/templates/dsa-walkthrough.md` |
+| Approach sections | each Brute force, Better and Optimal section has a ```java block and a complexity line |
+| Figure | at least one `![caption](figures/<file>.svg)` showing the optimal structure on the question's own example |
+| Starter | every editable file imports `java.util.*`; `variant.json` `main` is `Main` |
 | `naive/` | optional. Without it time is not graded separately and `grading/NOTES.md` says so. With it, the naive solution passes every test that did not time out, times out at least once, and still times out at 3x the limits (`NAIVE_MARGIN`) |
 | Reference | keeps the 5x headroom rule |
 
-Problems with several phases keep every other rule. The shape for a new question is `content/templates/dsa-question.md`.
+Problems of other sections keep every other rule, and a one-phase problem of another section is refused by its schema. The shape for a new question is `content/templates/dsa-question.md`.
 
 ## variant.json
 
@@ -70,7 +74,7 @@ Problems with several phases keep every other rule. The shape for a new question
 
 ## walkthrough.md
 
-The answer the app shows after a session and from every problem card. A one-phase problem uses the four headings above instead of the closing sections below. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
+The answer the app shows after a session and from every problem card. A `dsa-quick` problem uses the headings above instead of the closing sections below. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
 
 | Rule | Detail |
 |---|---|

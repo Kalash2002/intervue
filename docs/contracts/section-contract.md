@@ -24,8 +24,16 @@ public interface SectionPackage {
   PromptTemplates prompts();
   Set<AssistantChannel> channels();               // ASK, WRITE_CODE
   boolean supportsHints();                        // true: hints/phaseN.md required by the schema
+  default boolean hintsInInterview() { return false; } // true: hints also in Interview sessions
 }
 ```
+
+## Channels and hints (ADR 0012)
+
+- `channels()` is enforced by the engine for every section. A session whose section lacks `ASK` gets 400 on `ask` and `hints/explain`; one that lacks `WRITE_CODE` gets 400 on `write`. A section with no channels renders no assistant panel.
+- Hints are available when the session is Practice or the section's `hintsInInterview()` is true. "Explain this hint" also needs `ASK`.
+- `SessionView` has two additive fields the rooms render from: `channels` (list of channel names) and `hintsAllowed` (boolean).
+- `SPI_VERSION` stays 1: `hintsInInterview()` is a default method, so existing packages compile and behave as before.
 
 ## The coding round (Phase 1a)
 
@@ -44,8 +52,8 @@ public interface SectionPackage {
 |---|---|
 | `id` / `name` | `dsa-quick` / "DSA" |
 | `runnerKind` / `graderKind` / `uiMode` | `code-tests` / `tests` / `editor` |
-| `channels()` | `ASK`, `WRITE_CODE` |
-| `supportsHints()` | `true` |
+| `channels()` | none (empty; ADR 0012) |
+| `supportsHints()` / `hintsInInterview()` | `true` / `true`: hints in Interview and Practice |
 | `resultParts()` | `score`, `tests`, `time`, `walkthrough` |
 | Score | Correctness 80 x passed / total (timeouts and failures count as not passed); time 20 only when every test passed within its limit. Labelled Interview or Practice as in ADR 0006. Unlike the coding round's, a DSA Practice score keeps its Time part |
-| Problems | one-phase, from `content/dsa/` (`docs/contracts/problem-format.md`, "One-phase problems") |
+| Problems | one-phase, from `content/dsa/` (`docs/contracts/problem-format.md`, "One-phase problems"); statement and answer shapes keyed on section id `dsa-quick` |

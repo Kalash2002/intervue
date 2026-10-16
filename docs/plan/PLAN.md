@@ -92,7 +92,7 @@ Every problem carries: section, techniques (one or more from the NeetCode 150 to
 | Compile, run, phase unlock, timeline, clock | Yes | Yes |
 | Score, per-phase results, walkthrough, follow-up questions, notes | Yes, computed locally | Yes |
 | AI assistant, Ask and Write code | No. The session page shows "Offline: no assistant this session" before the clock starts, and the timeline records the session as assistant-less | Yes, through the backend |
-| Hints (Practice only) | Yes, authored levels are pack content | Yes, plus "explain this hint further" |
+| Hints (Practice; Interview where the section allows it, ADR 0012) | Yes, authored levels are pack content | Yes, plus "explain this hint further" |
 | Editor autocomplete and compiler diagnostics | Yes | Yes |
 | Language-server IntelliSense | Yes if the server was downloaded earlier | Yes |
 | Written feedback | No. The result page shows "Request feedback when online"; the request is queued | Yes, streamed; for synced offline sessions, requested later and attached |
@@ -342,7 +342,7 @@ Added 2026-10-14 after your request for a Hello Interview style assistant with "
 |---|---|---|
 | Purpose | Rehearse the real round | Learn the problem |
 | Clock | Enforced limit from `problem.json`, time score applies | Stopwatch by default; the user may switch the limit on; no time score |
-| Hints | None; the Hint button is hidden | Three authored levels per phase, plus "explain this hint further" online |
+| Hints | None, and the Hint button is hidden, unless the section allows hints in Interview (`hintsInInterview()`, ADR 0012: `dsa-quick`); then three authored levels, no explain | Three authored levels per phase, plus "explain this hint further" online where the section has Ask |
 | Ask channel | Point-and-explain rules (below) | Helpful by default, point-and-explain rules selectable |
 | Write code channel | Allowed for a piece the candidate names after stating the approach; every applied edit is recorded and the count is shown on the result page | Allowed |
 | Score | Full formula; shown as "Interview" | Correctness and phase results only; shown as "Practice" |
@@ -358,7 +358,7 @@ The session type is chosen on the start screen and recorded in `sessions.session
 
 - **Ask**: today's chat. Receives the brief, the files, the history and the message; replies in text.
 - **Write code**: the same context plus the section's `prompts/write-code.md`, which asks the model to return edits in the protocol below and a short note for the chat. If the user names a file or a method in the message, the prompt instructs the model to confine edits to it; otherwise every editable file is in scope. Read-only files are listed as "do not edit" and the engine enforces it regardless.
-- **Explain this hint**: Practice only, online only; the revealed hint text plus files and history, Ask rules, one message-equivalent.
+- **Explain this hint**: Practice only, online only, and only in sections with the Ask channel; the revealed hint text plus files and history, Ask rules, one message-equivalent.
 
 #### Edit protocol
 
@@ -404,7 +404,7 @@ On the Write code channel: write only the piece the candidate named (a method, a
 
 #### Hints
 
-Each problem has `hints/phase<N>.md` with three sections: level 1 points at where to look, level 2 names the approach, level 3 gives concrete steps without code. The content tool refuses a problem that lacks any level for any phase. Hints are pack content, so they work offline. A `hint {phase, level}` event records each reveal. In Practice mode the Hint button reveals the next level; "explain further" sends the revealed text to the Ask channel online. Interview mode shows no hints at all, which also means no hint deductions exist in the score.
+Each problem has `hints/phase<N>.md` with three sections: level 1 points at where to look, level 2 names the approach, level 3 gives concrete steps without code. The content tool refuses a problem that lacks any level for any phase. Hints are pack content, so they work offline. A `hint {phase, level}` event records each reveal. In Practice mode the Hint button reveals the next level; "explain further" sends the revealed text to the Ask channel online. Interview mode shows no hints unless the section allows them (ADR 0012; the DSA section does, and has no assistant, so no explain), and hints never deduct from the score.
 
 #### Editor assistance
 
