@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Two Sum on [4, 9, 2, 6] with target 10: the value-to-position map after each step</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">step</text><text x="130" y="24">look up</text><text x="260" y="24">result</text><text x="380" y="24">map after the step (value : position)</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="58">i=0  4</text><text x="130" y="58">need 6</text><text x="260" y="58">miss, store</text>
+<text x="20" y="98">i=1  9</text><text x="130" y="98">need 1</text><text x="260" y="98">miss, store</text>
+<text x="20" y="138">i=2  2</text><text x="130" y="138">need 8</text><text x="260" y="138">miss, store</text>
+<text x="20" y="178">i=3  6</text><text x="130" y="178">need 4</text><text x="260" y="178">hit at 0</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="380" y="40" width="70" height="26"/>
+<rect x="380" y="80" width="70" height="26"/><rect x="460" y="80" width="70" height="26"/>
+<rect x="380" y="120" width="70" height="26"/><rect x="460" y="120" width="70" height="26"/><rect x="540" y="120" width="70" height="26"/>
+<rect x="460" y="160" width="70" height="26"/><rect x="540" y="160" width="70" height="26"/>
+</g>
+<rect x="380" y="160" width="70" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="415" y="58">4 : 0</text>
+<text x="415" y="98">4 : 0</text><text x="495" y="98">9 : 1</text>
+<text x="415" y="138">4 : 0</text><text x="495" y="138">9 : 1</text><text x="575" y="138">2 : 2</text>
+<text x="415" y="178" fill="#ffffff">4 : 0</text><text x="495" y="178">9 : 1</text><text x="575" y="178">2 : 2</text>
+</g>
+
+<path d="M 335 173 L 372 173" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)"/>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<text x="20" y="222" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">10 - 6 = 4 is already in the map at position 0, so the answer is [0, 3]; 6 is never stored.</text>
+</svg>

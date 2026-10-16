@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the two positions whose values add up to the target. */
 public class TwoSum {
 
