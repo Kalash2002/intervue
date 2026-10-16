@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Checks ride requests against the seats of one shuttle. */
 public class Shuttle {
 

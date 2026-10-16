@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Works with ranges of time. */
 public class Schedule {
 

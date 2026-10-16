@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "merge-intervals",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Merge Intervals",
   "summary": "Combine every group of overlapping or touching ranges into one range.",

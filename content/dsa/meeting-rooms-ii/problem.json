@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "meeting-rooms-ii",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Meeting Rooms II",
   "summary": "Find the fewest rooms that can hold every booking without two overlapping in one room.",

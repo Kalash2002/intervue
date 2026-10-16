@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "insert-interval",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Insert Interval",
   "summary": "Add one range to a sorted list of separate ranges, merging whatever it overlaps.",

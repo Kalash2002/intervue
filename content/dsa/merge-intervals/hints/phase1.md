@@ -5,4 +5,4 @@ Take two ranges. How can you tell, from their endpoints alone, whether they belo
 If the ranges were ordered by start, a range could only join the group that is currently open, never one from earlier. What would you need to remember about the open group to decide whether the next range joins it?
 
 ## Level 3
-Sort by start. Keep one open range. For each next range, if it starts no later than the open range ends, extend the end if it reaches further; otherwise close the open range, store it and open a new one. Do not forget to store the last open range when the list ends.
+A long range can contain several later ones whole. When a range joins the open group, the group's end must not move backwards, so think about what the new end should be.

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Counts the pings received within the most recent window of seconds. */
 public class Pings {
 

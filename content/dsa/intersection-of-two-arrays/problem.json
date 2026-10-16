@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "intersection-of-two-arrays",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Intersection of Two Arrays",
   "summary": "List the distinct values that appear in both of two lists, in ascending order.",

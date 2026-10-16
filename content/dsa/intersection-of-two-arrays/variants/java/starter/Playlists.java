@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Compares the track lists of two playlists. */
 public class Playlists {
 

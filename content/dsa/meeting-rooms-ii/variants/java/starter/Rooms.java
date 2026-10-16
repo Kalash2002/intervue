@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Plans room use for bookings. */
 public class Rooms {
 

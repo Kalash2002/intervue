@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "find-if-path-exists-in-graph",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Find if Path Exists in Graph",
   "summary": "Decide whether two stations are joined by a chain of two-way connectors.",

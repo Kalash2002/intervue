@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" width="640" height="290" role="img">
+<title>Insert Interval, Example 1: the new range 11 to 15 joins the first two booked ranges</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">closed ranges; the new range is absorbed into everything it reaches</text>
+<text x="10" y="64" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">booked</text>
+<rect x="100" y="48" width="120" height="24" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="100" y="42" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">9 to 12</text>
+<rect x="300" y="48" width="80" height="24" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="300" y="42" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">14 to 16</text>
+<rect x="460" y="48" width="80" height="24" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="460" y="42" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">18 to 20</text>
+<text x="10" y="124" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">added</text>
+<rect x="180" y="108" width="160" height="24" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="180" y="102" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">11 to 15</text>
+<text x="10" y="184" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">result</text>
+<rect x="100" y="168" width="280" height="24" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="240" y="184" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">9 to 16</text>
+<rect x="460" y="168" width="80" height="24" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="460" y="162" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">18 to 20</text>
+<path d="M 60 228 L 600 228" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<circle cx="100" cy="228" r="4" fill="#7c3aed"/>
+<text x="100" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">9</text>
+<circle cx="180" cy="228" r="4" fill="#7c3aed"/>
+<text x="180" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">11</text>
+<circle cx="220" cy="228" r="4" fill="#7c3aed"/>
+<text x="220" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">12</text>
+<circle cx="300" cy="228" r="4" fill="#7c3aed"/>
+<text x="300" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">14</text>
+<circle cx="340" cy="228" r="4" fill="#7c3aed"/>
+<text x="340" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">15</text>
+<circle cx="380" cy="228" r="4" fill="#7c3aed"/>
+<text x="380" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">16</text>
+<circle cx="460" cy="228" r="4" fill="#7c3aed"/>
+<text x="460" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">18</text>
+<circle cx="540" cy="228" r="4" fill="#7c3aed"/>
+<text x="540" y="250" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">20</text>
+<text x="20" y="278" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">18 to 20 starts after the new range ends, so it is copied as is.</text>
+</svg>

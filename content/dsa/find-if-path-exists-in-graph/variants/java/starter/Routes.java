@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Answers whether two stations of a tram network are joined by connectors. */
 public class Routes {
 

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Keeps a sorted list of non-overlapping bookings. */
 public class Bookings {
 

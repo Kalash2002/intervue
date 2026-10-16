@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Flags order codes that repeat too close together. */
 public class Alerts {
 

@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "car-pooling",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Car Pooling",
   "summary": "Decide whether one shuttle with a fixed number of seats can serve every ride request without ever being over capacity.",

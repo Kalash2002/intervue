@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "design-hit-counter",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Design Hit Counter",
   "summary": "Build a small class that counts the pings received within the most recent stretch of time.",

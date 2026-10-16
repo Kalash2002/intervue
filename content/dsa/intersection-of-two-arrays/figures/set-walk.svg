@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
+<title>Intersection of Two Arrays, Example 1: the set of the first list and the walk over the second</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">mine = 7, 3, 9, 3; yours = 3, 8, 3, 7, 7</text>
+<text x="10" y="62" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">set of mine</text>
+<rect x="130" y="44" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="152" y="62" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">7</text>
+<rect x="186" y="44" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="208" y="62" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">3</text>
+<rect x="242" y="44" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="264" y="62" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">9</text>
+<text x="10" y="122" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">walk yours</text>
+<rect x="130" y="104" width="44" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="152" y="122" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">3</text>
+<text x="152" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">in set: take</text>
+<rect x="230" y="104" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="252" y="122" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">8</text>
+<text x="252" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">miss</text>
+<rect x="330" y="104" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="352" y="122" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">3</text>
+<text x="352" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">already taken</text>
+<rect x="430" y="104" width="44" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="452" y="122" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">7</text>
+<text x="452" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">in set: take</text>
+<rect x="530" y="104" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="552" y="122" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">7</text>
+<text x="552" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">already taken</text>
+<text x="10" y="196" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">found</text>
+<rect x="130" y="178" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="152" y="196" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">3</text>
+<rect x="186" y="178" width="44" height="26" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="208" y="196" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">7</text>
+<text x="20" y="246" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Removing a value from the set keeps a repeat from being added twice.</text>
+</svg>
