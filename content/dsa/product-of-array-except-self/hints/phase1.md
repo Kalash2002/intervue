@@ -5,4 +5,4 @@ Start with the obvious way: for each position, multiply all the others. How long
 The product of everything except position `i` can be split into two parts: the numbers before `i` and the numbers after `i`. Does the part before `i` for the next position build on the part before `i` for this one?
 
 ## Level 3
-Make one sweep from the left that remembers the product of everything seen so far, and one sweep from the right that does the same. How do the two sweeps combine into the answer for each slot?
+For each position the answer is the product of everything to its left times the product of everything to its right, and each of those two products grows by one multiplication as you move one slot.

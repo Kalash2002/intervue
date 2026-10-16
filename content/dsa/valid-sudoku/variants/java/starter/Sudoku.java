@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Checks a partly filled sudoku board for repeated digits. */
 public class Sudoku {
 

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Decides whether two words use exactly the same letters the same number of times. */
 public class Anagrams {
 

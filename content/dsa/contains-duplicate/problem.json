@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "contains-duplicate",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Contains Duplicate",
   "summary": "Say whether any value appears more than once in an array.",

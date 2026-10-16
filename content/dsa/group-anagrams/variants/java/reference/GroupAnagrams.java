@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,10 +10,12 @@ public class GroupAnagrams {
     static List<List<String>> group(String[] words) {
         Map<String, List<String>> groups = new HashMap<>();
         for (String word : words) {
-            char[] letters = word.toCharArray();
-            Arrays.sort(letters); // anagrams sort to the same string
-            String key = new String(letters);
-            groups.computeIfAbsent(key, k -> new ArrayList<>()).add(word);
+            // counts[i] is how many times letter 'a' + i occurs; a char holds up to 65,535, and a word has at most 100
+            char[] counts = new char[26];
+            for (int i = 0; i < word.length(); i++) {
+                counts[word.charAt(i) - 'a']++;
+            }
+            groups.computeIfAbsent(new String(counts), k -> new ArrayList<>()).add(word); // anagrams give equal counts
         }
         return new ArrayList<>(groups.values());
     }

@@ -18,7 +18,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        expect(new int[] {5, 5, 5, 2, 2, 9}, 2, 5, 2);
+        expect(new int[] {6, -2, 6, 9, -2, 6, 4, 6, -2}, 2, 6, -2);
     }
 
     @Test(order = 2)
@@ -35,6 +35,7 @@ public class Phase1Tests {
     @Test(order = 4)
     void kEqualsNumberOfDistinctValues() {
         expect(new int[] {1, 2, 2, 3, 3, 3}, 3, 1, 2, 3);
+        expect(new int[] {20, 20, 7}, 2, 20, 7);
     }
 
     @Test(order = 5)

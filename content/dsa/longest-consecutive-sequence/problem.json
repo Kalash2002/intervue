@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "longest-consecutive-sequence",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Longest Consecutive Sequence",
   "summary": "Find the longest run of whole numbers, each one more than the last, hiding in an unsorted array.",

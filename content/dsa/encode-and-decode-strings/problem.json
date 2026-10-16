@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "encode-and-decode-strings",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Encode and Decode Strings",
   "summary": "Pack a list of strings into one string and unpack it again without losing anything.",

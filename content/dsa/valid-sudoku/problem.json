@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "valid-sudoku",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Valid Sudoku",
   "summary": "Check that a partly filled 9 by 9 sudoku board breaks none of the repeat rules.",

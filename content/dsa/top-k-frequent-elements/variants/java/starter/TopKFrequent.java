@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the most frequent values. */
 public class TopKFrequent {
 

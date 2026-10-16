@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the longest run of consecutive whole numbers in an unsorted array. */
 public class Streaks {
 

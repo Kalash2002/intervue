@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /** Packs a list of strings into one string and back. Keep no state between calls. */
 public class Codec {

@@ -4,13 +4,29 @@ You are given an unsorted array of whole numbers. A consecutive run is a group o
 
 Implement `Streaks.longest(int[] nums)` in `Streaks.java`. Return the length of the longest consecutive run that can be formed from the values of `nums`. Return `0` for an empty array.
 
-## Examples
+## Example 1
 
-- `nums = [41, 7, 40, 39, 8, 38, 9, 500]` returns `4`: the values `38, 39, 40, 41` form the longest run, and `7, 8, 9` is shorter.
-- `nums = [3, 4, 4, 5, 5, 5, 6]` returns `4`: the repeats count once, leaving the run `3, 4, 5, 6`.
-- `nums = [10, 20, 30]` returns `1`: no two values are neighbours.
+**Input:** `nums = [41, 7, 40, 39, 8, 38, 9, 500]`
+**Output:** `4`
+**Explanation:** The values `38, 39, 40, 41` form a run of length 4. The values `7, 8, 9` form a shorter run of 3, and 500 is alone.
+
+## Example 2
+
+**Input:** `nums = [3, 4, 4, 5, 5, 5, 6]`
+**Output:** `4`
+**Explanation:** The repeats count once, which leaves the values 3, 4, 5 and 6 and the run `3, 4, 5, 6`. Counting every copy would wrongly give 7.
+
+## Example 3
+
+**Input:** `nums = []`
+**Output:** `0`
+**Explanation:** An empty array holds no values, so there is no run at all.
 
 ## Constraints
 
-- 0 <= `nums.length` <= 100,000
-- -1,000,000,000 <= `nums[i]` <= 1,000,000,000
+- `0 <= nums.length <= 10^5`
+- `-10^9 <= nums[i] <= 10^9`
+
+## Follow-up
+
+Can you do it in O(n) time?

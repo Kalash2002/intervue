@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "product-of-array-except-self",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Product of Array Except Self",
   "summary": "For each position, find the product of all the other numbers in the array.",

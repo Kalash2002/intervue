@@ -12,7 +12,7 @@ public class Phase1Tests {
 
     @Test(order = 2)
     void allDistinct() {
-        assertEquals(false, ContainsDuplicate.hasDuplicate(new int[] {1, 2, 3, 4}));
+        assertEquals(false, ContainsDuplicate.hasDuplicate(new int[] {14, -3, 0, 8}));
     }
 
     @Test(order = 3)

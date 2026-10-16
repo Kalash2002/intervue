@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Says whether any value occurs more than once. */
 public class ContainsDuplicate {
 

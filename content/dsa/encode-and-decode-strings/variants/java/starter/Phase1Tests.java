@@ -39,6 +39,7 @@ public class Phase1Tests {
     void textThatLooksLikeASeparator() {
         roundTrip(List.of("#", "3#abc", ",", "5#", "##", "0#", " "));
         roundTrip(List.of("a,b", "c,d", ",,"));
+        roundTrip(List.of("3#ab", "#"));
     }
 
     @Test(order = 6)

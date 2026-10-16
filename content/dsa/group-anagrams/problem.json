@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "group-anagrams",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Group Anagrams",
   "summary": "Group words that are made of exactly the same letters.",

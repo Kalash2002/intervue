@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "valid-anagram",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Valid Anagram",
   "summary": "Say whether one word can be rearranged to spell exactly the other.",

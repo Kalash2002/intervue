@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Computes, for each position, the product of all the other numbers. */
 public class Products {
 

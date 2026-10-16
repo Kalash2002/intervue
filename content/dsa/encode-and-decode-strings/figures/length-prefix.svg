@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img">
+<title>Encode and Decode Strings on [red, green]: the encoded text 3#red5#green read by length prefixes</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="56" y="30">encode(["red", "green"]) gives 12 characters:</text>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="56" y="50" width="42" height="36"/>
+<rect x="100" y="50" width="42" height="36"/>
+<rect x="144" y="50" width="42" height="36"/>
+<rect x="188" y="50" width="42" height="36"/>
+<rect x="232" y="50" width="42" height="36"/>
+<rect x="364" y="50" width="42" height="36"/>
+<rect x="408" y="50" width="42" height="36"/>
+<rect x="452" y="50" width="42" height="36"/>
+<rect x="496" y="50" width="42" height="36"/>
+<rect x="540" y="50" width="42" height="36"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="276" y="50" width="42" height="36"/><rect x="320" y="50" width="42" height="36"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="77" y="74">3</text>
+<text x="121" y="74">#</text>
+<text x="165" y="74">r</text>
+<text x="209" y="74">e</text>
+<text x="253" y="74">d</text>
+<text x="297" y="74" fill="#ffffff">5</text>
+<text x="341" y="74" fill="#ffffff">#</text>
+<text x="385" y="74">g</text>
+<text x="429" y="74">r</text>
+<text x="473" y="74">e</text>
+<text x="517" y="74">e</text>
+<text x="561" y="74">n</text>
+</g>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 56 100 L 272 100"/><path d="M 276 100 L 582 100"/>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="56" y="122">3 then #: take 3 characters</text><text x="276" y="122">5 then #: take 5 characters</text>
+<text x="56" y="172">The decoder reads digits up to the first #, then takes exactly that</text>
+<text x="56" y="192">many characters without looking at them, so a # inside a string is safe.</text>
+</g>
+</svg>

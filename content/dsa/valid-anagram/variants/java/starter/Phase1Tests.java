@@ -7,7 +7,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(true, Anagrams.areAnagrams("stressed", "desserts"));
+        assertEquals(true, Anagrams.areAnagrams("carton", "contra"));
     }
 
     @Test(order = 2)
@@ -25,12 +25,13 @@ public class Phase1Tests {
     @Test(order = 4)
     void sameLettersDifferentCounts() {
         assertEquals(false, Anagrams.areAnagrams("aab", "abb"));
+        assertEquals(false, Anagrams.areAnagrams("noon", "nnno"));
         assertEquals(false, Anagrams.areAnagrams("aabb", "abcc"));
     }
 
     @Test(order = 5)
     void rearrangedWords() {
-        assertEquals(true, Anagrams.areAnagrams("rail", "liar"));
+        assertEquals(true, Anagrams.areAnagrams("drawer", "reward"));
         assertEquals(true, Anagrams.areAnagrams("tool", "loot"));
         assertEquals(true, Anagrams.areAnagrams("abcxyz", "zyxcba"));
     }

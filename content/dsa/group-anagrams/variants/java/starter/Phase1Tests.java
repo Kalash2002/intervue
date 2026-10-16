@@ -59,6 +59,7 @@ public class Phase1Tests {
     @Test(order = 7)
     void sameLengthDifferentLetterCounts() {
         expect(new String[] {"aabb", "abbb", "baba", "bbba"}, "aabb,baba|2", "abbb,bbba|2");
+        expect(new String[] {"abb", "bab", "baa", "aba"}, "abb,bab|2", "aba,baa|2");
     }
 
     @Test(order = 8)
