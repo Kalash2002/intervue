@@ -6,4 +6,4 @@ Traps from the walkthrough and the tests that grade them:
 - Removing the head without a dummy node: a scratch version without one fails `removeTheHead`, `singleNodeLeavesAnEmptyList`, `twoNodes` and `longList` (`n` = 100,000).
 - An off-by-one gap between the two pointers: a scratch version that sends the lead pointer `n - 1` nodes ahead removes the wrong node and fails every test.
 
-No naive solution: the brute force (count, then walk) is a second linear pass, not meaningfully slower, so time is not graded separately for this question (ADR 0008). The 2-second limit on `longList` is generous; the reference takes about 0.1 s for the three long lists, most of it building and checking them.
+No naive solution: the slower approaches in the walkthrough (copying the nodes into an array, or counting and then walking) are still linear, not meaningfully slower, so time is not graded separately for this question (ADR 0008). The 2-second limit on `longList` is generous; the reference takes about 0.1 s for the three long lists, most of it building and checking them.

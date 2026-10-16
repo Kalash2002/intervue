@@ -92,11 +92,11 @@ static ListNode remove(ListNode head, int n) {
 
 ## Where it shows up
 
-No coding-round problem is linked to this question. A fixed gap between two references over a stream is how you keep "the item k back from the newest" without storing the stream: the k-th most recent entry of a forward-only log, the reading k samples ago on a sensor feed kept as a linked buffer, or the point to cut a chain of undo records so only the last k remain.
+No coding-round problem is linked to this question. A fixed gap between two references is how you find "the item k back from the end" of a chain you can walk but not index: the k-th most recent entry of an append-only log kept as a linked list, or the point to cut a chain of undo records so only the last k remain. On a true stream the trailing reference becomes a buffer of the last k items, because nodes behind the lead cannot be read twice.
 
 ## Follow-up answers
 
-**Is the one-pass version actually faster than counting first?** Not by node steps: counting takes L steps and the second walk L - n, while the one-pass version moves `lead` L steps and `trail` L - n steps, the same total. It reads the list once, which matters only when a second read is expensive or impossible, such as a stream you cannot rewind or a list too large to stay in cache.
+**Is the one-pass version actually faster than counting first?** Not by node steps: counting takes L steps and the second walk L - n, while the one-pass version moves `lead` L steps and `trail` L - n steps, the same total. It reads the list once, which matters only when a second read is expensive or impossible, such as a list too large to stay in cache; even then `trail` re-reads nodes `lead` has passed, only closer behind it.
 
 **How would you return the middle node of a list in one pass?** Move one reference a node at a time and another two at a time; when the fast one reaches the end, the slow one is in the middle. Whether you get the first or second middle of an even-length list depends on whether the loop checks `fast.next.next` or `fast.next`.
 

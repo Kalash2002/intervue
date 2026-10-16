@@ -38,9 +38,9 @@ public class Phase1Tests {
 
     @Test(order = 6)
     void twoNodes() {
-        expect(new int[] {1, 2}, -1, false);
-        expect(new int[] {1, 2}, 0, true);
-        expect(new int[] {1, 2}, 1, true);
+        expect(new int[] {7, -4}, -1, false);
+        expect(new int[] {7, -4}, 0, true);
+        expect(new int[] {7, -4}, 1, true);
     }
 
     @Test(order = 7)

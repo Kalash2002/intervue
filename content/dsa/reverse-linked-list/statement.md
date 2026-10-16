@@ -18,9 +18,9 @@ Implement `ReverseList.reverse(ListNode head)` in `ReverseList.java`. `ListNode`
 
 ## Example 3
 
-**Input:** `head = []`
-**Output:** `[]`
-**Explanation:** An empty list (`null`) has nothing to reverse, so the answer is `null`.
+**Input:** `head = [42]`
+**Output:** `[42]`
+**Explanation:** A single node is its own reverse: it stays the head, and its `next` stays `null`.
 
 ## Constraints
 

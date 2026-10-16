@@ -1,6 +1,6 @@
 # Reorder List
 
-You are given the head of a singly linked list whose nodes, in order, are `L0, L1, ..., Lk`. Rearrange it in place into `L0, Lk, L1, Lk-1, L2, Lk-2, ...`: the first node, then the last, then the second, then the second-to-last, and so on until every node is used once.
+You are given the head of a singly linked list and rearrange it in place so that it alternates from both ends: the first node, then the last, then the second, then the second-to-last, and so on until every node is used once.
 
 Implement `ReorderList.reorder(ListNode head)` in `ReorderList.java`; it returns nothing, and the tests read the list from the same `head` afterwards. `ListNode` (in `ListNode.java`, read-only) has an `int val` and a `ListNode next`. Move the nodes themselves: the tests check node identity, so rewriting the values does not count. Lists below are written head first, as `[first, ..., last]`.
 
