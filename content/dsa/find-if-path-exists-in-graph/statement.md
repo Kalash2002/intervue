@@ -1,6 +1,6 @@
 # Find if Path Exists in Graph
 
-A tram network has `n` stations numbered `0` to `n - 1`. Each connector is a pair `[a, b]` meaning trams run between stations `a` and `b` in both directions. You may change trams at any station.
+A tram network has `n` stations numbered `0` to `n - 1`. Each connector is a pair `[a, b]` meaning trams run between stations `a` and `b` in both directions. You may change trams at any station, and the same pair may be listed more than once.
 
 Implement `Routes.connected(int n, int[][] links, int from, int to)` in `Routes.java`. Return `true` if a rider can get from station `from` to station `to` using any number of connectors, and `false` otherwise. A rider is always at their own station, so `from == to` is `true` even with no connectors at all.
 
@@ -27,7 +27,7 @@ Implement `Routes.connected(int n, int[][] links, int from, int to)` in `Routes.
 - `1 <= n <= 10^5`
 - `0 <= links.length <= 2 * 10^5`
 - `0 <= links[i][0], links[i][1] < n`
-- `links[i][0] != links[i][1]`, and the same pair may be listed more than once.
+- `links[i][0] != links[i][1]`
 - `0 <= from, to < n`
 
 ## Follow-up

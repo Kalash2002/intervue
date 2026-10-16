@@ -36,7 +36,7 @@ static int minRooms(int[][] bookings) {
 
 ## Better: sort by start, with a heap of end times
 
-Sort the bookings by start and keep a min-heap of the end times of the rooms in use. For each booking, if the room that frees earliest is free by this start, reuse it: take its end time out. Then put this booking's end time in. The heap holds one entry per room in use, and since a room is only added when none is free, the heap size at the end is the number of rooms.
+This is a different tool at the same cost as the optimal sweep: both are O(n log n). Sort the bookings by start and keep a min-heap of the end times of the rooms in use. For each booking, if the room that frees earliest is free by this start, reuse it: take its end time out. Then put this booking's end time in. The heap holds one entry per room in use, and since a room is only added when none is free, the heap size at the end is the number of rooms.
 
 ```java
 static int minRooms(int[][] bookings) {
@@ -55,7 +55,7 @@ static int minRooms(int[][] bookings) {
 
 **Complexity:** time O(n log n), extra space O(n).
 
-**Prefer it when:** you also need to say which room each booking gets, since the heap is the set of rooms. If you only need the count, it spends heap operations the two sorted arrays do not need.
+**Prefer it when:** you may later need to say which room each booking gets: the heap is the natural base for that if a room number is stored beside each end time (as written it holds only end times and cannot say). If you only need the count, it spends heap operations the two sorted arrays do not need.
 
 ## Optimal: sort starts and ends separately, sweep once
 

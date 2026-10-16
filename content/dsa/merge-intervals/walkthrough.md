@@ -47,7 +47,7 @@ static int[][] mergeRanges(int[][] ranges) {
 
 ## Better: sort starts and ends separately
 
-The ranges do not have to stay paired. Sort all the starts into one array and all the ends into another, both as plain `int` arrays. Then a group closes after position `i` exactly when there is no next start or the next start is later than `ends[i]`. The group began at the start remembered when the previous group closed. Sorting primitives is cheaper than sorting row objects with a comparator, and no range object is created until the output.
+This is a different tool at the same cost as the optimal sweep: both are O(n log n). The ranges do not have to stay paired. Sort all the starts into one array and all the ends into another, both as plain `int` arrays. Then a group closes after position `i` exactly when there is no next start or the next start is later than `ends[i]`. The group began at the start remembered when the previous group closed. Sorting primitives is cheaper than sorting row objects with a comparator, and no range object is created until the output.
 
 ```java
 static int[][] mergeRanges(int[][] ranges) {
@@ -76,7 +76,7 @@ static int[][] mergeRanges(int[][] ranges) {
 
 **Complexity:** time O(n log n), extra space O(n) for the two arrays and the output.
 
-**Prefer it when:** the input is large and you want the cheaper primitive sorts, or when ranges are only a pair of columns you already hold as two arrays. It is harder to see correct at a glance than the sweep, so I would only reach for it after the simple version works.
+**Prefer it when:** the input is large and you want the cheaper primitive sorts. It is harder to see correct at a glance than the sweep, so I would only reach for it after the simple version works.
 
 ## Optimal: sort by start, then one sweep
 

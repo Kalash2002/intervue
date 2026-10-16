@@ -73,7 +73,7 @@ class Pings {
 
 **Complexity:** time O(1) amortised per `ping` and O(log p) per `recent`, extra space O(p) for every ping ever recorded.
 
-**Prefer it when:** you need the full history anyway, for example to answer a count for an earlier time (the third follow-up), or to audit later. The queue cannot do that, because it has forgotten the old pings.
+**Prefer it when:** you need the full history anyway, for example to answer a count for an earlier time (the third follow-up, which needs a second search for the end of the range), or to audit later. The queue cannot do that, because it has forgotten the old pings.
 
 ## Optimal: a queue that forgets old pings
 

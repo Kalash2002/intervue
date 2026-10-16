@@ -73,7 +73,7 @@ static int[] shared(int[] mine, int[] yours) {
 
 **Complexity:** time O(n log n + m log m) for the two sorts plus O(n + m) for the walk, extra space O(n + m) for the sorted copies.
 
-**Prefer it when:** the lists are already sorted, where the sorts disappear and it is O(n + m) time with no extra memory beyond the result, or when a hash set would be heavy because there are very many values. It also never hashes, so it has no bad-bucket case. The result comes out in order without a final sort.
+**Prefer it when:** the lists arrive sorted: drop the clones and the sorts, and the walk is O(n + m) time with O(1) extra space beyond the result. It also suits very many values, where a hash set would be heavy, though the clones cost O(n + m) as written. It also never hashes, so it has no bad-bucket case. The result comes out in order without a final sort.
 
 ## Optimal: hash set of one list, check the other
 

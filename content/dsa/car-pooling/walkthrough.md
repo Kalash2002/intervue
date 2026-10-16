@@ -37,7 +37,7 @@ static boolean canCarry(int[][] rides, int seats) {
 
 ## Better: net change per minute in a sorted map
 
-Put each request's two changes into a `TreeMap` from minute to net change, adding changes that share a minute together. Then walk the map in key order with a running total. At a shared minute the leavers step off first, so the total dips and then rises to the netted value. The total before that minute was already checked, so checking the netted value is enough, and the tie rule is built into the data with no special ordering.
+This is a different tool at the same cost as the optimal sweep: both are O(n log n). Put each request's two changes into a `TreeMap` from minute to net change, adding changes that share a minute together. Then walk the map in key order with a running total. At a shared minute the leavers step off first, so the total dips and then rises to the netted value. The total before that minute was already checked, so checking the netted value is enough, and the tie rule is built into the data with no special ordering.
 
 ```java
 static boolean canCarry(int[][] rides, int seats) {

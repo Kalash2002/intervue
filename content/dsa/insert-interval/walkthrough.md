@@ -38,7 +38,7 @@ static int[][] insert(int[][] booked, int[] added) {
 
 ## Better: binary search for both edges, then copy
 
-The sorted, separate ranges make the three groups blocks, and a block edge is what a binary search finds. The first range that does not end before the new one starts is where the middle block begins; the first range that starts after the new one ends is where it stops. Everything before and after is copied in bulk, and the middle block collapses into one range from the smaller start to the larger end.
+This is a different tool at the same cost as the optimal walk: both are O(n). The sorted, separate ranges make the three groups blocks, and a block edge is what a binary search finds. The first range that does not end before the new one starts is where the middle block begins; the first range that starts after the new one ends is where it stops. Everything before and after is copied in bulk, and the middle block collapses into one range from the smaller start to the larger end.
 
 ```java
 static int[][] insert(int[][] booked, int[] added) {
@@ -69,7 +69,7 @@ static int[][] insert(int[][] booked, int[] added) {
 
 **Complexity:** time O(log n) to locate the edges plus O(n) to copy, so O(n) in all; extra space O(n) for the result.
 
-**Prefer it when:** the list is large and the new range touches few ranges. Finding the block costs O(log n), and `System.arraycopy` moves the untouched references in bulk, so it beats a one-by-one walk in practice. It also fits a list that is not an array, where the splice itself is cheap. The cost is two searches whose `<` and `<=` are easy to get backwards.
+**Prefer it when:** the list is large and the new range touches few ranges. Finding the block costs O(log n), and `System.arraycopy` moves the untouched references in bulk, so it can move less work than a one-by-one walk, though I have not measured it. It needs random access, so it is for arrays. The cost is two searches whose `<` and `<=` are easy to get backwards.
 
 ## Optimal: one walk in three phases
 
