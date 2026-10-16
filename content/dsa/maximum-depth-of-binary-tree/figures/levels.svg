@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Example 1 counted level by level: 10, then 4 and 15, then 7, 12 and 20, then 11 alone on level 4</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+<text x="30" y="45" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 1</text>
+<text x="30" y="100" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 2</text>
+<text x="30" y="155" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 3</text>
+<text x="30" y="210" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 4</text>
+<line x1="326.0" y1="47.7" x2="254.0" y2="87.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="354.0" y1="47.7" x2="426.0" y2="87.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="250.8" y1="106.8" x2="279.2" y2="138.2" stroke="#83748f" stroke-width="1.5"/>
+<line x1="430.6" y1="107.9" x2="409.4" y2="137.1" stroke="#83748f" stroke-width="1.5"/>
+<line x1="451.8" y1="105.8" x2="488.2" y2="139.2" stroke="#83748f" stroke-width="1.5"/>
+<line x1="392.3" y1="164.0" x2="377.7" y2="191.0" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="340" cy="40" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="340" y="45" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">10</text>
+<circle cx="240" cy="95" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="240" y="100" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">4</text>
+<circle cx="440" cy="95" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="440" y="100" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">15</text>
+<circle cx="290" cy="150" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="290" y="155" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">7</text>
+<circle cx="400" cy="150" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="400" y="155" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">12</text>
+<circle cx="500" cy="150" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="500" y="155" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">20</text>
+<circle cx="370" cy="205" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="370" y="210" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">11</text>
+<text x="400" y="210" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">depth 4</text>
+</svg>

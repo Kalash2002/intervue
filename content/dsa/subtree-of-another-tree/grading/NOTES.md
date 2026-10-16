@@ -1,0 +1,11 @@
+# Grader notes: Subtree of Another Tree
+
+Tests cover: the sample, a match spoiled by an extra node below it, a first node with the right value that is not the match while a node below it is, `sub` equal to the whole of `root`, `sub` a single leaf, a value on the wrong side, values whose digits would run together in a careless writing (`[2]` in `[12]`, `[7]` in `[-7]`, `[1]` in `[4,31]`), `sub` larger than `root`, a subtree of about 100 nodes found ten levels down a complete tree of 100,000 nodes and then, with one value changed, not found, and two long paths: `root` is a left path of 100,000 nodes holding 3 except a 4 at the bottom, `sub` is a left path of 20,000 nodes of the same form, and only the bottom 20,000 nodes of `root` match.
+
+Traps from the walkthrough and hints, and the tests that grade them (each checked with a scratch version):
+- Recursion on a lopsided tree: the constraints allow a single path of 100,000 nodes; recursive versions (the plain compare-at-every-node, the size-filter Better from the walkthrough, and the string versions below) all fail `longPaths` with `StackOverflowError`.
+- Writing values without separating them: a version that writes `12,#,#,` and searches for `2,#,#,` with `contains` fails `valuesDoNotRunTogether`.
+- Writing values without marking empty children: fails `extraNodeBelowTheMatch` and `sidesMatter`.
+- Stopping at the first node whose value equals `sub`'s root: fails `firstEqualValueIsNotTheMatch`.
+
+The naive solution compares `sub` at every node of `root` with an explicit stack (no recursion, so it is correct at any depth), O(n·m). On `longPaths` every one of the top 80,000 nodes of `root` matches 20,000 levels of `sub` before the bottom 4 differs, about 1.6 x 10^9 steps. The reference writes both trees in preorder as int tokens with a marker for empty children and searches with KMP, O(n + m), without recursion. Measured with a cold JVM (limit 400 ms on `longPaths`): reference 9, 10 and 10 ms over three runs (at most 50 = limit/8); naive still running after 6,000 ms when given 15x the limit (needs 1,800 = 1.5 x 3 x limit). `deepInsideALargeTree` (limit 2,000 ms) takes the reference about 50 ms and the naive about the same, since on a complete tree of distinct-enough values each comparison fails within a step or two.

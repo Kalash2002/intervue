@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "subtree-of-another-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Subtree of Another Tree",
+  "summary": "Decide whether some node of one binary tree, with everything below it, is identical to a second tree.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "serialization", "string-matching", "kmp"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["When is comparing at every node really O(n·m), and when is it fast?", "Why must the written-out form mark empty children and separate the values?", "How would you count how many times sub occurs inside root?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

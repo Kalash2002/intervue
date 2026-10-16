@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "maximum-depth-of-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Maximum Depth of Binary Tree",
+  "summary": "Count the nodes on the longest path from the root of a binary tree down to a leaf.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "breadth-first-search", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why does the one-line recursive answer fail here, and what would make it safe?", "How would you find the minimum depth instead?", "How would you return the nodes on one deepest path, not just its length?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

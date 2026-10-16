@@ -48,12 +48,12 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 42 | Linked list | LRU Cache | `lru-cache` | ✓ | |
 | 43 | Linked list | Merge K Sorted Lists | `merge-k-sorted-lists` | ✓ | |
 | 44 | Linked list | Reverse Nodes in K-Group | `reverse-nodes-in-k-group` | ✓ | |
-| 45 | Trees | Invert Binary Tree | `invert-binary-tree` | | |
-| 46 | Trees | Maximum Depth of Binary Tree | `maximum-depth-of-binary-tree` | | |
-| 47 | Trees | Diameter of Binary Tree | `diameter-of-binary-tree` | | |
-| 48 | Trees | Balanced Binary Tree | `balanced-binary-tree` | | |
-| 49 | Trees | Same Tree | `same-tree` | | |
-| 50 | Trees | Subtree of Another Tree | `subtree-of-another-tree` | | |
+| 45 | Trees | Invert Binary Tree | `invert-binary-tree` | ✓ | |
+| 46 | Trees | Maximum Depth of Binary Tree | `maximum-depth-of-binary-tree` | ✓ | |
+| 47 | Trees | Diameter of Binary Tree | `diameter-of-binary-tree` | ✓ | |
+| 48 | Trees | Balanced Binary Tree | `balanced-binary-tree` | ✓ | |
+| 49 | Trees | Same Tree | `same-tree` | ✓ | |
+| 50 | Trees | Subtree of Another Tree | `subtree-of-another-tree` | ✓ | |
 | 51 | Trees | Lowest Common Ancestor of a BST | `lowest-common-ancestor-of-a-binary-search-tree` | | |
 | 52 | Trees | Binary Tree Level Order Traversal | `binary-tree-level-order-traversal` | | |
 | 53 | Trees | Binary Tree Right Side View | `binary-tree-right-side-view` | | |

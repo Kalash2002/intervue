@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "balanced-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Balanced Binary Tree",
+  "summary": "Decide whether, at every node of a binary tree, the two subtree heights differ by at most one.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "recursion", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is it not enough to compare the shallowest and the deepest leaf?", "How much slower is checking the heights again at every node, really?", "How would a self-balancing tree keep this property after each insert?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
