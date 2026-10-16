@@ -126,7 +126,7 @@ class MinStack {
 | --- | --- | --- |
 | Brute force | O(1) push, pop, top; O(n) getMin | O(1) |
 | Better: stored minimum, rescan after popping it | O(1) push, top, getMin; O(n) pop in the worst case | O(1) |
-| Optimal: a minimum beside each value | O(1) for all | O(n) |
+| Optimal: a minimum beside each value | O(1) for all, push amortized | O(n) |
 
 ## Where it shows up
 
