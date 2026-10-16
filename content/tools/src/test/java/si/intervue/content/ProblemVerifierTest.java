@@ -40,6 +40,8 @@ class ProblemVerifierTest {
 
   private static String calc(String fBody, long gDelayMs) {
     return """
+        import java.util.*;
+
         public class Calc {
           static int f(int n) {
             return %s;
@@ -180,9 +182,53 @@ class ProblemVerifierTest {
     assertThat(report.lines()).anyMatch(l -> l.contains("hints/phase2.md"));
   }
 
-  private static final String ONE_PHASE_WALKTHROUGH =
-      "# Walkthrough\n\n## Approach\n\ntext\n\n## Complexity\n\ntable\n\n"
-          + "## Where it shows up\n\ntext\n\n## Follow-up answers\n\ntext\n";
+  private static final String DSA_STATEMENT =
+      """
+      # Solo
+
+      Double it.
+
+      ## Example 1
+
+      **Input:** `2`
+      **Output:** `4`
+      **Explanation:** Twice two.
+
+      ## Constraints
+
+      - n fits in an int.
+      """;
+
+  private static final String DSA_WALKTHROUGH =
+      """
+      ## The question
+
+      text
+
+      ## How to think about it
+
+      ![Two doubled](figures/f.svg)
+
+      %s%s%s## Complexity
+
+      table
+
+      ## Where it shows up
+
+      text
+
+      ## Follow-up answers
+
+      text
+      """
+          .formatted(
+              approach("## Brute force"),
+              approach("## Better: Sort"),
+              approach("## Optimal: One pass"));
+
+  private static String approach(String heading) {
+    return heading + "\n\n```java\nint x;\n```\n\n**Complexity:** time O(1), extra space O(1).\n\n";
+  }
 
   /** One phase with a single suite: {@code f} must be right and {@code g} fast (1 s limit). */
   private VerifyReport verifyOnePhase(String naiveF, long naiveG) throws IOException {
@@ -219,9 +265,10 @@ class ProblemVerifierTest {
           }
         }
         """);
-    write(dir.resolve("statement.md"), "text");
+    write(dir.resolve("statement.md"), DSA_STATEMENT);
+    write(dir.resolve("figures/f.svg"), "<svg xmlns='http://www.w3.org/2000/svg'/>");
     write(dir.resolve("grading/NOTES.md"), "text");
-    write(dir.resolve("walkthrough.md"), ONE_PHASE_WALKTHROUGH);
+    write(dir.resolve("walkthrough.md"), DSA_WALKTHROUGH);
     write(dir.resolve("hints/phase1.md"), HINT);
     Path variant = dir.resolve("variants/java");
     write(variant.resolve("starter/Calc.java"), calc(BUGGY_F, 0));

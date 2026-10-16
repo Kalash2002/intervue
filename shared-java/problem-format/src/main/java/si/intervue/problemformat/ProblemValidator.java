@@ -22,9 +22,13 @@ public final class ProblemValidator {
 
   public static final int FORMAT_VERSION = 1;
   private static final int CORRECTNESS_POINTS = 70;
-  // A one-phase problem has no intro and no per-phase split, so it carries the whole correctness
-  // share of a section scored 80/20 (docs/contracts/problem-format.md, "One-phase problems").
-  private static final int ONE_PHASE_CORRECTNESS_POINTS = 80;
+  // The DSA section is scored 80/20 and has no intro or per-phase split, so its one phase carries
+  // the whole correctness share (docs/contracts/problem-format.md, "One-phase problems").
+  private static final int DSA_CORRECTNESS_POINTS = 80;
+
+  /** The section whose problems follow the DSA statement, answer and starter rules. */
+  public static final String DSA_SECTION = "dsa-quick";
+
   private static final Set<String> DIFFICULTIES = Set.of("Easy", "Medium", "Hard");
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
 
@@ -36,21 +40,23 @@ public final class ProblemValidator {
     checkFields(folder.problem(), errors);
     checkPhases(folder, errors);
     checkVariants(folder, errors);
-    boolean onePhase = isOnePhase(folder.problem());
-    if (!onePhase) {
+    boolean dsa = isDsa(folder.problem());
+    if (!dsa) {
       requireFile(folder.dir(), "brief/intro.md", errors);
     }
     requireFile(folder.dir(), "walkthrough.md", errors);
     requireFile(folder.dir(), "grading/NOTES.md", errors);
     if (Files.isRegularFile(folder.dir().resolve("walkthrough.md"))) {
-      checkWalkthrough(folder.dir(), onePhase, errors);
+      checkWalkthrough(folder.dir(), dsa, errors);
+    }
+    if (dsa) {
+      checkDsaStatement(folder, errors);
     }
     return errors;
   }
 
-  /** Keyed on the phase count so shared-java never needs to know section ids. */
-  private static boolean isOnePhase(Problem p) {
-    return nullToEmpty(p.phases()).size() == 1;
+  private static boolean isDsa(Problem p) {
+    return DSA_SECTION.equals(p.section());
   }
 
   private static void checkIdentity(ProblemFolder folder, List<String> errors) {
@@ -117,7 +123,7 @@ public final class ProblemValidator {
         checkHints(folder.dir().resolve(phase.hints()), phase.hints(), errors);
       }
     }
-    int expected = isOnePhase(folder.problem()) ? ONE_PHASE_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
+    int expected = isDsa(folder.problem()) ? DSA_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
     if (weights != expected) {
       errors.add("phase weights sum to " + weights + ", must be " + expected);
     }
@@ -134,30 +140,172 @@ public final class ProblemValidator {
           "## Time budget",
           "## Follow-up answers");
 
-  /** The headings a one-phase problem's walkthrough has: no DSA reference, no time budget. */
-  static final List<String> ONE_PHASE_HEADINGS =
-      List.of("## Approach", "## Complexity", "## Where it shows up", "## Follow-up answers");
+  /** The fixed answer headings of a DSA walkthrough; Better and Optimal carry a name after them. */
+  static final List<String> DSA_ANSWER_HEADINGS =
+      List.of(
+          "## The question",
+          "## How to think about it",
+          "## Brute force",
+          "## Better: ",
+          "## Optimal: ",
+          "## Complexity",
+          "## Where it shows up",
+          "## Follow-up answers");
+
+  /** Approach sections that must show code and a stated cost. */
+  private static final List<String> DSA_APPROACH_PREFIXES =
+      List.of("## Brute force", "## Better: ", "## Optimal: ");
 
   private static final Pattern FIGURE = Pattern.compile("\\]\\((figures/[^)\\s]+)\\)");
+  private static final Pattern IMAGE = Pattern.compile("!\\[[^\\]]*\\]\\(figures/[^)\\s]+\\)");
 
-  /**
-   * The DSA reference and the closing sections exist in order, and every figure it shows exists.
-   */
-  private static void checkWalkthrough(Path dir, boolean onePhase, List<String> errors) {
-    String text = readString(dir.resolve("walkthrough.md"));
-    int at = 0;
-    for (String heading : onePhase ? ONE_PHASE_HEADINGS : WALKTHROUGH_HEADINGS) {
-      int found = text.indexOf("\n" + heading + "\n", at);
-      if (found < 0) {
-        errors.add("walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
+  /** A heading line and the text up to the next "## " heading. */
+  private record Section(String heading, String body) {}
+
+  private static List<Section> sections(String text) {
+    List<Section> out = new ArrayList<>();
+    String heading = null;
+    StringBuilder body = new StringBuilder();
+    for (String line : text.split("\\r?\\n", -1)) {
+      if (line.startsWith("## ")) {
+        if (heading != null) {
+          out.add(new Section(heading, body.toString()));
+        }
+        heading = line.stripTrailing();
+        body = new StringBuilder();
       } else {
-        at = found;
+        body.append(line).append('\n');
+      }
+    }
+    if (heading != null) {
+      out.add(new Section(heading, body.toString()));
+    }
+    return out;
+  }
+
+  /** The reference and closing sections exist in order, and every figure it shows exists. */
+  private static void checkWalkthrough(Path dir, boolean dsa, List<String> errors) {
+    String text = readString(dir.resolve("walkthrough.md"));
+    if (dsa) {
+      checkDsaAnswer(text, errors);
+    } else {
+      int at = 0;
+      for (String heading : WALKTHROUGH_HEADINGS) {
+        int found = text.indexOf("\n" + heading + "\n", at);
+        if (found < 0) {
+          errors.add(
+              "walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
+        } else {
+          at = found;
+        }
       }
     }
     java.util.regex.Matcher m = FIGURE.matcher(text);
     while (m.find()) {
       if (!Files.isRegularFile(dir.resolve(m.group(1)))) {
         errors.add("walkthrough.md shows " + m.group(1) + " which does not exist");
+      }
+    }
+  }
+
+  /** Headings in order (Better and Optimal named), code and cost per approach, one figure. */
+  private static void checkDsaAnswer(String text, List<String> errors) {
+    List<Section> all = sections(text);
+    int at = 0;
+    for (String want : DSA_ANSWER_HEADINGS) {
+      boolean prefix = want.endsWith(": ");
+      int found = -1;
+      for (int i = at; i < all.size() && found < 0; i++) {
+        String h = all.get(i).heading();
+        if (prefix ? h.startsWith(want) && !h.substring(want.length()).isBlank() : h.equals(want)) {
+          found = i;
+        }
+      }
+      if (found < 0) {
+        errors.add(
+            "walkthrough.md needs the heading \""
+                + (prefix ? want + "<name>" : want)
+                + "\" after the previous ones");
+        continue;
+      }
+      at = found + 1;
+      // Further Better sections are consumed so Optimal is searched after all of them.
+      while (want.equals("## Better: ")
+          && at < all.size()
+          && all.get(at).heading().startsWith(want)) {
+        at++;
+      }
+    }
+    for (Section s : all) {
+      if (DSA_APPROACH_PREFIXES.stream().anyMatch(s.heading()::startsWith)) {
+        if (!s.body().contains("```java")) {
+          errors.add("walkthrough.md \"" + s.heading() + "\" needs a ```java block");
+        }
+        if (s.body().lines().noneMatch(l -> l.startsWith("**Complexity:**"))) {
+          errors.add("walkthrough.md \"" + s.heading() + "\" needs a \"**Complexity:**\" line");
+        }
+      }
+    }
+    if (!IMAGE.matcher(text).find()) {
+      errors.add("walkthrough.md needs at least one figure ![...](figures/...)");
+    }
+  }
+
+  /**
+   * The phase-1 brief is a title, numbered examples, constraints and an optional follow-up, so the
+   * room can lay it out.
+   */
+  private static void checkDsaStatement(ProblemFolder folder, List<String> errors) {
+    List<Phase> phases = nullToEmpty(folder.problem().phases());
+    if (phases.isEmpty() || phases.get(0).brief() == null) {
+      return;
+    }
+    String name = phases.get(0).brief();
+    Path file = folder.dir().resolve(name);
+    if (!Files.isRegularFile(file)) {
+      return;
+    }
+    String text = readString(file);
+    String first = text.lines().filter(l -> !l.isBlank()).findFirst().orElse("");
+    if (!first.startsWith("# ")) {
+      errors.add(name + " needs a \"# \" title line first");
+    }
+    List<Section> all = sections(text);
+    int i = 0;
+    int n = 1;
+    while (i < all.size() && all.get(i).heading().equals("## Example " + n)) {
+      for (String label : List.of("Input", "Output", "Explanation")) {
+        String prefix = "**" + label + ":**";
+        boolean ok =
+            all.get(i)
+                .body()
+                .lines()
+                .anyMatch(l -> l.startsWith(prefix) && !l.substring(prefix.length()).isBlank());
+        if (!ok) {
+          errors.add(name + " Example " + n + " has no \"" + prefix + "\" text");
+        }
+      }
+      i++;
+      n++;
+    }
+    if (n == 1) {
+      errors.add(name + " needs \"## Example 1\"");
+    }
+    if (i >= all.size() || !all.get(i).heading().equals("## Constraints")) {
+      errors.add(
+          name
+              + " needs \"## Constraints\" right after the examples"
+              + (i < all.size() ? " (found \"" + all.get(i).heading() + "\")" : ""));
+    } else {
+      if (all.get(i).body().lines().noneMatch(l -> l.startsWith("- "))) {
+        errors.add(name + " \"## Constraints\" needs at least one \"- \" line");
+      }
+      i++;
+      if (i < all.size() && all.get(i).heading().equals("## Follow-up")) {
+        i++;
+      }
+      if (i < all.size()) {
+        errors.add(name + " has an unexpected heading \"" + all.get(i).heading() + "\"");
       }
     }
   }
@@ -195,11 +343,37 @@ public final class ProblemValidator {
       for (String path : nullToEmpty(variant.readOnly())) {
         requireFile(starter, path, errors);
       }
+      if (isDsa(folder.problem())) {
+        checkStarterImports(starter, variant, errors);
+      }
       for (Phase phase : nullToEmpty(folder.problem().phases())) {
         if (variant.tests() == null || !variant.tests().containsKey(String.valueOf(phase.id()))) {
           errors.add(language + " variant has no test class for phase " + phase.id());
         }
       }
+    }
+  }
+
+  /** A DSA candidate's editable starter files import java.util.* so the first line compiles. */
+  private static void checkStarterImports(Path starter, Variant variant, List<String> errors) {
+    if (!Files.isDirectory(starter)) {
+      return;
+    }
+    Set<String> locked = Set.copyOf(nullToEmpty(variant.readOnly()));
+    try (var files = Files.walk(starter)) {
+      files
+          .filter(f -> Files.isRegularFile(f) && f.toString().endsWith(".java"))
+          .forEach(
+              f -> {
+                String rel = starter.relativize(f).toString().replace('\\', '/');
+                if (!locked.contains(rel)
+                    && !rel.equals(variant.main() + ".java")
+                    && !readString(f).contains("import java.util.*;")) {
+                  errors.add("starter/" + rel + " needs \"import java.util.*;\"");
+                }
+              });
+    } catch (IOException e) {
+      throw new UncheckedIOException(e);
     }
   }
 

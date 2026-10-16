@@ -247,13 +247,41 @@ class ProblemValidatorTest {
         .hasMessageContaining("problem.json");
   }
 
-  private static final String ONE_PHASE_WALKTHROUGH =
+  private static final String DSA_ANSWER =
       """
-      # Solution
-
-      ## Approach
+      ## The question
 
       text
+
+      ## How to think about it
+
+      text
+
+      ![A row of cells](figures/stack.svg)
+
+      ## Brute force
+
+      ```java
+      int a = 1;
+      ```
+
+      **Complexity:** time O(n^2), extra space O(1).
+
+      ## Better: Sort first
+
+      ```java
+      int b = 1;
+      ```
+
+      **Complexity:** time O(n log n), extra space O(1).
+
+      ## Optimal: One pass
+
+      ```java
+      int c = 1;
+      ```
+
+      **Complexity:** time O(n), extra space O(n).
 
       ## Complexity
 
@@ -268,45 +296,133 @@ class ProblemValidatorTest {
       text
       """;
 
-  /** Turns the fixture into a one-phase problem: one phase, a statement, no intro. */
-  private void makeOnePhase(int weight) throws IOException {
+  private static final String DSA_STATEMENT =
+      """
+      # Hold Exposure
+
+      Total the holds.
+
+      ## Example 1
+
+      **Input:** `[1, 2]`
+      **Output:** `3`
+      **Explanation:** One plus two.
+
+      ## Example 2
+
+      **Input:** `[]`
+      **Output:** `0`
+      **Explanation:** Nothing to add.
+
+      ## Constraints
+
+      - At most 1000 holds.
+
+      ## Follow-up
+
+      Can you do it in one pass?
+      """;
+
+  /** Turns the fixture into a dsa-quick problem: one phase, a statement, no intro. */
+  private void makeDsa(String section, int weight) throws IOException {
     write(
         "problem.json",
         """
-        {"formatVersion":1,"id":"hold-exposure","version":3,"section":"dsa-quick",
+        {"formatVersion":1,"id":"hold-exposure","version":3,"section":"%s",
          "title":"Hold Exposure","summary":"Totals holds.","difficulty":"Easy",
          "techniques":["intervals"],"domain":"fintech","minutes":20,
          "phases":[
           {"id":1,"title":"Solve","brief":"brief/statement.md","hints":"hints/phase1.md","weight":%d,"allOrNothing":false,"timeoutRefMs":30000}],
          "followUps":["Why?"],"languages":["java"]}
         """
-            .formatted(weight));
+            .formatted(section, weight));
     write(
         "variants/java/variant.json",
         "{\"language\":\"java\",\"minToolchain\":\"21\","
             + "\"main\":\"Main\",\"readOnly\":[\"Phase1Tests.java\"],\"tests\":{\"1\":\"Phase1Tests\"}}");
-    write("brief/statement.md", "text");
-    write("walkthrough.md", ONE_PHASE_WALKTHROUGH);
+    write("variants/java/starter/Main.java", "class Main {}");
+    write("variants/java/starter/Calc.java", "import java.util.*;\nclass Calc {}");
+    write("brief/statement.md", DSA_STATEMENT);
+    write("walkthrough.md", DSA_ANSWER);
     Files.delete(dir.resolve("brief/intro.md"));
   }
 
+  private void makeDsa(int weight) throws IOException {
+    makeDsa(ProblemValidator.DSA_SECTION, weight);
+  }
+
   @Test
-  void acceptsAOnePhaseProblem() throws IOException {
-    makeOnePhase(80);
+  void dsaStatementInShapePasses() throws IOException {
+    makeDsa(80);
     assertThat(errors()).isEmpty();
   }
 
   @Test
-  void refusesAOnePhaseWeightOtherThan80() throws IOException {
-    makeOnePhase(70);
+  void dsaWeightOtherThan80IsRefused() throws IOException {
+    makeDsa(70);
     assertThat(errors()).anyMatch(e -> e.contains("must be 80"));
   }
 
   @Test
-  void refusesAOnePhaseWalkthroughWithoutApproach() throws IOException {
-    makeOnePhase(80);
-    write("walkthrough.md", ONE_PHASE_WALKTHROUGH.replace("## Approach", "## Idea"));
-    assertThat(errors()).anyMatch(e -> e.contains("## Approach"));
+  void onePhaseProblemOfAnotherSectionGetsTheMultiPhaseRules() throws IOException {
+    makeDsa("coding-round", 80);
+    assertThat(errors())
+        .anyMatch(e -> e.contains("must be 70"))
+        .anyMatch(e -> e.contains("brief/intro.md"))
+        .anyMatch(e -> e.contains("## DSA reference"));
+  }
+
+  @Test
+  void dsaStatementWithoutConstraintsIsRefused() throws IOException {
+    makeDsa(80);
+    write("brief/statement.md", DSA_STATEMENT.replace("## Constraints", "## Limits"));
+    assertThat(errors()).anyMatch(e -> e.contains("## Constraints"));
+  }
+
+  @Test
+  void dsaExampleWithoutOutputIsRefused() throws IOException {
+    makeDsa(80);
+    write("brief/statement.md", DSA_STATEMENT.replace("**Output:** `0`", "**Output:**"));
+    assertThat(errors()).anyMatch(e -> e.contains("Example 2 has no \"**Output:**\" text"));
+  }
+
+  @Test
+  void dsaAnswerNeedsBruteBetterOptimalInOrder() throws IOException {
+    makeDsa(80);
+    write("walkthrough.md", DSA_ANSWER.replace("## Better: Sort first", "## Better: "));
+    assertThat(errors()).anyMatch(e -> e.contains("## Better: <name>"));
+    write("walkthrough.md", DSA_ANSWER.replace("## Optimal: One pass", "## Optimal: "));
+    assertThat(errors()).anyMatch(e -> e.contains("## Optimal: <name>"));
+  }
+
+  @Test
+  void dsaApproachNeedsCodeAndComplexityLine() throws IOException {
+    makeDsa(80);
+    write("walkthrough.md", DSA_ANSWER.replace("```java", "```text"));
+    assertThat(errors()).anyMatch(e -> e.contains("Brute force") && e.contains("```java"));
+    write("walkthrough.md", DSA_ANSWER.replace("**Complexity:** time O(n), ", "time O(n), "));
+    assertThat(errors()).anyMatch(e -> e.contains("Optimal: One pass") && e.contains("Complexity"));
+  }
+
+  @Test
+  void dsaAnswerWithoutFigureIsRefused() throws IOException {
+    makeDsa(80);
+    write("walkthrough.md", DSA_ANSWER.replace("![A row of cells](figures/stack.svg)", "text"));
+    assertThat(errors()).anyMatch(e -> e.contains("at least one figure"));
+  }
+
+  @Test
+  void dsaStarterWithoutJavaUtilImportIsRefused() throws IOException {
+    makeDsa(80);
+    write("variants/java/starter/Calc.java", "class Calc {}");
+    assertThat(errors()).anyMatch(e -> e.contains("Calc.java") && e.contains("java.util"));
+  }
+
+  @Test
+  void codingRoundStillUsesItsHeadings() throws IOException {
+    assertThat(errors()).isEmpty();
+    write("walkthrough.md", WALKTHROUGH.replace("## DSA reference\n", "## Technique\n"));
+    assertThat(errors()).anyMatch(e -> e.contains("## DSA reference"));
   }
 
   @Test

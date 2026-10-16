@@ -1,8 +1,36 @@
-# How a strong round goes: Tiny DSA
+## The question
 
-## Approach
+Add two numbers.
 
-Add.
+## How to think about it
+
+Just add them.
+
+![Two plus three is five](figures/add.svg)
+
+## Brute force
+
+```java
+int add(int a, int b) { return a + b; }
+```
+
+**Complexity:** time O(1), extra space O(1).
+
+## Better: Same thing
+
+```java
+int add(int a, int b) { return b + a; }
+```
+
+**Complexity:** time O(1), extra space O(1).
+
+## Optimal: Add
+
+```java
+int add(int a, int b) { return a + b; }
+```
+
+**Complexity:** time O(1), extra space O(1).
 
 ## Complexity
 

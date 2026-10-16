@@ -1,3 +1,5 @@
+import java.util.*;
+
 public class Calc {
   static int twice(int n) {
     return n + n + 1;
