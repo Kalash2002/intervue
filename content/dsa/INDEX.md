@@ -11,6 +11,12 @@ Phase 1ad writes these first, then the rest of the NeetCode 150 by topic group. 
 | `group-anagrams` | Group Anagrams | Arrays and hashing | playlist-dedupe | written |
 | `top-k-frequent-elements` | Top K Frequent Elements | Arrays and hashing | duplicate-order-detector | written |
 | `time-based-key-value-store` | Time Based Key-Value Store | Binary search | shift-roster-lookup | written |
+| `binary-search` | Binary Search | Binary search | none | written |
+| `search-a-2d-matrix` | Search a 2D Matrix | Binary search | none | written |
+| `koko-eating-bananas` | Koko Eating Bananas | Binary search | none | written |
+| `find-minimum-in-rotated-sorted-array` | Find Minimum in Rotated Sorted Array | Binary search | none | written |
+| `search-in-rotated-sorted-array` | Search in Rotated Sorted Array | Binary search | none | written |
+| `median-of-two-sorted-arrays` | Median of Two Sorted Arrays | Binary search | none | written |
 | `number-of-islands` | Number of Islands | Graphs | friend-suggestion | written |
 | `word-ladder` | Word Ladder | Graphs | friend-suggestion | written |
 | `task-scheduler` | Task Scheduler | Heap and priority queue | courier-load-balancer | written |
@@ -34,4 +40,4 @@ Phase 1ad writes these first, then the rest of the NeetCode 150 by topic group. 
 | `search-suggestions-system` | Search Suggestions System | outside the 150 | merchant-suggest | written |
 | `unique-email-addresses` | Unique Email Addresses | outside the 150 | playlist-dedupe | written |
 
-29 questions, 16 inside the NeetCode 150.
+35 questions, 22 inside the NeetCode 150.

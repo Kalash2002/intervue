@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Median of Two Sorted Arrays on 3, 8, 21 and 5, 10, 13, 30: the cut after two values of each gives a lower half whose largest value, 10, is the median</title>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f">
+<text x="20" y="56">a</text><text x="20" y="116">b</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="60" y="34" width="52" height="32"/><rect x="120" y="34" width="52" height="32"/>
+<rect x="216" y="34" width="52" height="32"/>
+<rect x="60" y="94" width="52" height="32"/>
+<rect x="216" y="94" width="52" height="32"/><rect x="276" y="94" width="52" height="32"/>
+</g>
+<rect x="120" y="94" width="52" height="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="86" y="56">3</text><text x="146" y="56">8</text><text x="242" y="56">21</text>
+<text x="86" y="116">5</text><text x="146" y="116" fill="#ffffff">10</text><text x="242" y="116">13</text><text x="302" y="116">30</text>
+</g>
+
+<g stroke="#83748f" stroke-width="2" fill="none" stroke-dasharray="6 4">
+<path d="M 194 24 L 194 136"/>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="116" y="156">lower half: 4 values</text><text x="272" y="156">upper half: 3 values</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="360" y="44">i = 1, j = 3:</text>
+<text x="360" y="62">  b's 13 &gt; a's 8, take more</text>
+<text x="360" y="92">i = 2, j = 2:</text>
+<text x="360" y="110">  8 &lt;= 13 and 10 &lt;= 21, right</text>
+<text x="360" y="140">odd count: max(8, 10) = 10</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="200">Only i, the count taken from the shorter array, is searched;</text>
+<text x="20" y="222">j = half - i follows, and two comparisons check the cut.</text>
+</g>
+</svg>

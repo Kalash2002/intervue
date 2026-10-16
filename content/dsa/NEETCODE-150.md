@@ -30,13 +30,13 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 24 | Stack | Daily Temperatures | `daily-temperatures` | ✓ | |
 | 25 | Stack | Car Fleet | `car-fleet` | ✓ | |
 | 26 | Stack | Largest Rectangle in Histogram | `largest-rectangle-in-histogram` | ✓ | |
-| 27 | Binary search | Binary Search | `binary-search` | | |
-| 28 | Binary search | Search a 2D Matrix | `search-a-2d-matrix` | | |
-| 29 | Binary search | Koko Eating Bananas | `koko-eating-bananas` | | |
-| 30 | Binary search | Find Minimum in Rotated Sorted Array | `find-minimum-in-rotated-sorted-array` | | |
-| 31 | Binary search | Search in Rotated Sorted Array | `search-in-rotated-sorted-array` | | |
+| 27 | Binary search | Binary Search | `binary-search` | ✓ | |
+| 28 | Binary search | Search a 2D Matrix | `search-a-2d-matrix` | ✓ | |
+| 29 | Binary search | Koko Eating Bananas | `koko-eating-bananas` | ✓ | |
+| 30 | Binary search | Find Minimum in Rotated Sorted Array | `find-minimum-in-rotated-sorted-array` | ✓ | |
+| 31 | Binary search | Search in Rotated Sorted Array | `search-in-rotated-sorted-array` | ✓ | |
 | 32 | Binary search | Time Based Key-Value Store | `time-based-key-value-store` | ✓ | shift-roster-lookup |
-| 33 | Binary search | Median of Two Sorted Arrays | `median-of-two-sorted-arrays` | | |
+| 33 | Binary search | Median of Two Sorted Arrays | `median-of-two-sorted-arrays` | ✓ | |
 | 34 | Linked list | Reverse Linked List | `reverse-linked-list` | | |
 | 35 | Linked list | Merge Two Sorted Lists | `merge-two-sorted-lists` | | |
 | 36 | Linked list | Reorder List | `reorder-list` | | |

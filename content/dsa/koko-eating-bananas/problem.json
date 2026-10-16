@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "koko-eating-bananas",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Koko Eating Bananas",
+  "summary": "Find the slowest whole-number printing rate that finishes a queue of jobs, one job per hour, before a deadline.",
+  "difficulty": "Medium",
+  "techniques": ["binary-search"],
+  "tags": ["array", "binary-search-on-answer"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you find the rate in O(n log m) time, where m is the largest job?", "What if the printer could switch to another job in the same hour once one ends?", "What if there were several printers working in parallel?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Search a 2D Matrix on a 3 by 4 grid with target 31: probes at flat positions 5, 8 and 6</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="60" y="30" width="64" height="44"/><rect x="132" y="30" width="64" height="44"/><rect x="204" y="30" width="64" height="44"/><rect x="276" y="30" width="64" height="44"/>
+<rect x="60" y="82" width="64" height="44"/><rect x="132" y="82" width="64" height="44"/><rect x="276" y="82" width="64" height="44"/>
+<rect x="60" y="134" width="64" height="44"/><rect x="132" y="134" width="64" height="44"/><rect x="204" y="134" width="64" height="44"/><rect x="276" y="134" width="64" height="44"/>
+</g>
+<rect x="204" y="82" width="64" height="44" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="92" y="58">2</text><text x="164" y="58">5</text><text x="236" y="58">9</text><text x="308" y="58">14</text>
+<text x="92" y="110">20</text><text x="164" y="110">23</text><text x="236" y="110" fill="#ffffff">31</text><text x="308" y="110">38</text>
+<text x="92" y="162">44</text><text x="164" y="162">50</text><text x="236" y="162">57</text><text x="308" y="162">63</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="10" fill="#83748f" opacity="0.8">
+<text x="64" y="42">0</text><text x="136" y="42">1</text><text x="208" y="42">2</text><text x="280" y="42">3</text>
+<text x="64" y="94">4</text><text x="136" y="94">5</text><text x="208" y="94" fill="#ffffff">6</text><text x="280" y="94">7</text>
+<text x="64" y="146">8</text><text x="136" y="146">9</text><text x="208" y="146">10</text><text x="280" y="146">11</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="370" y="56">0..11: mid 5 = (1, 1)</text>
+<text x="370" y="76">  23 &lt; 31, low = 6</text>
+<text x="370" y="108">6..11: mid 8 = (2, 0)</text>
+<text x="370" y="128">  44 &gt; 31, high = 7</text>
+<text x="370" y="160">6..7: mid 6 = (1, 2)</text>
+<text x="370" y="180">  31 found</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="222">Position k is row k / 4, column k % 4: divide by the row length.</text>
+</g>
+</svg>

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Binary search for 11 in -7, -2, 3, 11, 25, 40: the range shrinks from indexes 0 to 5 to index 3</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="110" y="36" width="52" height="32"/><rect x="170" y="36" width="52" height="32"/>
+<rect x="230" y="36" width="52" height="32"/><rect x="350" y="36" width="52" height="32"/>
+<rect x="410" y="36" width="52" height="32"/>
+</g>
+<rect x="290" y="36" width="52" height="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="136" y="58">-7</text><text x="196" y="58">-2</text><text x="256" y="58">3</text>
+<text x="316" y="58" fill="#ffffff">11</text><text x="376" y="58">25</text><text x="436" y="58">40</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="136" y="86">0</text><text x="196" y="86">1</text><text x="256" y="86">2</text>
+<text x="316" y="86">3</text><text x="376" y="86">4</text><text x="436" y="86">5</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 110 104 L 462 104"/>
+<path d="M 290 130 L 462 130"/>
+<path d="M 290 156 L 342 156"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f">
+<text x="14" y="108">low 0, high 5</text>
+<text x="14" y="134">low 3, high 5</text>
+<text x="14" y="160">low 3, high 3</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="476" y="108">mid 2 is 3</text>
+<text x="476" y="134">mid 4 is 25</text>
+<text x="476" y="160">mid 3 is 11</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="200">3 is smaller, so low = 3; 25 is larger, so high = 3; 11 is found.</text>
+</g>
+</svg>

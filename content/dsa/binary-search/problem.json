@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "binary-search",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Binary Search",
+  "summary": "Find the position of a value in a strictly increasing array, or report that it is not there.",
+  "difficulty": "Easy",
+  "techniques": ["binary-search"],
+  "tags": ["array"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if values may repeat and you must return the first position of the target?", "How would you search a sorted sequence whose length you do not know in advance?", "Why is the middle computed as (low + high) >>> 1 rather than (low + high) / 2?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

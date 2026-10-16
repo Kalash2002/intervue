@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "search-a-2d-matrix",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Search a 2D Matrix",
+  "summary": "Decide whether a value occurs in a grid whose values increase when read row by row.",
+  "difficulty": "Medium",
+  "techniques": ["binary-search"],
+  "tags": ["array", "matrix"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if each row and each column is sorted, but a row may start below the end of the row above?", "How would you return the row and column of the target instead of true or false?", "What if the rows have different lengths?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
