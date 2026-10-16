@@ -137,12 +137,14 @@ function SidePanel({
         ))}
       </div>
       <div className="side-body" role="tabpanel" aria-label={tab}>
-        {tab === 'Assistant' && <AssistantPanel
-          view={view}
-          actions={actions}
-          canWrite={view.channels.includes('WRITE_CODE')}
-          onChange={onChange}
-        />}
+        {tab === 'Assistant' && (
+          <AssistantPanel
+            view={view}
+            actions={actions}
+            canWrite={view.channels.includes('WRITE_CODE')}
+            onChange={onChange}
+          />
+        )}
         {tab === 'Hints' && (
           <HintControl
             sessionId={view.id}
