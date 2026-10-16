@@ -4,13 +4,29 @@ Given a string `s`, find the longest stretch of consecutive characters in which 
 
 Implement `Streaks.longestDistinct(String s)` in `Streaks.java`. Return the length of that stretch. The string may contain any characters, including digits, symbols and letters from any script; uppercase and lowercase letters are different characters.
 
-## Examples
+## Example 1
 
-- `s = "kayakxyz"` returns `5`: the stretch `"akxyz"` has five different characters, and no longer stretch avoids a repeat.
-- `s = "mmm"` returns `1`: every stretch of two or more characters repeats `m`.
-- `s = ""` returns `0`: there are no characters at all.
+**Input:** `s = "kayakxyz"`
+**Output:** `5`
+**Explanation:** The stretch `"akxyz"` has five different characters, and no longer stretch avoids a repeat.
+
+## Example 2
+
+**Input:** `s = "mmm"`
+**Output:** `1`
+**Explanation:** Every stretch of two or more characters repeats `m`, so the best is a single character.
+
+## Example 3
+
+**Input:** `s = ""`
+**Output:** `0`
+**Explanation:** There are no characters at all.
 
 ## Constraints
 
-- 0 <= `s.length()` <= 100,000
-- Each character is any Java `char` value
+- `0 <= s.length() <= 100000`
+- Each character of `s` is any Java `char` value.
+
+## Follow-up
+
+Can you do it in O(n) time using a fixed amount of extra memory, however long `s` is?

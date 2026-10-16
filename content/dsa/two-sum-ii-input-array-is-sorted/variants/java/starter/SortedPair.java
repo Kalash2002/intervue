@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the pair of positions in a sorted array that adds up to a target. */
 public class SortedPair {
 

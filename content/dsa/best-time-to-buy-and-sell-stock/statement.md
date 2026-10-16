@@ -4,13 +4,29 @@
 
 Implement `Trader.bestProfit(int[] prices)` in `Trader.java`. Return the largest profit you can make, or `0` if no trade makes money.
 
-## Examples
+## Example 1
 
-- `prices = [9, 4, 12, 6, 15, 3]` returns `11`: buy at 4 on day 1, sell at 15 on day 4.
-- `prices = [8, 6, 5, 2]` returns `0`: the price only falls, so the best choice is not to trade.
-- `prices = [6, 5, 4, 1, 3]` returns `2`: buy at 1, sell at 3. The highest price (6) comes before the lowest, so it cannot be used.
+**Input:** `prices = [9, 4, 12, 6, 15, 3]`
+**Output:** `11`
+**Explanation:** Buy at 4 on day 1 and sell at 15 on day 4, for a profit of 11.
+
+## Example 2
+
+**Input:** `prices = [6, 5, 4, 1, 3]`
+**Output:** `2`
+**Explanation:** Buy at 1 and sell at 3. The highest price (6) comes before the lowest, so the two cannot be used together.
+
+## Example 3
+
+**Input:** `prices = [8, 6, 5, 2]`
+**Output:** `0`
+**Explanation:** The price only falls, so every trade loses money and the best choice is not to trade.
 
 ## Constraints
 
-- 0 <= `prices.length` <= 200,000
-- 0 <= `prices[i]` <= 10,000
+- `0 <= prices.length <= 200000`
+- `0 <= prices[i] <= 10000`
+
+## Follow-up
+
+Can you do it in one pass over the prices with O(1) extra memory?

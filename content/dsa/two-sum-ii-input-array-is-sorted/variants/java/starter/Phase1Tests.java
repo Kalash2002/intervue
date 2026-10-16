@@ -12,7 +12,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        expect(new int[] {2, 4, 7, 11, 15}, 18, 2, 3);
+        expect(new int[] {-4, 2, 3, 9, 12, 17}, 21, 3, 4);
     }
 
     @Test(order = 2)

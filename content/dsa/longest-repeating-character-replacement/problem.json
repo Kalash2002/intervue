@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "longest-repeating-character-replacement",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Longest Repeating Character Replacement",
   "summary": "Find the longest run of one letter you can make by changing at most k letters of a string.",
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["Why can the maximum count be left stale when the window slides, and does recomputing it each time change the answer?", "How would you also report which letter the run is made of?", "What changes if the alphabet is any Unicode character?"],
+  "followUps": ["Can you do constant work per character, without scanning the 26 letter counts each time?", "Why can the maximum count be left stale when the window slides, and does recomputing it each time change the answer?", "How would you also report which letter the run is made of?"],
   "languages": ["java"],
   "coveredBy": []
 }

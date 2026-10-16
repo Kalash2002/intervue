@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "valid-palindrome",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Valid Palindrome",
   "summary": "Say whether a sentence reads the same backwards once case and punctuation are ignored.",

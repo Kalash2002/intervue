@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "3sum",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "3Sum",
   "summary": "List every distinct group of three values in an array that add up to zero.",
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["How would you change it to find triples that add up to any given target?", "How would you solve the closest-to-target version, where no exact triple need exist?", "How would you generalise to groups of four values?"],
+  "followUps": ["Can you beat O(n³) time?", "How would you change it to find triples that add up to any given target?", "How would you generalise to groups of four values?"],
   "languages": ["java"],
   "coveredBy": []
 }

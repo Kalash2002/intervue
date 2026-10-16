@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
+<title>Trapping Rain Water on [3, 0, 2, 0, 4]: water over the dips at level 3, holding 3, 1 and 3 units</title>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5"><rect x="40" y="80" width="70" height="90"/><rect x="192" y="110" width="70" height="60"/><rect x="344" y="50" width="70" height="120"/><path d="M 28 170 L 426 170"/></g>
+<g fill="#7c3aed" fill-opacity="0.9" stroke="#7c3aed" stroke-width="1.5"><rect x="116" y="80" width="70" height="90"/><rect x="192" y="80" width="70" height="30"/><rect x="268" y="80" width="70" height="90"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle"><text x="75.0" y="190">0</text><text x="75.0" y="100">3</text><text x="151.0" y="130.0" fill="#ffffff">3</text><text x="151.0" y="190">1</text><text x="227.0" y="100.0" fill="#ffffff">1</text><text x="227.0" y="190">2</text><text x="227.0" y="130">2</text><text x="303.0" y="130.0" fill="#ffffff">3</text><text x="303.0" y="190">3</text><text x="379.0" y="190">4</text><text x="379.0" y="70">4</text></g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f"><text x="20" y="226">Level 3 over positions 1, 2 and 3: 3 + 1 + 3 = 7 units of water.</text><text x="20" y="248">Bar heights are inside the bars; positions are underneath.</text></g>
+</svg>

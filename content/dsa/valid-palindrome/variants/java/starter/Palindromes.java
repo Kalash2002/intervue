@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Decides whether a phrase is a palindrome when case and punctuation are ignored. */
 public class Palindromes {
 

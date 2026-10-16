@@ -7,7 +7,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(true, Palindromes.isPalindrome("Never odd, or even!"));
+        assertEquals(true, Palindromes.isPalindrome("Mo, 12 a 21 oM!"));
     }
 
     @Test(order = 2)
@@ -37,6 +37,7 @@ public class Phase1Tests {
     @Test(order = 6)
     void digitsAreCompared() {
         assertEquals(false, Palindromes.isPalindrome("a7"));
+        assertEquals(false, Palindromes.isPalindrome("Kayak, 7!"));
         assertEquals(false, Palindromes.isPalindrome("1b2"));
         assertEquals(true, Palindromes.isPalindrome("12 b 21"));
         assertEquals(true, Palindromes.isPalindrome("7b7"));

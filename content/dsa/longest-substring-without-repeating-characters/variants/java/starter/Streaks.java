@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Measures stretches of a string with no repeated character. */
 public class Streaks {
 

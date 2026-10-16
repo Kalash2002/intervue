@@ -5,4 +5,4 @@ Checking every group of three is slow. If you fix one value, what is left to fin
 Sorting first helps twice: it makes a pair search possible with two moving positions, and it puts equal values next to each other. Where do duplicates cause repeated triples, and how could you skip them?
 
 ## Level 3
-Sort, then for each first value look for a pair that sums to its negative, using two positions on the rest of the array. Think about exactly where equal values would make the same triple appear twice.
+Sort, and turn the question into a pair search: fix one value and look for two others that cancel it. Then ask where equal values would produce the same triple twice.

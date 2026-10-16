@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the best profit from one buy and one later sell. */
 public class Trader {
 

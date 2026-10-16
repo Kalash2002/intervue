@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Finds the longest run of one letter reachable with a limited number of changes. */
 public class Relabel {
 

@@ -5,4 +5,4 @@ Doing it by hand, where would you look first to find a mismatch? Compare it with
 You only ever need to compare the outermost pair of characters that still count, then move inwards. How do you deal with a character at either end that you are supposed to ignore?
 
 ## Level 3
-Keep one position at each end and move them towards each other. Skip a position whenever its character is not a letter or a digit, and compare the two that remain without regard to case. Decide what the loop condition must be so the middle is handled correctly.
+Two positions, one at each end, moving towards each other. Think about what each one should do when it points at a character that does not count.

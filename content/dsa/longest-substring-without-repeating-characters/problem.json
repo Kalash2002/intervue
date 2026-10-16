@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "id": "longest-substring-without-repeating-characters",
-  "version": 1,
+  "version": 2,
   "section": "dsa-quick",
   "title": "Longest Substring Without Repeating Characters",
   "summary": "Find the length of the longest stretch of a string in which no character appears twice.",
@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["How would you return the stretch itself, not only its length?", "What changes if up to two repeats of a character are allowed in the stretch?", "How would you handle a stream of characters that never ends?"],
+  "followUps": ["Can you do it in O(n) time using a fixed amount of extra memory, however long the string is?", "How would you return the stretch itself, not only its length?", "What changes if up to two repeats of a character are allowed in the stretch?"],
   "languages": ["java"],
   "coveredBy": []
 }

@@ -1,3 +1,5 @@
+import java.util.*;
+
 /** Measures the rain water a row of bars can hold. */
 public class Basin {
 
