@@ -111,7 +111,7 @@ static int minutesUntilSpoiled(int[][] grid) {
 
 **Complexity:** time O(k × R × C) for k mouldy oranges at the start, since each source can improve most of the crate; extra space O(R × C).
 
-**Prefer it when:** there is exactly one mouldy orange at the start, where it is the same search as the optimal one. With many sources it repeats the crate once per source, and a quarter of a million sources is far too slow.
+**Prefer it when:** mouldy oranges are added one at a time and the earliest times must stay current after each addition. The body of the loop is exactly that update: a search from the new source that touches only the oranges it reaches sooner, without redoing the earlier sources. For a fixed crate with many sources it repeats the crate once per source, and a quarter of a million sources is far too slow.
 
 ## Optimal: breadth-first search from all sources at once
 

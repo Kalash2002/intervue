@@ -6,9 +6,9 @@ Implement `Curriculum.canFinish(int numCourses, int[][] prerequisites)` in `Curr
 
 ## Example 1
 
-**Input:** `numCourses = 4`, `prerequisites = [[1,0],[2,1],[3,1],[3,2]]`
+**Input:** `numCourses = 5`, `prerequisites = [[3,4],[0,4],[1,3],[1,0],[2,1]]`
 **Output:** `true`
-**Explanation:** Take course 0, then 1, then 2, and finally 3, which needs both 1 and 2.
+**Explanation:** Course 4 needs nothing, courses 0 and 3 need only 4, course 1 needs both 0 and 3, and course 2 needs 1, so the order 4, 0, 3, 1, 2 works.
 
 ## Example 2
 

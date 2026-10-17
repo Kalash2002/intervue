@@ -7,7 +7,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        assertEquals(true, Curriculum.canFinish(4, new int[][] {{1, 0}, {2, 1}, {3, 1}, {3, 2}}));
+        assertEquals(true, Curriculum.canFinish(5, new int[][] {{3, 4}, {0, 4}, {1, 3}, {1, 0}, {2, 1}}));
         assertEquals(false, Curriculum.canFinish(3, new int[][] {{0, 2}, {1, 0}, {2, 1}}));
     }
 
@@ -30,8 +30,8 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void twoRoutesToTheSameCourseAreNotALoop() {
-        // course 3 is reached through 1 and through 2; a search that treats "seen before" as a loop fails here
-        assertEquals(true, Curriculum.canFinish(4, new int[][] {{1, 0}, {2, 0}, {3, 1}, {3, 2}}));
+        // course 4 is reached through 2 and through 3; a search that treats "seen before" as a loop fails here
+        assertEquals(true, Curriculum.canFinish(5, new int[][] {{2, 0}, {3, 0}, {4, 2}, {4, 3}, {1, 4}}));
         assertEquals(true, Curriculum.canFinish(5, new int[][] {{4, 0}, {4, 1}, {4, 2}, {4, 3}, {1, 0}, {2, 1}}));
     }
 
@@ -82,23 +82,34 @@ public class Phase1Tests {
     }
 
     @Test(order = 9, timeoutMs = 1000)
-    void aChainOfAHundredThousandCourses() {
+    void aChainNumberedUpwards() {
         int n = 100_000;
         int[][] pairs = new int[n - 1][];
         for (int i = 0; i < n - 1; i++) {
-            pairs[i] = new int[] {i + 1, i}; // each course needs the one before it
+            pairs[i] = new int[] {i + 1, i}; // each course needs the one numbered below it
         }
         assertEquals(true, Curriculum.canFinish(n, pairs));
     }
 
     @Test(order = 10, timeoutMs = 1000)
-    void aChainThatEndsInALoop() {
+    void aChainNumberedDownwards() {
+        // course n - 1 comes first; a sweep over courses from 0 upwards can free only one course per sweep
+        int n = 100_000;
+        int[][] pairs = new int[n - 1][];
+        for (int i = 0; i < n - 1; i++) {
+            pairs[i] = new int[] {i, i + 1}; // each course needs the one numbered above it
+        }
+        assertEquals(true, Curriculum.canFinish(n, pairs));
+    }
+
+    @Test(order = 11, timeoutMs = 1000)
+    void aDownwardChainThatEndsInALoop() {
         int n = 100_000;
         int[][] pairs = new int[n][];
         for (int i = 0; i < n - 1; i++) {
-            pairs[i] = new int[] {i + 1, i};
+            pairs[i] = new int[] {i, i + 1};
         }
-        pairs[n - 1] = new int[] {n - 2, n - 1}; // the last two courses each need the other
+        pairs[n - 1] = new int[] {1, 0}; // courses 0 and 1, the last on the chain, each need the other
         assertEquals(false, Curriculum.canFinish(n, pairs));
     }
 }

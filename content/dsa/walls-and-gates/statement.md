@@ -8,7 +8,7 @@ Implement `FloorPlan.fillDistances(int[][] rooms)` in `FloorPlan.java`. Change t
 
 **Input:** `rooms = [[0,INF,INF,-1],[-1,-1,INF,INF],[INF,INF,INF,0]]`
 **Output:** `[[0,1,2,-1],[-1,-1,2,1],[3,2,1,0]]`
-**Explanation:** The top row is closest to the exit in the top left corner, and everything else is closest to the exit in the bottom right corner. The room in the bottom left corner is walled off from the top exit and is three steps from the other.
+**Explanation:** The top row is closest to the exit in the top left corner, and everything else is closest to the exit in the bottom right corner. The room in the bottom left corner is six steps from the top exit, around the walls, but only three from the exit in the bottom right.
 
 ## Example 2
 

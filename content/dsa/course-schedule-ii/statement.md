@@ -18,9 +18,9 @@ Implement `StudyPlan.findOrder(int numCourses, int[][] prerequisites)` in `Study
 
 ## Example 3
 
-**Input:** `numCourses = 1`, `prerequisites = []`
-**Output:** `[0]`
-**Explanation:** The only course has no prerequisites.
+**Input:** `numCourses = 3`, `prerequisites = []`
+**Output:** `[0,1,2]`
+**Explanation:** With no pairs at all, every course still has to be listed, and any of the six orders of the three courses is accepted.
 
 ## Constraints
 

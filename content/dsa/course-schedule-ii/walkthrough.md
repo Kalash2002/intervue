@@ -86,7 +86,7 @@ private static boolean place(List<List<Integer>> unlocks, int[] state, ArrayDequ
 }
 ```
 
-**Complexity:** time O(V + E); extra space O(V + E) for the lists, plus a recursion as deep as the longest chain, up to V = 100,000 calls, which overflows the call stack on the chain tests.
+**Complexity:** time O(V + E); extra space O(V + E) for the lists, plus a recursion as deep as the longest chain, up to V = 100,000 calls, which overflows the call stack on the chain numbered upwards, where the search from course 0 follows all 100,000 courses.
 
 **Prefer it when:** the chains are known to be short and you are already running a depth-first search over the same plan, for example to report a loop, since the same pass produces the order.
 

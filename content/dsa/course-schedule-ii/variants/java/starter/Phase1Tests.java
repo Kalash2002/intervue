@@ -43,7 +43,7 @@ public class Phase1Tests {
     void sample() {
         expectValidOrder(5, new int[][] {{2, 0}, {2, 1}, {4, 2}, {3, 1}});
         expectNoOrder(3, new int[][] {{1, 2}, {2, 1}});
-        expectValidOrder(1, new int[][] {});
+        expectValidOrder(3, new int[][] {});
     }
 
     @Test(order = 2)
@@ -54,6 +54,7 @@ public class Phase1Tests {
 
     @Test(order = 3)
     void coursesWithoutPairsStillAppear() {
+        expectValidOrder(1, new int[][] {});
         expectValidOrder(4, new int[][] {});
         expectValidOrder(6, new int[][] {{1, 0}, {3, 1}});
     }
@@ -67,7 +68,7 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void twoRoutesToTheSameCourse() {
-        expectValidOrder(4, new int[][] {{1, 0}, {2, 0}, {3, 1}, {3, 2}});
+        expectValidOrder(5, new int[][] {{2, 0}, {3, 0}, {4, 2}, {4, 3}, {1, 4}});
         expectValidOrder(5, new int[][] {{4, 0}, {4, 1}, {4, 2}, {4, 3}, {1, 0}, {2, 1}});
     }
 
@@ -119,23 +120,34 @@ public class Phase1Tests {
     }
 
     @Test(order = 9, timeoutMs = 1000)
-    void aChainOfAHundredThousandCourses() {
+    void aChainNumberedUpwards() {
         int n = 100_000;
         int[][] pairs = new int[n - 1][];
         for (int i = 0; i < n - 1; i++) {
-            pairs[i] = new int[] {i + 1, i}; // each course needs the one before it
+            pairs[i] = new int[] {i + 1, i}; // each course needs the one numbered below it
         }
         expectValidOrder(n, pairs);
     }
 
     @Test(order = 10, timeoutMs = 1000)
-    void aChainThatEndsInALoop() {
+    void aChainNumberedDownwards() {
+        // course n - 1 comes first; a sweep over courses from 0 upwards can add only one course per sweep
+        int n = 100_000;
+        int[][] pairs = new int[n - 1][];
+        for (int i = 0; i < n - 1; i++) {
+            pairs[i] = new int[] {i, i + 1}; // each course needs the one numbered above it
+        }
+        expectValidOrder(n, pairs);
+    }
+
+    @Test(order = 11, timeoutMs = 1000)
+    void aDownwardChainThatEndsInALoop() {
         int n = 100_000;
         int[][] pairs = new int[n][];
         for (int i = 0; i < n - 1; i++) {
-            pairs[i] = new int[] {i + 1, i};
+            pairs[i] = new int[] {i, i + 1};
         }
-        pairs[n - 1] = new int[] {n - 2, n - 1}; // the last two courses each need the other
+        pairs[n - 1] = new int[] {1, 0}; // courses 0 and 1, the last on the chain, each need the other
         expectNoOrder(n, pairs);
     }
 }

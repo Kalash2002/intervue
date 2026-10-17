@@ -10,9 +10,9 @@ The first idea is to act it out: find every course whose prerequisites are all t
 
 What a pass recomputes is how many unfinished prerequisites each course has, and that number changes only when one of its prerequisites is taken. So count them once, and when a course is taken, lower the count of each course that needs it; a course whose count reaches zero goes into a queue of courses ready to take. That is Kahn's algorithm. A course on a loop never reaches zero, so the answer is true exactly when every course passes through the queue. A depth-first search that marks the courses on its current path finds loops in the same time, but it recurses once per course on a chain.
 
-Walk Example 1, `numCourses = 4`, `[[1,0],[2,1],[3,1],[3,2]]`. Course 0 waits for nothing, 1 and 2 wait for one course each and 3 waits for two. The queue starts with 0. Taking 0 drops 1 to zero. Taking 1 drops 2 to zero and 3 to one. Taking 2 drops 3 to zero. Taking 3 frees nothing. Four courses passed through the queue, so the answer is true.
+Walk Example 1, `numCourses = 5`, `[[3,4],[0,4],[1,3],[1,0],[2,1]]`. Course 4 waits for nothing, courses 0, 3 and 2 wait for one course each and course 1 waits for two. The queue starts with 4. Taking 4 drops 0 and 3 to zero. Taking 0 drops 1 to one. Taking 3 drops 1 to zero. Taking 1 drops 2 to zero. Taking 2 frees nothing. Five courses passed through the queue, so the answer is true.
 
-![The four courses of Example 1 as circles with arrows from each prerequisite, each labelled with how many prerequisites it waits for, course 0 in purple as the first one ready](figures/take-what-is-ready.svg)
+![The five courses of Example 1 as circles with arrows from each prerequisite, each labelled with how many prerequisites it waits for, course 4 in purple as the first one ready](figures/take-what-is-ready.svg)
 
 ## Brute force
 
@@ -82,9 +82,9 @@ private static boolean hasLoop(List<List<Integer>> unlocks, int[] state, int cou
 }
 ```
 
-**Complexity:** time O(V + E); extra space O(V + E) for the lists, plus a recursion as deep as the longest chain, up to V = 100,000 calls, which overflows the call stack on the chain tests.
+**Complexity:** time O(V + E); extra space O(V + E) for the lists, plus a recursion as deep as the longest chain, up to V = 100,000 calls, which overflows the call stack on the chain numbered upwards, where the search from course 0 follows all 100,000 courses.
 
-**Prefer it when:** the chains of prerequisites are known to be short, and you want to go on to report a loop, since the courses in state 1 are exactly the current path and a loop is the part of it from the repeated course on.
+**Prefer it when:** the chains of prerequisites are known to be short, and you want to go on to report a loop. The recursion stack holds the current path, so with a path list added alongside it, the loop is the part of that list from the repeated course on.
 
 ## Optimal: Kahn's algorithm
 

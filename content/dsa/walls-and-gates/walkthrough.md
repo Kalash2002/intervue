@@ -102,7 +102,7 @@ static void fillDistances(int[][] rooms) {
 
 **Complexity:** time O(G × R × C) for G exits, since each exit can improve most of the plan; extra space O(R × C) for the queue.
 
-**Prefer it when:** there is a single exit, where it is the same search as the optimal one. With many exits it walks the plan once per exit, and a plan with a quarter of a million exits is far too slow.
+**Prefer it when:** exits are added one at a time and the distances must stay current after each addition. The body of the loop is exactly that update: a search from the new exit that touches only the rooms it brings closer, without redoing the earlier exits. For a fixed plan with many exits it walks the plan once per exit, and a plan with a quarter of a million exits is far too slow.
 
 ## Optimal: breadth-first search from all exits at once
 
