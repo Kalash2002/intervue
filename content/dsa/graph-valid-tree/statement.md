@@ -12,9 +12,9 @@ Implement `Pipes.isTree(int n, int[][] links)` in `Pipes.java`. Return `true` if
 
 ## Example 2
 
-**Input:** `n = 5`, `links = [[0, 1], [1, 2], [2, 0], [3, 4]]`
+**Input:** `n = 5`, `links = [[4, 2], [2, 3], [3, 4], [0, 1]]`
 **Output:** `false`
-**Explanation:** There are four pipes for five valves, the number a tree needs, but 0, 1 and 2 form a loop and valves 3 and 4 are cut off from the rest.
+**Explanation:** There are four pipes for five valves, the number a tree needs, but 2, 3 and 4 form a loop and valves 0 and 1 are cut off from the rest.
 
 ## Example 3
 

@@ -15,9 +15,13 @@
 <circle cx="295" cy="180" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
 <text x="295" y="185" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">MAD</text>
 <text x="125" y="125" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">no ticket out</text>
-<text x="20" y="236" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS FAO          FAO stuck: write FAO</text>
-<text x="20" y="260" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS OPO MAD LIS  LIS stuck: write LIS, MAD, OPO, LIS</text>
-<text x="20" y="284" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">written   FAO LIS MAD OPO LIS</text>
+<text x="20" y="236" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS FAO</text>
+<text x="230" y="236" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">FAO stuck: write FAO</text>
+<text x="20" y="260" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS OPO MAD LIS</text>
+<text x="230" y="260" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">LIS stuck: write LIS, MAD, OPO, LIS</text>
+<text x="20" y="284" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">written</text>
+<text x="110" y="284" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">FAO LIS MAD OPO LIS</text>
 <rect x="12" y="296" width="290" height="26" rx="4" fill="#7c3aed"/>
-<text x="20" y="313" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="start">reversed  LIS OPO MAD LIS FAO</text>
+<text x="20" y="313" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="start">reversed</text>
+<text x="110" y="313" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="start">LIS OPO MAD LIS FAO</text>
 </svg>

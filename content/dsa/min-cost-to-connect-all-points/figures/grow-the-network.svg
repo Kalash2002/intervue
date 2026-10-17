@@ -16,7 +16,7 @@
 <text x="96" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="end">5</text>
 <text x="260" y="58" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#7c3aed" text-anchor="middle">5</text>
 <text x="404" y="88" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">best cable into the network:</text>
-<text x="404" y="110"font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">[3,1] 4, [1,4] 5, [5,5] 10</text>
+<text x="404" y="110" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">[3,1] 4, [1,4] 5, [5,5] 10</text>
 <text x="404" y="134" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">take [3,1]; [5,5] drops to 6</text>
 <text x="404" y="158" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">take [1,4]; [5,5] drops to 5</text>
 <text x="404" y="182" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">take [5,5] for 5</text>

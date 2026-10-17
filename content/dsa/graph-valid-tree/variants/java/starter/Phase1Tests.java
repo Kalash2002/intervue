@@ -13,7 +13,7 @@ public class Phase1Tests {
     @Test(order = 1)
     void sample() {
         assertEquals(true, Pipes.isTree(5, new int[][] {{3, 0}, {0, 2}, {2, 4}, {0, 1}}));
-        assertEquals(false, Pipes.isTree(5, new int[][] {{0, 1}, {1, 2}, {2, 0}, {3, 4}}));
+        assertEquals(false, Pipes.isTree(5, new int[][] {{4, 2}, {2, 3}, {3, 4}, {0, 1}}));
     }
 
     @Test(order = 2)
@@ -98,6 +98,17 @@ public class Phase1Tests {
         int[][] links = new int[n - 1][];
         for (int i = 0; i < n - 1; i++) {
             links[i] = new int[] {i, i + 1};
+        }
+        assertEquals(true, Pipes.isTree(n, links));
+    }
+
+    @Test(order = 9, timeoutMs = 1000)
+    void aHundredThousandValvesListedFromTheFarEndInMixedDirections() {
+        int n = 100_000;
+        int[][] links = new int[n - 1][];
+        for (int i = 0; i < n - 1; i++) {
+            int k = n - 2 - i; // listed from the far end
+            links[i] = k % 2 == 0 ? new int[] {k + 1, k} : new int[] {k, k + 1}; // neither end is always the new one
         }
         assertEquals(true, Pipes.isTree(n, links));
     }

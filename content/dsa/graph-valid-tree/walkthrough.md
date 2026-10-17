@@ -10,7 +10,7 @@ The first idea checks both conditions head on. Lay the pipes one at a time; befo
 
 Two facts make it cheaper. First, a tree over `n` valves always has exactly `n - 1` pipes, so any other count is an immediate no. Second, with the count right, the two conditions become one: `n - 1` pipes with no loop must connect everything, and `n - 1` pipes that connect everything cannot have a loop. So after the count check, one search from valve 0 that reaches every valve settles it. Or, without neighbour lists, read the pipes in order and keep groups of connected valves with union-find: the plan fails the moment a pipe joins two valves of the same group.
 
-Walk Example 2: `n = 5` and four pipes, so the count passes. Union-find merges 0 and 1, then 2 joins them; then pipe `[2, 0]` finds 2 and 0 already in one group, so it closes a loop and the answer is `false`. Valves 3 and 4 never needed checking. In Example 1 the four pipes merge five single valves into one group without a repeat, so the answer is `true`.
+Walk Example 2: `n = 5` and four pipes, so the count passes. Union-find merges 4 and 2, then 3 joins them; then pipe `[3, 4]` finds 3 and 4 already in one group, so it closes a loop and the answer is `false`. The pipe `[0, 1]` is never read. In Example 1 the four pipes merge five single valves into one group without a repeat, so the answer is `true`.
 
 ![Union-find on Example 1: pipes 3-0, 0-2, 2-4 and 0-1 each join two different groups, so after the count check passes, five valves end as one group and the plan is a tree](figures/one-group.svg)
 
@@ -95,7 +95,7 @@ static boolean isTree(int n, int[][] links) {
 
 **Complexity:** time O(n + m), extra space O(n + m) for the neighbour lists and the queue. The queue is explicit; a recursive search would be as deep as the longest chain and overflows on a line of 100,000 valves.
 
-**Prefer it when:** you also want to report which valves are cut off: they are the ones the search never marked.
+**Prefer it when:** you already have the plan as neighbour lists, for example because other code walks it, so the only extra work is one search.
 
 ## Optimal: count the pipes, then union-find
 

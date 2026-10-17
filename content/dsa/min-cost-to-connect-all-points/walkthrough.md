@@ -92,7 +92,7 @@ private static int find(int[] parent, int x) {
 
 **Complexity:** time O(n² log n) for the sort, extra space O(n²) for the list of cables, about 16 MB at 2,000 sensors.
 
-**Prefer it when:** the graph is sparse, such as when only nearby sensors may be joined and the cable list is short; then sorting the cables is cheaper than Prim's O(n²) scans.
+**Prefer it when:** the cables come as a given list rather than every pair (see the first follow-up): then the sort and union-find part of this code applies unchanged to that list. As written here, listing every pair costs O(n²) memory just to sort it.
 
 ## Optimal: Prim on the complete graph, no edge list
 
