@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" width="640" height="340" role="img">
+<title>Reconstruct Itinerary, Example 2: FAO is written first, then the loop through OPO and MAD, and the list is reversed</title>
+<defs><marker id="arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 8 4 L 0 8 z" fill="#83748f"/></marker></defs>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">tickets LIS-FAO, LIS-OPO, OPO-MAD, MAD-LIS; start at LIS</text>
+<path d="M 214 80 L 146 80" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 256 80 L 328 80" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 340 97 L 306 160" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 285 162 L 251 99" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<circle cx="235" cy="80" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="235" y="85" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">LIS</text>
+<circle cx="125" cy="80" r="20" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="125" y="85" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#ffffff" text-anchor="middle">FAO</text>
+<circle cx="350" cy="80" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="350" y="85" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">OPO</text>
+<circle cx="295" cy="180" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="295" y="185" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">MAD</text>
+<text x="125" y="125" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">no ticket out</text>
+<text x="20" y="236" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS FAO          FAO stuck: write FAO</text>
+<text x="20" y="260" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">stack LIS OPO MAD LIS  LIS stuck: write LIS, MAD, OPO, LIS</text>
+<text x="20" y="284" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">written   FAO LIS MAD OPO LIS</text>
+<rect x="12" y="296" width="290" height="26" rx="4" fill="#7c3aed"/>
+<text x="20" y="313" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="start">reversed  LIS OPO MAD LIS FAO</text>
+</svg>

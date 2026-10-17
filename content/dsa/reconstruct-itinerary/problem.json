@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reconstruct-itinerary",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reconstruct Itinerary",
+  "summary": "Chain a stack of one-way tickets into the alphabetically smallest trip that uses every ticket once.",
+  "difficulty": "Hard",
+  "techniques": ["advanced-graphs"],
+  "tags": ["graph", "euler-path", "hierholzer", "heap"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you know whether any valid trip exists at all?", "What if the trip had to end back at the starting airport?", "What if you could choose the starting airport?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

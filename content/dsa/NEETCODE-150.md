@@ -92,12 +92,12 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 86 | Graphs | Walls and Gates | `walls-and-gates` | ✓ | |
 | 87 | Graphs | Course Schedule | `course-schedule` | ✓ | |
 | 88 | Graphs | Course Schedule II | `course-schedule-ii` | ✓ | |
-| 89 | Graphs | Redundant Connection | `redundant-connection` | | |
-| 90 | Graphs | Number of Connected Components in an Undirected Graph | `number-of-connected-components-in-an-undirected-graph` | | |
-| 91 | Graphs | Graph Valid Tree | `graph-valid-tree` | | |
+| 89 | Graphs | Redundant Connection | `redundant-connection` | ✓ | |
+| 90 | Graphs | Number of Connected Components in an Undirected Graph | `number-of-connected-components-in-an-undirected-graph` | ✓ | |
+| 91 | Graphs | Graph Valid Tree | `graph-valid-tree` | ✓ | |
 | 92 | Graphs | Word Ladder | `word-ladder` | ✓ | friend-suggestion |
-| 93 | Advanced graphs | Reconstruct Itinerary | `reconstruct-itinerary` | | |
-| 94 | Advanced graphs | Min Cost to Connect All Points | `min-cost-to-connect-all-points` | | |
+| 93 | Advanced graphs | Reconstruct Itinerary | `reconstruct-itinerary` | ✓ | |
+| 94 | Advanced graphs | Min Cost to Connect All Points | `min-cost-to-connect-all-points` | ✓ | |
 | 95 | Advanced graphs | Network Delay Time | `network-delay-time` | ✓ | corridor-router |
 | 96 | Advanced graphs | Swim in Rising Water | `swim-in-rising-water` | | |
 | 97 | Advanced graphs | Alien Dictionary | `alien-dictionary` | | |

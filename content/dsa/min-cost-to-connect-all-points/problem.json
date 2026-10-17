@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "min-cost-to-connect-all-points",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Min Cost to Connect All Points",
+  "summary": "Find the least total grid-distance cable that joins a set of points into one network.",
+  "difficulty": "Medium",
+  "techniques": ["advanced-graphs"],
+  "tags": ["minimum-spanning-tree", "prim", "kruskal", "union-find"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if some pairs could not be joined at all, so only a list of allowed cables is given?", "How would you return the cables themselves, not just the total?", "Can you beat O(n²) for points on a plane with grid distance?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,5 @@
+# Grader notes: Graph Valid Tree
+
+Tests cover: the sample (a tree, and a plan with the right number of pipes but a loop and two cut-off valves); one valve, two valves with no pipe and two valves with one pipe; five pipes for six valves with a loop and a cut-off pair (a solution that checks only the count `n - 1` accepts it and fails); plans with no loop but cut-off valves (a solution that checks only for loops accepts them and fails); a connected plan with one extra pipe; a star and a zigzag line; forty seeded random trees with shuffled labels, pipe order and direction, each checked as is (true), with one extra pipe between two valves not yet joined (false) and with one pipe removed (false); and a line of 100,000 valves listed in order (a recursive search overflows the stack here).
+
+The large test has a limit of 1,000 ms (3x is 3,000 ms). The naive solution searches the network built so far before laying each pipe; on the line each search walks every valve laid so far, about 5 times 10^9 steps in all. Measured on a cold JVM: reference 12 ms, naive still running at 20 s, when the run was stopped at a limit raised to 20,000 ms.
