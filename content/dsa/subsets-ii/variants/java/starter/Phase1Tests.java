@@ -86,8 +86,8 @@ public class Phase1Tests {
     }
 
     @Test(order = 3)
-    void singleValue() {
-        expect(new int[] {0}, new int[][] {{}, {0}});
+    void onlyOneValueRepeated() {
+        expect(new int[] {-8, -8}, new int[][] {{}, {-8}, {-8, -8}});
     }
 
     @Test(order = 4)

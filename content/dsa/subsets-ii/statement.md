@@ -18,9 +18,9 @@ Implement `SubsetsWithRepeats.all(int[] nums)` in `SubsetsWithRepeats.java`. Ret
 
 ## Example 3
 
-**Input:** `nums = [0]`
-**Output:** `[[], [0]]`
-**Explanation:** One value gives the empty subset and the subset holding it.
+**Input:** `nums = [-8, -8]`
+**Output:** `[[], [-8], [-8, -8]]`
+**Explanation:** There are four choices of positions, but either -8 alone is the same subset, so only three are distinct.
 
 ## Constraints
 

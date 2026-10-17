@@ -1,6 +1,6 @@
 ## The question
 
-Given positive values that may repeat and a target, list every distinct combination of positions, each used at most once, whose values add up to the target. Two combinations are the same when they hold the same values the same number of times.
+Given positive values that may repeat and a target, list every distinct combination of values, each position used at most once, whose values add up to the target. Two combinations are the same when they hold the same values the same number of times.
 
 What makes it harder than it looks is the repeats in the input. Take-or-leave over positions treats each copy as different, so the same combination comes out once per way of picking its copies, and a set to clean up afterwards does not save the work: 80 copies of 1 with target 32 have one answer but an astronomical number of position choices under the target. Skipping a value equal to the one before it fixes this, but only after sorting, and only at the same step of the search; skipping it at every depth loses combinations like `[5, 5]`.
 
@@ -141,6 +141,6 @@ No coding-round problem is linked to this question. Picking items from a stock w
 
 **Can the work depend on the number of distinct combinations rather than on every choice of positions?** Yes: the Better and Optimal versions only build distinct partial combinations, because a repeated copy is never tried in the same slot as its twin. The brute force cannot, since it decides each position separately and only finds out at the end that two choices were the same.
 
-**How would you only count the distinct combinations?** Use a table `ways[s]` over amounts up to the target and process each distinct value with its c copies, adding `ways[s - k * value]` for k from 1 to c into `ways[s]`, going through s from high to low so each value is counted from the previous row. That is O(d · t · c) time and O(t) space, with no search.
+**How would you only count the distinct combinations?** Use a table `ways[s]` over amounts up to the target and process each distinct value with its c copies, adding `ways[s - k * value]` for k from 1 to c into `ways[s]`, going through s from high to low so each value is counted from the previous row. Summed over the values the copies add up to n, so that is O(t · (d + n)) = O(t · n) time and O(t) space, with no search.
 
 **What changes if values may be negative?** The early stop breaks: a value larger than what is missing may still be part of an answer, because a later negative value can bring the sum back down, and reaching the target no longer ends a branch, since a later positive and negative pair can return to it. The search then has to run to the end of the array on every branch, saving each time the sum equals the target, so its cost goes back towards 2^n.

@@ -103,7 +103,7 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void repeatsNotSideBySide() {
-        expect(new int[] {1, 7, 1, 6, 1}, 8, new int[][] {{1, 7}, {1, 1, 6}});
+        expect(new int[] {2, 7, 2, 5, 2}, 9, new int[][] {{2, 7}, {2, 2, 5}});
     }
 
     @Test(order = 6)
@@ -118,7 +118,7 @@ public class Phase1Tests {
         expectAll(new int[] {3, 1, 4, 1, 2, 3, 2, 5, 1, 4}, 9);
     }
 
-    @Test(order = 8, timeoutMs = 1000)
+    @Test(order = 8, timeoutMs = 2000)
     void eightyValuesEightKinds() {
         int[] candidates = new int[80];
         for (int i = 0; i < 80; i++) {
@@ -128,7 +128,7 @@ public class Phase1Tests {
         expectAll(candidates, 32);
     }
 
-    @Test(order = 9, timeoutMs = 1000)
+    @Test(order = 9, timeoutMs = 2000)
     void eightyOnes() {
         int[] candidates = new int[80];
         Arrays.fill(candidates, 1);

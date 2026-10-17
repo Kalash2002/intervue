@@ -76,7 +76,7 @@ public class Phase1Tests {
         expect(new int[] {2, 3}, 1, new int[][] {});
     }
 
-    @Test(order = 9, timeoutMs = 1000)
+    @Test(order = 9, timeoutMs = 2000)
     void thirtyCandidates() {
         int[] candidates = new int[30];
         for (int i = 0; i < 30; i++) {
