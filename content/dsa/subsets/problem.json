@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "subsets",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Subsets",
+  "summary": "List every subset of an array of distinct numbers, the empty one included.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["array", "recursion", "bit-manipulation", "power-set"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you produce the subsets one at a time, without holding them all in memory?", "How would you list only the subsets of exactly k values?", "What changes if the array may hold repeated values?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

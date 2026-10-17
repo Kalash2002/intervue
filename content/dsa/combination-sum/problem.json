@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "combination-sum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Combination Sum",
+  "summary": "List every distinct way to reach a target sum from a set of values, each usable any number of times.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["array", "recursion", "pruning", "sorting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you only needed the number of combinations, not the combinations themselves?", "How would you return only the combinations that use the fewest values?", "What changes if each value may be used at most once?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

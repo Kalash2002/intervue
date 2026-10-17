@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
+<title>Permutations, Example 1: each level fills one position with a value not used yet, giving six orderings of 5, 0 and 2</title>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 110 79"/><path d="M 320 46 L 320 79"/><path d="M 320 46 L 530 79"/>
+<path d="M 110 101 L 60 134"/><path d="M 110 101 L 160 134"/>
+<path d="M 320 101 L 270 134"/><path d="M 320 101 L 370 134"/>
+<path d="M 530 101 L 480 134"/><path d="M 530 101 L 580 134"/>
+<path d="M 60 156 L 60 189"/><path d="M 160 156 L 160 189"/><path d="M 270 156 L 270 189"/>
+<path d="M 370 156 L 370 189"/><path d="M 480 156 L 480 189"/><path d="M 580 156 L 580 189"/>
+</g>
+<rect x="338" y="191" width="64" height="22" rx="4" fill="#7c3aed"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">[]</text>
+<text x="110" y="95">[5]</text><text x="320" y="95">[0]</text><text x="530" y="95">[2]</text>
+<text x="60" y="150">[5,0]</text><text x="160" y="150">[5,2]</text><text x="270" y="150">[0,5]</text>
+<text x="370" y="150">[0,2]</text><text x="480" y="150">[2,5]</text><text x="580" y="150">[2,0]</text>
+<text x="60" y="207">[5,0,2]</text><text x="160" y="207">[5,2,0]</text><text x="270" y="207">[0,5,2]</text>
+<text x="370" y="207" fill="#ffffff">[0,2,5]</text><text x="480" y="207">[2,5,0]</text><text x="580" y="207">[2,0,5]</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="242">Each level fills the next position with a value not used yet.</text>
+<text x="20" y="264">Purple: 0, then 2, then 5. Three, two, one choices: six leaves.</text>
+</g>
+</svg>

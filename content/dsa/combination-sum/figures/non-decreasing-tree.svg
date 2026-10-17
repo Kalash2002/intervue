@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Combination Sum, Example 1: the search tree over the sorted values 3, 4 and 5 with target 11, finding 3 3 5 and 3 4 4</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 150 79"/>
+<path d="M 320 46 L 450 79"/>
+<path d="M 320 46 L 590 79"/>
+<path d="M 150 101 L 70 134"/>
+<path d="M 150 101 L 230 134"/>
+<path d="M 150 101 L 310 134"/>
+<path d="M 450 101 L 410 134"/>
+<path d="M 450 101 L 490 134"/>
+<path d="M 590 101 L 590 134"/>
+<path d="M 70 156 L 30 189"/>
+<path d="M 70 156 L 90 189"/>
+<path d="M 70 156 L 150 189"/>
+<path d="M 230 156 L 230 189"/>
+</g>
+<rect x="122" y="191" width="56" height="22" rx="4" fill="#7c3aed"/>
+<rect x="202" y="191" width="56" height="22" rx="4" fill="#7c3aed"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">11</text>
+<text x="150" y="95">+3→8</text>
+<text x="450" y="95">+4→7</text>
+<text x="590" y="95">+5→6</text>
+<text x="70" y="150">+3→5</text>
+<text x="230" y="150">+4→4</text>
+<text x="310" y="150">+5→3</text>
+<text x="410" y="150">+4→3</text>
+<text x="490" y="150">+5→2</text>
+<text x="590" y="150">+5→1</text>
+<text x="30" y="207">+3→2</text>
+<text x="90" y="207">+4→1</text>
+<text x="150" y="207" fill="#ffffff">+5→0</text>
+<text x="230" y="207" fill="#ffffff">+4→0</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="246">Each node: the value added → the amount still missing.</text>
+<text x="20" y="268">Along a path a value repeats or goes up; purple: the two answers.</text>
+<text x="20" y="290">A node with no child stops: the next value allowed is too big.</text>
+</g>
+</svg>

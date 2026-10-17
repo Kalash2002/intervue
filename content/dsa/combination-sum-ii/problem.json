@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "combination-sum-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Combination Sum II",
+  "summary": "List every distinct combination of array values, each position used at most once, that adds up to a target.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["array", "recursion", "pruning", "sorting", "deduplication"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can the work depend on the number of distinct combinations rather than on every choice of positions?", "How would you only count the distinct combinations?", "What changes if values may be negative?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Combination Sum II, Example 1 sorted to 2 2 3 4 6 with target 8: the search finds 2 6 and 2 2 4 and skips the second 2 at the first step</title>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 170 79"/><path d="M 320 46 L 430 79"/><path d="M 320 46 L 520 79"/><path d="M 320 46 L 600 79"/>
+<path d="M 170 101 L 60 134"/><path d="M 170 101 L 140 134"/><path d="M 170 101 L 210 134"/><path d="M 170 101 L 280 134"/>
+<path d="M 430 101 L 430 134"/>
+<path d="M 60 156 L 30 189"/><path d="M 60 156 L 90 189"/>
+</g>
+<path d="M 320 46 L 330 79" stroke="#83748f" stroke-width="1.5" fill="none" stroke-dasharray="5 4"/>
+<rect x="252" y="136" width="56" height="22" rx="4" fill="#7c3aed"/>
+<rect x="62" y="191" width="56" height="22" rx="4" fill="#7c3aed"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">8</text>
+<text x="170" y="95">+2→6</text><text x="330" y="95">2 again: skip</text><text x="430" y="95">+3→5</text>
+<text x="520" y="95">+4→4</text><text x="600" y="95">+6→2</text>
+<text x="60" y="150">+2→4</text><text x="140" y="150">+3→3</text><text x="210" y="150">+4→2</text>
+<text x="280" y="150" fill="#ffffff">+6→0</text><text x="430" y="150">+4→1</text>
+<text x="30" y="207">+3→1</text><text x="90" y="207" fill="#ffffff">+4→0</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="246">Each node: the value added → the amount still missing.</text>
+<text x="20" y="268">Dashed: the second 2 at the step where the first 2 was tried.</text>
+<text x="20" y="290">Purple: [2,6] and [2,2,4]. No child: no value left fits.</text>
+</g>
+</svg>

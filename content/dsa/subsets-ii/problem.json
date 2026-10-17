@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "subsets-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Subsets II",
+  "summary": "List every distinct subset of an array that may hold repeated values.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["array", "recursion", "sorting", "deduplication"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can the running time depend on the number of distinct subsets rather than on 2^n?", "How would you count the distinct subsets without listing them?", "How would you list only the distinct subsets whose values add up to a given target?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

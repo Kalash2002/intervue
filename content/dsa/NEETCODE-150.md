@@ -70,11 +70,11 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 64 | Heap and priority queue | Task Scheduler | `task-scheduler` | ✓ | courier-load-balancer |
 | 65 | Heap and priority queue | Design Twitter | `design-twitter` | ✓ | |
 | 66 | Heap and priority queue | Find Median from Data Stream | `find-median-from-data-stream` | ✓ | |
-| 67 | Backtracking | Subsets | `subsets` | | |
-| 68 | Backtracking | Combination Sum | `combination-sum` | | |
-| 69 | Backtracking | Permutations | `permutations` | | |
-| 70 | Backtracking | Subsets II | `subsets-ii` | | |
-| 71 | Backtracking | Combination Sum II | `combination-sum-ii` | | |
+| 67 | Backtracking | Subsets | `subsets` | ✓ | |
+| 68 | Backtracking | Combination Sum | `combination-sum` | ✓ | |
+| 69 | Backtracking | Permutations | `permutations` | ✓ | |
+| 70 | Backtracking | Subsets II | `subsets-ii` | ✓ | |
+| 71 | Backtracking | Combination Sum II | `combination-sum-ii` | ✓ | |
 | 72 | Backtracking | Word Search | `word-search` | | |
 | 73 | Backtracking | Palindrome Partitioning | `palindrome-partitioning` | | |
 | 74 | Backtracking | Letter Combinations of a Phone Number | `letter-combinations-of-a-phone-number` | | |
