@@ -60,9 +60,9 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 54 | Trees | Count Good Nodes in Binary Tree | `count-good-nodes-in-binary-tree` | ✓ | |
 | 55 | Trees | Validate Binary Search Tree | `validate-binary-search-tree` | ✓ | |
 | 56 | Trees | Kth Smallest Element in a BST | `kth-smallest-element-in-a-bst` | ✓ | |
-| 57 | Trees | Construct Binary Tree from Preorder and Inorder Traversal | `construct-binary-tree-from-preorder-and-inorder-traversal` | | |
-| 58 | Trees | Binary Tree Maximum Path Sum | `binary-tree-maximum-path-sum` | | |
-| 59 | Trees | Serialize and Deserialize Binary Tree | `serialize-and-deserialize-binary-tree` | | |
+| 57 | Trees | Construct Binary Tree from Preorder and Inorder Traversal | `construct-binary-tree-from-preorder-and-inorder-traversal` | ✓ | |
+| 58 | Trees | Binary Tree Maximum Path Sum | `binary-tree-maximum-path-sum` | ✓ | |
+| 59 | Trees | Serialize and Deserialize Binary Tree | `serialize-and-deserialize-binary-tree` | ✓ | |
 | 60 | Heap and priority queue | Kth Largest Element in a Stream | `kth-largest-element-in-a-stream` | | |
 | 61 | Heap and priority queue | Last Stone Weight | `last-stone-weight` | | |
 | 62 | Heap and priority queue | K Closest Points to Origin | `k-closest-points-to-origin` | | |

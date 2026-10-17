@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "serialize-and-deserialize-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Serialize and Deserialize Binary Tree",
+  "summary": "Turn a binary tree into a string and rebuild the same tree from that string.",
+  "difficulty": "Hard",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "design", "serialization", "depth-first-search", "breadth-first-search"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you make the encoded text smaller?", "How would you decode a tree too deep for the call stack?", "If the tree were a binary search tree, what could you leave out of the text?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

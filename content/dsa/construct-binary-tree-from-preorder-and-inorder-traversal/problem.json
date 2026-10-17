@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "construct-binary-tree-from-preorder-and-inorder-traversal",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Construct Binary Tree from Preorder and Inorder Traversal",
+  "summary": "Rebuild a binary tree from its pre-order and in-order sequences of distinct values.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "divide-and-conquer", "recursion", "hash-map"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you rebuild the tree from its post-order and in-order sequences instead?", "Why do pre-order and post-order together not pin down the tree?", "What goes wrong if values may repeat?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
