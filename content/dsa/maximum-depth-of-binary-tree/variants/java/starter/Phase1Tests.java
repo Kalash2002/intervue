@@ -49,12 +49,12 @@ public class Phase1Tests {
         assertEquals(17, MaxDepth.maxDepth(TreeNode.of(values)));
     }
 
-    @Test(order = 8, timeoutMs = 2000)
-    void longPathOfAllTheNodes() {
-        int n = 100_000; // one node per level: one call per level overflows the call stack
+    @Test(order = 8)
+    void deepestAllowedPath() {
+        int n = 1_000; // depth at the limit: recursion must still fit
         int[] values = new int[n];
         for (int i = 0; i < n; i++) {
-            values[i] = i % 2 == 0 ? i % 10_001 : -(i % 10_001);
+            values[i] = i % 2 == 0 ? i : -i;
         }
         TreeNode root = TreeNode.path(values, true, null);
         assertEquals(n, MaxDepth.maxDepth(root));

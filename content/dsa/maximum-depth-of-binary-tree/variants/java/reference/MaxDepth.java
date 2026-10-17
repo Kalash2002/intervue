@@ -1,5 +1,3 @@
-import java.util.ArrayDeque;
-
 /** Measures how deep a binary tree goes. */
 public class MaxDepth {
 
@@ -8,17 +6,6 @@ public class MaxDepth {
         if (root == null) {
             return 0;
         }
-        ArrayDeque<TreeNode> level = new ArrayDeque<>();
-        level.add(root);
-        int depth = 0;
-        while (!level.isEmpty()) {
-            depth++; // the queue holds exactly one whole level here
-            for (int i = level.size(); i > 0; i--) {
-                TreeNode n = level.poll();
-                if (n.left != null) level.add(n.left);
-                if (n.right != null) level.add(n.right);
-            }
-        }
-        return depth;
+        return 1 + Math.max(maxDepth(root.left), maxDepth(root.right)); // one level more than the deeper side
     }
 }

@@ -57,7 +57,7 @@ public class Phase1Tests {
 
     @Test(order = 7)
     void mirrorImagesAreNotTheSame() {
-        expect(false, tree(1, 2, 3), tree(1, 3, 2));
+        expect(false, tree(6, -1, 4), tree(6, 4, -1));
     }
 
     @Test(order = 8)

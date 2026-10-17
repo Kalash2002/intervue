@@ -2,55 +2,39 @@
 
 Given two binary trees, `root` and `sub`, decide whether some node of `root`, with everything below it, is identical to `sub`. A node whose subtree starts out like `sub` but has extra nodes underneath does not count.
 
-What makes it harder than it looks: the obvious answer, "try an equality check at every node", is right but can be slow. When `root` and `sub` are long runs of the same value, every attempt walks a long way before the last node gives it away, and the cost becomes n times m. The input may also be a single path of 100,000 nodes, so recursion one call per level overflows the stack. And the classic speed-up, writing both trees as strings and searching, has two traps of its own: empty children must be marked, and values must be separated so that `2` is not found inside `12`.
+What makes it harder than it looks: the obvious answer, "try an equality check at every node", is right but can be slow. When `root` and `sub` are long runs of the same value, every attempt walks a long way before the last node gives it away, and the cost grows towards n times m. And the classic speed-up, writing both trees as strings and searching, has two traps of its own: empty children must be marked, and values must be separated so that `2` is not found inside `12`.
 
 ## How to think about it
 
-The first idea is to walk `root` and, at every node, check whether the subtree there equals `sub`. That is correct, because a match has to start at some node. What it repeats is the comparison itself: in `longPaths` the top 80,000 nodes of `root` each match 20,000 levels of `sub` before failing.
+The first idea is to walk `root` and, at every node, check whether the subtree there equals `sub`. That is correct, because a match has to start at some node. What it repeats is the comparison itself: when `root` holds many long runs of the value `sub` is made of, an attempt starts at almost every node and each one walks up to m nodes before the last one gives it away.
 
-Two observations cut that down. First, a subtree can only equal `sub` if it has the same number of nodes, and subtrees of the same size never overlap (neither can contain the other), so comparing only at nodes whose subtree size equals `sub`'s size costs O(n) in total. That version is short, but it is recursive. Second, a tree written in preorder with a marker for every empty child is a sequence from which the tree can be rebuilt, and every subtree is a block of consecutive entries in it. So `sub` occurs in `root` exactly when `sub`'s sequence occurs as a block inside `root`'s sequence. Writing with an explicit stack and searching with KMP, which never re-reads the text, gives O(n + m) with nothing on the call stack.
+Two observations cut that down. First, a subtree can only equal `sub` if it has the same number of nodes, and subtrees of the same size never overlap (neither can contain the other), so comparing only at nodes whose subtree size equals `sub`'s size costs O(n) in total. That version is short and needs only the call stack. Second, a tree written in preorder with a marker for every empty child is a sequence from which the tree can be rebuilt, and every subtree is a block of consecutive entries in it. So `sub` occurs in `root` exactly when `sub`'s sequence occurs as a block inside `root`'s sequence. Writing both trees out and searching with KMP, which never re-reads the text, gives O(n + m) whatever the values are, with nothing on the call stack.
 
-Walk Example 1, `root = [9,4,6,1,5,null,8]` and `sub = [4,1,5]`. With `#` for an empty child, `root` writes as `9 4 1 # # 5 # # 6 # 8 # #` and `sub` as `4 1 # # 5 # #`. The seven tokens of `sub` appear in a row starting at the second token of `root`, which is the node 4, so the answer is `true`. In Example 2 the same spot reads `4 1 # # 5 3 # # #`: the 3 breaks the block, and nothing else starts with 4.
+Walk Example 1, `root = [9,4,6,null,7,2,8]` and `sub = [6,2,8]`. With `#` for an empty child, `root` writes as `9 4 # 7 # # 6 2 # # 8 # #` and `sub` as `6 2 # # 8 # #`. The seven tokens of `sub` appear in a row starting at the seventh token of `root`, which is the node 6, so the answer is `true`. In Example 2 the same spot reads `6 2 3 # # # 8 # #`: the 3 breaks the block, and nothing else starts with 6.
 
-![Example 1 in preorder with # for each empty child: the seven tokens of sub, 4 1 # # 5 # #, appear in a row inside the tokens of root](figures/preorder-match.svg)
+![Example 1 in preorder with # for each empty child: the seven tokens of sub, 6 2 # # 8 # #, appear in a row inside the tokens of root](figures/preorder-match.svg)
 
 ## Brute force
 
-At every node of `root`, compare the subtree there with `sub`. Both walks use an explicit stack, so a long path is no problem. It comes first because it is what you say first, and it fixes the answer to compare against. It is correct because a match has to start at some node of `root`, every node is tried, and the comparison checks every position, empty children included.
+At every node of `root`, compare the subtree there with `sub`. It comes first because it is what you say first, and it fixes the answer to compare against. It is correct because a match has to start at some node of `root`, every node is tried, and the comparison checks every position, empty children included.
 
 ```java
 static boolean isSubtree(TreeNode root, TreeNode sub) {
-    ArrayDeque<TreeNode> todo = new ArrayDeque<>();
-    todo.push(root);
-    while (!todo.isEmpty()) {
-        TreeNode node = todo.pop();
-        if (same(node, sub)) {
-            return true;
-        }
-        if (node.left != null) todo.push(node.left);
-        if (node.right != null) todo.push(node.right);
+    if (root == null) {
+        return false;
     }
-    return false;
+    return same(root, sub) || isSubtree(root.left, sub) || isSubtree(root.right, sub); // a match starts at some node
 }
 
 private static boolean same(TreeNode a, TreeNode b) {
-    ArrayDeque<TreeNode[]> pairs = new ArrayDeque<>(); // a stack instead of recursion: trees can be long paths
-    pairs.push(new TreeNode[] {a, b});
-    while (!pairs.isEmpty()) {
-        TreeNode[] p = pairs.pop();
-        if (p[0] == null || p[1] == null) {
-            if (p[0] != p[1]) return false;
-            continue;
-        }
-        if (p[0].val != p[1].val) return false;
-        pairs.push(new TreeNode[] {p[0].right, p[1].right});
-        pairs.push(new TreeNode[] {p[0].left, p[1].left});
+    if (a == null || b == null) {
+        return a == b; // equal only when both are missing
     }
-    return true;
+    return a.val == b.val && same(a.left, b.left) && same(a.right, b.right);
 }
 ```
 
-**Complexity:** time O(n·m) for `root` of n nodes and `sub` of m nodes, reached when long runs of equal values make each comparison go deep; extra space O(n + m) for the two stacks in the worst case, on the heap.
+**Complexity:** time O(n·min(m, h)) for `root` of n nodes and depth h and `sub` of m nodes: each comparison stops within m nodes and within the size of the subtree it starts at, and those sizes add up to at most n·h; extra space O(h) for the call stack, at most about 1,000 frames here.
 
 ## Better: compare only where the sizes match
 
@@ -86,9 +70,9 @@ private static boolean same(TreeNode a, TreeNode b) {
 }
 ```
 
-**Complexity:** time O(n + m): subtrees of size m never overlap, so all the comparisons together read at most n nodes of `root`; extra space O(h) for the call stack, where h is the depth, which overflows Java's default stack on the 100,000-node path in the tests (`StackOverflowError`).
+**Complexity:** time O(n + m): subtrees of size m never overlap, so all the comparisons together read at most n nodes of `root`; extra space O(h) for the call stack, where h is the depth, at most 1,000 frames here; a path of tens of thousands of nodes would overflow Java's default stack.
 
-**Prefer it when:** the trees are known to be shallow (a few thousand levels at most). It needs no extra memory beyond the stack and is shorter than the optimal version.
+**Prefer it when:** memory is tight or the code should stay short. It needs no extra memory beyond the stack and is shorter than the optimal version.
 
 ## Optimal: write both in preorder and search with KMP
 
@@ -140,8 +124,8 @@ Why a block match is a real subtree: `sub` is not empty, so its sequence starts 
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
-| Brute force | O(n·m) | O(n + m) stacks on the heap |
-| Better: compare only where the sizes match | O(n + m) | O(h) call stack, overflows on the 100,000-node path |
+| Brute force | O(n·min(m, h)) | O(h) call stack |
+| Better: compare only where the sizes match | O(n + m) | O(h) call stack, at most 1,000 frames here |
 | Optimal: write both in preorder and search with KMP | O(n + m) | O(n + m) on the heap |
 
 ## Where it shows up
@@ -150,7 +134,7 @@ No coding-round problem is linked to this question. Finding one tree inside anot
 
 ## Follow-up answers
 
-**When is comparing at every node really O(n·m), and when is it fast?** It is slow when many nodes of `root` start a long partial match, which needs long runs of equal values in matching shapes, like the two paths of 3s in the tests: 80,000 starting nodes times 20,000 levels each. On trees with varied values most comparisons fail at the first node or two, and it runs in close to O(n). The worst case is what makes it unsafe, not the typical one.
+**When is comparing at every node really O(n·m), and when is it fast?** It is slow when many nodes of `root` start a long partial match, which needs long runs of equal values in matching shapes, like the broom in the tests: 100 bristles of 990 nodes of 3s, where almost every bristle node starts a comparison that runs to the bottom. The total is bounded by n·min(m, h), about 5 x 10^7 steps there, since each comparison stops within m nodes and within the subtree it starts at. On trees with varied values most comparisons fail at the first node or two, and it runs in close to O(n). The worst case is what makes it unsafe, not the typical one.
 
 **Why must the written-out form mark empty children and separate the values?** Without markers, different shapes write the same sequence: 8 with a left child 1 and 8 with a right child 1 both read `8 1`, so a search finds matches that are not subtrees, and an extra node below a match can be hidden. Without separators, the text `12` contains `2`, and `-7` contains `7`. Int tokens with an out-of-range marker solve both; with strings, put a separator before every token, as in `,12,#,#`.
 

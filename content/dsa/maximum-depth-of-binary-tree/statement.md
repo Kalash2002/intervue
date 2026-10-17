@@ -2,7 +2,7 @@
 
 You are given the root of a binary tree. Return its depth: the number of nodes on the longest path that starts at the root and goes down to a leaf. A single node has depth 1, and an empty tree has depth 0.
 
-Implement `MaxDepth.maxDepth(TreeNode root)` in `MaxDepth.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`; an empty tree is `null`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[-3,null,8,null,2]` is a root -3 whose right child 8 has a right child 2. Nothing limits how lopsided a tree may be: a single path through all the nodes is a valid input.
+Implement `MaxDepth.maxDepth(TreeNode root)` in `MaxDepth.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`; an empty tree is `null`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[-3,null,8,null,2]` is a root -3 whose right child 8 has a right child 2.
 
 ## Example 1
 
@@ -26,7 +26,8 @@ Implement `MaxDepth.maxDepth(TreeNode root)` in `MaxDepth.java`. `TreeNode` (in 
 
 - `0 <= number of nodes <= 10^5`
 - `-10^4 <= node value <= 10^4`
+- `0 <= depth <= 1000`, where depth is the number of nodes on the longest path from the root down to a leaf
 
 ## Follow-up
 
-Can you handle a tree that is one path of 100,000 nodes, where one recursive call per level does not fit on the stack?
+Can you do it without recursion, so that the depth limit no longer matters?

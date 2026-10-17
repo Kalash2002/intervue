@@ -58,7 +58,7 @@ public class TreeNode {
         return below;
     }
 
-    /** Writes the tree in level order, as "[4,2,7,null,5]"; fails on a tree that links back on itself. */
+    /** Writes the tree in level order, as "[6,9,3,null,8]"; fails on a tree that links back on itself. */
     static String levelOrder(TreeNode root) {
         List<TreeNode> order = new ArrayList<>();
         order.add(root);

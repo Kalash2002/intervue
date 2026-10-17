@@ -2,7 +2,7 @@
 
 Given the root of a binary tree, return the number of edges on its longest path, where a path runs along parent-child links between any two nodes. The path may turn at any node, not only at the root.
 
-What makes it harder than it looks: the natural first answer, left height plus right height at the root, is only the longest path that turns at the root. In Example 2 the best path turns at a child of the root and the root-only answer is one short. Counting nodes instead of edges is the other slip: a single node is a path of length 0. And recomputing heights at every node is quadratic on tall trees.
+What makes it harder than it looks: the natural first answer, left height plus right height at the root, is only the longest path that turns at the root. In Example 2 the best path turns at a child of the root and the root-only answer is one short. Counting nodes instead of edges is the other slip: a single node is a path of length 0. And recomputing heights at every node costs O(n·h), far more work than the answer needs.
 
 ## How to think about it
 
