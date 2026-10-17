@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "validate-binary-search-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Validate Binary Search Tree",
+  "summary": "Decide whether a binary tree satisfies the strict ordering rule of a binary search tree.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-search-tree", "binary-tree", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is comparing each node with its two children not enough?", "How would the check change if equal values were allowed on the right?", "How would you find the first node that breaks the rule?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

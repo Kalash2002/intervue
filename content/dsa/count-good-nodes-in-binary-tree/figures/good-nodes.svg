@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 255" width="640" height="255" role="img">
+<title>Example 1 with the largest value above each node: the five filled nodes 5, 8, 6, 9 and the lower 6 are at least that large</title>
+<line x1="211.6" y1="48.7" x2="145.9" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="238.4" y1="48.7" x2="304.1" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="122.7" y1="112.7" x2="96.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="142.3" y1="112.7" x2="169.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="307.7" y1="112.7" x2="281.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="327.3" y1="112.7" x2="354.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="92.0" y1="174.9" x2="103.6" y2="205.1" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="225.0" cy="40" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="225.0" y="45" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">5</text>
+<circle cx="132.5" cy="100" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="132.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">3</text>
+<text x="111.5" y="104" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="end" fill="#83748f">max 5</text>
+<circle cx="317.5" cy="100" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="317.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">8</text>
+<text x="338.5" y="104" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="start" fill="#83748f">max 5</text>
+<circle cx="86.2" cy="160" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="86.2" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">6</text>
+<circle cx="178.8" cy="160" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="178.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">1</text>
+<text x="178.8" y="191" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="middle" fill="#83748f">max 5</text>
+<circle cx="271.2" cy="160" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="271.2" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">7</text>
+<text x="271.2" y="191" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="middle" fill="#83748f">max 8</text>
+<circle cx="363.8" cy="160" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="363.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">9</text>
+<text x="363.8" y="191" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="middle" fill="#83748f">max 8</text>
+<circle cx="109.4" cy="220" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="109.4" y="225" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">6</text>
+<text x="430" y="50" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">filled: good nodes, 5 in all</text>
+<text x="430" y="72" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">the left 6 has max 5 above it;</text>
+<text x="430" y="94" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">the 6 below it has max 6: a tie</text>
+<text x="430" y="116" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">counts as good</text>
+</svg>

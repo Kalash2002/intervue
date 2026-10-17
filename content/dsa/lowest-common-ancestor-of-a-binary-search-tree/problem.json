@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "lowest-common-ancestor-of-a-binary-search-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Lowest Common Ancestor of a BST",
+  "summary": "Find the lowest node of a binary search tree that has two given nodes in its subtree.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-search-tree", "binary-tree", "lowest-common-ancestor"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is the walk from the root O(h) and not O(n)?", "What changes if the tree is an ordinary binary tree with no ordering?", "What if p or q might not be in the tree at all?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

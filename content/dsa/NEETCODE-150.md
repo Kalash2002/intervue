@@ -54,12 +54,12 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 48 | Trees | Balanced Binary Tree | `balanced-binary-tree` | ✓ | |
 | 49 | Trees | Same Tree | `same-tree` | ✓ | |
 | 50 | Trees | Subtree of Another Tree | `subtree-of-another-tree` | ✓ | |
-| 51 | Trees | Lowest Common Ancestor of a BST | `lowest-common-ancestor-of-a-binary-search-tree` | | |
-| 52 | Trees | Binary Tree Level Order Traversal | `binary-tree-level-order-traversal` | | |
-| 53 | Trees | Binary Tree Right Side View | `binary-tree-right-side-view` | | |
-| 54 | Trees | Count Good Nodes in Binary Tree | `count-good-nodes-in-binary-tree` | | |
-| 55 | Trees | Validate Binary Search Tree | `validate-binary-search-tree` | | |
-| 56 | Trees | Kth Smallest Element in a BST | `kth-smallest-element-in-a-bst` | | |
+| 51 | Trees | Lowest Common Ancestor of a BST | `lowest-common-ancestor-of-a-binary-search-tree` | ✓ | |
+| 52 | Trees | Binary Tree Level Order Traversal | `binary-tree-level-order-traversal` | ✓ | |
+| 53 | Trees | Binary Tree Right Side View | `binary-tree-right-side-view` | ✓ | |
+| 54 | Trees | Count Good Nodes in Binary Tree | `count-good-nodes-in-binary-tree` | ✓ | |
+| 55 | Trees | Validate Binary Search Tree | `validate-binary-search-tree` | ✓ | |
+| 56 | Trees | Kth Smallest Element in a BST | `kth-smallest-element-in-a-bst` | ✓ | |
 | 57 | Trees | Construct Binary Tree from Preorder and Inorder Traversal | `construct-binary-tree-from-preorder-and-inorder-traversal` | | |
 | 58 | Trees | Binary Tree Maximum Path Sum | `binary-tree-maximum-path-sum` | | |
 | 59 | Trees | Serialize and Deserialize Binary Tree | `serialize-and-deserialize-binary-tree` | | |

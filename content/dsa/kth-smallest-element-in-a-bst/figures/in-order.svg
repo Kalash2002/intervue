@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 255" width="640" height="255" role="img">
+<title>Example 1 with k = 3: reading in order gives 5, then 9, then 12, and the walk stops at 12 without reading the rest</title>
+<line x1="211.6" y1="48.7" x2="145.9" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="238.4" y1="48.7" x2="304.1" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="122.7" y1="112.7" x2="96.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="142.3" y1="112.7" x2="169.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="327.3" y1="112.7" x2="354.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="92.0" y1="174.9" x2="103.6" y2="205.1" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="225.0" cy="40" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="225.0" y="45" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">31</text>
+<circle cx="132.5" cy="100" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="132.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">12</text>
+<text x="111.5" y="104" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="end" fill="#83748f">3rd</text>
+<circle cx="317.5" cy="100" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="317.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">47</text>
+<circle cx="86.2" cy="160" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="86.2" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">5</text>
+<text x="65.2" y="164" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="end" fill="#83748f">1st</text>
+<circle cx="178.8" cy="160" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="178.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">20</text>
+<circle cx="363.8" cy="160" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="363.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">60</text>
+<circle cx="109.4" cy="220" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="109.4" y="225" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">9</text>
+<text x="109.4" y="251" font-family="JetBrains Mono, Consolas, monospace" font-size="11" text-anchor="middle" fill="#83748f">2nd</text>
+<text x="430" y="50" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">in order: 5, 9, 12, 20, 31, 47, 60</text>
+<text x="430" y="72" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">k = 3: stop at 12</text>
+<text x="430" y="112" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">stack when 12 is popped: [31]</text>
+<text x="430" y="134" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">20, 31, 47 and 60 are never read</text>
+</svg>

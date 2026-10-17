@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "kth-smallest-element-in-a-bst",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Kth Smallest Element in a BST",
+  "summary": "Return the k-th smallest value stored in a binary search tree.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-search-tree", "binary-tree", "in-order-traversal", "stack"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you answer quickly if the tree changes often and k varies?", "How would you find the k-th largest value instead?", "Why does the walk cost O(h + k) and not O(k)?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
