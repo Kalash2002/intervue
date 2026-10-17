@@ -81,13 +81,13 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 75 | Backtracking | N-Queens | `n-queens` | ✓ | |
 | 76 | Backtracking | Generate Parentheses | `generate-parentheses` | ✓ | |
 | 77 | Tries | Implement Trie (Prefix Tree) | `implement-trie-prefix-tree` | ✓ | merchant-suggest |
-| 78 | Tries | Design Add and Search Words Data Structure | `design-add-and-search-words-data-structure` | | |
-| 79 | Tries | Word Search II | `word-search-ii` | | |
+| 78 | Tries | Design Add and Search Words Data Structure | `design-add-and-search-words-data-structure` | ✓ | |
+| 79 | Tries | Word Search II | `word-search-ii` | ✓ | |
 | 80 | Graphs | Number of Islands | `number-of-islands` | ✓ | friend-suggestion |
-| 81 | Graphs | Clone Graph | `clone-graph` | | |
-| 82 | Graphs | Max Area of Island | `max-area-of-island` | | |
-| 83 | Graphs | Pacific Atlantic Water Flow | `pacific-atlantic-water-flow` | | |
-| 84 | Graphs | Surrounded Regions | `surrounded-regions` | | |
+| 81 | Graphs | Clone Graph | `clone-graph` | ✓ | |
+| 82 | Graphs | Max Area of Island | `max-area-of-island` | ✓ | |
+| 83 | Graphs | Pacific Atlantic Water Flow | `pacific-atlantic-water-flow` | ✓ | |
+| 84 | Graphs | Surrounded Regions | `surrounded-regions` | ✓ | |
 | 85 | Graphs | Rotting Oranges | `rotting-oranges` | | |
 | 86 | Graphs | Walls and Gates | `walls-and-gates` | | |
 | 87 | Graphs | Course Schedule | `course-schedule` | | |

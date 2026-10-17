@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Max Area of Island on the 4 by 5 map of Example 1: each land cell shows the area of its island, and the largest is 4</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="22">each land cell shows the area of the island it belongs to</text></g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="20" y="40" width="36" height="36"/>
+<rect x="60" y="40" width="36" height="36"/>
+<rect x="100" y="40" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="40" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="20" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="60" y="80" width="36" height="36"/>
+<rect x="100" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="20" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="60" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="120" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="20" y="160" width="36" height="36"/>
+<rect x="60" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="140" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="180" y="160" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="180" y="40" width="36" height="36"/>
+<rect x="180" y="80" width="36" height="36"/>
+<rect x="180" y="120" width="36" height="36"/>
+<rect x="140" y="120" width="36" height="36"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="38" y="63">3</text><text x="78" y="63">3</text><text x="78" y="103">3</text>
+<text x="198" y="63" fill="#ffffff">4</text><text x="198" y="103" fill="#ffffff">4</text>
+<text x="198" y="143" fill="#ffffff">4</text><text x="158" y="143" fill="#ffffff">4</text>
+<text x="38" y="183">1</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="270" y="58">scan in row order:</text>
+<text x="270" y="82">(0,0) unclaimed: flood counts 3, best 3</text>
+<text x="270" y="106">(0,4) unclaimed: flood counts 4, best 4</text>
+<text x="270" y="130">(3,0) unclaimed: flood counts 1, best 4</text>
+<text x="270" y="154">every other land cell was already claimed</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="226">Each island is flooded once, counting its cells as they leave the stack;</text>
+<text x="20" y="246">the answer is the largest count: 4.</text></g>
+</svg>

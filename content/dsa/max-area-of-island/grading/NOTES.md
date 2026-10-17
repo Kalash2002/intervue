@@ -1,0 +1,5 @@
+# Grader notes: Max Area of Island
+
+Tests cover: the sample, an empty array, all water, all land and a single land cell, land touching only at corners (every island has area 1), the largest island coming after a smaller one and before a smaller one (a version that keeps the first or the last island's area fails), rings that enclose water and a ring with an island inside it (the water inside does not count), a snake that is one island, and two large 1,000 x 1,000 maps: a serpentine island of 500,500 cells, which overflows a recursive search one level per cell, and bands of square islands of side 1 to 9 separated by water, whose largest islands have 81 cells.
+
+The limit for each large test is 2,000 ms (3x is 6,000 ms). The reference, one scan with an explicit-stack flood fill, took 34 to 58 ms per large test on a cold JVM. The naive solution measures the island of every land cell with a fresh breadth-first search and a fresh visited grid: it timed out on both large tests even with the limit raised fivefold (10,000 ms).

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "surrounded-regions",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Surrounded Regions",
+  "summary": "Fill in every region of open cells that cannot reach the border of the board.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["grid", "bfs", "dfs", "flood-fill", "in-place"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it without a separate visited grid?", "What changes if diagonal neighbours also connect open cells?", "How would you report how many regions were filled and how many cells each had?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

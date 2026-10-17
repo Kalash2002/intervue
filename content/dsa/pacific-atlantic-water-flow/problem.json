@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "pacific-atlantic-water-flow",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Pacific Atlantic Water Flow",
+  "summary": "Find the cells of a height map from which rain can run off to both oceans.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["grid", "bfs", "dfs", "multi-source-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if water may only flow to a strictly lower cell?", "How would you answer for three or more oceans, each along its own stretch of the border?", "How would you find the cells from which water reaches neither ocean?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "clone-graph",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Clone Graph",
+  "summary": "Make a deep copy of a connected undirected graph, given one of its nodes.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["graph", "breadth-first-search", "depth-first-search", "hash-map"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the graph may be disconnected and you are given a list of all its nodes?", "How would you copy a directed graph where some nodes cannot reach the start?", "How would you check that a copy is really deep, sharing no node with the original?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

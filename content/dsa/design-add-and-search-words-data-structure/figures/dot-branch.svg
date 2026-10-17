@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>The trie of lamp, limp and lump, and the search for l.mp: the dot tries every child of l</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<line x1="58" y1="110" x2="112" y2="110"/>
+<line x1="148" y1="104" x2="202" y2="50"/><line x1="148" y1="110" x2="202" y2="110"/><line x1="148" y1="116" x2="202" y2="170"/>
+<line x1="238" y1="50" x2="292" y2="50"/><line x1="238" y1="110" x2="292" y2="110"/><line x1="238" y1="170" x2="292" y2="170"/>
+<line x1="328" y1="50" x2="377" y2="50"/><line x1="328" y1="110" x2="377" y2="110"/><line x1="328" y1="170" x2="377" y2="170"/>
+<circle cx="40" cy="110" r="18"/><circle cx="130" cy="110" r="18"/>
+<circle cx="310" cy="50" r="18"/><circle cx="310" cy="110" r="18"/><circle cx="310" cy="170" r="18"/>
+<circle cx="400" cy="50" r="18"/><circle cx="400" cy="110" r="18"/><circle cx="400" cy="170" r="18"/>
+<circle cx="400" cy="50" r="23"/><circle cx="400" cy="110" r="23"/><circle cx="400" cy="170" r="23"/>
+</g>
+<g fill="#7c3aed"><circle cx="220" cy="50" r="18"/><circle cx="220" cy="110" r="18"/><circle cx="220" cy="170" r="18"/></g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="130" y="115">l</text>
+<text x="220" y="55" fill="#ffffff">a</text><text x="220" y="115" fill="#ffffff">i</text><text x="220" y="175" fill="#ffffff">u</text>
+<text x="310" y="55">m</text><text x="310" y="115">m</text><text x="310" y="175">m</text>
+<text x="400" y="55">p</text><text x="400" y="115">p</text><text x="400" y="175">p</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="40" y="80" text-anchor="middle">root</text>
+<text x="440" y="55">l.mp: a, m, p ends a word</text>
+<text x="440" y="115">l.m: runs out on m,</text>
+<text x="440" y="133">which ends no word</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="222">Purple: the children of l that the dot may stand for. Double ring: a word ends.</text>
+<text x="20" y="244">A letter follows one edge; a dot tries each child until one reaches a word end.</text>
+</g>
+</svg>
