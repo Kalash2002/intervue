@@ -36,7 +36,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        roundTrip(TreeNode.of(31, -6, 4, null, null, 120, -6), 5);
+        roundTrip(TreeNode.of(31, -6, 4, 120, null, null, -6), 5);
     }
 
     @Test(order = 2)

@@ -1,6 +1,6 @@
 # Construct Binary Tree from Preorder and Inorder Traversal
 
-You are given two arrays that describe the same binary tree. `preorder` lists its values in pre-order (a node, then its left subtree, then its right subtree) and `inorder` lists them in in-order (the left subtree, then the node, then the right subtree). No value appears twice. Rebuild the tree and return its root.
+You are given two arrays that describe the same binary tree. `preorder` lists its values in pre-order (a node, then its left subtree, then its right subtree) and `inorder` lists them in in-order (the left subtree, then the node, then the right subtree). Rebuild the tree and return its root.
 
 Implement `BuildTree.buildTree(int[] preorder, int[] inorder)` in `BuildTree.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[5,null,9,2]` is a root 5 whose right child 9 has a left child 2.
 

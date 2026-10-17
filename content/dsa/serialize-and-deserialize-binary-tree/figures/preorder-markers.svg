@@ -1,16 +1,16 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
-<title>Example 1 written in pre-order with a marker for each missing child: 31, -6, #, #, 4, 120, #, #, -6, #, #, and the decoder reads the tokens back in the same order</title>
+<title>Example 1 written in pre-order with a marker for each missing child: 31, -6, 120, #, #, #, 4, #, -6, #, #, and the decoder reads the tokens back in the same order</title>
 <g stroke="#83748f" stroke-width="1.5">
 <line x1="306.0" y1="37.8" x2="244.0" y2="72.2"/>
 <line x1="334.0" y1="37.8" x2="396.0" y2="72.2"/>
-<line x1="398.7" y1="91.3" x2="371.3" y2="118.7"/>
-<line x1="421.3" y1="91.3" x2="448.7" y2="118.7"/>
-<line x1="220.7" y1="93.0" x2="205.2" y2="114.7" stroke-dasharray="3 3"/>
-<line x1="239.3" y1="93.0" x2="254.8" y2="114.7" stroke-dasharray="3 3"/>
-<line x1="351.8" y1="143.7" x2="339.6" y2="164.3" stroke-dasharray="3 3"/>
-<line x1="368.2" y1="143.7" x2="380.4" y2="164.3" stroke-dasharray="3 3"/>
-<line x1="451.8" y1="143.7" x2="439.6" y2="164.3" stroke-dasharray="3 3"/>
-<line x1="468.2" y1="143.7" x2="480.4" y2="164.3" stroke-dasharray="3 3"/>
+<line x1="220.0" y1="92.5" x2="200.0" y2="117.5"/>
+<line x1="420.0" y1="92.5" x2="440.0" y2="117.5"/>
+<line x1="181.8" y1="143.7" x2="169.6" y2="164.3" stroke-dasharray="3 3"/>
+<line x1="198.2" y1="143.7" x2="210.4" y2="164.3" stroke-dasharray="3 3"/>
+<line x1="239.7" y1="92.7" x2="256.5" y2="114.8" stroke-dasharray="3 3"/>
+<line x1="400.3" y1="92.7" x2="383.5" y2="114.8" stroke-dasharray="3 3"/>
+<line x1="441.8" y1="143.7" x2="429.6" y2="164.3" stroke-dasharray="3 3"/>
+<line x1="458.2" y1="143.7" x2="470.4" y2="164.3" stroke-dasharray="3 3"/>
 </g>
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">
 <circle cx="320" cy="30" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
@@ -19,30 +19,30 @@
 <text x="230" y="85">-6</text>
 <circle cx="410" cy="80" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
 <text x="410" y="85">4</text>
-<circle cx="360" cy="130" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="360" y="135" font-size="12">120</text>
-<circle cx="460" cy="130" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="460" y="135">-6</text>
-<text x="200" y="127">#</text>
-<text x="260" y="127">#</text>
-<text x="335" y="177">#</text>
-<text x="385" y="177">#</text>
-<text x="435" y="177">#</text>
-<text x="485" y="177">#</text>
+<circle cx="190" cy="130" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="190" y="135" font-size="12">120</text>
+<circle cx="450" cy="130" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="450" y="135">-6</text>
+<text x="165" y="177">#</text>
+<text x="215" y="177">#</text>
+<text x="262" y="127">#</text>
+<text x="378" y="127">#</text>
+<text x="425" y="177">#</text>
+<text x="475" y="177">#</text>
 <rect x="56" y="200" width="48" height="28" fill="#7c3aed" stroke="#7c3aed"/>
 <text x="80" y="219" fill="#ffffff">31</text>
 <rect x="104" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
 <text x="128" y="219">-6</text>
 <rect x="152" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
-<text x="176" y="219">#</text>
+<text x="176" y="219">120</text>
 <rect x="200" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
 <text x="224" y="219">#</text>
 <rect x="248" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
-<text x="272" y="219">4</text>
+<text x="272" y="219">#</text>
 <rect x="296" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
-<text x="320" y="219">120</text>
+<text x="320" y="219">#</text>
 <rect x="344" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
-<text x="368" y="219">#</text>
+<text x="368" y="219">4</text>
 <rect x="392" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
 <text x="416" y="219">#</text>
 <rect x="440" y="200" width="48" height="28" fill="none" stroke="#83748f"/>
@@ -53,11 +53,11 @@
 <text x="560" y="219">#</text>
 </g>
 <g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">
-<path d="M106 234 v6 h140 v-6" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="176" y="258" text-anchor="middle">left subtree of 31</text>
-<path d="M250 234 v6 h332 v-6" fill="none" stroke="#83748f" stroke-width="1.5"/>
-<text x="416" y="258" text-anchor="middle">right subtree of 31: 4, then 120, then -6</text>
-<text x="20" y="190">pre-order, # for a missing child:</text>
+<path d="M106 234 v6 h236 v-6" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="224" y="258" text-anchor="middle">left subtree of 31: -6, then 120</text>
+<path d="M346 234 v6 h236 v-6" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="464" y="258" text-anchor="middle">right subtree of 31: 4, then -6</text>
+<text x="240" y="192">pre-order, # for a missing child:</text>
 <text x="470" y="40">6 markers for 5 nodes:</text>
 <text x="470" y="58">always n + 1</text>
 </g>

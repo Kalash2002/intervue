@@ -10,9 +10,9 @@ The first idea comes from heaps: give the root slot 0 and a node in slot i its c
 
 The fix is to pay for missing children only where they are: write a marker for each missing child next to the values. A tree of n nodes has exactly n + 1 missing children, so the text stays linear. Level order with markers works with a queue on both sides. Pre-order with markers is shorter still to code: write the node, then its left subtree, then its right subtree, and a marker for every `null`. The decoder reads the tokens in the same order with one shared position: a value makes a node whose left subtree is read next, then its right; a marker ends that side.
 
-Walk Example 1, `[31,-6,4,null,null,120,-6]`. Pre-order with `#` for a missing child gives `31,-6,#,#,4,120,#,#,-6,#,#,`, 27 characters, well under the 120 allowed. Decoding: 31 is the root; its left subtree starts with -6, whose two children are `#` and `#`; then 31's right subtree starts with 4, whose left is 120 (two `#`s) and whose right is -6 (two `#`s). Every token is used exactly once.
+Walk Example 1, `[31,-6,4,120,null,null,-6]`. Pre-order with `#` for a missing child gives `31,-6,120,#,#,#,4,#,-6,#,#,`, 27 characters, well under the 120 allowed. Decoding: 31 is the root; its left subtree starts with -6, whose left is 120 (two `#`s) and whose right is the next `#`; then 31's right subtree starts with 4, whose left is `#` and whose right is -6 (two `#`s). Every token is used exactly once.
 
-![Example 1 written in pre-order with a marker for each missing child: 31, -6, #, #, 4, 120, #, #, -6, #, #, and the decoder reads the tokens back in the same order](figures/preorder-markers.svg)
+![Example 1 written in pre-order with a marker for each missing child: 31, -6, 120, #, #, #, 4, #, -6, #, #, and the decoder reads the tokens back in the same order](figures/preorder-markers.svg)
 
 ## Brute force
 
@@ -102,7 +102,7 @@ private static TreeNode child(String token, ArrayDeque<TreeNode> queue) {
 }
 ```
 
-**Complexity:** time O(n) for each method; extra space O(n) for the token array, and the queue holds at most one level of the tree.
+**Complexity:** time O(n) for each method; extra space O(n) for the token array, and the queue holds O(w) nodes, w the widest level (at most two adjacent levels at once).
 
 **Prefer it when:** the tree may be deeper than the call stack allows, since neither method recurses; or when people read the text, since it is the level order this statement writes trees in, with `#` for `null`.
 
@@ -152,7 +152,7 @@ The shared position is created inside `deserialize`, not kept in a field, so the
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force | O(2^h) | O(2^h), slot numbers overflow `int` past depth 31 |
-| Better: level order with markers | O(n) per method | O(n) tokens, queue of at most one level, no recursion |
+| Better: level order with markers | O(n) per method | O(n) tokens, queue of O(w) nodes for the widest level w, no recursion |
 | Optimal: pre-order with markers | O(n) per method | O(n) tokens plus O(h) call stack, overflows on paths of tens of thousands |
 
 ## Where it shows up

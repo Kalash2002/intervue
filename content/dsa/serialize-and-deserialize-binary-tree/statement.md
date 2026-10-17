@@ -13,8 +13,8 @@ For every tree, `deserialize(serialize(root))` must return a tree of new nodes w
 
 ## Example 1
 
-**Input:** `root = [31,-6,4,null,null,120,-6]`
-**Output:** `[31,-6,4,null,null,120,-6]` (the tree `deserialize(serialize(root))` returns)
+**Input:** `root = [31,-6,4,120,null,null,-6]`
+**Output:** `[31,-6,4,120,null,null,-6]` (the tree `deserialize(serialize(root))` returns)
 **Explanation:** The tree comes back with the same shape and values. Any text works as long as it fits in `20 * 6 = 120` characters and `deserialize` can rebuild the tree from it; values may repeat, like the two -6s here.
 
 ## Example 2

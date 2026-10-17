@@ -1,6 +1,6 @@
 # Binary Tree Maximum Path Sum
 
-You are given the root of a binary tree whose nodes hold integers, some of them negative. A path is a sequence of nodes in which each pair of neighbours is joined by a parent-child link and no node appears twice. A path has at least one node and does not have to pass through the root. Its sum is the total of its values. Return the largest sum of any path in the tree.
+You are given the root of a binary tree whose nodes hold integers, some of them negative. A path is a sequence of nodes in which each node after the first is the parent or a child of the node before it, and no node appears twice. A path has at least one node and does not have to pass through the root. Its sum is the total of its values. Return the largest sum of any path in the tree.
 
 Implement `MaxPathSum.maxPathSum(TreeNode root)` in `MaxPathSum.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[6,-9,2]` is a root 6 with the left child -9 and the right child 2.
 
