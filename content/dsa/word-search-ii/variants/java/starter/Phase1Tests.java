@@ -25,8 +25,17 @@ public class Phase1Tests {
         got.sort(null);
         String[] sorted = want.clone();
         Arrays.sort(sorted);
-        assertEquals(Arrays.toString(sorted), got.toString(), "the words found, sorted");
+        assertEquals(sorted.length, got.size(), "how many words were found (each word once)");
+        assertEquals(quoted(List.of(sorted)), quoted(got), "the words found, sorted");
         assertEquals(before, Arrays.deepToString(board), "the grid must hold its original letters again");
+    }
+
+    private static String quoted(List<String> words) {
+        StringBuilder out = new StringBuilder();
+        for (String word : words) {
+            out.append(out.length() > 0 ? "," : "").append('"').append(word).append('"');
+        }
+        return out.toString();
     }
 
     @Test(order = 1)
@@ -102,9 +111,9 @@ public class Phase1Tests {
         List<String> words = new ArrayList<>();
         for (char x = 'b'; x <= 'm'; x++) {
             for (char y = 'a'; y <= 'z'; y++) {
-                words.add("aaaaaaaa" + x + y);
                 for (char z = 'a'; z <= 'z'; z++) {
-                    words.add("aaaaaaa" + x + y + z);
+                    // dead in the middle: searched from either end, five or more a's come before the dead letter
+                    words.add("aaaaaaa" + x + y + z + "aaaaa");
                 }
             }
         }

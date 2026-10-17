@@ -37,4 +37,4 @@ Implement the class `WordDictionary` in `WordDictionary.java` with two methods:
 
 ## Follow-up
 
-What does a search cost when the pattern is all dots, and how would you make it cheap?
+What does a pattern made only of dots cost, and how would you make it cheap?

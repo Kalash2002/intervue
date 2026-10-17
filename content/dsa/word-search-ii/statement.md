@@ -28,7 +28,7 @@ Implement `WordHunt.findAll(char[][] board, String[] words)` in `WordHunt.java`.
 - `1 <= board[i].length <= 12`
 - All rows of `board` have the same length.
 - `1 <= words.length <= 3 * 10^4`
-- `1 <= words[i].length() <= 10`
+- `1 <= words[i].length() <= 15`
 - `board` and every word hold only lowercase English letters.
 - All words in `words` are different.
 

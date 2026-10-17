@@ -2,11 +2,11 @@
 
 Given a grid of letters and a list of words, return every word that can be spelled by starting on some cell and stepping up, down, left or right, never visiting a cell twice in one trace. Each word found is listed once, in any order.
 
-What makes it harder than it looks is the size of the list. One Word Search per word is correct, but with thousands of words that begin the same way, every search walks the same paths through the grid again; a grid full of one letter and a list of long words sharing a prefix turns that into minutes. Two smaller traps sit beside it: a word that can be traced from two starts must still be listed once, and the grid has to hold its letters again when the method returns.
+What makes it harder than it looks is the size of the list. One Word Search per word is correct, but with thousands of words that begin the same way, every search walks the same paths through the grid again; a grid full of one letter and a list of long words that share a run of that letter turns that into minutes, and searching each word from its rarer end does not help when the run sits at both ends and the dead letter in the middle. Two smaller traps sit beside it: a word that can be traced from two starts must still be listed once, and the grid has to hold its letters again when the method returns.
 
 ## How to think about it
 
-The first idea is to reuse Word Search: for each word, try every start and trace it with marks in the grid, stopping at the first wrong letter. It is correct and it fixes the answer to compare against, but look at what it repeats. Words such as `pear` and `pan` both start by finding every `p` and looking at its neighbours; with 8,000 words that share their first seven letters, the same seven-letter paths are walked 8,000 times.
+The first idea is to reuse Word Search: for each word, try every start and trace it with marks in the grid, stopping at the first wrong letter. It is correct and it fixes the answer to compare against, but look at what it repeats. Words such as `pear` and `pan` both start by finding every `p` and looking at its neighbours; with 8,000 words that share their first seven letters, the same seven-letter paths are walked 8,000 times, and reversing a word only trades them for the five-letter paths at its other end.
 
 The work worth sharing is the prefix. If the search walks the grid once and, at each step, asks "is the text of this path the start of any word?", it can stop the moment the answer is no and report a word whenever the path spells one. A set of every prefix of every word answers that question, at the cost of building and hashing a string at each step. A trie answers it without strings: the path's trie node is carried along, and one more letter is one child lookup. A missing child means no word continues, and a node that ends a word means the path spells it.
 
@@ -59,7 +59,7 @@ private static boolean trace(char[][] board, String word, int r, int c, int k) {
 }
 ```
 
-**Complexity:** time O(W · m · n · 3^L) in the worst case for W words of length up to L on an m by n grid (each search can follow up to four first steps and three after that from every start); extra space O(1) beyond a recursion depth of L, at most 10.
+**Complexity:** time O(W · m · n · 3^L) in the worst case for W words of length up to L on an m by n grid (each search can follow up to four first steps and three after that from every start); extra space O(1) beyond a recursion depth of L, at most 15.
 
 ## Better: one walk, with a set of prefixes
 
@@ -166,7 +166,7 @@ private static void trace(char[][] board, int r, int c, Node node, List<String> 
 }
 ```
 
-**Complexity:** time O(W · L) to build the trie, then O(m · n · 3^L) in the worst case for the walk, however many words share the paths; extra space O(W · L · 26) in the worst case for the trie nodes, plus a recursion depth of L, at most 10.
+**Complexity:** time O(W · L) to build the trie, then O(m · n · 3^L) in the worst case for the walk, however many words share the paths; extra space O(W · L · 26) in the worst case for the trie nodes, plus a recursion depth of L, at most 15.
 
 ## Complexity
 

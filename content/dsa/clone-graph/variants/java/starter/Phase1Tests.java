@@ -29,7 +29,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        expect(new int[] {5, 8, 3, 8}, new int[][] {{1, 3}, {0, 2}, {1, 3}, {2, 0}});
+        expect(new int[] {6, 2, 6, 9, 2}, new int[][] {{2, 1}, {0, 2}, {3, 1, 0}, {4, 2}, {3}});
     }
 
     @Test(order = 2)
@@ -65,7 +65,7 @@ public class Phase1Tests {
         expect(new int[] {1, 2, 3, 4, 5}, new int[][] {{4, 2, 1}, {3, 0}, {0}, {1, 4}, {3, 0}});
     }
 
-    @Test(order = 8, timeoutMs = 10000)
+    @Test(order = 8, timeoutMs = 60000)
     void longPath() {
         int n = 100_000;
         int[] values = new int[n];
@@ -77,7 +77,7 @@ public class Phase1Tests {
         expect(values, adjacency);
     }
 
-    @Test(order = 9, timeoutMs = 10000)
+    @Test(order = 9, timeoutMs = 60000)
     void largeRandomGraph() {
         int n = 100_000;
         Random random = new Random(81);

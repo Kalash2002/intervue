@@ -8,9 +8,9 @@ In the examples a graph is written as `values` and `adjacency`: node `i` holds `
 
 ## Example 1
 
-**Input:** `values = [5, 8, 3, 8]`, `adjacency = [[1, 3], [0, 2], [1, 3], [2, 0]]`
-**Output:** `values = [5, 8, 3, 8]`, `adjacency = [[1, 3], [0, 2], [1, 3], [2, 0]]`, made of four new nodes
-**Explanation:** The four nodes form a ring. Two of them hold 8, so a copy has to tell nodes apart by which object they are, not by their value.
+**Input:** `values = [6, 2, 6, 9, 2]`, `adjacency = [[2, 1], [0, 2], [3, 1, 0], [4, 2], [3]]`
+**Output:** `values = [6, 2, 6, 9, 2]`, `adjacency = [[2, 1], [0, 2], [3, 1, 0], [4, 2], [3]]`, made of five new nodes
+**Explanation:** Nodes 0, 1 and 2 form a triangle, and a tail runs from node 2 through node 3 to node 4. Two nodes hold 6 and two hold 2, so a copy has to tell nodes apart by which object they are, not by their value.
 
 ## Example 2
 

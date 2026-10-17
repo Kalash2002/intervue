@@ -173,7 +173,7 @@ A recursive flood from the border has the same time but a recursion depth of up 
 
 ## Where it shows up
 
-No coding-round problem is linked to this question. Flooding from the border to find what is enclosed is how a paint program fills the holes in a shape, how a board game such as Go finds stones with no path to an empty edge, and how a map tool finds lakes, the water cells with no connection to the sea.
+No coding-round problem is linked to this question. Flooding from the border to find what is enclosed is how a paint program fills the holes in a shape, how a Go program finds groups of stones with no adjacent empty point (the one-flood-per-region version, looking for a free neighbour instead of a border cell), and how a map tool finds lakes, the water cells with no connection to the sea.
 
 ## Follow-up answers
 

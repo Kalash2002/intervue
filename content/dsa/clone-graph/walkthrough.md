@@ -12,9 +12,9 @@ The first idea is to keep the originals met so far in a list, with their copies 
 
 The walk itself can be depth first or breadth first. Recursion is the shortest to write: copy the node, record it, then copy each neighbour. Its depth is the length of the longest path it follows, so a long chain overflows the stack. A queue does the same work in a loop. The one ordering rule: record a node's copy the moment it is created, before its list is filled, so that a cycle leading back to it finds the copy.
 
-Walk Example 1, the ring `5 - 8 - 3 - 8 - 5` with start node 0. Copy node 0 (value 5) and queue it. Take node 0: its neighbours are node 1 and node 3, neither copied, so copy both, queue them and add their copies to the copy of node 0, in that order. Take node 1: node 0 is already copied, so add that copy; node 2 is new, so copy it. Take node 3: node 2 and node 0 are both copied, so add their copies. Take node 2: nodes 1 and 3 are copied. Four new nodes, each original copied once, though two hold 8.
+Walk Example 1: the triangle of nodes 0, 1 and 2 holding 6, 2 and 6, with a tail from node 2 to node 3 (9) and node 4 (2), starting at node 0. Copy node 0 and queue it. Take node 0: its list is node 2, then node 1, neither copied, so copy both, queue them and add their copies to the copy of node 0 in that order. Take node 2: node 3 is new, so copy and queue it; nodes 1 and 0 are already copied, so their copies are added as they are. Take node 1: nodes 0 and 2 are copied. Take node 3: node 4 is new, so copy it; node 2 is copied. Take node 4: node 3 is copied. Five new nodes, each original copied once, though two hold 6 and two hold 2.
 
-![The ring of Example 1 beside its copy: the map from each original node to its copy, filled in breadth-first order, with node 0 and its copy purple](figures/node-map.svg)
+![The triangle-with-a-tail graph of Example 1 beside its copy: the map from each original node to its copy, filled in breadth-first order, with node 0 and its copy purple](figures/node-map.svg)
 
 ## Brute force
 

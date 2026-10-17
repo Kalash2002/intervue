@@ -8,7 +8,7 @@ Implement `WaterFlow.bothOceans(int[][] heights)` in `WaterFlow.java`. Return th
 
 **Input:** `heights = [[1, 3, 4], [2, 5, 3], [6, 2, 1]]`
 **Output:** `[[0, 2], [1, 1], [2, 0]]`
-**Explanation:** The top-right and bottom-left corners touch both oceans. The 5 in the middle can run up to the 3 above it, which is on the Pacific edge, and right to the 3 beside it, which is on the Atlantic edge. Every other cell is boxed in by higher neighbours on the way to one of the oceans.
+**Explanation:** The top-right and bottom-left corners touch both oceans. Water on the 5 in the middle can run to the 3 above it, which is on the Pacific edge, and to the 3 on its right, which is on the Atlantic edge. Every other cell is boxed in by higher neighbours on the way to one of the oceans.
 
 ## Example 2
 
