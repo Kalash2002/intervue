@@ -72,7 +72,7 @@ static List<String> combinations(String digits) {
 }
 ```
 
-**Complexity:** time O(n · 4^n), extra space O(4^n) for the previous round's list, which is at most a quarter of the output.
+**Complexity:** time O(n · 4^n), extra space O(4^n) for the previous round's list, which is at most a third of the output.
 
 **Prefer it when:** you want no recursion and no carry logic; it is the shortest version to write correctly.
 

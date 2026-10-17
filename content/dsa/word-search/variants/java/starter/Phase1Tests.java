@@ -45,6 +45,8 @@ public class Phase1Tests {
     void cellUsedTwice() {
         expect(grid("q"), "qq", false);
         expect(grid("cats", "orem", "ding"), "tet", false);
+        // enough of every letter, so only marking the trace rejects it: the a touches one b
+        expect(grid("abz", "zzb"), "bab", false);
     }
 
     @Test(order = 4)

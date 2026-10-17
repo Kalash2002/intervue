@@ -12,12 +12,20 @@
 </g>
 
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
-<text x="320" y="40">""  0 open, 0 closed</text>
-<text x="320" y="95">(  only ( allowed: nothing to close</text>
-<text x="200" y="150">((  no ( left</text>
-<text x="440" y="150">()  0 unmatched: only (</text>
-<text x="200" y="205">(()  only )</text>
-<text x="440" y="205">()(  only )</text>
+<text x="320" y="40">""</text>
+<text x="320" y="95">(</text>
+<text x="200" y="150">((</text>
+<text x="440" y="150">()</text>
+<text x="200" y="205">(()</text>
+<text x="440" y="205">()(</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">
+<text x="340" y="40">0 open, 0 closed</text>
+<text x="336" y="95">nothing to close: only (</text>
+<text x="218" y="150">no ( left: only )</text>
+<text x="458" y="150">none unmatched: only (</text>
+<text x="226" y="205">only )</text>
+<text x="466" y="205">only )</text>
 </g>
 <rect x="164" y="226" width="72" height="22" rx="4" fill="#7c3aed"/>
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="13" text-anchor="middle">

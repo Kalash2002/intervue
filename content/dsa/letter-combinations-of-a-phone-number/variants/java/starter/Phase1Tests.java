@@ -11,11 +11,11 @@ public class Phase1Tests {
 
     private static final String[] KEYS = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
 
-    /** Sorts the strings, so any order is accepted; a string listed twice stays visible. */
+    /** Sorts and quotes the strings: any order is accepted, repeats stay visible, and [""] differs from []. */
     private static String normal(List<String> strings) {
         List<String> sorted = new ArrayList<>(strings);
         sorted.sort(null);
-        return sorted.toString();
+        return sorted.stream().map(s -> "\"" + s + "\"").toList().toString();
     }
 
     private static void expect(String digits, String... want) {

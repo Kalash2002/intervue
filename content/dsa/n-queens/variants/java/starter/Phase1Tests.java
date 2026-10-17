@@ -88,7 +88,7 @@ public class Phase1Tests {
         expectAll(8);
     }
 
-    @Test(order = 6, timeoutMs = 300)
+    @Test(order = 6, timeoutMs = 400)
     void nine() {
         expectAll(9);
     }

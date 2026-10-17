@@ -9,11 +9,11 @@ import kit.Test;
 
 public class Phase1Tests {
 
-    /** Sorts the strings, so any order is accepted; a string listed twice stays visible. */
+    /** Sorts and quotes the strings: any order is accepted, repeats stay visible, and [""] differs from []. */
     private static String normal(List<String> strings) {
         List<String> sorted = new ArrayList<>(strings);
         sorted.sort(null);
-        return sorted.toString();
+        return sorted.stream().map(s -> "\"" + s + "\"").toList().toString();
     }
 
     private static void expect(int n, String... want) {
