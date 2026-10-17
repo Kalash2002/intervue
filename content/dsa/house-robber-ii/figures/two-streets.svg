@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>House Robber II, Example 1: the circle split into two straight streets, best 12</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">cash = [9,2,3,8] around a circle; houses 0 and 3 touch</text>
+<path d="M 132 80 L 170 118 M 170 142 L 132 180 M 108 180 L 70 142" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<path d="M 70 118 L 108 80" stroke="#7c3aed" stroke-width="2.5" fill="none"/>
+<circle cx="120" cy="68" r="17" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="182" cy="130" r="17" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="120" cy="192" r="17" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="58" cy="130" r="17" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="120" y="73" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">9</text>
+<text x="182" y="135" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">2</text>
+<text x="120" y="197" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">3</text>
+<text x="58" y="135" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">8</text>
+<text x="146" y="58" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="start">house 0</text>
+<text x="204" y="134" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="start">1</text>
+<text x="146" y="214" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="start">2</text>
+<text x="30" y="134" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="end">3</text>
+<text x="270" y="80" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">without house 3: street [9,2,3]</text>
+<text x="270" y="102" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">best so far 9, 9, 12</text>
+<text x="270" y="146" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">without house 0: street [2,3,8]</text>
+<text x="270" y="168" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">best so far 2, 3, 10</text>
+<rect x="270" y="190" width="220" height="28" rx="4" fill="#7c3aed"/>
+<text x="380" y="209" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">answer max(12, 10) = 12</text>
+</svg>

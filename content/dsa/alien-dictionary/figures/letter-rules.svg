@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Alien Dictionary, Example 1: rules from neighbouring words form a graph on m, o, p and q, taken in topological order</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#83748f"/>
+</marker>
+</defs>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">words = ["mop","mpq","om","oq","q"]; first differences give the rules</text>
+<text x="20" y="58" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">mop / mpq: o before p</text>
+<text x="20" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">mpq / om: m before o</text>
+<text x="20" y="102" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">om / oq: m before q</text>
+<text x="20" y="124" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="start">oq / q: o before q</text>
+<path d="M 338 140 L 400 140" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 438 128 L 492 84" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 438 152 L 492 196" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<path d="M 320 158 Q 340 222 488 208" stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)"/>
+<circle cx="320" cy="140" r="18" fill="#7c3aed"/>
+<circle cx="420" cy="140" r="18" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="510" cy="70" r="18" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="510" cy="208" r="18" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="320" y="145" font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#ffffff" text-anchor="middle">m</text>
+<text x="420" y="145" font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">o</text>
+<text x="510" y="75" font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">p</text>
+<text x="510" y="213" font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">q</text>
+<text x="20" y="170" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">m waits for nothing, so it goes first;</text>
+<text x="20" y="188" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">then o, then p and q in either order</text>
+<text x="20" y="214" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">order "mopq" (or "moqp")</text>
+</svg>

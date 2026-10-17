@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "alien-dictionary",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Alien Dictionary",
+  "summary": "Recover an order of the letters from a list of words sorted in an unknown alphabet, or report that the list contradicts itself.",
+  "difficulty": "Hard",
+  "techniques": ["advanced-graphs"],
+  "tags": ["topological-sort", "kahn", "graph", "string"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you tell whether the letter order is the only one possible?", "Why is it enough to compare neighbouring words, not every pair?", "What changes if the alphabet had thousands of symbols instead of 26 letters?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

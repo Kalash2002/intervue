@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "house-robber",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "House Robber",
+  "summary": "Pick houses along a street to collect the most cash without ever taking two neighbours.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "recursion", "memoization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return which houses were chosen?", "What if no two chosen houses could be within two of each other?", "What if the houses stood in a circle, so the first and last were neighbours?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Min Cost Climbing Stairs, Example 1: the cheapest cost to arrive at each position, 9 at the landing</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">fee = [4,9,2,7,3]; arrive(i) = min(arrive(i-1) + fee[i-1], arrive(i-2) + fee[i-2])</text>
+<text x="20" y="80" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">position</text>
+<text x="20" y="112" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">fee</text>
+<text x="20" y="144" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">arrive</text>
+<text x="130" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">step 0</text>
+<text x="210" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">step 1</text>
+<text x="290" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">step 2</text>
+<text x="370" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">step 3</text>
+<text x="450" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">step 4</text>
+<text x="550" y="80" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">landing</text>
+<text x="130" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">4</text>
+<text x="210" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">9</text>
+<text x="290" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">2</text>
+<text x="370" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">7</text>
+<text x="450" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">3</text>
+<text x="550" y="112" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">-</text>
+<text x="130" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">0</text>
+<text x="210" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">0</text>
+<text x="290" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">4</text>
+<text x="370" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">6</text>
+<text x="450" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">6</text>
+<rect x="530" y="126" width="40" height="26" rx="4" fill="#7c3aed"/>
+<text x="550" y="144" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#ffffff" text-anchor="middle">9</text>
+<path d="M 130 162 Q 210 196 290 162" stroke="#7c3aed" stroke-width="2" fill="none"/>
+<path d="M 290 162 Q 370 196 450 162" stroke="#7c3aed" stroke-width="2" fill="none"/>
+<path d="M 450 162 Q 500 186 550 162" stroke="#7c3aed" stroke-width="2" fill="none"/>
+<text x="20" y="214" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">route: floor, step 0 (4), step 2 (2), step 4 (3), landing; total 4 + 2 + 3 = 9</text>
+</svg>

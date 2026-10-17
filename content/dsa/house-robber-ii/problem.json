@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "house-robber-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "House Robber II",
+  "summary": "Pick houses around a circular road to collect the most cash without ever taking two neighbours.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "recursion", "memoization", "circular-array"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is it safe to split the circle into two straight streets?", "What if you had to choose exactly k houses?", "What if the houses formed a tree, each house the neighbour of its parent and children?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -99,13 +99,13 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 93 | Advanced graphs | Reconstruct Itinerary | `reconstruct-itinerary` | ✓ | |
 | 94 | Advanced graphs | Min Cost to Connect All Points | `min-cost-to-connect-all-points` | ✓ | |
 | 95 | Advanced graphs | Network Delay Time | `network-delay-time` | ✓ | corridor-router |
-| 96 | Advanced graphs | Swim in Rising Water | `swim-in-rising-water` | | |
-| 97 | Advanced graphs | Alien Dictionary | `alien-dictionary` | | |
+| 96 | Advanced graphs | Swim in Rising Water | `swim-in-rising-water` | ✓ | |
+| 97 | Advanced graphs | Alien Dictionary | `alien-dictionary` | ✓ | |
 | 98 | Advanced graphs | Cheapest Flights Within K Stops | `cheapest-flights-within-k-stops` | ✓ | corridor-router |
-| 99 | 1-D dynamic programming | Climbing Stairs | `climbing-stairs` | | |
-| 100 | 1-D dynamic programming | Min Cost Climbing Stairs | `min-cost-climbing-stairs` | | |
-| 101 | 1-D dynamic programming | House Robber | `house-robber` | | |
-| 102 | 1-D dynamic programming | House Robber II | `house-robber-ii` | | |
+| 99 | 1-D dynamic programming | Climbing Stairs | `climbing-stairs` | ✓ | |
+| 100 | 1-D dynamic programming | Min Cost Climbing Stairs | `min-cost-climbing-stairs` | ✓ | |
+| 101 | 1-D dynamic programming | House Robber | `house-robber` | ✓ | |
+| 102 | 1-D dynamic programming | House Robber II | `house-robber-ii` | ✓ | |
 | 103 | 1-D dynamic programming | Longest Palindromic Substring | `longest-palindromic-substring` | | |
 | 104 | 1-D dynamic programming | Palindromic Substrings | `palindromic-substrings` | | |
 | 105 | 1-D dynamic programming | Decode Ways | `decode-ways` | | |
