@@ -75,11 +75,11 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 69 | Backtracking | Permutations | `permutations` | ✓ | |
 | 70 | Backtracking | Subsets II | `subsets-ii` | ✓ | |
 | 71 | Backtracking | Combination Sum II | `combination-sum-ii` | ✓ | |
-| 72 | Backtracking | Word Search | `word-search` | | |
-| 73 | Backtracking | Palindrome Partitioning | `palindrome-partitioning` | | |
-| 74 | Backtracking | Letter Combinations of a Phone Number | `letter-combinations-of-a-phone-number` | | |
-| 75 | Backtracking | N-Queens | `n-queens` | | |
-| 76 | Backtracking | Generate Parentheses | `generate-parentheses` | | |
+| 72 | Backtracking | Word Search | `word-search` | ✓ | |
+| 73 | Backtracking | Palindrome Partitioning | `palindrome-partitioning` | ✓ | |
+| 74 | Backtracking | Letter Combinations of a Phone Number | `letter-combinations-of-a-phone-number` | ✓ | |
+| 75 | Backtracking | N-Queens | `n-queens` | ✓ | |
+| 76 | Backtracking | Generate Parentheses | `generate-parentheses` | ✓ | |
 | 77 | Tries | Implement Trie (Prefix Tree) | `implement-trie-prefix-tree` | ✓ | merchant-suggest |
 | 78 | Tries | Design Add and Search Words Data Structure | `design-add-and-search-words-data-structure` | | |
 | 79 | Tries | Word Search II | `word-search-ii` | | |

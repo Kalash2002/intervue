@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "word-search",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Word Search",
+  "summary": "Decide whether a word can be traced through side-by-side cells of a letter grid, each cell used at most once.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["matrix", "grid", "depth-first-search", "recursion", "pruning"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you cut the search short for a word the grid can never hold?", "How would you look up many words in the same grid without searching once per word?", "What changes if a step may also go diagonally?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

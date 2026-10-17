@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Generate Parentheses, Example 1: the tree of prefixes for two pairs, where only allowed brackets are added, ending in the two balanced strings</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 320 79"/>
+<path d="M 320 101 L 200 134"/>
+<path d="M 320 101 L 440 134"/>
+<path d="M 200 156 L 200 189"/>
+<path d="M 440 156 L 440 189"/>
+<path d="M 200 211 L 200 224"/>
+<path d="M 440 211 L 440 224"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">""  0 open, 0 closed</text>
+<text x="320" y="95">(  only ( allowed: nothing to close</text>
+<text x="200" y="150">((  no ( left</text>
+<text x="440" y="150">()  0 unmatched: only (</text>
+<text x="200" y="205">(()  only )</text>
+<text x="440" y="205">()(  only )</text>
+</g>
+<rect x="164" y="226" width="72" height="22" rx="4" fill="#7c3aed"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" text-anchor="middle">
+<text x="200" y="242" fill="#ffffff">(())</text>
+<text x="440" y="242" fill="#83748f">()()</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="274">Add ( while some are unused, ) while one is unmatched.</text>
+<text x="20" y="296">Purple: (()). Each path from the top spells one answer.</text>
+</g>
+</svg>

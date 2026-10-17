@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "n-queens",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "N-Queens",
+  "summary": "List every way to place n chess queens on an n by n board so that no two attack each other.",
+  "difficulty": "Hard",
+  "techniques": ["backtracking"],
+  "tags": ["matrix", "recursion", "pruning", "constraint-search"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you only count the placements, as fast as possible?", "How could symmetry cut the work?", "How would you find just one placement for a board of a thousand squares a side?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

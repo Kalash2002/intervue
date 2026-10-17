@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "letter-combinations-of-a-phone-number",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Letter Combinations of a Phone Number",
+  "summary": "List every letter string a sequence of phone-keypad digits could stand for.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["string", "recursion", "hash-map", "cartesian-product"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return only the strings that are real words from a dictionary?", "How would you produce the k-th string in keypad order without listing the ones before it?", "How many strings can n digits produce, and what does that mean for the running time?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
