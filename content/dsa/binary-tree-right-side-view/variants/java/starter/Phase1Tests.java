@@ -51,12 +51,12 @@ public class Phase1Tests {
 
     @Test(order = 5)
     void fullTree() {
-        expect("[1, 3, 7]", 1, 2, 3, 4, 5, 6, 7);
+        expect("[30, 47, 9]", 30, -12, 47, 6, 21, -40, 9);
     }
 
     @Test(order = 6)
     void leftSideReachesDeeper() {
-        expect("[1, 3, 4, 6]", 1, 2, 3, 4, null, null, null, 5, 6);
+        expect("[40, 25, 18, -9]", 40, -3, 25, 18, null, null, null, 7, -9);
     }
 
     @Test(order = 7)

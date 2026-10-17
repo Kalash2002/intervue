@@ -2,7 +2,7 @@
 
 You are given the root of a binary search tree and a number `k`. In a binary search tree every value in a node's left subtree is smaller than the node's value and every value in its right subtree is larger, and all values are distinct. Return the `k`-th smallest value in the tree, counting from 1: `k = 1` asks for the smallest value.
 
-Implement `KthSmallest.kthSmallest(TreeNode root, int k)` in `KthSmallest.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[8,3,null,5]` is a root 8 whose left child 3 has a left child 5. The tests call your method many times on one large tree, mostly with small `k`.
+Implement `KthSmallest.kthSmallest(TreeNode root, int k)` in `KthSmallest.java`. `TreeNode` (in `TreeNode.java`, read-only) has an `int val` and the children `left` and `right`. Trees below are written in level order: the values level by level, left to right, with `null` for a missing child and trailing `null`s left out. For example `[8,3,null,5]` is a root 8 whose left child 3 has a left child 5. Each call should cost time that depends on the depth of the tree and on `k`, not on the size of the tree: the tests make about 2,000 calls with `k` up to 1,000 on a tree of 100,000 nodes, so reading the whole tree on every call is too slow.
 
 ## Example 1
 
@@ -31,4 +31,4 @@ Implement `KthSmallest.kthSmallest(TreeNode root, int k)` in `KthSmallest.java`.
 
 ## Follow-up
 
-Can you make each call cost time proportional to the depth plus `k`, rather than to the size of the tree?
+If the tree changed often between calls and `k` could be anything up to its size, how would you answer each call quickly?

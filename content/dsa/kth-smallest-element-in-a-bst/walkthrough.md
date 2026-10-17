@@ -10,7 +10,7 @@ The first idea ignores the ordering: collect every value, sort, and take positio
 
 The ordering means an in-order walk, left subtree, node, right subtree, meets the values in increasing order, so the sort can go: write the in-order sequence into a list and take its `k`-th entry. That is linear but still reads the whole tree. What remains is to stop: the in-order walk knows the `k`-th value the moment it meets it. With an explicit stack the walk is a loop that can simply return there. Each call goes down the left edge to the smallest value, at most h nodes, and then takes k steps along the sorted order.
 
-Walk Example 1, `k = 3`. Go left from 31 to 12 to 5, pushing each: the stack is `[31, 12, 5]`. Pop 5: first. 5 has a right child 9; push it and pop it: second. Pop 12: third, so the answer is 12. The stack still holds 31, and 20, 31, 47 and 60 are never read.
+Walk Example 1, `k = 3`. Go left from 31 to 12 to 5, pushing each: the stack is `[31, 12, 5]`. Pop 5: first. 5 has a right child 9; push it and pop it: second. Pop 12: third, so the answer is 12. The stack still holds 31, which is never counted, and 20, 47 and 60 are never read.
 
 ![Example 1 with k = 3: reading in order gives 5, then 9, then 12, and the walk stops at 12 without reading the rest](figures/in-order.svg)
 
@@ -59,7 +59,7 @@ private static void inOrder(TreeNode node, List<Integer> out) {
 
 **Complexity:** time O(n) per call; extra space O(n) for the list plus O(h) for the call stack, at most 1,000 frames here, but a path of tens of thousands of nodes would overflow Java's default stack.
 
-**Prefer it when:** you ask once with a large `k`, or want many answers from one walk: keep the list and every later call is O(1). On this question's tests, which call it 2,000 times with a fresh walk each, it is too slow.
+**Prefer it when:** many calls hit the same unchanging tree: build the sorted list once, outside the method, and every later call is an O(1) lookup (the code above would need the list kept between calls). As written, with a fresh walk on each of this question's 2,000 calls, it is too slow.
 
 ## Optimal: stop the in-order walk at k
 

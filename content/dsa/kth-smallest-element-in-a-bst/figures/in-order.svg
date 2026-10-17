@@ -26,5 +26,5 @@
 <text x="430" y="50" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">in order: 5, 9, 12, 20, 31, 47, 60</text>
 <text x="430" y="72" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">k = 3: stop at 12</text>
 <text x="430" y="112" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">stack when 12 is popped: [31]</text>
-<text x="430" y="134" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">20, 31, 47 and 60 are never read</text>
+<text x="430" y="134" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">20, 47 and 60 are never read</text>
 </svg>

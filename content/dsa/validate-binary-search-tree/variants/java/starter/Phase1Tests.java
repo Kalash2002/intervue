@@ -54,7 +54,7 @@ public class Phase1Tests {
     void equalValuesAreNot() {
         expect(false, 7, 7);
         expect(false, 7, null, 7);
-        expect(false, 10, 5, 15, null, 10);
+        expect(false, 24, 11, 30, null, 24);
     }
 
     @Test(order = 6)
@@ -94,11 +94,11 @@ public class Phase1Tests {
         TreeNode blockRoot = balanced(block, 0, block.length - 1);
         TreeNode root = TreeNode.path(top, true, blockRoot);
         expect(true, root);
-        TreeNode leaf = blockRoot.right;
-        while (leaf.left != null) {
-            leaf = leaf.left;
+        TreeNode leftmost = blockRoot.right;
+        while (leftmost.left != null) {
+            leftmost = leftmost.left;
         }
-        leaf.val = blockRoot.val - 1; // still below its parent, but now on the wrong side of the block's root
+        leftmost.val = blockRoot.val - 1; // still below its parent, but now on the wrong side of the block's root
         expect(false, root);
     }
 }

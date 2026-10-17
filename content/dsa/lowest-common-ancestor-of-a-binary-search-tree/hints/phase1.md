@@ -5,4 +5,4 @@ Standing at a node, can you tell from the values alone whether `p` and `q` are b
 If both values are smaller than the node, the answer is somewhere in the left subtree; if both are larger, in the right. What does it mean when neither is true?
 
 ## Level 3
-The first node on the way down whose value is not strictly beyond both `p` and `q` on the same side is the answer; compare each value with the node separately rather than combining the two differences into one number.
+If `p` and `q` are not on the same side of a node, nothing below it holds both.
