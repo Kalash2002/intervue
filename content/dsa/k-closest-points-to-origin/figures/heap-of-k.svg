@@ -28,7 +28,7 @@
 <g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
 <text x="180" y="110">The heap after all four points, farthest on top.</text>
 <text x="180" y="140">25 was on top until 9 arrived and pushed it out.</text>
-<text x="180" y="170">37 was farther than the top, so it never got in.</text>
+<text x="180" y="170">37 went in and came straight back out, the farthest.</text>
 <text x="180" y="200">Answer: [-1,2] (5) and [0,-3] (9).</text>
 </g>
 </svg>

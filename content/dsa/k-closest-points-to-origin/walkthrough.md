@@ -12,9 +12,9 @@ What is worth keeping is only the k best so far. Read the points one by one and 
 
 The last step drops the heap. You do not need the k points in any order, only to split the list into "the k closest" and "the rest". That is the quicksort partition step: pick a pivot distance, move closer points left and farther points right, and continue only in the side that contains position k. On average each round halves the work, so the total is linear.
 
-Walk Example 1 with `k = 2`. The squared distances are 25, 5, 37 and 9. Reading in order with a max-heap: `[3, 4]` (25) and `[-1, 2]` (5) go in, with 25 on top. `[6, -1]` (37) is farther than the top, so it is skipped. `[0, -3]` (9) is closer than 25, so `[3, 4]` leaves and `[0, -3]` enters. The heap holds `[-1, 2]` and `[0, -3]`.
+Walk Example 1 with `k = 2`. The squared distances are 25, 5, 37 and 9. Reading in order with a max-heap: `[3, 4]` (25) and `[-1, 2]` (5) go in, with 25 on top. `[6, -1]` (37) goes in and comes straight back out, as the farthest of the three. `[0, -3]` (9) is closer than 25, so `[3, 4]` leaves and `[0, -3]` enters. The heap holds `[-1, 2]` and `[0, -3]`.
 
-![Example 1 as squared distances 25, 5, 37 and 9: the max-heap of size 2 ends with 9 on top and 5 below it, after 25 is pushed out and 37 is never let in](figures/heap-of-k.svg)
+![Example 1 as squared distances 25, 5, 37 and 9: the max-heap of size 2 ends with 9 on top and 5 below it, after 37 goes in and comes straight back out and 25 is pushed out](figures/heap-of-k.svg)
 
 ## Brute force
 

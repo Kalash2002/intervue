@@ -27,9 +27,9 @@ public class Phase1Tests {
         finder.addNum(-8);
         assertEquals(-8.0, finder.findMedian());
         MedianFinder other = new MedianFinder();
-        other.addNum(1);
-        other.addNum(2);
-        assertEquals(1.5, other.findMedian());
+        other.addNum(9);
+        other.addNum(4);
+        assertEquals(6.5, other.findMedian()); // integer division would give 6
     }
 
     @Test(order = 3)

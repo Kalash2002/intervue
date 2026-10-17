@@ -55,7 +55,7 @@ class Twitter {
 }
 ```
 
-**Complexity:** `getNewsFeed` O(P) for P posts in total, since it may skip every post by a stranger; `postTweet`, `follow` and `unfollow` O(1) on average and O(log n) in the worst case, where Java turns a crowded hash bucket into a tree. Extra space O(P + E) for P posts and E follow links.
+**Complexity:** `getNewsFeed` O(P) for P posts in total, since it may skip every post by a stranger; `postTweet` O(1) amortized, for the list append; `follow` and `unfollow` O(1) on average and O(log n) in the worst case, where Java turns a crowded hash bucket into a tree. Extra space O(P + E) for P posts and E follow links.
 
 ## Better: the last ten posts of each visible author, sorted
 
@@ -143,15 +143,15 @@ class Twitter {
 }
 ```
 
-**Complexity:** `getNewsFeed` O(F log F) to fill the heap with F + 1 cursors plus O(log F) for each of at most ten pops; `postTweet`, `follow` and `unfollow` O(1) on average and O(log n) in the worst case, from the hash maps and sets. Each hash lookup in a feed has the same average and worst case. Extra space O(P + E) overall and O(F) per feed.
+**Complexity:** `getNewsFeed` O(F log F) to fill the heap with F + 1 cursors plus O(log F) for each of at most ten pops; `postTweet` O(1) amortized and average, O(log n) worst case from the hash map; `follow` and `unfollow` O(1) on average and O(log n) in the worst case, from the hash maps and sets. Each hash lookup in a feed has the same average and worst case. Extra space O(P + E) overall and O(F) per feed.
 
 ## Complexity
 
 | Approach | getNewsFeed | Other calls | Extra space |
 | --- | --- | --- | --- |
-| Brute force | O(P), all posts in the worst case | O(1) average, O(log n) worst case | O(P + E) |
-| Better: last ten per author, sorted | O(F log F), about 10(F + 1) posts sorted | O(1) average, O(log n) worst case | O(P + E), O(F) per feed |
-| Optimal: per-author lists and a heap | O(F log F + 10 log F) | O(1) average, O(log n) worst case | O(P + E), O(F) per feed |
+| Brute force | O(P), all posts in the worst case | postTweet O(1) amortized; follow, unfollow O(1) average, O(log n) worst case | O(P + E) |
+| Better: last ten per author, sorted | O(F log F), about 10(F + 1) posts sorted | O(1) amortized and average, O(log n) worst case | O(P + E), O(F) per feed |
+| Optimal: per-author lists and a heap | O(F log F + 10 log F) | O(1) amortized and average, O(log n) worst case | O(P + E), O(F) per feed |
 
 ## Where it shows up
 
