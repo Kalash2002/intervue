@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Last Stone Weight on 6, 3, 9, 4: each turn smashes the two heaviest stones and the remainder goes back</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="45">turn 1</text>
+<text x="20" y="95">turn 2</text>
+<text x="20" y="145">turn 3</text>
+<text x="20" y="195">left</text>
+<text x="330" y="45">9 - 6 = 3 goes back</text>
+<text x="330" y="95">4 - 3 = 1 goes back</text>
+<text x="330" y="145">3 - 1 = 2 goes back</text>
+<text x="330" y="195">the last stone weighs 2</text>
+</g>
+
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="90" y="25" width="44" height="30"/><rect x="140" y="25" width="44" height="30"/>
+<rect x="90" y="75" width="44" height="30"/><rect x="140" y="75" width="44" height="30"/>
+<rect x="90" y="125" width="44" height="30"/><rect x="140" y="125" width="44" height="30"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="190" y="25" width="44" height="30"/><rect x="240" y="25" width="44" height="30"/>
+<rect x="190" y="75" width="44" height="30"/>
+<rect x="90" y="175" width="44" height="30"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle">
+<text x="112" y="45" fill="#ffffff">9</text><text x="162" y="45" fill="#ffffff">6</text>
+<text x="212" y="45" fill="#83748f">4</text><text x="262" y="45" fill="#83748f">3</text>
+<text x="112" y="95" fill="#ffffff">4</text><text x="162" y="95" fill="#ffffff">3</text>
+<text x="212" y="95" fill="#83748f">3</text>
+<text x="112" y="145" fill="#ffffff">3</text><text x="162" y="145" fill="#ffffff">1</text>
+<text x="112" y="195" fill="#83748f">2</text>
+</g>
+
+<text x="20" y="236" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">Each row is the pile, heaviest first; the max-heap hands over the purple pair.</text>
+</svg>

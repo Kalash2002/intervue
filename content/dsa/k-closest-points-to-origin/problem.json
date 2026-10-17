@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "k-closest-points-to-origin",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "K Closest Points to Origin",
+  "summary": "Pick the k points nearest to the origin from a large list of points on a grid.",
+  "difficulty": "Medium",
+  "techniques": ["heap"],
+  "tags": ["heap", "max-heap", "quickselect", "geometry"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the points arrive as a stream too large to keep in memory?", "How would you return the k points sorted by distance?", "What changes if ties at the boundary are allowed?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

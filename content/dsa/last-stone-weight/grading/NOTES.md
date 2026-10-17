@@ -1,0 +1,7 @@
+# Grader notes: Last Stone Weight
+
+Tests cover: the sample (2), a pile where everything cancels (0; a version that reads the top of an empty heap crashes here), a single stone, two equal and two unequal stones, three and four equal stones (7 and 0), a remainder that stays the heaviest and is smashed again (`20, 3, 2, 2` gives 13; `1, 2, 4, 8, 16` gives 1), weights at the limit (`10^9, 999,999,999, 1` gives 0; `10^9, 1, 1, 1` gives 999,999,997), the same pile in two orders, and a large test.
+
+The large test has two shuffled piles of about 200,000 stones whose answers follow from how they are built. The first is 1..200,000: the two heaviest are always the next pair (200,000 and 199,999, then 199,998 and 199,997, down to 4 and 3), which leaves 99,999 stones of weight 1; 2 and 1 then leave another 1, and the 100,000 ones cancel in pairs, so the answer is 0. The second is 2,000, 3,000, ..., 200,000,000 (199,999 stones): the same pairing leaves 99,999 stones of 1,000 and the stone of 2,000; 2,000 and one 1,000 leave another 1,000, so 99,999 stones of 1,000 remain, they cancel in pairs, and the answer is 1,000.
+
+The naive solution scans the pile twice every turn to find the two heaviest stones. That is O(n²), about 3.5 * 10^10 steps on the large test, so it exceeds the limit and 3x the limit. The reference keeps a max-heap. The walkthrough's sorted-array Better is also O(n²) in the worst case, because the remainders of 1 are inserted at the bottom and every insert shifts the whole array; it is not expected to pass the large test.

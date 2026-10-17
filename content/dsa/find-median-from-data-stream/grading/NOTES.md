@@ -1,0 +1,7 @@
+# Grader notes: Find Median from Data Stream
+
+Tests drive a `MedianFinder` through calls and compare each median exactly as a `double` (every median here is a whole number or ends in .5, both exact in a `double`). They cover: the sample, halves that must not be rounded (-5 and -8 give -6.5, 1 and 2 give 1.5; a version that divides in integers returns -6 and 1, and a scratch version failed four tests), two middle numbers whose sum overflows an `int` (`2^31 - 1` and `2^31 - 2` give 2147483646.5, two `Integer.MIN_VALUE` give -2147483648.0; a scratch version that adds the two `Integer`s in `int` returned -1.5), a single number, repeated values, a rising then falling run of adds, two finders that must not share state, and a large test.
+
+The large test adds 100,000 numbers drawn with a fixed seed from -500..499 and asks for the median after each one. It counts the numbers in 1,000 buckets itself and reads the two middle positions from the counts, so the expected median is computed independently of any solution.
+
+The naive solution appends each number and copies and sorts all of them on every `findMedian`. That is 100,000 sorts of up to 100,000 numbers; it was still running after 30 seconds, so it exceeds the limit and 3x the limit. The reference keeps two heaps. The walkthrough's Better, a sorted array with binary-search insertion, is O(n) per add but each add is one block copy; it took 260 ms here and passes, so time is graded against re-sorting, not against insertion.

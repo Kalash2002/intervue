@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "find-median-from-data-stream",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Find Median from Data Stream",
+  "summary": "Design a class that takes numbers one at a time and reports the median of everything added so far.",
+  "difficulty": "Hard",
+  "techniques": ["heap"],
+  "tags": ["design", "heap", "two-heaps", "streaming"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if every number were between 0 and 100?", "How would you report the median of only the last w numbers?", "How would you report any percentile, such as the 90th, instead of the median?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

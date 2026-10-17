@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "last-stone-weight",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Last Stone Weight",
+  "summary": "Smash the two heaviest stones together until at most one is left, and report its weight.",
+  "difficulty": "Easy",
+  "techniques": ["heap"],
+  "tags": ["heap", "max-heap", "simulation"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do better than a heap when every weight is at most 1,000?", "What if you could choose any two stones each turn and wanted the last weight as small as possible?", "How would you also report how many turns were played?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

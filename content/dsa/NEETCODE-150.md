@@ -63,13 +63,13 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 57 | Trees | Construct Binary Tree from Preorder and Inorder Traversal | `construct-binary-tree-from-preorder-and-inorder-traversal` | ✓ | |
 | 58 | Trees | Binary Tree Maximum Path Sum | `binary-tree-maximum-path-sum` | ✓ | |
 | 59 | Trees | Serialize and Deserialize Binary Tree | `serialize-and-deserialize-binary-tree` | ✓ | |
-| 60 | Heap and priority queue | Kth Largest Element in a Stream | `kth-largest-element-in-a-stream` | | |
-| 61 | Heap and priority queue | Last Stone Weight | `last-stone-weight` | | |
-| 62 | Heap and priority queue | K Closest Points to Origin | `k-closest-points-to-origin` | | |
-| 63 | Heap and priority queue | Kth Largest Element in an Array | `kth-largest-element-in-an-array` | | |
+| 60 | Heap and priority queue | Kth Largest Element in a Stream | `kth-largest-element-in-a-stream` | ✓ | |
+| 61 | Heap and priority queue | Last Stone Weight | `last-stone-weight` | ✓ | |
+| 62 | Heap and priority queue | K Closest Points to Origin | `k-closest-points-to-origin` | ✓ | |
+| 63 | Heap and priority queue | Kth Largest Element in an Array | `kth-largest-element-in-an-array` | ✓ | |
 | 64 | Heap and priority queue | Task Scheduler | `task-scheduler` | ✓ | courier-load-balancer |
-| 65 | Heap and priority queue | Design Twitter | `design-twitter` | | |
-| 66 | Heap and priority queue | Find Median from Data Stream | `find-median-from-data-stream` | | |
+| 65 | Heap and priority queue | Design Twitter | `design-twitter` | ✓ | |
+| 66 | Heap and priority queue | Find Median from Data Stream | `find-median-from-data-stream` | ✓ | |
 | 67 | Backtracking | Subsets | `subsets` | | |
 | 68 | Backtracking | Combination Sum | `combination-sum` | | |
 | 69 | Backtracking | Permutations | `permutations` | | |

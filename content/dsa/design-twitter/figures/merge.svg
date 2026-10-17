@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Design Twitter, Example 2: the feed of user 1 merges three ordered lists with a heap of their newest posts</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="24">time</text>
+<text x="20" y="64">user 1</text>
+<text x="20" y="114">user 5</text>
+<text x="20" y="164">user 6</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="125" y="24">0</text><text x="185" y="24">1</text><text x="245" y="24">2</text><text x="305" y="24">3</text><text x="365" y="24">4</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="100" y="94" width="50" height="30"/>
+<rect x="160" y="144" width="50" height="30"/>
+<rect x="220" y="94" width="50" height="30"/>
+</g>
+<rect x="340" y="44" width="50" height="30" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle">
+<text x="125" y="114" fill="#83748f">70</text>
+<text x="185" y="164" fill="#83748f">71</text>
+<text x="245" y="114" fill="#83748f">72</text>
+<text x="365" y="64" fill="#ffffff">73</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="410" y="64">heap: 73, 72, 71</text>
+<text x="410" y="114">take 73, then 72;</text>
+<text x="410" y="134">70 enters after 72</text>
+<text x="410" y="164">then 71, then 70</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="212">Post 74 at time 3 is by user 7, who is not followed, so it is never read.</text>
+<text x="20" y="234">Feed of user 1: [73, 72, 71, 70].</text>
+</g>
+</svg>
