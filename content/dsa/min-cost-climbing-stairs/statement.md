@@ -8,7 +8,7 @@ Implement `StairFees.minCost(int[] fee)` in `StairFees.java` and return the smal
 
 **Input:** `fee = [4,9,2,7,3]`
 **Output:** `9`
-**Explanation:** Stand on steps 0, 2 and 4 and pay 4 + 2 + 3. A route through step 1 pays 9 there alone, and the only other route that avoids step 1 stands on the 7.
+**Explanation:** Stand on steps 0, 2 and 4 and pay 4 + 2 + 3. A route through step 1 pays 9 there alone, and every other route that avoids step 1 stands on the 7.
 
 ## Example 2
 

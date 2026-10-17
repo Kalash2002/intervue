@@ -115,8 +115,8 @@ Circular schedules have this shape: picking which hours of a repeating 24-hour d
 
 ## Follow-up answers
 
-**Why is it safe to split the circle into two straight streets?** The only extra rule on the circle is that houses 0 and `n - 1` are not both taken, so every allowed choice leaves at least one of them alone and lies entirely in one street. In the other direction, a choice on either street never takes both ends, so it is allowed on the circle. The two maxima together are therefore exactly the circle's maximum; choices that leave both ends alone are counted twice, which does no harm to a maximum.
-
 **What if you had to choose exactly k houses?** The state needs the count: best total for the first `i` houses using exactly `j` of them, with the same take-or-leave rule, which costs O(n × k) time and O(k) space per street if rows are reused. Without the circle that is one pass; with it, the same two streets.
+
+**Why is it safe to split the circle into two straight streets?** The only extra rule on the circle is that houses 0 and `n - 1` are not both taken, so every allowed choice leaves at least one of them alone and lies entirely in one street. In the other direction, a choice on either street never takes both ends, so it is allowed on the circle. The two maxima together are therefore exactly the circle's maximum; choices that leave both ends alone are counted twice, which does no harm to a maximum.
 
 **What if the houses formed a tree, each house the neighbour of its parent and children?** Do a post-order walk and return two numbers per house: the best total in its subtree when it is taken (its cash plus the children's not-taken totals) and when it is not (the sum of each child's better total). The answer is the better of the root's two numbers, in O(n) time; on a very deep tree, use an explicit stack instead of recursion.

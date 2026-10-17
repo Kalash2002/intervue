@@ -6,7 +6,7 @@ What makes it harder than it looks is that the obvious greedy, stepping to the c
 
 ## How to think about it
 
-The first idea is to try every route: from each position, either climb one or climb two, and take the cheaper total. That is correct, and the routes double with every step, so 1,000 steps is hopeless. The waste is plain once you see it: the cheapest way on from step 5 is worked out again for every route that lands on step 5.
+The first idea is to try every route: from each position, either climb one or climb two, and take the cheaper total. That is correct, and the routes grow by a factor of about 1.6 with every step, so 1,000 steps is hopeless. The waste is plain once you see it: the cheapest way on from step 5 is worked out again for every route that lands on step 5.
 
 Turn it around and ask how you arrive. You arrive at position `i` from `i - 1`, paying `fee[i - 1]`, or from `i - 2`, paying `fee[i - 2]`. So the cheapest arrival at `i` is the smaller of those two sums, and arriving at positions 0 and 1 is free because the first move can go to either. The landing is position `n`, and its arrival cost is the answer.
 

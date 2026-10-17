@@ -6,7 +6,7 @@ What makes it harder than it looks is that both quick rules are wrong. Taking ev
 
 ## How to think about it
 
-The first idea is to decide each house in turn, take it or leave it, and try both. Taking house `i` means house `i + 1` is off limits, so the recursion is "best from `i` = max(best from `i + 1`, `cash[i]` + best from `i + 2`)". It is correct and its calls nearly double with each house, because the best total from house 7 is worked out again for every way of deciding the houses before it.
+The first idea is to decide each house in turn, take it or leave it, and try both. Taking house `i` means house `i + 1` is off limits, so the recursion is "best from `i` = max(best from `i + 1`, `cash[i]` + best from `i + 2`)". It is correct and its calls grow by a factor of about 1.6 with each house, because the best total from house 7 is worked out again for every way of deciding the houses before it.
 
 Storing each "best from `i`" the first time it is computed makes every house cost one comparison. Then notice that each value needs only the next two, or, going from the front, that the best total for the first `i` houses needs only the best totals for the first `i - 1` and `i - 2`: leave house `i` and keep the first, or take it and add its cash to the second. Two variables carry the street.
 

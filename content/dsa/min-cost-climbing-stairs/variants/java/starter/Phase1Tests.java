@@ -27,8 +27,8 @@ public class Phase1Tests {
 
     @Test(order = 4)
     void theLandingIsAboveTheLastStep() {
-        // the last step need not be stood on: 4, then two moves up to the landing
-        assertEquals(4, StairFees.minCost(new int[] {3, 4, 50}));
+        // steps 0, 2 and 3, then two up to the landing, skip the 60: 2 + 3 + 8; paying the 60 gives 65
+        assertEquals(13, StairFees.minCost(new int[] {2, 9, 3, 8, 60}));
     }
 
     @Test(order = 5)

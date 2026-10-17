@@ -29,4 +29,4 @@ Implement `RingRoad.maxLoot(int[] cash)` in `RingRoad.java` and return the large
 
 ## Follow-up
 
-Why is it safe to split the circle into two straight streets?
+What if you had to choose exactly k houses?

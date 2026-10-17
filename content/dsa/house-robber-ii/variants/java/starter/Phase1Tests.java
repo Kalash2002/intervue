@@ -27,8 +27,8 @@ public class Phase1Tests {
 
     @Test(order = 4)
     void threeHousesAreAllNeighbours() {
-        // on a straight street 4 + 5 would be allowed; on the circle houses 0 and 2 touch
-        assertEquals(6, RingRoad.maxLoot(new int[] {4, 6, 5}));
+        // on a straight street 7 + 6 would be allowed; on the circle houses 0 and 2 touch
+        assertEquals(7, RingRoad.maxLoot(new int[] {7, 2, 6}));
     }
 
     @Test(order = 5)

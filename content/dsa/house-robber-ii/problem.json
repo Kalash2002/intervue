@@ -13,7 +13,7 @@
   "phases": [
     {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
   ],
-  "followUps": ["Why is it safe to split the circle into two straight streets?", "What if you had to choose exactly k houses?", "What if the houses formed a tree, each house the neighbour of its parent and children?"],
+  "followUps": ["What if you had to choose exactly k houses?", "Why is it safe to split the circle into two straight streets?", "What if the houses formed a tree, each house the neighbour of its parent and children?"],
   "languages": ["java"],
   "coveredBy": []
 }
