@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" width="640" height="310" role="img">
+<title>Course Schedule II on Example 1: the courses that wait for nothing start the order, and each course joins it when its last prerequisite is taken</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0 0 L10 5 L0 10 z" fill="#83748f"/>
+</marker>
+</defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="22">an arrow b to a means b must be finished before a; purple courses start the queue</text></g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+<line x1="102" y1="80" x2="226" y2="80"/>
+<line x1="98" y1="166" x2="230" y2="96"/>
+<line x1="272" y1="80" x2="396" y2="80"/>
+<line x1="102" y1="180" x2="226" y2="180"/>
+</g>
+<g stroke-width="1.5">
+<circle cx="80" cy="80" r="22" fill="#7c3aed" stroke="#7c3aed"/>
+<circle cx="80" cy="180" r="22" fill="#7c3aed" stroke="#7c3aed"/>
+<circle cx="250" cy="80" r="22" fill="none" stroke="#83748f"/>
+<circle cx="250" cy="180" r="22" fill="none" stroke="#83748f"/>
+<circle cx="420" cy="80" r="22" fill="none" stroke="#83748f"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="80" y="85" fill="#ffffff">0</text>
+<text x="80" y="185" fill="#ffffff">1</text>
+<text x="250" y="85">2</text>
+<text x="250" y="185">3</text>
+<text x="420" y="85">4</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="80" y="122">waits 0</text>
+<text x="80" y="222">waits 0</text>
+<text x="250" y="122">waits 2</text>
+<text x="250" y="222">waits 1</text>
+<text x="420" y="122">waits 1</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="20" y="252">order so far: 0 1     take 0: 2 waits 1     take 1: 3 and 2 free up</text>
+<text x="20" y="272">order so far: 0 1 3 2     take 3: nothing     take 2: 4 frees up</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="298">All 5 courses joined, so the order is [0,1,3,2,4].</text>
+</g>
+</svg>

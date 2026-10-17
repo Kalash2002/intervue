@@ -88,10 +88,10 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 82 | Graphs | Max Area of Island | `max-area-of-island` | ✓ | |
 | 83 | Graphs | Pacific Atlantic Water Flow | `pacific-atlantic-water-flow` | ✓ | |
 | 84 | Graphs | Surrounded Regions | `surrounded-regions` | ✓ | |
-| 85 | Graphs | Rotting Oranges | `rotting-oranges` | | |
-| 86 | Graphs | Walls and Gates | `walls-and-gates` | | |
-| 87 | Graphs | Course Schedule | `course-schedule` | | |
-| 88 | Graphs | Course Schedule II | `course-schedule-ii` | | |
+| 85 | Graphs | Rotting Oranges | `rotting-oranges` | ✓ | |
+| 86 | Graphs | Walls and Gates | `walls-and-gates` | ✓ | |
+| 87 | Graphs | Course Schedule | `course-schedule` | ✓ | |
+| 88 | Graphs | Course Schedule II | `course-schedule-ii` | ✓ | |
 | 89 | Graphs | Redundant Connection | `redundant-connection` | | |
 | 90 | Graphs | Number of Connected Components in an Undirected Graph | `number-of-connected-components-in-an-undirected-graph` | | |
 | 91 | Graphs | Graph Valid Tree | `graph-valid-tree` | | |

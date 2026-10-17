@@ -1,0 +1,5 @@
+# Grader notes: Course Schedule
+
+Tests cover: the sample (a plan that works and a loop of three); a course that lists itself, alone and inside an otherwise fine plan; no pairs at all; a loop of two next to free courses; two routes to the same course (a search that treats any course seen before as a loop fails these); a loop among courses that a search starting only at course 0 never reaches; repeated pairs, with and without a loop; thirty seeded random plans that follow a hidden order (true), each checked again with one pair reversed (false); and two plans of 100,000 courses: one chain where each course needs the one before it, and the same chain ending in a loop of the last two courses.
+
+Each large test has a limit of 1,000 ms (3x is 3,000 ms). The reference, Kahn's algorithm over arrays, took 11 to 14 ms per large test on a cold JVM. The naive solution takes every ready course in a pass over all pairs and repeats until a pass frees nothing; a chain frees one course per pass, so it timed out on both large tests even with the limit raised fivefold (5,000 ms). The walkthrough's recursive depth-first search overflows the call stack on both large tests.

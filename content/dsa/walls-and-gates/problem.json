@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "walls-and-gates",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Walls and Gates",
+  "summary": "Write into every room of a floor plan how many steps it is from the nearest exit.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["grid", "bfs", "multi-source-bfs"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in time proportional to the size of the plan, however many exits there are?", "How would you also record which exit is nearest to each room?", "What if some doors take two steps to pass through instead of one?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

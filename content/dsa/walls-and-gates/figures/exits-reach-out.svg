@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Walls and Gates on the 3 by 4 plan of Example 1: both exits start the search and each room gets the distance of the first exit to reach it</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="22">exits are purple, walls are dashed, rooms show the steps written into them</text></g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="60" y="40" width="36" height="36"/>
+<rect x="100" y="40" width="36" height="36"/>
+<rect x="140" y="40" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="20" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="60" y="80" width="36" height="36" stroke-dasharray="2 4" opacity="0.4"/>
+<rect x="100" y="80" width="36" height="36"/>
+<rect x="140" y="80" width="36" height="36"/>
+<rect x="20" y="120" width="36" height="36"/>
+<rect x="60" y="120" width="36" height="36"/>
+<rect x="100" y="120" width="36" height="36"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="20" y="40" width="36" height="36"/>
+<rect x="140" y="120" width="36" height="36"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="38" y="63" fill="#ffffff">0</text>
+<text x="158" y="143" fill="#ffffff">0</text>
+<text x="78" y="63">1</text>
+<text x="118" y="63">2</text>
+<text x="118" y="103">2</text>
+<text x="158" y="103">1</text>
+<text x="38" y="143">3</text>
+<text x="78" y="143">2</text>
+<text x="118" y="143">1</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="230" y="58">queue, in rings of equal distance:</text>
+<text x="230" y="82">0: (0,0) (2,3)   both exits</text>
+<text x="230" y="106">1: (0,1) (1,3) (2,2)</text>
+<text x="230" y="130">2: (0,2) (1,2) (2,1)</text>
+<text x="230" y="154">3: (2,0)</text>
+<text x="230" y="178">a room is written once, by the first ring to reach it</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="214">(0,2) is reached in ring 2 from the top exit before ring 3 could reach it.</text>
+</g>
+</svg>

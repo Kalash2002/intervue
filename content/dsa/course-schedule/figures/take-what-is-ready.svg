@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Course Schedule on Example 1: each course shows how many prerequisites it waits for, and courses are taken as that count reaches zero</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M0 0 L10 5 L0 10 z" fill="#83748f"/>
+</marker>
+</defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="22">an arrow b to a means b must be finished before a</text></g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#arrow)">
+<line x1="102" y1="120" x2="198" y2="120"/>
+<line x1="240" y1="108" x2="340" y2="72"/>
+<line x1="242" y1="120" x2="458" y2="120"/>
+<line x1="400" y1="72" x2="462" y2="106"/>
+</g>
+<g stroke-width="1.5">
+<circle cx="80" cy="120" r="22" fill="#7c3aed" stroke="#7c3aed"/>
+<circle cx="220" cy="120" r="22" fill="none" stroke="#83748f"/>
+<circle cx="370" cy="60" r="22" fill="none" stroke="#83748f"/>
+<circle cx="480" cy="120" r="22" fill="none" stroke="#83748f"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="80" y="125" fill="#ffffff">0</text>
+<text x="220" y="125">1</text>
+<text x="370" y="65">2</text>
+<text x="480" y="125">3</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="80" y="162">waits 0</text>
+<text x="220" y="162">waits 1</text>
+<text x="370" y="102">waits 1</text>
+<text x="480" y="162">waits 2</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="20" y="196">take 0: course 1 waits 0    take 1: 2 waits 0, 3 waits 1</text>
+<text x="20" y="216">take 2: course 3 waits 0    take 3: all 4 courses taken</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="246">Every course was taken, so the answer is true.</text>
+</g>
+</svg>

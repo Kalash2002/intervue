@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "course-schedule-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Course Schedule II",
+  "summary": "Return an order that takes every course after its prerequisites, or nothing if no such order exists.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["topological-sort", "cycle-detection", "bfs"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you build the order in time linear in the number of courses and pairs?", "How would you return the smallest order in dictionary order when several are valid?", "How would you group the courses into terms, taking every ready course each term?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
