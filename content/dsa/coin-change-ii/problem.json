@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "coin-change-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Coin Change II",
+  "summary": "Count the different handfuls of coins, with unlimited coins of each value, that add up to an exact amount.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "unbounded-knapsack", "counting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the order of the coins mattered, so that 5 + 3 and 3 + 5 counted as two ways?", "What if each coin value could be used at most once?", "What if the machine held only a limited number of coins of each value?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "best-time-to-buy-and-sell-stock-with-cooldown",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Best Time to Buy and Sell Stock with Cooldown",
+  "summary": "Find the largest profit from trading one share at a time when every sale is followed by a day without buying.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "state-machine", "array"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if every sale cost a fixed fee and there were no rest day?", "What if the rest lasted k days after each sale?", "What if the desk could make at most two trades in all?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
