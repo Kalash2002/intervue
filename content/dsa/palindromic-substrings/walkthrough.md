@@ -6,7 +6,7 @@ What makes it harder than it looks is that every palindrome must be found, not j
 
 ## How to think about it
 
-The first idea is to test every substring with two pointers walking inward and count the ones that pass. It is correct, but the tests overlap: `tat` is `a` with a `t` added at each end, and testing `tat` from scratch walks over `a` again. A stretch is a palindrome exactly when its end letters match and the stretch inside them is one, so a table indexed by start and end can reuse every inner answer. That brings the work down to one comparison per substring, but the table holds all n² of them.
+The first idea is to test every substring with two pointers walking inward and count the ones that pass. It is correct, but the tests overlap: testing `wowow` compares the outer `w`s and then the two `o`s, and the test of `owo` compares those same two `o`s. A stretch is a palindrome exactly when its end letters match and the stretch inside them is one, so a table indexed by start and end can reuse every inner answer. That brings the work down to one comparison per substring, but the table holds all n² of them.
 
 Turn the rule around. Every palindrome has exactly one middle, a letter for odd lengths or the gap between two letters for even ones, and from that middle it is reached by stepping outward one letter on each side at a time. The steps around one middle give palindromes until the first pair that differs, and nothing further out around that middle can be one. So grow from each of the 2n − 1 middles and add one for every successful step: each palindrome is counted once, at its own middle, and no table is needed.
 

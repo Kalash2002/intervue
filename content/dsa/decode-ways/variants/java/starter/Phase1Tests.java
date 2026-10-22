@@ -19,7 +19,7 @@ public class Phase1Tests {
     @Test(order = 2)
     void aZeroCannotStandAlone() {
         expect(0, "00");
-        expect(0, "0123");
+        expect(0, "0725");
         expect(0, "9001");
         expect(0, "130");
     }

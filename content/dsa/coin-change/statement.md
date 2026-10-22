@@ -6,9 +6,9 @@ Implement `Till.fewestCoins(int[] coins, int amount)` in `Till.java` and return 
 
 ## Example 1
 
-**Input:** `coins = [2,7,10]`, `amount = 14`
+**Input:** `coins = [2,5,6]`, `amount = 10`
 **Output:** `2`
-**Explanation:** Two 7s make 14. Starting with the largest coin, 10, leaves 4, which takes two 2s, so three coins.
+**Explanation:** Two 5s make 10. Starting with the largest coin, 6, leaves 4, which takes two 2s, so three coins.
 
 ## Example 2
 
@@ -18,9 +18,9 @@ Implement `Till.fewestCoins(int[] coins, int amount)` in `Till.java` and return 
 
 ## Example 3
 
-**Input:** `coins = [6,9]`, `amount = 20`
+**Input:** `coins = [12,21]`, `amount = 40`
 **Output:** `-1`
-**Explanation:** Every total made of 6s and 9s is a multiple of 3, and 20 is not.
+**Explanation:** Every total made of 12s and 21s is a multiple of 3, and 40 is not.
 
 ## Example 4
 

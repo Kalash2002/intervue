@@ -2,17 +2,17 @@
 
 Given coin values, each available as often as you like, and an amount, return the fewest coins that add up to exactly that amount, or −1 if no combination does. An amount of 0 takes no coins.
 
-What makes it harder than it looks is that the way a cashier pays, largest coin first, is wrong for arbitrary coin values. With `[2,7,10]` and 14 it hands over 10, 2 and 2 where two 7s would do; with `[4,7]` and 15 it hands over two 7s, is left owing 1 and gives up, though 4 + 4 + 7 works. The coin values go up to 2^31 − 1, so adding a coin to anything can overflow, and so can adding 1 to an "impossible" marker of `Integer.MAX_VALUE`. And the number of ways to hand over coins grows exponentially with the amount.
+What makes it harder than it looks is that the way a cashier pays, largest coin first, is wrong for arbitrary coin values. With `[2,5,6]` and 10 it hands over 6, 2 and 2 where two 5s would do; with `[4,7]` and 15 it hands over two 7s, is left owing 1 and gives up, though 4 + 4 + 7 works. The coin values go up to 2^31 − 1, so adding a coin to anything can overflow, and so can adding 1 to an "impossible" marker of `Integer.MAX_VALUE`. And the number of ways to hand over coins grows exponentially with the amount.
 
 ## How to think about it
 
-The first idea is to choose the first coin, pay the rest as well as possible, and keep the best choice: fewest(a) is 1 + fewest(a − c), minimised over the coins c that fit. It is correct, but it pays the same rest again and again: with `[2,7,10]` and a larger amount, a rest of 30 is reached after handing over 10 + 2 + 2, after 2 + 10 + 2, after 2 + 2 + 10 and in many other orders, and each time it is worked out from scratch.
+The first idea is to choose the first coin, pay the rest as well as possible, and keep the best choice: fewest(a) is 1 + fewest(a − c), minimised over the coins c that fit. It is correct, but it pays the same rest again and again: with `[2,5,6]` and a larger amount, a rest of 30 is reached after handing over 6 + 2 + 2, after 2 + 6 + 2, after 5 + 5 and in many other ways, and each time it is worked out from scratch.
 
 There are only amount + 1 different rests, from 0 to the amount. Remember the answer for each the first time it is computed and the exponential search becomes amount × coins steps. Or turn it around and fill a table from 0 upwards: the fewest coins for a total is one more than the best of the totals one coin smaller, so each entry needs only entries already filled. Totals that nothing adds up to keep a marker; choosing the marker as amount + 1, more coins than any real answer can use, means adding 1 to it never overflows. Checking `coin <= total` before subtracting keeps the index in range and never adds a huge coin to anything.
 
-Walk Example 1, `coins = [2,7,10]`, `amount = 14`. Total 0 takes 0 coins; 1, 3 and 5 cannot be paid; 2, 4 and 6 take one, two and three 2s; 7 takes one 7; 10 takes one 10. At 14 the candidates are one more than total 12 (2 coins, 10 + 2), total 7 (1 coin) and total 4 (2 coins), so 14 takes 1 + 1 = 2 coins: 7 + 7.
+Walk Example 1, `coins = [2,5,6]`, `amount = 10`. Total 0 takes 0 coins; 1 and 3 cannot be paid; 2 and 4 take one and two 2s; 5 and 6 take one coin each; 7 is 5 + 2 and 8 is 6 + 2, two coins each; 9 takes three, 5 + 2 + 2. At 10 the candidates are one more than total 8 (2 coins), total 5 (1 coin) and total 4 (2 coins), so 10 takes 1 + 1 = 2 coins: 5 + 5.
 
-![The table of fewest coins for totals 0 to 14 with coins 2, 7 and 10, with arcs from totals 4, 7 and 12 to total 14 and the arc from 7 marked as the one that gives 2](figures/fewest-table.svg)
+![The table of fewest coins for totals 0 to 10 with coins 2, 5 and 6, with arcs from totals 4, 5 and 8 to total 10 and the arc from 5 marked as the one that gives 2](figures/fewest-table.svg)
 
 ## Brute force
 

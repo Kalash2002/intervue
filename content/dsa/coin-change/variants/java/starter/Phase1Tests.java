@@ -13,9 +13,9 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        expect(2, new int[] {2, 7, 10}, 14);
+        expect(2, new int[] {2, 5, 6}, 10);
         expect(3, new int[] {4, 7}, 15);
-        expect(-1, new int[] {6, 9}, 20);
+        expect(-1, new int[] {12, 21}, 40);
         expect(3, new int[] {2_147_483_647, 3}, 9);
     }
 
@@ -27,7 +27,7 @@ public class Phase1Tests {
 
     @Test(order = 3)
     void theLargestCoinFirstIsNotFewest() {
-        expect(2, new int[] {1, 6, 10}, 12); // 6 + 6; the 10 first needs 1 + 1 after it
+        expect(2, new int[] {1, 8, 11}, 16); // 8 + 8; the 11 first needs five 1s after it
         expect(3, new int[] {3, 11, 12}, 33); // three 11s; two 12s first need three 3s after them
     }
 
