@@ -5,4 +5,4 @@ Always taking the longest jump can land you on a platform with no spring when a 
 If you can land on some platform by a jump from an earlier one, you can also land on every platform in between, because shorter jumps are allowed. What does that say about the shape of the set of platforms you can reach?
 
 ## Level 3
-The reachable platforms always form one block starting at platform 0, so the only thing worth tracking is how far that block extends.
+All you need to carry along the row is the farthest platform reached so far.

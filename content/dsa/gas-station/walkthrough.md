@@ -2,7 +2,7 @@
 
 A shuttle drives a loop of charging stops; each stop adds charge and each leg to the next stop uses some. Return the lowest-numbered stop from which the shuttle, starting empty, gets all the way round without running out on a leg, or -1 if no stop works.
 
-What makes it harder than it looks is that the obvious picks are wrong. In Example 1 the stop with the most charge, stop 1, runs out on its second leg, and so does stop 4, which gains the most on its own leg. When the stops give less charge in total than the loop uses, no start works, even though a long stretch may look fine (Example 2). Several stops can work (Example 3), and the rule asks for the lowest. And driving the loop from every stop costs up to n laps of n legs, 10^10 steps at 100,000 stops.
+What makes it harder than it looks is that the obvious picks are wrong. In Example 1 the stop with the most charge, stop 1, runs out on its second leg, and stop 4, which gains the most on its own leg, runs out later, on the leg from stop 2. When the stops give less charge in total than the loop uses, no start works, even though a long stretch may look fine (Example 2). Several stops can work (Example 3), and the rule asks for the lowest. And driving the loop from every stop costs up to n laps of n legs, 10^10 steps at 100,000 stops.
 
 ## How to think about it
 
@@ -74,7 +74,7 @@ static int startStop(int[] charge, int[] drain) {
 
 **Complexity:** time O(n): the starts it tries cover the list once, and only the last one can wrap round, so it drives at most 2n legs. Extra space O(1).
 
-**Prefer it when:** you want the answer checked by driving: the stop it returns has just been driven all the way round, so it needs no argument about the total.
+**Prefer it when:** the readings are not just the balance shifted by a constant, for example when the battery is capped: the skip argument still holds there and the total check does not (see the follow-ups). The stop it returns has just been driven all the way round, so it needs no argument about the total.
 
 ## Optimal: one pass with a running candidate
 

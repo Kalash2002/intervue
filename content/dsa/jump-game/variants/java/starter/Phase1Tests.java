@@ -20,13 +20,13 @@ public class Phase1Tests {
 
     @Test(order = 2)
     void theLongestJumpCanBeTheWrongOne() {
-        expect(true, 2, 3, 0, 0, 1); // the longest jump from 0 lands on platform 2, a dead end
+        expect(true, 5, 2, 0, 4, 0, 0, 0, 0); // the longest jump from 0 lands on 5, a dead end; 0 -> 3 -> 7
         expect(true, 4, 0, 3, 0, 0, 0); // the longest jump lands on 4; the 3 on platform 2 gets there
     }
 
     @Test(order = 3)
     void aZeroCanBeJumpedOver() {
-        expect(true, 3, 0, 0, 1, 0);
+        expect(true, 2, 0, 3, 0, 0, 1, 0); // 0 -> 2 -> 5 -> 6, over the zeros on 1, 3 and 4
         expect(true, 1, 0); // a spring of 0 on the last platform does not matter
     }
 

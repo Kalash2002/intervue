@@ -21,7 +21,7 @@ public class Phase1Tests {
     @Test(order = 2)
     void aLosingDayCanSitInsideTheBestRun() {
         expect(8, 6, -5, 7); // cutting the ledger at the -5 leaves 7 at best
-        expect(11, 4, -1, 2, -3, 9); // the whole ledger; cutting at the losses leaves 9
+        expect(13, 7, -3, 2, -1, 6, -2, 4); // the whole ledger; cutting at the losses leaves 7
     }
 
     @Test(order = 3)

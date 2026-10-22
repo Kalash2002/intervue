@@ -8,7 +8,7 @@ What makes it harder than it looks is that the obvious greedy, always take the l
 
 The first idea is a search: from each platform, try every jump length and recurse. It is correct, but it explores the same platform again from every route that lands on it, so a row with no way through costs up to 2^n calls.
 
-Remembering the answer per platform removes the repetition. Fill a table from the end: a platform is good if some platform it can land on is good. Each platform is decided once, but deciding it scans up to `spring[i]` platforms, so the table costs O(n × max spring), about 5 × 10^9 steps on a row of 100,000 strong springs.
+Remembering the answer per platform removes the repetition. Fill a table from the end: a platform is good if some platform it can land on is good. Each platform is decided once, but deciding it scans up to `spring[i]` platforms, so the table costs O(n × max spring): up to about 5 × 10^9 steps on 100,000 platforms when strong springs keep landing on platforms that lead nowhere, as before a long dead end.
 
 The step to the greedy is one observation about shape: the platforms you can reach always form one block starting at platform 0, with no gaps. If you can land on platform `p` by jumping from platform `q`, you can land on every platform between `q` and `p` as well, because shorter jumps are allowed. So nothing about the jumps themselves needs remembering, only how far that block extends. Walk the row from the left, and while the current platform is inside the block, extend the block to `i + spring[i]` if that is farther. If the block reaches the last platform, the answer is true; if the walk steps past the end of the block, you are stuck. This never chooses a jump, which is why it is safe: it tracks how far the best choice could get, and the no-gaps argument shows that every platform inside the block really can be reached. The longest-jump rule fails exactly because it commits to one landing platform instead.
 
@@ -65,7 +65,7 @@ static boolean canReachEnd(int[] spring) {
 
 **Complexity:** time O(n × max spring), which is O(n²) when the springs are strong; extra space O(n).
 
-**Prefer it when:** you need the answer from every starting platform, not just platform 0: `good` holds all of them.
+**Prefer it when:** you need the answer from every starting platform, not just platform 0: `good` holds all of them. Its scan always stops at the nearest good platform to the right, though, so keeping only that one platform instead of the whole table gives an O(n) pass from the end that answers every start too: platform `i` is good exactly when `i + spring[i]` reaches the nearest good platform after it.
 
 ## Optimal: the farthest reach
 
@@ -104,4 +104,4 @@ Any check of whether ranges laid end to end cover a line has this shape: whether
 
 **What if some platforms were broken and could not be landed on?** Skip them in the pass: a broken platform never extends the reach, though a jump may still pass over it. The no-gaps argument still holds for the platforms that are not broken, because a spring that reaches past a broken platform can land on any unbroken one before it.
 
-**What if springs could also throw you backwards?** Then the reachable platforms need not form one block, so the single reach is not enough. Search the platforms as a graph, breadth-first from platform 0, marking each platform when it is first reached. Scanning every landing platform costs O(n × max spring); keeping the platforms not yet reached in a sorted set and removing each one as it is reached brings it to O(n log n).
+**What if each spring threw you exactly its strength, forwards or backwards?** Then shorter jumps are gone: from platform `i` you can land only on `i - spring[i]` or `i + spring[i]`, so the reachable platforms need not form one block and the single reach no longer works. Treat the platforms as a graph in which each one has at most two exits, and search it from platform 0, breadth-first with a queue and an array marking the platforms already reached, until the last platform is reached or the queue runs out. Each platform is taken from the queue at most once, so this is O(n) time and O(n) space. Throwing backwards by any distance from 1 up to the strength, by contrast, changes nothing: such a jump from a platform inside the block lands inside the block, which is already reachable, so the one forward pass still answers it.

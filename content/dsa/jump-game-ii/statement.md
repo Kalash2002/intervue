@@ -2,7 +2,7 @@
 
 Relay stations stand along a road, numbered from 0. Station `i` can forward a message to any station from 1 up to `range[i]` places further along the road; a range of 0 means it cannot forward at all. A message starts at station 0 and has to reach the last station.
 
-Implement `Relay.fewestHops(int[] range)` in `Relay.java` and return the fewest hops that get the message to the last station. Every input lets the message get there.
+Implement `Relay.fewestHops(int[] range)` in `Relay.java` and return the fewest hops that get the message to the last station.
 
 ## Example 1
 

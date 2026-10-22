@@ -56,7 +56,7 @@ static int bestRun(int[] net) {
 
 **Complexity:** time O(n), extra space O(1). The balance is the total of days 0 to today, and `balance - lowest` is the total of a run, so both stay inside an `int`.
 
-**Prefer it when:** you think of the ledger as a running balance: the answer is the largest rise of the balance above an earlier low, the same pass as buying low and selling high on a price chart.
+**Prefer it when:** the series arrives as running balances or prices rather than daily changes: the loop's only state is the balance and its earlier low, so with balances as input the line that adds `amount` goes away and the pass finds the largest rise above an earlier low, the same pass as buying low and selling high. It is also the version to extend when runs must be at least `k` days long: the low it subtracts simply trails `k` days behind the current day (see the follow-ups).
 
 ## Optimal: the best run ending today
 
