@@ -2,7 +2,7 @@
 
 You hold numbered cards, in no order and with repeats, and want to lay all of them out as straights: groups of `size` cards with consecutive numbers. Return whether that can be done.
 
-What makes it harder than it looks is that the two obvious moves are wrong. A straight started at whatever card comes first can take a card a lower straight needed: in Example 1 a straight from the first card, 32, takes the only 34, and 35 and 36 are stranded. Cutting the sorted hand into blocks of `size` fails as soon as a number repeats, since copies of one number can never share a straight (Example 3). And with up to 100,000 cards, trying the ways of grouping them is out of the question.
+What makes it harder than it looks is that the two obvious moves are wrong. A straight started at whatever card comes first can take a card another straight needed: in Example 1 a straight from the first card, 32, takes the only 34, and 35 and 36 are stranded. Cutting the sorted hand into blocks of `size` fails when copies of one number land in the same block, since copies of one number can never share a straight (Example 3): Example 1's first block is 30, 31, 31. And with up to 100,000 cards, trying the ways of grouping them is out of the question.
 
 ## How to think about it
 
@@ -123,7 +123,7 @@ static boolean canSplit(int[] cards, int size) {
 
 ## Where it shows up
 
-Anything that packs numbered items into runs of consecutive numbers has this shape: splitting a stack of numbered tickets or cheques into books of consecutive numbers, giving each group a block of adjacent seat numbers, or building fixed-length shifts out of the free hours in a rota, each hour used once. The smallest-item-is-forced argument is the same one that drives most interval-scheduling greedies: whatever comes first has only one place it can go.
+Anything that packs numbered items into runs of consecutive numbers has this shape: splitting a stack of numbered tickets or cheques into books of consecutive numbers, giving each group a block of adjacent seat numbers, or building fixed-length shifts out of the free hours in a rota, each hour used once. The argument behind the greedy is an exchange argument: the straight from the smallest card can be fixed first without losing any split, because every split has one and copies can be swapped. Interval-scheduling greedies, such as picking the meeting that ends first, rest on the same kind of argument.
 
 ## Follow-up answers
 

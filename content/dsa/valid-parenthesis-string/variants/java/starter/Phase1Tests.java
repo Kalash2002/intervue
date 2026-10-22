@@ -19,7 +19,7 @@ public class Phase1Tests {
 
     @Test(order = 2)
     void starsNeedDifferentReadings() {
-        expect(true, "**)(()*)"); // ( then nothing for the first two stars, ) for the last
+        expect(true, "**)(()*)"); // ( for the first two stars and ) for the last
         expect(true, "*()*))*");
     }
 

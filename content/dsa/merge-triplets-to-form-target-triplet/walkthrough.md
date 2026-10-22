@@ -76,7 +76,7 @@ static boolean canMix(int[][] presets, int[] target) {
 
 **Complexity:** time O(n), extra space O(1).
 
-**Prefer it when:** you must also say which presets to overlay: `supplier` names at most three of them, and overlaying just those gives the target. The Optimal only knows that some mix works.
+**Prefer it when:** you need a short recipe: `supplier` names at most three presets that overlay to the target, while the Optimal's mix is every fitting preset, which can be tens of thousands.
 
 ## Optimal: overlay every preset that fits
 
@@ -112,7 +112,7 @@ Any combination that keeps the largest value per component, and has to land exac
 
 ## Follow-up answers
 
-**What if you also had to say which presets to overlay?** Use the Better approach: it remembers, for each channel, one fitting preset with the target level there. If all three channels have one, those presets, at most three and fewer when one supplies two channels, overlay to the target by the argument above; if a channel has none, there is no mix. It is still one O(n) pass.
+**What if you also had to say which presets to overlay?** The set of all fitting presets is itself an answer, since their overlay is what the Optimal checks; for a short one, use the Better approach. It remembers, for each channel, one fitting preset with the target level there. If all three channels have one, those presets, at most three and fewer when the same preset is recorded for two channels, overlay to the target by the argument above; if a channel has none, there is no mix. It is still one O(n) pass.
 
 **What if each preset had k channels instead of three?** Only the loops over channels change: skip presets above the target in any of the k channels, overlay the rest and compare. That is O(n × k) time and O(k) extra space, and a working mix then needs at most k presets.
 

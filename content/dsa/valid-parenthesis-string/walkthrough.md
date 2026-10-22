@@ -82,7 +82,7 @@ static boolean canBalance(String s) {
 
 **Complexity:** time O(n²), extra space O(n).
 
-**Prefer it when:** you need more than yes or no: the table holds every count of open brackets each prefix can leave, and with numbers in place of the flags it counts the readings of the stars that balance.
+**Prefer it when:** you need to count the readings that balance: with counts in place of the flags (modulo a prime, or `BigInteger`, since there can be up to 3^k of them), the same table counts them, while the range only says which counts of open brackets are possible.
 
 ## Optimal: the range of possible counts
 

@@ -24,14 +24,17 @@ public class Phase1Tests {
     void aStraightStartedAboveTheSmallestCardFails() {
         // 23, 24, 25 from the first card leaves 22 without a 23; the split is 22-24 and 25-27
         expect(true, 3, 23, 27, 22, 25, 24, 26);
-        // 13, 14 from the first card leaves 15 without a 16; the split is 12-13 and 14-15
-        expect(true, 2, 13, 15, 12, 14);
+        // 13, 14 and then 15, 16 from the first cards leave 12 without a 13; the split is 12-13,
+        // 14-15 and 16-17
+        expect(true, 2, 13, 15, 12, 14, 17, 16);
     }
 
     @Test(order = 3)
     void blocksOfTheSortedHandAreNotStraights() {
-        expect(true, 2, 31, 30, 31, 30); // sorted 30, 30, 31, 31: two straights 30, 31
-        expect(true, 3, 41, 42, 40, 41, 42, 40);
+        // the first block is 70, 70; the split is 70-71 twice and 71-72
+        expect(true, 2, 71, 72, 70, 71, 70, 71);
+        // the first block is 20, 21, 21, 21; the split is 20-23 and 21-24 twice
+        expect(true, 4, 22, 24, 21, 23, 20, 22, 21, 24, 23, 21, 22, 23);
     }
 
     @Test(order = 4)
@@ -48,7 +51,8 @@ public class Phase1Tests {
     @Test(order = 6)
     void repeatsNeedStraightsOfTheirOwn() {
         expect(false, 4, 50, 50, 51, 51);
-        expect(true, 3, 7, 8, 7, 8, 9, 9);
+        // two straights start together at 60 and two more at 62
+        expect(true, 3, 62, 64, 60, 63, 61, 62, 60, 64, 62, 61, 63, 62);
         expect(false, 2, 7, 7, 8, 9); // the second 7 has no 8 left
         expect(false, 2, 5, 5, 6, 7, 7, 8); // two straights start at 5, but there is one 6
     }
@@ -64,7 +68,7 @@ public class Phase1Tests {
 
     @Test(order = 8)
     void randomSmallHands() {
-        Random random = new Random(1523);
+        Random random = new Random(3213);
         for (int round = 0; round < 300; round++) {
             int[] cards;
             int size;
