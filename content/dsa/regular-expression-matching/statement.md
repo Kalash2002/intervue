@@ -12,9 +12,9 @@ Implement `Stencil.matches(String text, String pattern)` in `Stencil.java` and r
 
 ## Example 1
 
-**Input:** `text = "color"`, `pattern = "colou*r"`
+**Input:** `text = "toast"`, `pattern = "to.a*st"`
 **Output:** `true`
-**Explanation:** The piece `u*` matches no u at all, and the other five letters match one for one.
+**Explanation:** The dot takes the a, so the piece `a*` comes to the s and matches no a at all; the t, the o, the s and the last t match one for one.
 
 ## Example 2
 

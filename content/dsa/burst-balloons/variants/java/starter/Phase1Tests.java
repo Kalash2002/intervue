@@ -28,7 +28,7 @@ public class Phase1Tests {
 
     @Test(order = 3)
     void neitherTheSmallestFirstNorTheBiggestPayFirstIsBest() {
-        // burst 3, 5, 6, 2, 4 in that order; smallest first gets 128, the biggest pay each time 222
+        // burst 3, 5, 6, 2, 4 in that order; smallest first gets 128, the biggest pay each time 222 at best (220 on other ties)
         expect(240, new int[] {2, 6, 5, 3, 4});
         expect(240, new int[] {4, 3, 5, 6, 2});
     }

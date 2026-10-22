@@ -1,5 +1,5 @@
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Stencil.matches("color", "colou*r"));
+        System.out.println(Stencil.matches("toast", "to.a*st"));
     }
 }

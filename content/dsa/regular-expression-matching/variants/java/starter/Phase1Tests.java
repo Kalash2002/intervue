@@ -18,7 +18,7 @@ public class Phase1Tests {
 
     @Test(order = 1)
     void sample() {
-        expect(true, "color", "colou*r");
+        expect(true, "toast", "to.a*st");
         expect(true, "seventeen", "s.*en");
         expect(false, "banana", "ban*");
         expect(true, "", "x*y*");
@@ -169,22 +169,24 @@ public class Phase1Tests {
         return false;
     }
 
+    // Each timed pattern fails in its middle and fits both ends of the text, so a search from the
+    // front and a search from the back both meet many ways to place the pieces before the failure.
+
     @Test(order = 10, timeoutMs = 300)
-    void manyWaysToPlaceTheBsAndNoC() {
-        // the text has no c, so the last piece can never match; the 20 b's of the pattern can sit on
-        // C(50, 20) different sets of the text's b's
-        expect(false, "ab".repeat(50), ".*b".repeat(20) + "c");
+    void aLetterTheTextLacksInTheMiddle() {
+        // the text has no c; the ten b's on either side of it can sit on C(50, 10) sets of the text's b's
+        expect(false, "ab".repeat(50), ".*b".repeat(10) + "c" + ".*b".repeat(10));
     }
 
     @Test(order = 11, timeoutMs = 300)
-    void manyWaysToShareOutTheRunsAndNoD() {
-        // the text has no d; the 48 starred pieces can share out its letters in a great many ways
-        expect(false, "abc".repeat(33) + "a", "a*b*c*".repeat(16) + "d");
+    void twoBsSideBySideInTheMiddle() {
+        // the pattern needs a b straight after a b, and the text never has two b's together
+        expect(false, "ab".repeat(50), ".*b".repeat(10) + "b" + ".*b".repeat(10));
     }
 
     @Test(order = 12, timeoutMs = 300)
-    void theTextEndsOnTheWrongLetter() {
-        // the pattern must end on an a, the text ends on a b
-        expect(false, "ab".repeat(50), ".*a.*b".repeat(15) + ".*a");
+    void twoAsOneLetterApartInTheMiddle() {
+        // the pattern needs an a two letters after an a, and the text's a's are three letters apart
+        expect(false, "abb".repeat(33) + "a", ".*a".repeat(10) + ".a" + ".*a".repeat(10));
     }
 }
