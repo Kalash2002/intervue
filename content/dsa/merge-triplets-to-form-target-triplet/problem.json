@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "merge-triplets-to-form-target-triplet",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Merge Triplets to Form Target Triplet",
+  "summary": "Decide whether overlaying some lighting presets, each channel taking its highest level, gives exactly a target colour.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "component-wise-max"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to say which presets to overlay?", "What if each preset had k channels instead of three?", "What if many targets were asked about the same presets?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

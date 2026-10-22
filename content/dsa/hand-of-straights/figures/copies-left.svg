@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 262" width="640" height="262" role="img">
+<title>Hand of Straights, Example 1: copies left of each number after each round of straights</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="38">number</text>
+<text x="20" y="72">copies</text>
+<text x="20" y="112">after 30, 31, 32</text>
+<text x="20" y="152">after two of 31, 32, 33</text>
+<text x="20" y="192">after 34, 35, 36</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="210" y="38">30</text><text x="270" y="38">31</text><text x="330" y="38">32</text><text x="390" y="38">33</text><text x="450" y="38">34</text><text x="510" y="38">35</text><text x="570" y="38">36</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="186" y="53" width="48" height="28"/><rect x="246" y="53" width="48" height="28"/><rect x="306" y="53" width="48" height="28"/><rect x="366" y="53" width="48" height="28"/><rect x="426" y="53" width="48" height="28"/><rect x="486" y="53" width="48" height="28"/><rect x="546" y="53" width="48" height="28"/>
+<rect x="186" y="93" width="48" height="28"/><rect x="306" y="93" width="48" height="28"/><rect x="366" y="93" width="48" height="28"/><rect x="426" y="93" width="48" height="28"/><rect x="486" y="93" width="48" height="28"/><rect x="546" y="93" width="48" height="28"/>
+<rect x="186" y="133" width="48" height="28"/><rect x="246" y="133" width="48" height="28"/><rect x="306" y="133" width="48" height="28"/><rect x="366" y="133" width="48" height="28"/><rect x="426" y="133" width="48" height="28"/><rect x="486" y="133" width="48" height="28"/><rect x="546" y="133" width="48" height="28"/>
+<rect x="186" y="173" width="48" height="28"/><rect x="246" y="173" width="48" height="28"/><rect x="306" y="173" width="48" height="28"/><rect x="366" y="173" width="48" height="28"/><rect x="426" y="173" width="48" height="28"/><rect x="486" y="173" width="48" height="28"/><rect x="546" y="173" width="48" height="28"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="3">
+<rect x="186" y="53" width="48" height="28"/><rect x="426" y="133" width="48" height="28"/>
+</g>
+<rect x="246" y="93" width="48" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="3"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="210" y="72">1</text><text x="270" y="72">3</text><text x="330" y="72">3</text><text x="390" y="72">2</text><text x="450" y="72">1</text><text x="510" y="72">1</text><text x="570" y="72">1</text>
+<text x="210" y="112">0</text><text x="270" y="112" fill="#ffffff">2</text><text x="330" y="112">2</text><text x="390" y="112">2</text><text x="450" y="112">1</text><text x="510" y="112">1</text><text x="570" y="112">1</text>
+<text x="210" y="152">0</text><text x="270" y="152">0</text><text x="330" y="152">0</text><text x="390" y="152">0</text><text x="450" y="152">1</text><text x="510" y="152">1</text><text x="570" y="152">1</text>
+<text x="210" y="192">0</text><text x="270" y="192">0</text><text x="330" y="192">0</text><text x="390" y="192">0</text><text x="450" y="192">0</text><text x="510" y="192">0</text><text x="570" y="192">0</text>
+</g>
+
+<text x="20" y="232" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">Copies left of each number. In each row the marked one is the lowest with copies:</text>
+<text x="20" y="252" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">all its copies start straights together, one at 30, two at 31, one at 34.</text>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "hand-of-straights",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Hand of Straights",
+  "summary": "Decide whether a hand of numbered cards can be laid out entirely as straights of a given size.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "sorting", "counting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return the straights?", "What if every number were known to lie between 0 and 1,000 and the hand held millions of cards?", "What if a straight could be any length of size or more?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

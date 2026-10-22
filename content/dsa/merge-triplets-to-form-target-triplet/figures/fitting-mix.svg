@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Merge Triplets, Example 1: the overlay of every preset that fits under the target</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="72">target</text>
+<text x="20" y="110">preset 0</text>
+<text x="20" y="150">preset 1</text>
+<text x="20" y="190">preset 2</text>
+<text x="20" y="230">preset 3</text>
+<text x="400" y="36">mix after it</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="180" y="36">red</text><text x="240" y="36">green</text><text x="300" y="36">blue</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="180" y="72">60</text><text x="240" y="72">30</text><text x="300" y="72">90</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="156" y="91" width="48" height="28"/><rect x="216" y="91" width="48" height="28"/><rect x="276" y="91" width="48" height="28"/>
+<rect x="156" y="131" width="48" height="28"/><rect x="216" y="131" width="48" height="28"/><rect x="276" y="131" width="48" height="28"/>
+<rect x="156" y="211" width="48" height="28"/><rect x="216" y="211" width="48" height="28"/><rect x="276" y="211" width="48" height="28"/>
+<rect x="400" y="91" width="150" height="28"/><rect x="400" y="131" width="150" height="28"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5" stroke-dasharray="4 3">
+<rect x="156" y="171" width="48" height="28"/><rect x="276" y="171" width="48" height="28"/>
+</g>
+<rect x="216" y="171" width="48" height="28" fill="none" stroke="#83748f" stroke-width="3"/>
+<rect x="400" y="211" width="150" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="180" y="110">40</text><text x="240" y="110">10</text><text x="300" y="110">90</text>
+<text x="180" y="150">60</text><text x="240" y="150">20</text><text x="300" y="150">30</text>
+<text x="180" y="190">50</text><text x="240" y="190">80</text><text x="300" y="190">10</text>
+<text x="180" y="230">20</text><text x="240" y="230">30</text><text x="300" y="230">70</text>
+<text x="475" y="110">40, 10, 90</text>
+<text x="475" y="150">60, 20, 90</text>
+<text x="475" y="230" fill="#ffffff">60, 30, 90</text>
+</g>
+<text x="400" y="190" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">skipped: green 80 &gt; 30</text>
+
+<text x="20" y="270" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">A preset above the target in any channel can never be in the mix, so it is skipped;</text>
+<text x="20" y="290" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">every other preset is overlaid. The final mix equals the target, so the answer is true.</text>
+</svg>

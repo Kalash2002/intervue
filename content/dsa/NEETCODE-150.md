@@ -129,10 +129,10 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 123 | Greedy | Jump Game | `jump-game` | ✓ | |
 | 124 | Greedy | Jump Game II | `jump-game-ii` | ✓ | |
 | 125 | Greedy | Gas Station | `gas-station` | ✓ | |
-| 126 | Greedy | Hand of Straights | `hand-of-straights` | | |
-| 127 | Greedy | Merge Triplets to Form Target Triplet | `merge-triplets-to-form-target-triplet` | | |
-| 128 | Greedy | Partition Labels | `partition-labels` | | |
-| 129 | Greedy | Valid Parenthesis String | `valid-parenthesis-string` | | |
+| 126 | Greedy | Hand of Straights | `hand-of-straights` | ✓ | |
+| 127 | Greedy | Merge Triplets to Form Target Triplet | `merge-triplets-to-form-target-triplet` | ✓ | |
+| 128 | Greedy | Partition Labels | `partition-labels` | ✓ | |
+| 129 | Greedy | Valid Parenthesis String | `valid-parenthesis-string` | ✓ | |
 | 130 | Intervals | Insert Interval | `insert-interval` | ✓ | shift-roster-lookup |
 | 131 | Intervals | Merge Intervals | `merge-intervals` | ✓ | hold-exposure |
 | 132 | Intervals | Non-overlapping Intervals | `non-overlapping-intervals` | | |

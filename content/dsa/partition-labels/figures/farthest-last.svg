@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 236" width="640" height="236" role="img">
+<title>Partition Labels, Example 1: the last position of each letter and the farthest one so far</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="44">letter</text>
+<text x="20" y="74">position</text>
+<text x="20" y="106">last</text>
+<text x="20" y="138">end</text>
+<text x="20" y="176">piece</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1" stroke-dasharray="4 4" fill="none">
+<path d="M 253 18 L 253 152"/><path d="M 287 18 L 287 152"/><path d="M 423 18 L 423 152"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="86" y="25" width="28" height="26"/><rect x="120" y="25" width="28" height="26"/><rect x="154" y="25" width="28" height="26"/><rect x="188" y="25" width="28" height="26"/><rect x="222" y="25" width="28" height="26"/><rect x="256" y="25" width="28" height="26"/><rect x="290" y="25" width="28" height="26"/><rect x="324" y="25" width="28" height="26"/><rect x="358" y="25" width="28" height="26"/><rect x="392" y="25" width="28" height="26"/><rect x="426" y="25" width="28" height="26"/><rect x="460" y="25" width="28" height="26"/><rect x="494" y="25" width="28" height="26"/><rect x="528" y="25" width="28" height="26"/><rect x="562" y="25" width="28" height="26"/>
+<rect x="86" y="119" width="28" height="26"/><rect x="120" y="119" width="28" height="26"/><rect x="154" y="119" width="28" height="26"/><rect x="188" y="119" width="28" height="26"/><rect x="290" y="119" width="28" height="26"/><rect x="324" y="119" width="28" height="26"/><rect x="358" y="119" width="28" height="26"/><rect x="426" y="119" width="28" height="26"/><rect x="460" y="119" width="28" height="26"/><rect x="494" y="119" width="28" height="26"/><rect x="528" y="119" width="28" height="26"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="3">
+<rect x="256" y="119" width="28" height="26"/><rect x="392" y="119" width="28" height="26"/><rect x="562" y="119" width="28" height="26"/>
+</g>
+<rect x="222" y="119" width="28" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="3"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="100" y="43">h</text><text x="134" y="43">g</text><text x="168" y="43">f</text><text x="202" y="43">h</text><text x="236" y="43">g</text><text x="270" y="43">x</text><text x="304" y="43">y</text><text x="338" y="43">z</text><text x="372" y="43">z</text><text x="406" y="43">y</text><text x="440" y="43">k</text><text x="474" y="43">l</text><text x="508" y="43">m</text><text x="542" y="43">l</text><text x="576" y="43">k</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="100" y="74">0</text><text x="134" y="74">1</text><text x="168" y="74">2</text><text x="202" y="74">3</text><text x="236" y="74">4</text><text x="270" y="74">5</text><text x="304" y="74">6</text><text x="338" y="74">7</text><text x="372" y="74">8</text><text x="406" y="74">9</text><text x="440" y="74">10</text><text x="474" y="74">11</text><text x="508" y="74">12</text><text x="542" y="74">13</text><text x="576" y="74">14</text>
+<text x="100" y="106">3</text><text x="134" y="106">4</text><text x="168" y="106">2</text><text x="202" y="106">3</text><text x="236" y="106">4</text><text x="270" y="106">5</text><text x="304" y="106">9</text><text x="338" y="106">8</text><text x="372" y="106">8</text><text x="406" y="106">9</text><text x="440" y="106">14</text><text x="474" y="106">13</text><text x="508" y="106">12</text><text x="542" y="106">13</text><text x="576" y="106">14</text>
+<text x="100" y="137">3</text><text x="134" y="137">4</text><text x="168" y="137">4</text><text x="202" y="137">4</text><text x="236" y="137" fill="#ffffff">4</text><text x="270" y="137">5</text><text x="304" y="137">9</text><text x="338" y="137">9</text><text x="372" y="137">9</text><text x="406" y="137">9</text><text x="440" y="137">14</text><text x="474" y="137">14</text><text x="508" y="137">14</text><text x="542" y="137">14</text><text x="576" y="137">14</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="168" y="176">5</text><text x="270" y="176">1</text><text x="355" y="176">4</text><text x="508" y="176">5</text>
+</g>
+
+<text x="20" y="208" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">A piece ends where the position reaches end, the farthest last position so far.</text>
+<text x="20" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">At position 2 the f has no copies left, but end is already 4: no cut there.</text>
+</svg>
