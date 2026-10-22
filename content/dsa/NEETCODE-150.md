@@ -122,9 +122,9 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 116 | 2-D dynamic programming | Interleaving String | `interleaving-string` | ✓ | |
 | 117 | 2-D dynamic programming | Longest Increasing Path in a Matrix | `longest-increasing-path-in-a-matrix` | ✓ | |
 | 118 | 2-D dynamic programming | Distinct Subsequences | `distinct-subsequences` | ✓ | |
-| 119 | 2-D dynamic programming | Edit Distance | `edit-distance` | | |
-| 120 | 2-D dynamic programming | Burst Balloons | `burst-balloons` | | |
-| 121 | 2-D dynamic programming | Regular Expression Matching | `regular-expression-matching` | | |
+| 119 | 2-D dynamic programming | Edit Distance | `edit-distance` | ✓ | |
+| 120 | 2-D dynamic programming | Burst Balloons | `burst-balloons` | ✓ | |
+| 121 | 2-D dynamic programming | Regular Expression Matching | `regular-expression-matching` | ✓ | |
 | 122 | Greedy | Maximum Subarray | `maximum-subarray` | | |
 | 123 | Greedy | Jump Game | `jump-game` | | |
 | 124 | Greedy | Jump Game II | `jump-game-ii` | | |

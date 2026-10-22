@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "edit-distance",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Edit Distance",
+  "summary": "Find the fewest single-letter inserts, deletes and replacements that turn one word into another.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "strings", "levenshtein"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to list the fixes?", "What if you only had to know whether the two words are at most k fixes apart, for a small k?", "What if swapping two neighbouring letters also counted as one fix?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
