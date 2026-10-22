@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Gas Station, Example 1: the balance on arriving at each stop during one lap from stop 0</title>
+
+<path d="M 80 60 L 600 60" stroke="#83748f" stroke-width="1" stroke-dasharray="4 4" fill="none"/>
+<text x="606" y="64" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">zero</text>
+
+<path d="M 100 60 L 180 88 L 260 88 L 340 186 L 420 158 L 500 88 L 580 46" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<g fill="#83748f">
+<circle cx="100" cy="60" r="4"/><circle cx="180" cy="88" r="4"/><circle cx="260" cy="88" r="4"/><circle cx="420" cy="158" r="4"/><circle cx="500" cy="88" r="4"/><circle cx="580" cy="46" r="4"/>
+</g>
+<rect x="320" y="175" width="40" height="22" rx="4" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="100" y="48">0</text>
+<text x="180" y="108">-2</text>
+<text x="260" y="80">-2</text>
+<text x="340" y="191" fill="#ffffff">-9</text>
+<text x="440" y="172">-7</text>
+<text x="518" y="104">-2</text>
+<text x="580" y="34">1</text>
+</g>
+
+<text x="20" y="214" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">at stop</text>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="100" y="214">0</text><text x="180" y="214">1</text><text x="260" y="214">2</text><text x="340" y="214">3</text><text x="420" y="214">4</text><text x="500" y="214">5</text><text x="580" y="214">0</text>
+</g>
+
+<text x="20" y="236" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">One lap from stop 0, allowed to go negative: the balance on arriving at each stop.</text>
+<text x="20" y="254" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">It is lowest at stop 3, so a start there keeps every later reading at zero or more.</text>
+</svg>

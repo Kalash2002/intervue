@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "jump-game-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Jump Game II",
+  "summary": "Find the fewest hops that carry a message along a row of relay stations with limited ranges.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "farthest-reach", "breadth-first-layers"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return the stations the message passes through?", "What if the last station might be out of reach, and you had to return -1 then?", "What if each hop had a cost and you wanted the cheapest route instead of the fewest hops?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
