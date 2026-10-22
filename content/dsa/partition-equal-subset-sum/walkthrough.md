@@ -2,7 +2,7 @@
 
 Given item weights, decide whether the items can be split into two groups of exactly the same total weight, each item in one group. Equivalently: does some group of the items weigh exactly half the total?
 
-What makes it harder than it looks is that handing items out by a rule fails. Giving each item, heaviest first, to the lighter pack ends at 7 against 5 on Example 2, where 3 + 3 against 2 + 2 + 2 works; filling one pack heaviest first while items fit stops at 6 + 4 = 10 on `[6,4,4,4,3,3]`, where 4 + 4 + 4 makes 12. An odd total can never be halved, but a search for half the total rounded down can still succeed, as 3 + 2 = 5 does for the 11 of Example 3. And 200 items have 2^200 groups, so trying them all is out.
+What makes it harder than it looks is that handing items out by a rule fails. Giving each item, heaviest first, to the lighter pack ends at 21 against 17 on Example 2, where 11 + 8 against 9 + 6 + 4 works; filling one pack heaviest first while items fit stops at 6 + 4 = 10 on `[6,4,4,4,3,3]`, where 4 + 4 + 4 makes 12. An odd total can never be halved, but a search for half the total rounded down can still succeed, as 3 + 2 = 5 does for the 11 of Example 3. And 200 items have 2^200 groups, so trying them all is out.
 
 ## How to think about it
 

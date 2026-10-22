@@ -12,9 +12,9 @@ Implement `Packs.canBalance(int[] weights)` in `Packs.java` and return `true` wh
 
 ## Example 2
 
-**Input:** `weights = [3,3,2,2,2]`
+**Input:** `weights = [6,11,4,9,8]`
 **Output:** `true`
-**Explanation:** 3 + 3 against 2 + 2 + 2. Handing each item, heaviest first, to the lighter pack ends at 7 against 5.
+**Explanation:** 11 + 8 against 9 + 6 + 4, 19 each. Handing each item, heaviest first, to the lighter pack ends at 21 against 17.
 
 ## Example 3
 

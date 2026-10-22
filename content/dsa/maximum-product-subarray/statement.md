@@ -8,7 +8,7 @@ Implement `Amplifier.bestGain(int[] gains)` in `Amplifier.java` and return the l
 
 **Input:** `gains = [7,-1,2,-3,-2,4]`
 **Output:** `48`
-**Explanation:** Stages 2 to 5 give 2 × -3 × -2 × 4 = 48. The whole chain has three negative gains, so its product is negative. Leaving out the 7 and the first -1 beats leaving out the last -2 and the 4, which gives 7 × -1 × 2 × -3 = 42.
+**Explanation:** Stages 2 to 5 give 2 × -3 × -2 × 4 = 48. The whole chain has three negative gains, so its product is negative. Leaving out everything up to the first negative gain (the 7 and the -1) beats leaving out everything from the last one (the -2 and the 4), which gives 7 × -1 × 2 × -3 = 42.
 
 ## Example 2
 

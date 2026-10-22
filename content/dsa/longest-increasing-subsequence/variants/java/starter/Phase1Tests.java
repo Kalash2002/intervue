@@ -115,4 +115,16 @@ public class Phase1Tests {
         }
         expect(100_001, nums);
     }
+
+    @Test(order = 11, timeoutMs = 300)
+    void aLongRiseThenManyOnes() {
+        // the evens 0, 2, ..., 199998 rise, then 100000 ones follow; a 1 can only follow the 0,
+        // and the ones are equal, so the evens alone are the longest pick
+        int[] nums = new int[200_000];
+        for (int i = 0; i < 100_000; i++) {
+            nums[i] = 2 * i;
+            nums[100_000 + i] = 1;
+        }
+        expect(100_000, nums);
+    }
 }

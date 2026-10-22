@@ -14,7 +14,7 @@ public class Phase1Tests {
     @Test(order = 1)
     void sample() {
         expect(true, 3, 8, 4, 6, 1);
-        expect(true, 3, 3, 2, 2, 2);
+        expect(true, 6, 11, 4, 9, 8);
         expect(false, 3, 2, 6);
         expect(false, 6);
     }

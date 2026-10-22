@@ -110,7 +110,7 @@ Languages written without spaces, such as Chinese, Japanese or Thai, are split i
 
 ## Follow-up answers
 
-**What if you had to list every way to split the message?** Run the table first, or a second table from the back saying which positions can reach the end. Then search from the front, but only through positions that can still reach the end, appending each word to the current list. Every branch then ends in a real split, so the work is proportional to the length of the output, which can itself be exponential, as for a run of `a`s.
+**What if you had to list every way to split the message?** Fill the table from the back instead, saying which positions can reach the end. Then search from the front, but only through positions that can still reach the end, appending each word to the current list. Every branch then ends in a real split, so no work is wasted on dead ends: the cost is the number of pieces in the output times the W × L work of finding each one, and the output itself can be exponential, as for a run of `a`s.
 
 **What if the vocabulary held a million words?** Looping over every word at every position no longer works. Put the words in a hash set and, from each reachable position, try only the pieces up to the longest word's length: O(n × L) set lookups of up to L letters each. Or put them in a trie and walk it along the message from each reachable position, marking a position whenever a word ends: O(n × L) steps, with no substrings built.
 

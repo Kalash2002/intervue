@@ -64,7 +64,7 @@ static int longest(int[] nums) {
 
 **Complexity:** time O(n²), extra space O(n). At 200,000 values that is about 2 × 10^10 comparisons, and the tests time it out.
 
-**Prefer it when:** the array holds a few thousand values at most, or you need the best length ending at every position, which this table gives and the optimal one does not, for example to count the longest picks.
+**Prefer it when:** the array holds a few thousand values at most and the double loop is the plainest thing to read, or each position needs more than a length from the earlier smaller values, such as how many longest picks end there (the third follow-up): this loop already visits every one of them.
 
 ## Optimal: smallest end for each length
 
@@ -108,7 +108,7 @@ static int longest(int[] nums) {
 
 ## Where it shows up
 
-Nesting problems reduce to it: to stack the most boxes or envelopes each inside the next, sort by one side and take the longest rise in the other. So do non-crossing matches: bridges between two river banks, or the lines two versions of a file have in common, which some diff tools align by taking the longest rise of their positions. It also measures how far a list is from sorted: the values outside a longest rise are the fewest that have to be moved to sort it.
+Nesting problems reduce to it: to fit the most envelopes each inside the next, sort them by width, with equal widths ordered by height falling, and take the longest rise in height. The falling order is what stops two envelopes of the same width from both being picked. So do non-crossing matches: bridges between two river banks, or the lines two versions of a file have in common, which some diff tools align by taking the longest rise of their positions. It also measures how far a list is from sorted: the values outside a longest rise are the fewest that have to be moved to sort it.
 
 ## Follow-up answers
 
