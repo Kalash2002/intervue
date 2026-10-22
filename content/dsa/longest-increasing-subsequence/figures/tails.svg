@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" width="640" height="290" role="img">
+<title>Longest Increasing Subsequence, Example 1: the smallest end for each pick length after each value of [4,9,5,2,6,3,8]</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">value</text><text x="100" y="24">what it does</text><text x="300" y="24">smallest end for length 1, 2, 3, 4</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="56">4</text><text x="100" y="56">starts length 1</text>
+<text x="20" y="88">9</text><text x="100" y="88">makes length 2</text>
+<text x="20" y="120">5</text><text x="100" y="120">replaces 9</text>
+<text x="20" y="152">2</text><text x="100" y="152">replaces 4</text>
+<text x="20" y="184">6</text><text x="100" y="184">makes length 3</text>
+<text x="20" y="216">3</text><text x="100" y="216">replaces 5</text>
+<text x="20" y="248">8</text><text x="100" y="248">makes length 4</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="300" y="38" width="60" height="26"/>
+<rect x="300" y="70" width="60" height="26"/><rect x="370" y="70" width="60" height="26"/>
+<rect x="300" y="102" width="60" height="26"/><rect x="370" y="102" width="60" height="26"/>
+<rect x="300" y="134" width="60" height="26"/><rect x="370" y="134" width="60" height="26"/>
+<rect x="300" y="166" width="60" height="26"/><rect x="370" y="166" width="60" height="26"/><rect x="440" y="166" width="60" height="26"/>
+<rect x="300" y="198" width="60" height="26"/><rect x="370" y="198" width="60" height="26"/><rect x="440" y="198" width="60" height="26"/>
+<rect x="300" y="230" width="60" height="26"/><rect x="370" y="230" width="60" height="26"/><rect x="440" y="230" width="60" height="26"/>
+</g>
+<rect x="510" y="230" width="60" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="330" y="56">4</text>
+<text x="330" y="88">4</text><text x="400" y="88">9</text>
+<text x="330" y="120">4</text><text x="400" y="120">5</text>
+<text x="330" y="152">2</text><text x="400" y="152">5</text>
+<text x="330" y="184">2</text><text x="400" y="184">5</text><text x="470" y="184">6</text>
+<text x="330" y="216">2</text><text x="400" y="216">3</text><text x="470" y="216">6</text>
+<text x="330" y="248">2</text><text x="400" y="248">3</text><text x="470" y="248">6</text>
+<text x="540" y="248" fill="#ffffff">8</text>
+</g>
+
+<text x="20" y="280" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">Four ends, so the answer is 4. The list 2, 3, 6, 8 is not itself a pick: the 3 comes after the 6.</text>
+</svg>

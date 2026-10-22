@@ -110,10 +110,10 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 104 | 1-D dynamic programming | Palindromic Substrings | `palindromic-substrings` | ✓ | |
 | 105 | 1-D dynamic programming | Decode Ways | `decode-ways` | ✓ | |
 | 106 | 1-D dynamic programming | Coin Change | `coin-change` | ✓ | |
-| 107 | 1-D dynamic programming | Maximum Product Subarray | `maximum-product-subarray` | | |
-| 108 | 1-D dynamic programming | Word Break | `word-break` | | |
-| 109 | 1-D dynamic programming | Longest Increasing Subsequence | `longest-increasing-subsequence` | | |
-| 110 | 1-D dynamic programming | Partition Equal Subset Sum | `partition-equal-subset-sum` | | |
+| 107 | 1-D dynamic programming | Maximum Product Subarray | `maximum-product-subarray` | ✓ | |
+| 108 | 1-D dynamic programming | Word Break | `word-break` | ✓ | |
+| 109 | 1-D dynamic programming | Longest Increasing Subsequence | `longest-increasing-subsequence` | ✓ | |
+| 110 | 1-D dynamic programming | Partition Equal Subset Sum | `partition-equal-subset-sum` | ✓ | |
 | 111 | 2-D dynamic programming | Unique Paths | `unique-paths` | | |
 | 112 | 2-D dynamic programming | Longest Common Subsequence | `longest-common-subsequence` | | |
 | 113 | 2-D dynamic programming | Best Time to Buy and Sell Stock with Cooldown | `best-time-to-buy-and-sell-stock-with-cooldown` | | |

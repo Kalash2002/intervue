@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "longest-increasing-subsequence",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Longest Increasing Subsequence",
+  "summary": "Pick the most values from an array, keeping their order, so that each is strictly larger than the one before.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "binary-search", "patience-sorting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return one longest subsequence, not only its length?", "What if a value could also follow an equal one?", "What if you had to count how many longest subsequences there are?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Partition Equal Subset Sum, Example 1: the totals from 0 to 11 that some of the items weigh, after each item of [3,8,4,6,1]</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="36">total</text>
+<text x="20" y="68">start</text>
+<text x="20" y="100">after 3</text>
+<text x="20" y="132">after 8</text>
+<text x="20" y="164">after 4</text>
+<text x="20" y="196">after 6</text>
+<text x="20" y="228">after 1</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="159" y="36">0</text><text x="197" y="36">1</text><text x="235" y="36">2</text><text x="273" y="36">3</text><text x="311" y="36">4</text><text x="349" y="36">5</text><text x="387" y="36">6</text><text x="425" y="36">7</text><text x="463" y="36">8</text><text x="501" y="36">9</text><text x="539" y="36">10</text><text x="577" y="36">11</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="142" y="50" width="34" height="24"/><rect x="180" y="50" width="34" height="24"/><rect x="218" y="50" width="34" height="24"/><rect x="256" y="50" width="34" height="24"/><rect x="294" y="50" width="34" height="24"/><rect x="332" y="50" width="34" height="24"/><rect x="370" y="50" width="34" height="24"/><rect x="408" y="50" width="34" height="24"/><rect x="446" y="50" width="34" height="24"/><rect x="484" y="50" width="34" height="24"/><rect x="522" y="50" width="34" height="24"/><rect x="560" y="50" width="34" height="24"/>
+<rect x="142" y="82" width="34" height="24"/><rect x="180" y="82" width="34" height="24"/><rect x="218" y="82" width="34" height="24"/><rect x="256" y="82" width="34" height="24"/><rect x="294" y="82" width="34" height="24"/><rect x="332" y="82" width="34" height="24"/><rect x="370" y="82" width="34" height="24"/><rect x="408" y="82" width="34" height="24"/><rect x="446" y="82" width="34" height="24"/><rect x="484" y="82" width="34" height="24"/><rect x="522" y="82" width="34" height="24"/><rect x="560" y="82" width="34" height="24"/>
+<rect x="142" y="114" width="34" height="24"/><rect x="180" y="114" width="34" height="24"/><rect x="218" y="114" width="34" height="24"/><rect x="256" y="114" width="34" height="24"/><rect x="294" y="114" width="34" height="24"/><rect x="332" y="114" width="34" height="24"/><rect x="370" y="114" width="34" height="24"/><rect x="408" y="114" width="34" height="24"/><rect x="446" y="114" width="34" height="24"/><rect x="484" y="114" width="34" height="24"/><rect x="522" y="114" width="34" height="24"/><rect x="560" y="114" width="34" height="24"/>
+<rect x="142" y="146" width="34" height="24"/><rect x="180" y="146" width="34" height="24"/><rect x="218" y="146" width="34" height="24"/><rect x="256" y="146" width="34" height="24"/><rect x="294" y="146" width="34" height="24"/><rect x="332" y="146" width="34" height="24"/><rect x="370" y="146" width="34" height="24"/><rect x="408" y="146" width="34" height="24"/><rect x="446" y="146" width="34" height="24"/><rect x="484" y="146" width="34" height="24"/><rect x="522" y="146" width="34" height="24"/><rect x="560" y="146" width="34" height="24"/>
+<rect x="142" y="178" width="34" height="24"/><rect x="180" y="178" width="34" height="24"/><rect x="218" y="178" width="34" height="24"/><rect x="256" y="178" width="34" height="24"/><rect x="294" y="178" width="34" height="24"/><rect x="332" y="178" width="34" height="24"/><rect x="370" y="178" width="34" height="24"/><rect x="408" y="178" width="34" height="24"/><rect x="446" y="178" width="34" height="24"/><rect x="484" y="178" width="34" height="24"/><rect x="522" y="178" width="34" height="24"/><rect x="560" y="178" width="34" height="24"/>
+<rect x="142" y="210" width="34" height="24"/><rect x="180" y="210" width="34" height="24"/><rect x="218" y="210" width="34" height="24"/><rect x="256" y="210" width="34" height="24"/><rect x="294" y="210" width="34" height="24"/><rect x="332" y="210" width="34" height="24"/><rect x="370" y="210" width="34" height="24"/><rect x="408" y="210" width="34" height="24"/><rect x="446" y="210" width="34" height="24"/><rect x="484" y="210" width="34" height="24"/><rect x="522" y="210" width="34" height="24"/>
+</g>
+<rect x="560" y="210" width="34" height="24" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="159" y="67">yes</text>
+<text x="159" y="99">yes</text><text x="273" y="99">yes</text>
+<text x="159" y="131">yes</text><text x="273" y="131">yes</text><text x="463" y="131">yes</text><text x="577" y="131">yes</text>
+<text x="159" y="163">yes</text><text x="273" y="163">yes</text><text x="311" y="163">yes</text><text x="425" y="163">yes</text><text x="463" y="163">yes</text><text x="577" y="163">yes</text>
+<text x="159" y="195">yes</text><text x="273" y="195">yes</text><text x="311" y="195">yes</text><text x="387" y="195">yes</text><text x="425" y="195">yes</text><text x="463" y="195">yes</text><text x="501" y="195">yes</text><text x="539" y="195">yes</text><text x="577" y="195">yes</text>
+<text x="159" y="227">yes</text><text x="197" y="227">yes</text><text x="273" y="227">yes</text><text x="311" y="227">yes</text><text x="349" y="227">yes</text><text x="387" y="227">yes</text><text x="425" y="227">yes</text><text x="463" y="227">yes</text><text x="501" y="227">yes</text><text x="539" y="227">yes</text>
+<text x="577" y="227" fill="#ffffff">yes</text>
+</g>
+
+<text x="20" y="268" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">The half, 11, is first reached with the 8, as 3 + 8. At the end only 2 cannot be made.</text>
+<text x="20" y="288" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">Each item adds its weight to the totals reached before it, from the top down.</text>
+</svg>
