@@ -27,8 +27,9 @@ public class Phase1Tests {
 
     @Test(order = 2)
     void takingTheLowestOrTheHighestNextStepFallsShort() {
-        // 1, 2, 5, 6, 7, 8 along the top; from the 2, the lowest step (4) and the highest (5, then 8
-        // from the 6) both stop at four cells, and the 0 starts a climb of only five
+        // 1, 2, 5, 6 along the top, then down to the 7 and right to the 8; stepping to the lowest
+        // higher neighbour finds at most 1, 2, 4, 8, and to the highest at most 2, 5, 6, 8, four
+        // cells each, and the 0 starts a climb of only five
         expect(6, new int[][] {{1, 2, 5, 6, 8}, {8, 4, 0, 7, 8}});
     }
 
@@ -46,9 +47,10 @@ public class Phase1Tests {
     }
 
     @Test(order = 5)
-    void aSingleRowOrColumn() {
+    void aSingleRowColumnOrCell() {
         expect(3, new int[][] {{2, 7, 4, 6, 8, 3}});
         expect(4, new int[][] {{6}, {2}, {5}, {7}, {8}});
+        expect(1, new int[][] {{2_147_483_647}});
     }
 
     @Test(order = 6)
@@ -63,8 +65,8 @@ public class Phase1Tests {
         for (int round = 0; round < 300; round++) {
             int rows = 1 + random.nextInt(5);
             int cols = 1 + random.nextInt(5);
-            if (rows == cols && rows % 2 == 1) {
-                cols++; // no 1 by 1 or 3 by 3 grids
+            if (rows == 3 && cols == 3) {
+                cols++; // no 3 by 3 grids
             }
             int[][] heights = new int[rows][cols];
             for (int[] row : heights) {

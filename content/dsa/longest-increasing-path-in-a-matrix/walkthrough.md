@@ -10,7 +10,7 @@ The first idea is to start at every cell and try every way of climbing on, keepi
 
 What is worth remembering is that the longest climb from a cell does not depend on how the hiker got there. It is the cell plus the longest climb from its best higher neighbour, or just the cell when nothing beside it is higher. So each cell has one number, and once it is known it never changes. Store it the first time it is worked out, and each cell is explored once, for O(m × n) work on an m by n grid.
 
-That memoised search recurses from a cell into its higher neighbours, so it is as deep as the climb it is following, which can be every cell of the grid. Here the grid is at most 50 by 50, so the depth is at most 2,500 and fits the default stack. It does not fit much beyond that: in our runs on a test thread's default stack, the memoised search below overflowed on a climb of about 5,200 cells with the JIT off, 7,200 on a cold JVM and 18,300 once the JIT had compiled it, after fitting 4,600, 6,600 and 17,300. A 200 by 200 grid can hold a climb of 20,000 cells, so there the recursion is not safe.
+That memoised search recurses from a cell into its higher neighbours, so it is as deep as the climb it is following, which can be every cell of the grid. Here the grid is at most 50 by 50, so the depth is at most 2,500 and fits the default stack. It does not fit much beyond that: in our runs on a test thread's default stack, the memoised search below overflowed on a climb of about 5,200 cells with the JIT off, 7,200 on a cold JVM and 18,300 once the JIT had compiled it, after fitting 4,600, 6,600 and 17,300. A 200 by 200 grid can hold a climb through all 40,000 cells, and a corridor walled on both sides forces any neighbour order about 20,000 deep, so there the recursion is not safe.
 
 The same rule gives an order with no recursion at all. A cell's number depends only on higher cells, so there are no cycles. Cells with nothing higher beside them have the number 1. Peel them off the grid; the cells whose higher neighbours are now all gone have the number 2. Peel those, and so on: it is a topological order, the idea of Kahn's algorithm, and the number of rounds is the length of the longest climb.
 
@@ -50,7 +50,7 @@ private static int climbFrom(int[][] heights, int r, int c) {
 }
 ```
 
-**Complexity:** time exponential, one call per climb, which on a grid rising towards one corner is about 2.5 × 10^28 calls from the top-left cell alone; extra space O(m × n) for the recursion, at most 2,500 deep here, which fits the stack.
+**Complexity:** time exponential, one call per climb, which on a grid rising towards one corner is about 10^29 calls from the top-left cell alone; extra space O(m × n) for the recursion, at most 2,500 deep here, which fits the stack.
 
 ## Better: memoised search
 
@@ -153,6 +153,6 @@ The grid is a graph whose edges all go uphill, so it has no cycles, and the ques
 
 **What if you also had to return the cells of one longest climb?** Store each cell's round, which is the longest climb starting there. Start from a cell with the largest round and keep stepping to a higher neighbour whose round is exactly one less; such a neighbour exists because the round came from it, and the walk ends at a cell of round 1. That adds O(m × n) space for the rounds and O(length) time for the walk.
 
-**What if the grid were 1,000 by 1,000?** A million cells is still quick for O(m × n) work, and the counts and the queue are two arrays of a million `int`s, about 8 MB. But a climb can wind through about half a million cells, far deeper than any default stack, so a recursive search would overflow; the peel, or the memoised search rewritten with an explicit stack, is the way.
+**What if the grid were 1,000 by 1,000?** A million cells is still quick for O(m × n) work, and the counts and the queue are two arrays of a million `int`s, about 8 MB. But a climb can pass through every one of the million cells, and a walled corridor forces any neighbour order about half a million deep, far deeper than any default stack, so a recursive search would overflow; the peel, or the memoised search rewritten with an explicit stack, is the way.
 
 **What if a climb could also step diagonally?** Use the eight neighbours instead of four, in the counting and in the peeling. Steps still go strictly up, so there are still no cycles and nothing else changes; the cost stays O(m × n), about twice the work per cell.

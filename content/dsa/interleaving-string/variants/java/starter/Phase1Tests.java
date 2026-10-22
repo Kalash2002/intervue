@@ -28,7 +28,7 @@ public class Phase1Tests {
     void takingTheCardFromOnePileWhenBothMatchCanBeWrong() {
         // both piles start with l; preferring either pile when both show the card fails
         expect(true, "leek", "lime", "limleeke");
-        // kiwi's i and fig's i: k, then f, i from fig, then w, i from kiwi, g from fig, i from kiwi
+        // k from kiwi, f from fig, i and w from kiwi, i and g from fig, and the last i from kiwi
         expect(true, "kiwi", "fig", "kfiwigi");
         expect(true, "fig", "kiwi", "kfiwigi");
     }
@@ -53,9 +53,12 @@ public class Phase1Tests {
     }
 
     @Test(order = 6)
-    void anEmptyPile() {
+    void emptyPilesAndAnEmptyDeck() {
         expect(true, "", "kale", "kale");
         expect(true, "okra", "", "okra");
+        expect(true, "", "", ""); // two empty piles riffle into the empty deck
+        expect(false, "", "", "s");
+        expect(false, "s", "", "");
     }
 
     @Test(order = 7)
@@ -169,5 +172,18 @@ public class Phase1Tests {
     void theLastCardCannotComeFromEitherPile() {
         // both piles end with b, but the deck ends with an a
         expect(false, "ab".repeat(50), "ab".repeat(50), "ab".repeat(99) + "ba");
+    }
+
+    @Test(order = 12, timeoutMs = 300)
+    void aConflictInTheMiddle() {
+        // every start of either pile has at least as many a's as b's, but the first 101 cards of the
+        // deck have 51 b's; the counts, the first and last cards and each pile on its own all fit
+        expect(false, "ab".repeat(50), "ab".repeat(50), "ab".repeat(50) + "ba" + "ab".repeat(49));
+    }
+
+    @Test(order = 13, timeoutMs = 300)
+    void theSameConflictReadFromTheBottom() {
+        // the piles and the deck of the test above, each read backwards
+        expect(false, "ba".repeat(50), "ba".repeat(50), "ba".repeat(49) + "ab" + "ba".repeat(50));
     }
 }

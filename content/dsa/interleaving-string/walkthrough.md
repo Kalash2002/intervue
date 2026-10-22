@@ -2,7 +2,7 @@
 
 Given two piles of cards and a deck, each as a string, decide whether the deck is the two piles riffled together: every card of both piles used once, and each pile's cards in their original order.
 
-What makes it harder than it looks is the moment both piles show the card the deck needs next. A greedy choice fails either way on Example 1: preferring `lime` goes wrong at the fifth card, and preferring `leek` at the second. Checking the parts separately fails too: Example 2 has exactly the right cards, and each pile can be found in it on its own, just not in separate cards. Trying both choices at every tie is correct, but on piles that are long runs of one card it branches at nearly every card. And the lengths have to add up, or a deck with a card missing or one too many slips through.
+What makes it harder than it looks is the moment both piles show the card the deck needs next. A greedy choice fails either way on Example 1: preferring `lime` takes the wrong e for the fifth card, and preferring `leek` the wrong l for the first. Checking the parts separately fails too: Example 2 has exactly the right cards, and each pile can be found in it on its own, just not in separate cards. Trying both choices at every tie is correct, but on piles that are long runs of one card it branches at nearly every card. And the lengths have to add up, or a deck with a card missing or one too many slips through.
 
 ## How to think about it
 
@@ -42,7 +42,7 @@ private static boolean from(String left, String right, String deck, int i, int j
 }
 ```
 
-**Complexity:** time exponential, up to one call per way of splitting a prefix of the deck, which for two piles of 100 equal cards is about C(200, 100) ≈ 9 × 10^58; extra space O(n + m) for the recursion, at most 200 deep.
+**Complexity:** time exponential, up to one call per way of splitting a prefix of the deck, which for two piles of 100 equal cards is about C(202, 101) ≈ 3.6 × 10^59; extra space O(n + m) for the recursion, at most 200 deep, which fits the test thread's default stack easily.
 
 ## Better: remember the failed states
 
@@ -76,7 +76,7 @@ private static boolean from(String left, String right, String deck, int i, int j
 }
 ```
 
-**Complexity:** time O(n × m), since each state fails at most once and does constant work besides its two calls; extra space O(n × m) for the table, plus the recursion, at most 200 deep.
+**Complexity:** time O(n × m), since each state fails at most once and does constant work besides its two calls; extra space O(n × m) for the table, plus the recursion, at most 200 deep, which fits the test thread's default stack easily.
 
 **Prefer it when:** ties are rare and most decks are riffles. The search then stops at the first split that works after about one call per card, n + m in all, where the table works out every one of its (n + 1) × (m + 1) cells; the record of failures is still allocated in full, but the JVM clears it in bulk rather than working out each cell.
 
@@ -113,8 +113,8 @@ static boolean canShuffle(String left, String right, String deck) {
 
 | Approach | Time | Extra space |
 | --- | --- | --- |
-| Brute force | exponential, up to about C(n + m, n) calls | O(n + m) recursion, at most 200 deep |
-| Better: remember the failed states | O(n × m) | O(n × m), recursion at most 200 deep |
+| Brute force | exponential, up to about C(n + m + 2, n + 1) calls | O(n + m) recursion, at most 200 deep, fits |
+| Better: remember the failed states | O(n × m) | O(n × m), recursion at most 200 deep, fits |
 | Optimal: one row of the table | O(n × m) | O(m) |
 
 ## Where it shows up
