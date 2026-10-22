@@ -12,7 +12,7 @@ The answer depends only on where each string's rest starts, so there are just (n
 
 Walk Example 1, `first = "cordon"`, `second = "condor"`. The `c`s meet at cell (1, 1), giving 1, and the `o`s at (2, 2), giving 2. The `r` of `cordon` meets the last `r` of `condor` at (3, 6) for 3, the greedy's choice, but nothing can follow it. The `d`s meet at (4, 4) for 1 + `best[3][3]` = 3, the second `o`s at (5, 5) for 1 + `best[4][4]` = 4, and the last row carries the 4 to the corner. The chain of equal letters spells `codo`.
 
-![The table for cordon down the side and condor along the top, with the cells where c, o, d and o meet drawn thick and the corner cell 4 highlighted](figures/prefix-table.svg)
+![The table for cordon down the side and condor along the top, with the chain of equal-letter cells c, o, d and o that spells codo drawn thick and the corner cell 4 highlighted](figures/prefix-table.svg)
 
 ## Brute force
 

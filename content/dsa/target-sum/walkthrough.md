@@ -2,7 +2,7 @@
 
 Given a row of non-negative numbers and a target, put a plus or minus sign in front of each number and count the choices of signs whose total is the target. A 0 counts both ways, since `+0` and `-0` are different choices.
 
-What makes it harder than it looks is the size and the edges. Sixty numbers have 2^60 choices, so trying them all is out, and the count itself can pass the `int` range: 30 twos and 30 thirty-ones reach 0 in about 2.4 × 10^16 ways. Every 0 doubles the count, so code that skips zeros, or gives a 0 only one sign, undercounts. A target beyond the sum of the numbers, in either direction, or of the wrong parity, cannot be reached, and the neat rewrite into a subset count below turns such a target into a group total that is negative or half a unit, which must be caught before it is used as an index.
+What makes it harder than it looks is the size and the edges. Sixty numbers have 2^60 choices, so trying them all is out, and the count itself can pass the `int` range: 30 twos and 30 thirty-ones reach 0 in about 2.4 × 10^16 ways. Every 0 doubles the count, so code that skips zeros, or gives a 0 only one sign, undercounts. A target beyond the sum of the numbers, in either direction, or of the wrong parity, cannot be reached. The neat rewrite into a subset count below turns a target below minus the sum into a negative group total, and a target of the wrong parity into a total that is not a whole number, so both must be caught before the group total is used as an index.
 
 ## How to think about it
 
@@ -116,4 +116,4 @@ Splitting a set into two sides with a given difference has this shape: dividing 
 
 **What if the numbers could be negative?** A minus sign in front of −5 is a plus in front of 5, so the two signs on a number give the same pair of values as on its size. Replace every number by its absolute value and solve as before; the count does not change.
 
-**What if there were only 40 numbers but each could be as large as 10^9?** The sum is then far too large for a table. Split the numbers into two halves of 20, list the 2^20 signed totals of each half, and count the pairs, one total from each half, that add up to the target, with a hash map of the counts for one half. That is about a million entries per half, O(2^(n/2)) time and space instead of O(n × S).
+**What if there were only 40 numbers but each could be as large as 10^9?** The sum is then far too large for a table. Split the numbers into two halves of 20, list the 2^20 signed totals of each half (in a `long`: a half's total can reach 2 × 10^10), and count the pairs, one total from each half, that add up to the target, with a hash map of the counts for one half. That is about a million entries per half, O(2^(n/2)) time and space instead of O(n × S).

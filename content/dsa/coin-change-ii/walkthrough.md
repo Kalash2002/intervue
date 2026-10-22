@@ -76,7 +76,7 @@ private static int from(int[] coins, int i, int rest, int[][] memo) {
 
 **Complexity:** time O(k × amount), extra space O(k × amount) for the memo, about 6 MB at 300 values and 5,000, plus the recursion, at most 5,300 deep here, which fits in the stack.
 
-**Prefer it when:** only a few totals can be reached from the amount, as with a handful of large values: the recursion visits only those, where the table fills every total for every value. It also never wraps: each count it stores is the ways to finish one partly paid handful, so it is at most the answer.
+**Prefer it when:** you want every stored count to be a real count rather than a value modulo 2^32. Each one is the number of ways to finish one partly paid handful, so none is larger than the answer and nothing wraps, which matters if you inspect the counts or switch to checked arithmetic. It does not save work here: the memo is allocated and filled for every value and every total before the search starts.
 
 ## Optimal: one array, values outside
 
@@ -109,7 +109,7 @@ static int ways(int[] coins, int amount) {
 
 ## Where it shows up
 
-Counting the ways to make a total from parts that can repeat has this shape: how many ways a vending machine or a till can pay out change, how many different orders of standard pack sizes fill a delivery exactly, or how many ways a budget splits into fixed-price items. In mathematics it is the number of partitions of a number into allowed parts, and the one-array loop is the classic way to tabulate them.
+Counting the ways to make a total from parts that can repeat has this shape: how many ways a vending machine or a till can pay out change, how many different combinations of standard pack sizes fill a delivery exactly, or how many ways a budget splits into fixed-price items. In mathematics it is the number of partitions of a number into allowed parts, and the one-array loop is the classic way to tabulate them.
 
 ## Follow-up answers
 

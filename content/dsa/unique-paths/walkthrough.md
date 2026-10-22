@@ -60,7 +60,7 @@ static int routes(int rows, int cols) {
 
 ## Optimal: one row of counts
 
-Keep only the counts for the current row. For each new row, add each cell's left neighbour into it, left to right: the old value is the routes from above and the neighbour, already updated, is the routes from the left. This is the reference solution. The count also has a closed form, a binomial coefficient, which needs no table at all; the follow-up answers show it.
+Keep only the counts for the current row. For each new row, add each cell's left neighbour into it, left to right: the old value is the routes from above and the neighbour, already updated, is the routes from the left. This is the reference solution. The count also has a closed form, a binomial coefficient, which needs no table at all; the follow-up answers show it. That closed form is faster still, O(min(rows, cols)) time and O(1) extra space. The table is kept as the answer here because it is what carries over to blocked cells and other moves, as the follow-up answers show too.
 
 ```java
 static int routes(int rows, int cols) {
@@ -75,7 +75,7 @@ static int routes(int rows, int cols) {
 }
 ```
 
-**Complexity:** time O(rows × cols), extra space O(cols). Passing the shorter side as the row length makes it O(min(rows, cols)); the count is the same with the floor turned on its side.
+**Complexity:** time O(rows × cols), extra space O(cols). Passing the shorter side as the row length makes the extra space O(min(rows, cols)); the time stays O(rows × cols), and the count is the same with the floor turned on its side.
 
 ## Complexity
 
