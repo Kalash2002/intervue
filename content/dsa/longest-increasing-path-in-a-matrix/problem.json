@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "longest-increasing-path-in-a-matrix",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Longest Increasing Path in a Matrix",
+  "summary": "Find the longest walk through a grid of heights that steps between side neighbours and rises at every step.",
+  "difficulty": "Hard",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "grid", "memoization", "topological-sort"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return the cells of one longest climb?", "What if the grid were 1,000 by 1,000?", "What if a climb could also step diagonally?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

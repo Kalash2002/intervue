@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "distinct-subsequences",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Distinct Subsequences",
+  "summary": "Count the ways to strike letters out of a text so that a given word is left, in order.",
+  "difficulty": "Hard",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "strings", "subsequence", "counting"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the count could be far larger than 2^31 and had to be reported modulo 10^9 + 7?", "What if text were a million letters long and word only a few letters?", "What if the letters of word had to sit side by side in text?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

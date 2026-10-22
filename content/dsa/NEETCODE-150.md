@@ -119,9 +119,9 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 113 | 2-D dynamic programming | Best Time to Buy and Sell Stock with Cooldown | `best-time-to-buy-and-sell-stock-with-cooldown` | ✓ | |
 | 114 | 2-D dynamic programming | Coin Change II | `coin-change-ii` | ✓ | |
 | 115 | 2-D dynamic programming | Target Sum | `target-sum` | ✓ | |
-| 116 | 2-D dynamic programming | Interleaving String | `interleaving-string` | | |
-| 117 | 2-D dynamic programming | Longest Increasing Path in a Matrix | `longest-increasing-path-in-a-matrix` | | |
-| 118 | 2-D dynamic programming | Distinct Subsequences | `distinct-subsequences` | | |
+| 116 | 2-D dynamic programming | Interleaving String | `interleaving-string` | ✓ | |
+| 117 | 2-D dynamic programming | Longest Increasing Path in a Matrix | `longest-increasing-path-in-a-matrix` | ✓ | |
+| 118 | 2-D dynamic programming | Distinct Subsequences | `distinct-subsequences` | ✓ | |
 | 119 | 2-D dynamic programming | Edit Distance | `edit-distance` | | |
 | 120 | 2-D dynamic programming | Burst Balloons | `burst-balloons` | | |
 | 121 | 2-D dynamic programming | Regular Expression Matching | `regular-expression-matching` | | |
