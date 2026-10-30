@@ -22,15 +22,16 @@
 <text x="140" y="95">left</text><text x="240" y="95">right</text>
 </g>
 
+<path d="M 352 30 L 352 222" stroke="#83748f" stroke-width="1" fill="none"/>
 <g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
-<text x="340" y="44">count(6, 3) walks column 6:</text>
-<text x="340" y="66">(6, 7) is there, side 7 - 3 = 4</text>
-<text x="340" y="96">right, column 6 + 4 = 10:</text>
-<text x="340" y="116">(10, 3), (10, 7): 1 x 1 = 1</text>
-<text x="340" y="146">left, column 6 - 4 = 2:</text>
-<text x="340" y="166">(2, 3), (2, 7): 1 x 1 = 1</text>
-<text x="340" y="196">copies of (6, 7): 1</text>
-<text x="340" y="216">count = 1 x (1 + 1) = 2</text>
+<text x="370" y="44">count(6, 3) walks column 6:</text>
+<text x="370" y="66">(6, 7) is there, side 7 - 3 = 4</text>
+<text x="370" y="96">right, column 6 + 4 = 10:</text>
+<text x="370" y="116">(10, 3), (10, 7): 1 x 1 = 1</text>
+<text x="370" y="146">left, column 6 - 4 = 2:</text>
+<text x="370" y="166">(2, 3), (2, 7): 1 x 1 = 1</text>
+<text x="370" y="196">copies of (6, 7): 1</text>
+<text x="370" y="216">count = 1 x (1 + 1) = 2</text>
 </g>
 
 <text x="20" y="240" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">The query q is never stored; column 6 is the side both squares share.</text>

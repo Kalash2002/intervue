@@ -56,7 +56,7 @@ static int[] plusOne(int[] digits) {
 
 **Complexity:** time O(n), always a full pass and usually a copy; extra space O(n) for the new arrays.
 
-**Prefer it when:** you are adding something other than one, such as a second digit array or a number of several digits: this loop is general addition, and plus one is only the case of a carry of 1 into the last digit.
+**Prefer it when:** the caller's array must stay as it was. This version only reads `digits` and builds the answer in new arrays, where the Optimal below changes `digits` as it walks. As an aside, the same loop with a second number's digits added in is general addition.
 
 ## Optimal: stop where the carry stops
 
@@ -94,8 +94,8 @@ No coding-round problem is linked to this question. Adding one with a carry is h
 
 ## Follow-up answers
 
-**Can you stop as soon as the carry is used up, and when do you need a new array?** Yes, the Optimal version stops at the first digit below 9, so a number that does not end in 9 costs one step. A new array is needed only when every digit is 9, and then its contents are known without looking: a 1 followed by n zeros.
-
 **How would you add two such digit arrays of different lengths?** Walk both from the right with one carry, treating a digit past the front of the shorter array as 0, and write each `(a + b + carry) % 10` into a result of `max(m, n) + 1` slots. Keep the first slot only if the last carry is 1. That is O(max(m, n)) time.
 
 **What changes if the digits are stored lowest digit first, or the number can be decremented as well?** Lowest digit first, the walk runs from the front of the array, and the all-nines case appends a 1 at the end instead of putting it in front, so the new array is a copy with one more slot. Decrementing is the mirror image: 0s at the end become 9s and the first digit above 0 goes down by one, and if that digit was the leading 1 of a longer number, such as `[1, 0, 0]`, it is dropped and the answer, `[9, 9]`, is one digit shorter. `[0]` has no decrement in this form, since -1 is not a non-negative number.
+
+**How many digits does one call look at, in the worst case and on average?** The Optimal stops at the first digit from the right that is below 9, so it looks at k + 1 digits when the number ends in k 9s with a smaller digit before them. The worst case is a number of n 9s: all n digits, plus the n + 1 slots of the new array. If the digits are random, the last digit is a 9 one time in ten, the last two are 9s one time in a hundred, and so on, so a call looks at about 1 + 1/10 + 1/100 + ... ≈ 1.11 digits on average, however long the number is.

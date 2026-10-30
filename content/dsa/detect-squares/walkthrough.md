@@ -78,9 +78,9 @@ public class SquareFinder {
 }
 ```
 
-**Complexity:** `add` O(1) on average; `count` O(P) on average for P distinct points, O(P log P) in the worst case (Java's `HashMap` turns a crowded bucket of `Integer` keys into a tree); extra space O(P).
+**Complexity:** `add` O(1) on average, O(log P) in the worst case; `count` O(P) on average for P distinct points, O(P log P) in the worst case (Java's `HashMap` turns a crowded bucket of `Integer` keys into a tree); extra space O(P).
 
-**Prefer it when:** the squares may be tilted. Trying every point as the opposite corner already covers every square with the query as a corner; only the formula for the two remaining corners changes (see the follow-up answers), where the column walk only ever finds squares with a vertical side.
+**Prefer it when:** there are few points, spread over many columns. The map keeps one entry per distinct point, where the column walk sets aside two arrays of 1001 `int`s, about 8 KB, for every column that holds a point. As an aside, trying every point as the far corner is also the shape that extends to tilted squares, with a different formula for the two remaining corners (see the follow-up answers).
 
 ## Optimal: walk the query's column
 
@@ -131,7 +131,7 @@ public class SquareFinder {
 | Approach | Time | Extra space |
 | --- | --- | --- |
 | Brute force: a list of every copy | `add` O(1) amortized; `count` O(N + D · N), O(N²) worst case | O(N) |
-| Better: copies per point, every point as the far corner | `add` O(1) average; `count` O(P) average, O(P log P) worst case | O(P) |
+| Better: copies per point, every point as the far corner | `add` O(1) average, O(log P) worst case; `count` O(P) average, O(P log P) worst case | O(P) |
 | Optimal: walk the query's column | `add` O(1); `count` O(K), K at most 1001 | O(1001 · C), at most 8 MB |
 
 ## Where it shows up

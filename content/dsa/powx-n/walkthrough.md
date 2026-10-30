@@ -37,7 +37,7 @@ static double raise(double x, int n) {
 
 ## Better: halve the exponent recursively
 
-Compute `x^(e/2)` once, square it, and multiply by one more `x` when `e` is odd. Each call halves the exponent, so a call for `e` up to 2^31 is at most 32 calls deep. The negation happens on a `long`, cast before the minus sign.
+Compute `x^(e/2)` once, square it, and multiply by one more `x` when `e` is odd. Each call halves the exponent, so a call for `e` up to 2^31 is at most 33 calls deep: for e = 2^31 there is one call for each of 2^31, 2^30, ..., 1 and a last one for 0. The negation happens on a `long`, cast before the minus sign.
 
 ```java
 static double raise(double x, int n) {

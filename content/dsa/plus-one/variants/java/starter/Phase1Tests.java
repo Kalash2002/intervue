@@ -90,7 +90,10 @@ public class Phase1Tests {
     @Test(order = 5)
     void allNinesGrowByOneDigit() {
         expect(new int[] {1, 0, 0}, new int[] {9, 9});
-        expect(new int[] {1, 0, 0, 0}, new int[] {9, 9, 9});
+        // an 11-digit counter at its last value: the next one needs a twelfth digit
+        int[] twelve = repeat(0, 12);
+        twelve[0] = 1;
+        expect(twelve, repeat(9, 11));
         int[] longest = repeat(0, 101);
         longest[0] = 1;
         expect(longest, repeat(9, 100));

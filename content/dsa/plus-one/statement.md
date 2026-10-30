@@ -30,4 +30,4 @@ Implement `Odometer.plusOne(int[] digits)` in `Odometer.java` and return the dig
 
 ## Follow-up
 
-Can you stop as soon as the carry is used up, and when do you need a new array?
+How would you add two such digit arrays of different lengths?

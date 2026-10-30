@@ -1,8 +1,8 @@
 # Happy Number
 
-Start from a positive integer and replace it by the sum of the squares of its decimal digits, then do the same to the result, and so on. For some starting numbers the chain reaches 1, and stays there, since 1 squared is 1: those numbers are called happy. For every other number the chain never reaches 1 and goes round a loop of the same numbers forever.
+In a digit game, each turn replaces the number on the board with the sum of the squares of its decimal digits: 356 becomes 3² + 5² + 6² = 70, and on the next turn 70 becomes 49. The game is won if 1 ever appears in this chain of numbers. Starting numbers that win are called happy; from any other start the board never shows 1, however many turns are played.
 
-Implement `DigitChain.isHappy(int n)` in `DigitChain.java` and return `true` if the chain that starts at `n` reaches 1, and `false` if it never does.
+Implement `DigitChain.isHappy(int n)` in `DigitChain.java` and return `true` if the chain that starts at `n` ever reaches 1, and `false` if it never does.
 
 ## Example 1
 
