@@ -113,7 +113,8 @@ public class Phase1Tests {
         expect(board, want);
     }
 
-    @Test(order = 10)
+    // grades recursion depth, not speed: the naive's 2.8 s here passes 5 s only on an idle machine
+    @Test(order = 10, timeoutMs = 30000)
     void allOpenLargeBoard() {
         int n = 200;
         char[][] board = new char[n][n];
