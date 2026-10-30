@@ -151,8 +151,8 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 145 | Bit manipulation | Number of 1 Bits | `number-of-1-bits` | ✓ | |
 | 146 | Bit manipulation | Counting Bits | `counting-bits` | ✓ | |
 | 147 | Bit manipulation | Reverse Bits | `reverse-bits` | ✓ | |
-| 148 | Bit manipulation | Missing Number | `missing-number` | | |
-| 149 | Bit manipulation | Sum of Two Integers | `sum-of-two-integers` | | |
-| 150 | Bit manipulation | Reverse Integer | `reverse-integer` | | |
+| 148 | Bit manipulation | Missing Number | `missing-number` | ✓ | |
+| 149 | Bit manipulation | Sum of Two Integers | `sum-of-two-integers` | ✓ | |
+| 150 | Bit manipulation | Reverse Integer | `reverse-integer` | ✓ | |
 
 The list is from memory of the published NeetCode 150 (2026-10-15) and should be checked against neetcode.io once before Phase 1ad starts; a wrong row is corrected here, and the order of groups is the roadmap's.

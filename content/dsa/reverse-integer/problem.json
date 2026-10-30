@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reverse-integer",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reverse Integer",
+  "summary": "Reverse the decimal digits of an int, keeping its sign, and return 0 when the result does not fit in an int.",
+  "difficulty": "Medium",
+  "techniques": ["bit-manipulation"],
+  "tags": ["math", "digits", "integer-overflow"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it with int arithmetic only, never holding a value outside the int range?", "How would you tell whether an int reads the same with its digits reversed, without any risk of overflow?", "How would you reverse a long the same way, when there is no wider type to check against?"],
+  "languages": ["java"],
+  "coveredBy": []
+}
