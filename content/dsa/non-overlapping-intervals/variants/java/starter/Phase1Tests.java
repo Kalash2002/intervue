@@ -99,7 +99,7 @@ public class Phase1Tests {
     }
 
     @Test(order = 11, timeoutMs = 400)
-    void eachRequestOverlapsHalfTheOthers() {
+    void everyRequestFiftyThousandMinutesLong() {
         // Request i is [i, i + 50,000) for i below 100,000, listed from the last to the first.
         // Two can stay, [0, 50,000) and [50,000, 100,000), which touch; no three fit, so 99,998
         // are cancelled.

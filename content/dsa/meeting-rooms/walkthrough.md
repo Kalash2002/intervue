@@ -61,11 +61,11 @@ static boolean fitInOneRoom(int[][] bookings) {
 
 **Complexity:** time O(n log n), extra space O(n) for the two arrays.
 
-**Prefer it when:** the question may grow into how many rooms the bookings need. Walk the same two sorted columns with a count of bookings in the room instead of stopping at two, and it is the Meeting Rooms II answer. It is also the faster of the two in practice: sorting two plain `int` arrays avoids the comparator and the row objects, and on 100,000 shuffled bookings I measured it at about a third of the time of the row sort once the JVM was warm.
+**Prefer it when:** the question may grow into how many rooms the bookings need. Walk the same two sorted columns with a count of bookings in the room instead of stopping at two, and it is the Meeting Rooms II answer. It is also the faster of the two in practice: two sorts of plain `int` arrays, with no comparator and no row objects.
 
 ## Optimal: sort by start and compare neighbours
 
-Sort a copy of the bookings by start and compare each booking with the one before it: a clash exists exactly when some booking starts before its neighbour ends. This is the reference solution.
+Sort a copy of the bookings by start and compare each booking with the one before it: a clash exists exactly when some booking starts before the previous booking ends. This is the reference solution. It is the Optimal although the Better is faster by a constant factor at the same O(n log n), because it keeps each booking whole: when the check fires it can say which two bookings clash (the first follow-up), and the online check in the last follow-up works on the same whole bookings.
 
 ```java
 static boolean fitInOneRoom(int[][] bookings) {

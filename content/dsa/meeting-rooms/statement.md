@@ -1,6 +1,6 @@
 # Meeting Rooms
 
-A coworking space has a single meeting room and a list of bookings for it, each a pair `[start, end)` of minutes: the room is needed from `start` up to but not including `end`. Two bookings clash when one starts before the other ends. A booking that ends at minute 45 and another that starts at minute 45 do not clash: they use the room one after the other.
+A coworking space has a single meeting room and a list of bookings for it, each a pair `[start, end)` of minutes: the room is needed from `start` up to but not including `end`. Two bookings clash when each starts before the other ends. A booking that ends at minute 45 and another that starts at minute 45 do not clash: they use the room one after the other.
 
 Implement `Rooms.fitInOneRoom(int[][] bookings)` in `Rooms.java`. Return `true` if the one room can hold every booking, that is, if no two bookings clash, and `false` otherwise. The bookings come in no particular order.
 

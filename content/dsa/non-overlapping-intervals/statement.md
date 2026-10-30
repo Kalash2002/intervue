@@ -1,6 +1,6 @@
 # Non-overlapping Intervals
 
-An observatory's telescope serves one observation request at a time. Each request is a pair `[start, end)` of minutes: it needs the telescope from `start` up to but not including `end`. Two requests overlap when one starts before the other ends. A request that ends at minute 30 and another that starts at minute 30 do not overlap: both can run, one after the other.
+An observatory's telescope serves one observation request at a time. Each request is a pair `[start, end)` of minutes: it needs the telescope from `start` up to but not including `end`. Two requests overlap when each starts before the other ends. A request that ends at minute 30 and another that starts at minute 30 do not overlap: both can run, one after the other.
 
 Implement `Telescope.minCancellations(int[][] requests)` in `Telescope.java`. Return the smallest number of requests to cancel so that no two of the remaining requests overlap. The requests come in no particular order.
 
