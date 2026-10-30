@@ -1,6 +1,6 @@
 ## The question
 
-Given n distinct numbers taken from 0 to n, return the one number of that range that is not in the array. The array is in no particular order, and the missing number can be 0 or n as well as anything in between.
+The array holds every number from 0 to n but one, in no particular order; return the one that is not there. It can be 0 or n as well as anything in between, and n is also the length of the array.
 
 What makes it harder than it looks: the range has n + 1 numbers but the array only n positions. A table of flags, one per number, needs n + 1 entries, not n, or the value n falls off its end; and code that sorts and looks for the first position whose value is not its index finds no such position when n itself is missing, and has to return n on its own. Checking every number with a fresh scan costs about n²/4 comparisons when the missing number is in the middle, 2.5 × 10^9 at n = 10^5. And the arithmetic shortcut, the sum of 0 to n minus the sum of the array, meets the `int` limit at this size: the sum of 0 to 10^5 is 5,000,050,000.
 

@@ -88,7 +88,10 @@ public class Phase1Tests {
         expect(0xFFFFFFFF, 0xAAAAAAAA, 0x55555555); // no column makes a carry
     }
 
-    @Test(order = 7, timeoutMs = 1000)
+    // the two bulk tests, this one and randomPairs, make about 510,000 calls, so a correct
+    // solution through strings needs more than a second on a busy machine; the other tests
+    // stop an endless loop in 1 s
+    @Test(order = 7, timeoutMs = 5000)
     void everyPairOfSmallValues() {
         for (int a = -256; a <= 256; a++) {
             for (int b = -256; b <= 256; b++) {
@@ -112,7 +115,7 @@ public class Phase1Tests {
         }
     }
 
-    @Test(order = 9, timeoutMs = 1000)
+    @Test(order = 9, timeoutMs = 5000) // a bulk test: see everyPairOfSmallValues
     void randomPairs() {
         Random random = new Random(1831);
         for (int round = 0; round < 200_000; round++) {

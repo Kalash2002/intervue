@@ -114,7 +114,7 @@ public class Phase1Tests {
         for (int round = 0; round < 200_000; round++) {
             int x = random.nextInt();
             expect(byText(x), x);
-            int nineDigits = random.nextInt(1_000_000_000); // most of these fit once reversed
+            int nineDigits = random.nextInt(1_000_000_000); // all of these fit once reversed (nine digits at most)
             expect(byText(nineDigits), nineDigits);
         }
     }

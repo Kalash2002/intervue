@@ -37,7 +37,7 @@ static int add(int a, int b) {
 
 ## Better: add without carries, then add the carries
 
-XOR gives the sum of every column without its carry, AND shifted left gives the carries, and the carries are added the same way until there are none.
+XOR gives the sum of every column without its carry, AND shifted left gives the carries, and the carries are added the same way until there are none. This carry loop is the answer interviewers usually expect for this question; the Optimal below is what the follow-up asks for, a fixed five rounds whatever the carries.
 
 ```java
 static int add(int a, int b) {
@@ -52,7 +52,7 @@ static int add(int a, int b) {
 
 **Complexity:** time O(w) rounds in the worst case, up to w = 32, more the farther a carry travels; extra space O(1).
 
-**Prefer it when:** the carries are short, as they are for most pairs: it stops as soon as no carry is left, after one round when `a` and `b` have no 1 bit in common, where the Optimal always does all five rounds. It is also four lines that are easy to argue for in an interview.
+**Prefer it when:** the carries are short, as they are for most pairs: it stops as soon as no carry is left, after one round when `a` and `b` have no 1 bit in common, where the Optimal always does all five rounds.
 
 ## Optimal: every carry at once, by doubling blocks
 

@@ -55,7 +55,7 @@ static int reverse(int x) {
 
 **Complexity:** time O(d), d ≤ 10 digits; extra space O(1).
 
-**Prefer it when:** a `long` is available: one comparison at the end replaces the two checks inside the loop, and there is no boundary digit to get right.
+**Prefer it when:** a `long` is available: one range check at the end replaces the two checks inside the loop, and there is no boundary digit to get right.
 
 ## Optimal: digit by digit, checking before each step
 
