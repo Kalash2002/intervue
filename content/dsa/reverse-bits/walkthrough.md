@@ -6,7 +6,7 @@ What makes it harder than it looks: all 32 positions take part, including the 0 
 
 ## How to think about it
 
-The first idea is to do it as you would by hand: write all 32 bits as text, reverse the text and read it back. With the padding and the unsigned parse that is correct, but it builds three strings for one `int`. The same thing with arithmetic: take the lowest bit of the word, push it in at the bottom of the result by shifting the result left, shift the word right, and repeat exactly 32 times. Bit 0 of the word goes in first, and the 31 left shifts after it carry it up to bit 31; bit 31 of the word goes in last and stays at bit 0. Counting 32 steps, instead of waiting for the word to be 0, is what keeps the zeros above the highest 1.
+The first idea is to do it as you would by hand: write all 32 bits as text, reverse the text and read it back. With the padding and the unsigned parse that is correct, but it builds several strings for one `int`. The same thing with arithmetic: take the lowest bit of the word, push it in at the bottom of the result by shifting the result left, shift the word right, and repeat exactly 32 times. Bit 0 of the word goes in first, and the 31 left shifts after it carry it up to bit 31; bit 31 of the word goes in last and stays at bit 0. Counting 32 steps, instead of waiting for the word to be 0, is what keeps the zeros above the highest 1.
 
 That loop moves one bit per step, but bits can move in blocks. Mirroring a word is the same as swapping its two 16-bit halves and then mirroring each half on its own; each half is mirrored by swapping its two bytes and mirroring each byte, and so on through nibbles and pairs down to single bits. A mask such as `0x00ff00ff` picks out every other block, so one line does a whole level for every block in the word at once, and 32 = 2^5 means five lines.
 
@@ -50,7 +50,7 @@ static int mirror(int word) {
 
 ## Optimal: swap halves, then bytes, nibbles, pairs and bits
 
-Swap the two 16-bit halves, then, with a mask for each level, the bytes in each half, the nibbles in each byte, the pairs in each nibble and the neighbouring bits in each pair. Each line keeps the blocks it moves apart with a mask, so the order of the lines does not matter, as long as all five are there. This is the reference solution.
+Swap the two 16-bit halves, then, with a mask for each level, the bytes in each half, the nibbles in each byte, the pairs in each nibble and the neighbouring bits in each pair. The first line swaps whole halves, and each of the last four keeps the blocks it moves apart with a mask; every line moves bit p to position p XOR s for its own block size s, so the order of the lines does not matter, as long as all five are there. This is the reference solution.
 
 ```java
 static int mirror(int word) {

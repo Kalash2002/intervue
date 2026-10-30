@@ -28,4 +28,4 @@ Implement `BitTable.build(int n)` in `BitTable.java`.
 
 ## Follow-up
 
-Can you fill the table in O(n) time, using entries already filled instead of counting each number's bits from scratch?
+Can you fill the table in O(n) time?

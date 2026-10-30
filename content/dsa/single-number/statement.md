@@ -24,7 +24,7 @@ Implement `LoneValue.find(int[] nums)` in `LoneValue.java`.
 
 ## Constraints
 
-- `1 <= nums.length <= 3 * 10^4`
+- `1 <= nums.length <= 10^5`
 - `-3 * 10^4 <= nums[i] <= 3 * 10^4`
 - Every value in `nums` appears exactly twice, except one value that appears exactly once.
 

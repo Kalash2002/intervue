@@ -83,7 +83,9 @@ public class Phase1Tests {
         expect(17, 0x40FFFF00);
     }
 
-    @Test(order = 7, timeoutMs = 1000)
+    // the two bulk tests make about 300,000 calls, so a correct solution through strings needs
+    // more than a second on a busy machine; the small tests above stop an endless loop in 1 s
+    @Test(order = 7, timeoutMs = 5000)
     void everyPatternOfEachHalf() {
         // all 65,536 patterns of the low half alone, of the high half alone, and of the low half
         // under bit 31
@@ -94,7 +96,7 @@ public class Phase1Tests {
         }
     }
 
-    @Test(order = 8, timeoutMs = 1000)
+    @Test(order = 8, timeoutMs = 5000)
     void randomPatterns() {
         Random random = new Random(1613);
         for (int round = 0; round < 100_000; round++) {

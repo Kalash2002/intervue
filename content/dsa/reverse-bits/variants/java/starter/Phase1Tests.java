@@ -92,7 +92,9 @@ public class Phase1Tests {
         }
     }
 
-    @Test(order = 8, timeoutMs = 1000)
+    // the two bulk tests make about 330,000 calls, so a correct solution through strings needs
+    // more than a second on a busy machine; the small tests above stop an endless loop in 1 s
+    @Test(order = 8, timeoutMs = 5000)
     void everyPatternOfEachHalf() {
         for (int half = 0; half < 1 << 16; half++) {
             expect(mirrored(half), half);
@@ -100,7 +102,7 @@ public class Phase1Tests {
         }
     }
 
-    @Test(order = 9, timeoutMs = 1000)
+    @Test(order = 9, timeoutMs = 5000)
     void randomWords() {
         Random random = new Random(1619);
         for (int round = 0; round < 100_000; round++) {

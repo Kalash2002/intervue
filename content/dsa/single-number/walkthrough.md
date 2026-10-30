@@ -2,7 +2,7 @@
 
 Every value in an array appears exactly twice, except one value that appears once; return that one. The two copies of a value can be anywhere, so the array is not a row of neighbouring pairs.
 
-What makes it harder than it looks: comparing neighbours only works after sorting, and then the lone value can be the last one, with no partner after it. A count array indexed by the value breaks on the first negative value unless the index is shifted by 30,000. Counting each value's copies with a fresh scan of the array costs up to about 9 × 10^8 comparisons at 3 × 10^4 values. And the follow-up asks for O(n) time with only a constant amount of extra memory, which rules out a set, a map and a count array.
+What makes it harder than it looks: comparing neighbours only works after sorting, and then the lone value can be the last one, with no partner after it. A count array indexed by the value breaks on the first negative value unless the index is shifted by 30,000. Counting each value's copies with a fresh scan of the array costs up to about 10^10 comparisons at 10^5 values. And the follow-up asks for O(n) time with only a constant amount of extra memory, which rules out a set, a map and a count array.
 
 ## How to think about it
 
@@ -35,7 +35,7 @@ static int find(int[] nums) {
 }
 ```
 
-Stopping each scan as soon as a second copy turns up does not change the bound: a copy can be half the array away from its partner, and the lone value can sit in the middle.
+Stopping each scan as soon as a second copy turns up, or skipping copies already matched, does not change the bound: a copy can be half the array away from its partner, and the lone value can sit in the middle, so on such an input each of these still makes on the order of n² comparisons, from whichever end it starts, before it reaches the lone value.
 
 **Complexity:** time O(n²), extra space O(1).
 

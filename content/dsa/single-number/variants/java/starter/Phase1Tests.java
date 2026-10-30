@@ -102,13 +102,13 @@ public class Phase1Tests {
         }
     }
 
-    @Test(order = 8, timeoutMs = 400)
+    @Test(order = 8, timeoutMs = 500)
     void largeArraysWithTheLoneValueInTheMiddle() {
         Random random = new Random(1607);
         int[] pool = everyAllowedValue();
-        int pairs = 14_999;
-        int n = 2 * pairs + 1; // 29,999 values
-        for (int round = 0; round < 50; round++) {
+        int pairs = 49_999;
+        int n = 2 * pairs + 1; // 99,999 values, the longest odd array allowed
+        for (int round = 0; round < 16; round++) {
             pickDistinct(pool, pairs + 1, random);
             // the first copies in one random order, then the second copies in another, so each
             // copy is far from its partner, and the lone value somewhere in the middle third

@@ -84,7 +84,7 @@ No coding-round problem is linked to this question. Tables like this one are how
 
 ## Follow-up answers
 
-**Can you fill the table in O(n) time, using entries already filled instead of counting each number's bits from scratch?** Yes: `ones[i] = ones[i >> 1] + (i & 1)`, as in the Optimal, or `ones[i] = 1 + ones[i - high]` with the block's power of two, as in the Better. A third form drops the lowest 1 bit instead, `ones[i] = ones[i & (i - 1)] + 1`, since `i & (i - 1)` is smaller than `i` and has exactly one 1 bit fewer.
+**Can you fill the table in O(n) time?** Yes, by building each entry from one already filled: `ones[i] = ones[i >> 1] + (i & 1)`, as in the Optimal, or `ones[i] = 1 + ones[i - high]` with the block's power of two, as in the Better. A third form drops the lowest 1 bit instead, `ones[i] = ones[i & (i - 1)] + 1`, since `i & (i - 1)` is smaller than `i` and has exactly one 1 bit fewer.
 
 **How would you use a small table like this to count the 1 bits of any 32-bit value?** Build the table for 0 to 255 once, then split the value into its four bytes with `>>>` and `& 0xff` and add their four entries. The shift must be `>>>` or the mask must come after it, so that a negative value does not bring copies of its sign bit into the top byte. A table of 65,536 entries needs only two lookups, at the cost of a larger table.
 
