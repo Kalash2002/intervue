@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "spiral-matrix",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Spiral Matrix",
+  "summary": "List the readings of a rectangular grid in the clockwise spiral a robot vacuum cleans it in.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["array", "matrix", "simulation"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you produce the spiral one reading at a time, for a caller that may stop early?", "How would you write the numbers 1 to m × n into an empty grid in spiral order?", "What if the robot spiralled anticlockwise, going down the left-hand column first?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

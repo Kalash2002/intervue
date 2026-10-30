@@ -135,12 +135,12 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 129 | Greedy | Valid Parenthesis String | `valid-parenthesis-string` | ✓ | |
 | 130 | Intervals | Insert Interval | `insert-interval` | ✓ | shift-roster-lookup |
 | 131 | Intervals | Merge Intervals | `merge-intervals` | ✓ | hold-exposure |
-| 132 | Intervals | Non-overlapping Intervals | `non-overlapping-intervals` | | |
-| 133 | Intervals | Meeting Rooms | `meeting-rooms` | | |
+| 132 | Intervals | Non-overlapping Intervals | `non-overlapping-intervals` | ✓ | |
+| 133 | Intervals | Meeting Rooms | `meeting-rooms` | ✓ | |
 | 134 | Intervals | Meeting Rooms II | `meeting-rooms-ii` | ✓ | hold-exposure |
-| 135 | Intervals | Minimum Interval to Include Each Query | `minimum-interval-to-include-each-query` | | |
-| 136 | Math and geometry | Rotate Image | `rotate-image` | | |
-| 137 | Math and geometry | Spiral Matrix | `spiral-matrix` | | |
+| 135 | Intervals | Minimum Interval to Include Each Query | `minimum-interval-to-include-each-query` | ✓ | |
+| 136 | Math and geometry | Rotate Image | `rotate-image` | ✓ | |
+| 137 | Math and geometry | Spiral Matrix | `spiral-matrix` | ✓ | |
 | 138 | Math and geometry | Set Matrix Zeroes | `set-matrix-zeroes` | | |
 | 139 | Math and geometry | Happy Number | `happy-number` | | |
 | 140 | Math and geometry | Plus One | `plus-one` | | |

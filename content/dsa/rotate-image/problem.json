@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "rotate-image",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Rotate Image",
+  "summary": "Turn a square board of tiles a quarter turn clockwise, in place.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["array", "matrix", "in-place"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it with only a constant amount of extra memory?", "How would you turn the board anticlockwise, or half a turn?", "What if the board were not square?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

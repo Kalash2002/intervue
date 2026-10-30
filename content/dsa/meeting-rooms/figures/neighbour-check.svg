@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" width="640" height="210" role="img">
+<title>Meeting Rooms, Example 1: the bookings in order of start, each compared with the one before it</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="22">booking, by start</text><text x="478" y="22">against the one before</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="54">[30,90)</text>
+<text x="20" y="89">[40,50)</text>
+<text x="20" y="124">[100,120)</text>
+</g>
+
+<g fill="#83748f" fill-opacity="0.35" stroke="#83748f" stroke-width="1.5">
+<rect x="100" y="41" width="240" height="18"/>
+<rect x="140" y="76" width="40" height="18"/>
+<rect x="380" y="111" width="80" height="18"/>
+</g>
+
+<rect x="472" y="74" width="156" height="22" rx="4" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="478" y="54">the first one</text>
+<text x="478" y="89" fill="#ffffff">40 is before 90: clash</text>
+<text x="478" y="124">not needed</text>
+</g>
+
+<path d="M 100 150 L 460 150" stroke="#83748f" stroke-width="1" fill="none"/>
+<g stroke="#83748f" stroke-width="1">
+<path d="M 100 146 L 100 154"/><path d="M 220 146 L 220 154"/><path d="M 340 146 L 340 154"/><path d="M 460 146 L 460 154"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="100" y="168">30</text><text x="220" y="168">60</text><text x="340" y="168">90</text><text x="460" y="168">120</text>
+</g>
+
+<text x="20" y="196" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">Not neighbours in the given order, neighbours in order of start: the answer is false.</text>
+</svg>
