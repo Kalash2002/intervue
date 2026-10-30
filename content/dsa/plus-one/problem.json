@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "plus-one",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Plus One",
+  "summary": "Add one to a number stored as an array of its decimal digits, carrying as far as it goes.",
+  "difficulty": "Easy",
+  "techniques": ["math-geometry"],
+  "tags": ["array", "math", "carry", "big-numbers"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you stop as soon as the carry is used up, and when do you need a new array?", "How would you add two such digit arrays of different lengths?", "What changes if the digits are stored lowest digit first, or the number can be decremented as well?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

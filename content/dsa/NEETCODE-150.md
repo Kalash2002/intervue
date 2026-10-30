@@ -141,12 +141,12 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 135 | Intervals | Minimum Interval to Include Each Query | `minimum-interval-to-include-each-query` | ✓ | |
 | 136 | Math and geometry | Rotate Image | `rotate-image` | ✓ | |
 | 137 | Math and geometry | Spiral Matrix | `spiral-matrix` | ✓ | |
-| 138 | Math and geometry | Set Matrix Zeroes | `set-matrix-zeroes` | | |
-| 139 | Math and geometry | Happy Number | `happy-number` | | |
-| 140 | Math and geometry | Plus One | `plus-one` | | |
-| 141 | Math and geometry | Pow(x, n) | `powx-n` | | |
-| 142 | Math and geometry | Multiply Strings | `multiply-strings` | | |
-| 143 | Math and geometry | Detect Squares | `detect-squares` | | |
+| 138 | Math and geometry | Set Matrix Zeroes | `set-matrix-zeroes` | ✓ | |
+| 139 | Math and geometry | Happy Number | `happy-number` | ✓ | |
+| 140 | Math and geometry | Plus One | `plus-one` | ✓ | |
+| 141 | Math and geometry | Pow(x, n) | `powx-n` | ✓ | |
+| 142 | Math and geometry | Multiply Strings | `multiply-strings` | ✓ | |
+| 143 | Math and geometry | Detect Squares | `detect-squares` | ✓ | |
 | 144 | Bit manipulation | Single Number | `single-number` | | |
 | 145 | Bit manipulation | Number of 1 Bits | `number-of-1-bits` | | |
 | 146 | Bit manipulation | Counting Bits | `counting-bits` | | |

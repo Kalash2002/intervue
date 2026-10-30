@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "powx-n",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Pow(x, n)",
+  "summary": "Raise a floating-point number to any int power, negative and huge ones included.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["math", "recursion", "exponentiation-by-squaring", "floating-point"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it with O(log |n|) multiplications?", "How would you compute x^n modulo m for integers, as in modular exponentiation?", "Why does the rounding error grow with n, and how large can it get?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

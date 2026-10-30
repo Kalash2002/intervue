@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "detect-squares",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Detect Squares",
+  "summary": "Store points with repeats and count the axis-aligned squares a query point would complete.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["design", "hash-map", "counting", "geometry"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the coordinates could be as large as 10^9?", "How would you also count squares tilted at any angle?", "How would you support removing a point?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

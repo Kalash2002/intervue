@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Pow(x, n), Example 1: 1.5 to the power 9 by squaring, one row per bit of 9 = 1001 in binary</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">bit of 9</text><text x="120" y="24">its value</text><text x="230" y="24">current square of x</text><text x="440" y="24">result after the step</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="230" y="40" width="170" height="26"/>
+<rect x="230" y="76" width="170" height="26"/>
+<rect x="230" y="112" width="170" height="26"/>
+<rect x="230" y="148" width="170" height="26"/>
+<rect x="440" y="40" width="170" height="26"/>
+<rect x="440" y="76" width="170" height="26"/>
+<rect x="440" y="112" width="170" height="26"/>
+</g>
+<rect x="440" y="148" width="170" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="58">bit 0</text><text x="120" y="58">1, take it</text>
+<text x="20" y="94">bit 1</text><text x="120" y="94">0, skip</text>
+<text x="20" y="130">bit 2</text><text x="120" y="130">0, skip</text>
+<text x="20" y="166">bit 3</text><text x="120" y="166">1, take it</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="315" y="58">x^1 = 1.5</text>
+<text x="315" y="94">x^2 = 2.25</text>
+<text x="315" y="130">x^4 = 5.0625</text>
+<text x="315" y="166">x^8 = 25.62890625</text>
+<text x="525" y="58">1.5</text>
+<text x="525" y="94">1.5</text>
+<text x="525" y="130">1.5</text>
+<text x="525" y="166" fill="#ffffff">38.443359375</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="204">Each step squares x; a step whose bit is 1 multiplies the result by the current square.</text>
+<text x="20" y="222">x^9 = x^8 times x^1 = 25.62890625 times 1.5; three squarings reach x^8, not eight products.</text>
+</g>
+</svg>

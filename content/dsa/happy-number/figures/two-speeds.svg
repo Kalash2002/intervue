@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320" role="img">
+<title>Happy Number, Example 2: the chain from 85 runs into a loop of eight numbers, and a slow and a fast walker meet on the loop at 37</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#83748f"/>
+</marker>
+</defs>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5" marker-end="url(#arrow)">
+<path d="M 112 145 L 201 145"/>
+<path d="M 235 125 L 244 100"/>
+<path d="M 273 66 L 298 56"/>
+<path d="M 342 56 L 367 66"/>
+<path d="M 396 100 L 405 125"/>
+<path d="M 405 165 L 396 190"/>
+<path d="M 367 224 L 342 234"/>
+<path d="M 298 234 L 273 224"/>
+<path d="M 244 190 L 235 165"/>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<circle cx="90" cy="145" r="22"/>
+<circle cx="225" cy="145" r="22"/>
+<circle cx="253" cy="78" r="22"/>
+<circle cx="320" cy="50" r="22"/>
+<circle cx="387" cy="78" r="22"/>
+<circle cx="415" cy="145" r="22"/>
+<circle cx="387" cy="212" r="22"/>
+<circle cx="253" cy="212" r="22"/>
+</g>
+<circle cx="320" cy="240" r="22" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="90" y="150">85</text>
+<text x="225" y="150">89</text>
+<text x="253" y="83">145</text>
+<text x="320" y="55">42</text>
+<text x="387" y="83">20</text>
+<text x="415" y="150">4</text>
+<text x="387" y="217">16</text>
+<text x="320" y="245" fill="#ffffff">37</text>
+<text x="253" y="217">58</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="500" y="40">round</text><text x="550" y="40">slow</text><text x="600" y="40">fast</text>
+</g>
+<path d="M 475 48 L 625 48" stroke="#83748f" stroke-width="1" fill="none"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="500" y="66">0</text><text x="550" y="66">85</text><text x="600" y="66">89</text>
+<text x="500" y="88">1</text><text x="550" y="88">89</text><text x="600" y="88">42</text>
+<text x="500" y="110">2</text><text x="550" y="110">145</text><text x="600" y="110">4</text>
+<text x="500" y="132">3</text><text x="550" y="132">42</text><text x="600" y="132">37</text>
+<text x="500" y="154">4</text><text x="550" y="154">20</text><text x="600" y="154">89</text>
+<text x="500" y="176">5</text><text x="550" y="176">4</text><text x="600" y="176">42</text>
+<text x="500" y="198">6</text><text x="550" y="198">16</text><text x="600" y="198">4</text>
+<text x="500" y="220">7</text><text x="550" y="220">37</text><text x="600" y="220">37</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="290">Each number points to the sum of the squares of its digits. From 85 the chain enters a loop</text>
+<text x="20" y="308">without 1. Slow takes one step a round and fast two; in purple, they meet at 37 in round 7.</text>
+</g>
+</svg>

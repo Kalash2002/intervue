@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "multiply-strings",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Multiply Strings",
+  "summary": "Multiply two non-negative integers of up to 200 digits given as decimal strings.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["string", "math", "simulation", "big-numbers"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you multiply two numbers with a million digits each?", "How would you divide such a number by a small int, giving the quotient and the remainder?", "What changes if the numbers may be negative, such as \"-37\"?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

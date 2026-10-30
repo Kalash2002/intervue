@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 350" width="640" height="350" role="img">
+<title>Plus One, Examples 2 and 3: the 9s at the end turn into 0s and pass the carry left, until a digit below 9 takes it or a new array one digit longer is needed</title>
+<defs>
+<marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#83748f"/>
+</marker>
+</defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="22">Example 2</text>
+<text x="20" y="73">before</text>
+<text x="20" y="133">after</text>
+<text x="490" y="66">each 9 becomes 0</text>
+<text x="490" y="84">and carries 1 left</text>
+<text x="490" y="126">the 3 takes the carry</text>
+<text x="490" y="144">and the loop stops</text>
+<text x="20" y="182">Example 3</text>
+<text x="20" y="219">before</text>
+<text x="20" y="279">new array</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="220" y="50" width="50" height="36"/><rect x="280" y="50" width="50" height="36"/><rect x="340" y="50" width="50" height="36"/><rect x="400" y="50" width="50" height="36"/>
+<rect x="280" y="110" width="50" height="36"/><rect x="340" y="110" width="50" height="36"/><rect x="400" y="110" width="50" height="36"/>
+<rect x="220" y="196" width="50" height="36"/><rect x="280" y="196" width="50" height="36"/><rect x="340" y="196" width="50" height="36"/><rect x="400" y="196" width="50" height="36"/><rect x="460" y="196" width="50" height="36"/><rect x="520" y="196" width="50" height="36"/>
+<rect x="160" y="256" width="50" height="36"/><rect x="220" y="256" width="50" height="36"/><rect x="280" y="256" width="50" height="36"/><rect x="340" y="256" width="50" height="36"/><rect x="400" y="256" width="50" height="36"/><rect x="460" y="256" width="50" height="36"/><rect x="520" y="256" width="50" height="36"/>
+</g>
+<rect x="220" y="110" width="50" height="36" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5" marker-end="url(#arrow)">
+<path d="M 425 48 Q 395 18 365 48"/>
+<path d="M 365 48 Q 335 18 305 48"/>
+<path d="M 305 48 Q 275 18 245 48"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="395" y="26">+1</text><text x="335" y="26">+1</text><text x="275" y="26">+1</text>
+<text x="245" y="73">3</text><text x="305" y="73">9</text><text x="365" y="73">9</text><text x="425" y="73">9</text>
+<text x="245" y="133" fill="#ffffff">4</text><text x="305" y="133">0</text><text x="365" y="133">0</text><text x="425" y="133">0</text>
+<text x="245" y="219">9</text><text x="305" y="219">9</text><text x="365" y="219">9</text><text x="425" y="219">9</text><text x="485" y="219">9</text><text x="545" y="219">9</text>
+<text x="185" y="279">1</text><text x="245" y="279">0</text><text x="305" y="279">0</text><text x="365" y="279">0</text><text x="425" y="279">0</text><text x="485" y="279">0</text><text x="545" y="279">0</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="320">Each 9 at the end turns into 0 and passes the carry left; in purple, the first digit below 9</text>
+<text x="20" y="338">takes it. Only when every digit is 9 is a new array needed: one longer, starting with 1.</text>
+</g>
+</svg>
