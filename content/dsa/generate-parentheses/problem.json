@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "generate-parentheses",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Generate Parentheses",
+  "summary": "List every balanced string of n opening and n closing brackets.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["string", "recursion", "pruning", "catalan-numbers"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How many strings are there for n pairs, and how would you count them without listing them?", "How would you list them in sorted order?", "What changes with two kinds of brackets, round and square, that must nest properly?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

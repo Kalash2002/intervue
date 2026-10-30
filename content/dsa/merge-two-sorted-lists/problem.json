@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "merge-two-sorted-lists",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Merge Two Sorted Lists",
+  "summary": "Splice two sorted linked lists into one sorted list made of their nodes.",
+  "difficulty": "Easy",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "merge", "dummy-node"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you merge k sorted lists instead of two?", "What changes if the lists are sorted in decreasing order?", "Is your merge stable, and when would that matter?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

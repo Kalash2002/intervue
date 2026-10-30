@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "non-overlapping-intervals",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Non-overlapping Intervals",
+  "summary": "Cancel the fewest telescope requests so that no two of the rest overlap.",
+  "difficulty": "Medium",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting", "greedy", "interval-scheduling"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if each request carries a value, and you must keep the most total value instead of the most requests?", "How would you also say which requests to cancel?", "What if the observatory had two telescopes, so two requests could run at once?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

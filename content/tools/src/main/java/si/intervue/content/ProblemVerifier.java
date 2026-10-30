@@ -32,8 +32,9 @@ import si.intervue.runprotocol.TestStatus;
 /**
  * Verifies a problem the way docs/contracts/problem-format.md requires: the format is valid; the
  * starter fails phase 1; the reference passes everything with 5x headroom under every limit; the
- * naive solution passes every phase but the last and still times out there at 3x the limits. It
- * never changes the problem folder; all runs happen in a scratch copy.
+ * naive solution passes every phase but the last and still times out there at 3x the limits (a
+ * one-phase question may omit the naive). It never changes the problem folder; all runs happen in a
+ * scratch copy.
  */
 public final class ProblemVerifier {
 
@@ -67,6 +68,21 @@ public final class ProblemVerifier {
     List<String> errors = ProblemValidator.validate(folder);
     errors.forEach(e -> lines.add("  format     FAIL  " + e));
     boolean ok = errors.isEmpty();
+    if ("dsa-quick".equals(folder.problem().section())) {
+      // The DSA room starts the main class by this name (ADR 0008); the API does not pass it
+      // through.
+      for (var entry : folder.variants().entrySet()) {
+        if (!"Main".equals(entry.getValue().main())) {
+          lines.add(
+              "  format     FAIL  dsa-quick variant "
+                  + entry.getKey()
+                  + " must have \"main\": \"Main\" (found \""
+                  + entry.getValue().main()
+                  + "\")");
+          ok = false;
+        }
+      }
+    }
     for (String language : ok ? folder.problem().languages() : List.<String>of()) {
       ok &= verifyVariant(folder, language, lines);
     }
@@ -108,11 +124,16 @@ public final class ProblemVerifier {
     }
     ok &= check("reference", reference, r -> referenceRule(referenceRuns), lines);
     if (!Files.isDirectory(dir.resolve("naive"))) {
+      // A one-phase question may have no time dimension worth grading (problem-format.md).
+      if (phases == 1) {
+        lines.add("  naive      skip  no naive/; time is not graded separately");
+        return ok;
+      }
       lines.add("  naive      FAIL  missing naive/ with a correct but slow solution");
       return false;
     }
     Outcome naive = run(pkg, dir, variant, "naive", "all", factor);
-    ok &= check("naive", naive, r -> naiveRule(r, last), lines);
+    ok &= check("naive", naive, r -> naiveRule(r, last, phases == 1), lines);
     if (naive.results() == null) {
       return false;
     }
@@ -223,13 +244,22 @@ public final class ProblemVerifier {
     return null;
   }
 
-  private static String naiveRule(RunResults r, String last) {
+  private static String naiveRule(RunResults r, String last, boolean onePhase) {
+    // With one phase there is no earlier phase to pass, so the naive must be correct on every test
+    // it does not time out on; a FAIL or an ERROR (crash) would otherwise count as "slow".
     boolean othersPass =
         r.tests().stream()
-            .filter(t -> !t.suite().equals(last))
-            .allMatch(t -> t.status() == TestStatus.PASS);
-    return othersPass && count(r, last, TestStatus.TIMEOUT) > 0
-        ? null
+            .filter(t -> onePhase || !t.suite().equals(last))
+            .allMatch(
+                t ->
+                    t.status() == TestStatus.PASS
+                        || (onePhase && t.status() == TestStatus.TIMEOUT));
+    boolean timesOut = count(r, last, TestStatus.TIMEOUT) > 0;
+    if (othersPass && timesOut) {
+      return null;
+    }
+    return onePhase
+        ? "every test must pass or time out, and at least one must time out"
         : "every phase but the last must pass and the last must have a TIMEOUT";
   }
 

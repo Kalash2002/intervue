@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "maximum-product-subarray",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Maximum Product Subarray",
+  "summary": "Find the run of consecutive numbers whose product is the largest.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "array", "running-extremes"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to say where the best run starts and ends?", "What if the gains could be fractions, such as 0.5, rather than whole numbers?", "What if the products could grow past 64 bits?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

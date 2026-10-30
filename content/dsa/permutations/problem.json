@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "permutations",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Permutations",
+  "summary": "List every ordering of an array of distinct numbers.",
+  "difficulty": "Medium",
+  "techniques": ["backtracking"],
+  "tags": ["array", "recursion", "permutation"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you produce the next ordering from the current one without recursion?", "What changes if the array may hold repeated values?", "How would you find the k-th ordering in sorted order without listing the ones before it?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

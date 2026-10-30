@@ -132,7 +132,16 @@ final class SessionRuns {
   SessionSummary summary(SessionRecord s) {
     if (!s.finished()) {
       return new SessionSummary(
-          s.id(), s.problemId(), s.type(), s.startedAt(), false, null, null, false, false);
+          s.id(),
+          s.problemId(),
+          s.sectionId(),
+          s.type(),
+          s.startedAt(),
+          false,
+          null,
+          null,
+          false,
+          false);
     }
     Score score = SessionStore.JSON.readValue(s.scoreJson(), Score.class);
     // ADR 0006: every passing Interview session is solved, with or without AI edits.
@@ -140,6 +149,7 @@ final class SessionRuns {
     return new SessionSummary(
         s.id(),
         s.problemId(),
+        s.sectionId(),
         s.type(),
         s.startedAt(),
         true,

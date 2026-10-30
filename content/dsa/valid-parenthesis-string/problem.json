@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "valid-parenthesis-string",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Valid Parenthesis String",
+  "summary": "Decide whether the stars in a string of round brackets can be read so that the brackets balance.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["string", "brackets", "range-tracking"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to say what each star stands for?", "What if a star had to stand for a bracket and could not stand for nothing?", "What if there were square and curly brackets as well, and a star could stand for any bracket?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "burst-balloons",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Burst Balloons",
+  "summary": "Choose the order in which to burst a row of numbered balloons so that the coins they pay add up to the most.",
+  "difficulty": "Hard",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "interval-dp", "array"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to give an order of bursting that pays the most?", "What if a burst paid the sum of the three numbers instead of their product?", "What if the numbers could be negative?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

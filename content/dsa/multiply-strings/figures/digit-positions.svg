@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
+<title>Multiply Strings, Example 1: the digit products of 4096 and 735 placed at position i + j + 1, their sums, and the digits after carrying</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="28">position</text>
+<text x="20" y="62">4096 x 7 (j = 0)</text>
+<text x="20" y="94">4096 x 3 (j = 1)</text>
+<text x="20" y="126">4096 x 5 (j = 2)</text>
+<text x="20" y="166">sum</text>
+<text x="20" y="202">after carrying</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="200" y="28">0</text><text x="260" y="28">1</text><text x="320" y="28">2</text><text x="380" y="28">3</text><text x="440" y="28">4</text><text x="500" y="28">5</text><text x="560" y="28">6</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="235" y="44" width="50" height="26"/><rect x="295" y="44" width="50" height="26"/><rect x="355" y="44" width="50" height="26"/><rect x="415" y="44" width="50" height="26"/>
+<rect x="295" y="76" width="50" height="26"/><rect x="355" y="76" width="50" height="26"/><rect x="475" y="76" width="50" height="26"/>
+<rect x="355" y="108" width="50" height="26"/><rect x="415" y="108" width="50" height="26"/><rect x="475" y="108" width="50" height="26"/><rect x="535" y="108" width="50" height="26"/>
+<rect x="175" y="184" width="50" height="26"/><rect x="235" y="184" width="50" height="26"/><rect x="295" y="184" width="50" height="26"/><rect x="355" y="184" width="50" height="26"/><rect x="415" y="184" width="50" height="26"/><rect x="475" y="184" width="50" height="26"/><rect x="535" y="184" width="50" height="26"/>
+</g>
+<rect x="415" y="76" width="50" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<path d="M 175 146 L 585 146" stroke="#83748f" stroke-width="1" fill="none"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="260" y="62">28</text><text x="320" y="62">0</text><text x="380" y="62">63</text><text x="440" y="62">42</text>
+<text x="320" y="94">12</text><text x="380" y="94">0</text><text x="440" y="94" fill="#ffffff">27</text><text x="500" y="94">18</text>
+<text x="380" y="126">20</text><text x="440" y="126">0</text><text x="500" y="126">45</text><text x="560" y="126">30</text>
+<text x="200" y="166">0</text><text x="260" y="166">28</text><text x="320" y="166">12</text><text x="380" y="166">83</text><text x="440" y="166">69</text><text x="500" y="166">63</text><text x="560" y="166">30</text>
+<text x="200" y="202">3</text><text x="260" y="202">0</text><text x="320" y="202">1</text><text x="380" y="202">0</text><text x="440" y="202">5</text><text x="500" y="202">6</text><text x="560" y="202">0</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="236">Digit i of 4096 times digit j of 735 lands at position i + j + 1: in purple, 9 x 3 = 27,</text>
+<text x="20" y="254">with i = 2 and j = 1, at position 4. Carrying the sums from the right gives 3010560.</text>
+</g>
+</svg>

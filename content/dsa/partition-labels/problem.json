@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "partition-labels",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Partition Labels",
+  "summary": "Cut a string into as many pieces as possible so that every letter stays inside one piece.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["string", "intervals", "last-occurrence"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the letters were arbitrary ids, such as user names in a log?", "What if the string could be read only once, from start to end?", "What if you wanted as few pieces as possible, each at most k letters long?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

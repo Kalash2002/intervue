@@ -6,12 +6,6 @@ dependencies {
     implementation(libs.jackson.databind)
 }
 
-// section.json and the prompts ship inside the jar.
-tasks.processResources {
-    from("../section.json")
-    from("../prompts") { into("prompts") }
-}
-
 // The point-and-explain transcript tests run real sessions on a real problem: the Java package at
 // test runtime only, and the repository's content folder as input.
 dependencies {

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Minimum Remove to Make Valid Parentheses on go(a(b)c: the ) at 6 pairs with the ( at 4, the ( at 2 is left on the stack and is dropped</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">one cell per character, the small number is its position</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 242 98 L 242 112 L 342 112 L 342 98"/>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="20" y="36" width="44" height="32"/><rect x="70" y="36" width="44" height="32"/>
+<rect x="170" y="36" width="44" height="32"/><rect x="220" y="36" width="44" height="32"/>
+<rect x="270" y="36" width="44" height="32"/><rect x="320" y="36" width="44" height="32"/>
+<rect x="370" y="36" width="44" height="32"/>
+</g>
+<rect x="120" y="36" width="44" height="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="42" y="58">g</text><text x="92" y="58">o</text><text x="142" y="58" fill="#ffffff">(</text><text x="192" y="58">a</text>
+<text x="242" y="58">(</text><text x="292" y="58">b</text><text x="342" y="58">)</text><text x="392" y="58">c</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="42" y="86">0</text><text x="92" y="86">1</text><text x="142" y="86">2</text><text x="192" y="86">3</text>
+<text x="242" y="86">4</text><text x="292" y="86">5</text><text x="342" y="86">6</text><text x="392" y="86">7</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="292" y="132">pair</text><text x="142" y="132">left over</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="168">Scan: the ( at 2 pushes 2, the ( at 4 pushes 4, the ) at 6 pops 4.</text>
+<text x="20" y="190">The stack ends holding 2, so position 2 is never closed and is dropped.</text>
+<text x="20" y="218">Result: goa(b)c</text>
+</g>
+</svg>

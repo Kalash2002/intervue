@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 232" width="640" height="232" role="img">
+<title>Valid Parentheses on "[()]{}()": the stack of open brackets after each character, empty at the end</title>
+<text x="57" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">[</text>
+<rect x="27" y="102" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="57" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">[</text>
+<path d="M 21 134 L 93 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="57" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">push [</text>
+<text x="132" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">(</text>
+<rect x="102" y="102" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="132" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">[</text>
+<rect x="102" y="74" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="132" y="93" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">(</text>
+<path d="M 96 134 L 168 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="132" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">push (</text>
+<text x="207" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">)</text>
+<rect x="177" y="102" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="207" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">[</text>
+<path d="M 171 134 L 243 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="207" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">pop (</text>
+<text x="282" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">]</text>
+<path d="M 246 134 L 318 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="282" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">pop [</text>
+<text x="357" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">{</text>
+<rect x="327" y="102" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="357" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">{</text>
+<path d="M 321 134 L 393 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="357" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">push {</text>
+<text x="432" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">}</text>
+<path d="M 396 134 L 468 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="432" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">pop {</text>
+<text x="507" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">(</text>
+<rect x="477" y="102" width="60" height="28" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="507" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">(</text>
+<path d="M 471 134 L 543 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="507" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">push (</text>
+<text x="582" y="30" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">)</text>
+<rect x="552" y="102" width="60" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="582" y="121" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">empty</text>
+<path d="M 546 134 L 618 134" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="582" y="156" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">pop (</text>
+<text x="20" y="196" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Each closer meets the latest open bracket and removes it.</text>
+<text x="20" y="218" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">The stack is empty after the last character, so the string is balanced.</text>
+</svg>

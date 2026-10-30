@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "swim-in-rising-water",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Swim in Rising Water",
+  "summary": "Find the earliest time rising water lets a swimmer cross a square grid of elevations from one corner to the opposite one.",
+  "difficulty": "Hard",
+  "techniques": ["advanced-graphs"],
+  "tags": ["dijkstra", "heap", "binary-search", "bfs", "grid", "minimax-path"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you also return the route the swimmer takes?", "Can you solve it with a union-find instead of a priority queue?", "What if the swimmer could also move diagonally?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

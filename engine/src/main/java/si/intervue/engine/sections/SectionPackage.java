@@ -31,6 +31,11 @@ public interface SectionPackage {
 
   Set<AssistantChannel> channels();
 
+  /** When true, Interview sessions may reveal hints too (Practice always may). */
+  default boolean hintsInInterview() {
+    return false;
+  }
+
   /** When true, the schema requires {@code hints/phase<N>.md} for every phase. */
   boolean supportsHints();
 }

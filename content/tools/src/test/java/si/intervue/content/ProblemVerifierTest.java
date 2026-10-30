@@ -40,6 +40,8 @@ class ProblemVerifierTest {
 
   private static String calc(String fBody, long gDelayMs) {
     return """
+        import java.util.*;
+
         public class Calc {
           static int f(int n) {
             return %s;
@@ -178,5 +180,179 @@ class ProblemVerifierTest {
 
     assertThat(report.ok()).isFalse();
     assertThat(report.lines()).anyMatch(l -> l.contains("hints/phase2.md"));
+  }
+
+  private static final String DSA_STATEMENT =
+      """
+      # Solo
+
+      Double it.
+
+      ## Example 1
+
+      **Input:** `2`
+      **Output:** `4`
+      **Explanation:** Twice two.
+
+      ## Constraints
+
+      - n fits in an int.
+      """;
+
+  private static final String DSA_WALKTHROUGH =
+      """
+      ## The question
+
+      text
+
+      ## How to think about it
+
+      ![Two doubled](figures/f.svg)
+
+      %s%s%s## Complexity
+
+      table
+
+      ## Where it shows up
+
+      text
+
+      ## Follow-up answers
+
+      text
+      """
+          .formatted(
+              approach("## Brute force"),
+              approach("## Better: Sort"),
+              approach("## Optimal: One pass"));
+
+  private static String approach(String heading) {
+    return heading + "\n\n```java\nint x;\n```\n\n**Complexity:** time O(1), extra space O(1).\n\n";
+  }
+
+  /** One phase with a single suite: {@code f} must be right and {@code g} fast (1 s limit). */
+  private VerifyReport verifyOnePhase(String naiveF, long naiveG) throws IOException {
+    Path dir = root.resolve("problems").resolve("solo");
+    write(
+        dir.resolve("problem.json"),
+        """
+        {"formatVersion":1,"id":"solo","version":1,"section":"dsa-quick","title":"Solo",
+         "summary":"One phase.","difficulty":"Easy","techniques":["arrays"],"domain":"test",
+         "minutes":10,"followUps":[],"languages":["java"],
+         "phases":[{"id":1,"title":"Solve","brief":"statement.md","hints":"hints/phase1.md","weight":80,"allOrNothing":false,"timeoutRefMs":20000}]}
+        """);
+    write(
+        dir.resolve("variants/java/variant.json"),
+        """
+        {"language":"java","minToolchain":"21","main":"Main",
+         "readOnly":["Phase1Tests.java"],"tests":{"1":"Phase1Tests"}}
+        """);
+    write(
+        dir.resolve("variants/java/starter/Phase1Tests.java"),
+        """
+        import kit.Check;
+        import kit.Test;
+
+        public class Phase1Tests {
+          @Test(order = 1, timeoutMs = 2000)
+          void doubles() {
+            Check.assertEquals(4, Calc.f(2));
+          }
+
+          @Test(order = 2, timeoutMs = 1000)
+          void isFast() {
+            Check.assertEquals(1000L, Calc.g(1000));
+          }
+        }
+        """);
+    write(dir.resolve("statement.md"), DSA_STATEMENT);
+    write(dir.resolve("figures/f.svg"), "<svg xmlns='http://www.w3.org/2000/svg'/>");
+    write(dir.resolve("grading/NOTES.md"), "text");
+    write(dir.resolve("walkthrough.md"), DSA_WALKTHROUGH);
+    write(dir.resolve("hints/phase1.md"), HINT);
+    Path variant = dir.resolve("variants/java");
+    write(variant.resolve("starter/Calc.java"), calc(BUGGY_F, 0));
+    write(variant.resolve("reference/Calc.java"), calc(CORRECT_F, 0));
+    if (naiveF != null) {
+      write(variant.resolve("naive/Calc.java"), calc(naiveF, naiveG));
+    }
+    return new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+  }
+
+  @Test
+  void onePhaseWithoutNaivePasses() throws IOException {
+    VerifyReport report = verifyOnePhase(null, 0);
+
+    assertThat(report.ok()).as(String.join("\n", report.lines())).isTrue();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive      skip"));
+  }
+
+  @Test
+  void onePhaseNaiveMustTimeOut() throws IOException {
+    VerifyReport report = verifyOnePhase(CORRECT_F, 0);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+    assertThat(report.lines())
+        .anyMatch(l -> l.contains("every test must pass or time out, and at least one must"));
+  }
+
+  @Test
+  void onePhaseNaiveThatTimesOutPasses() throws IOException {
+    VerifyReport report = verifyOnePhase(CORRECT_F, 10_000);
+
+    assertThat(report.ok()).as(String.join("\n", report.lines())).isTrue();
+  }
+
+  @Test
+  void onePhaseNaiveMayNotFailATest() throws IOException {
+    VerifyReport report = verifyOnePhase(BUGGY_F, 10_000);
+
+    assertThat(report.ok()).isFalse();
+  }
+
+  @Test
+  void onePhaseNaiveMayNotError() throws IOException {
+    // The JVM dying mid-test is reported as ERROR, not FAIL.
+    String crash =
+        "java.util.stream.IntStream.of(n).map(x -> { Runtime.getRuntime().halt(3); return x; }).sum()";
+
+    VerifyReport report = verifyOnePhase(crash, 10_000);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("naive") && l.contains("FAIL"));
+  }
+
+  @Test
+  void dsaQuickVariantMainMustBeMain() throws IOException {
+    Path dir = root.resolve("problems").resolve("solo");
+    verifyOnePhase(null, 0);
+    Path variant = dir.resolve("variants/java/variant.json");
+    Files.writeString(variant, Files.readString(variant).replace("\"Main\"", "\"Calc\""));
+
+    VerifyReport report =
+        new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("must have \"main\": \"Main\""));
+  }
+
+  @Test
+  void multiPhaseWithoutNaiveStillFails() throws IOException {
+    Path dir = root.resolve("problems").resolve("tiny");
+    verify(BUGGY_F, CORRECT_F, 0, CORRECT_F, 10_000);
+    deleteNaive(dir);
+
+    VerifyReport report =
+        new ProblemVerifier(root.resolve("scratch"), 1.0, new ProcessControl()).verify(dir);
+
+    assertThat(report.ok()).isFalse();
+    assertThat(report.lines()).anyMatch(l -> l.contains("missing naive/"));
+  }
+
+  private static void deleteNaive(Path dir) throws IOException {
+    Path naive = dir.resolve("variants/java/naive");
+    Files.delete(naive.resolve("Calc.java"));
+    Files.delete(naive);
   }
 }

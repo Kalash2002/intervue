@@ -2,7 +2,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { invoke, isTauri } from '@tauri-apps/api/core';
-import { codingRoundUi } from '@intervue/coding-round-ui';
+import { sectionUis } from '@intervue/sections';
 import { javaEditor } from '@intervue/lang-java-editor';
 import { createEngineClient } from '@intervue/local-engine-client';
 import { App } from '@intervue/ui';
@@ -15,7 +15,7 @@ connect({ isTauri, invoke })
   .then((connection) =>
     root.render(
       <StrictMode>
-        <App client={createEngineClient(connection)} sections={[codingRoundUi]} languages={languages} />
+        <App client={createEngineClient(connection)} sections={sectionUis} languages={languages} />
       </StrictMode>,
     ),
   )

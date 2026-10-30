@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "design-add-and-search-words-data-structure",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Design Add and Search Words Data Structure",
+  "summary": "Store words and answer lookups where a dot in the pattern stands for any one letter.",
+  "difficulty": "Medium",
+  "techniques": ["tries"],
+  "tags": ["design", "trie", "string", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What does a pattern made only of dots cost, and how would you make it cheap?", "How would you also support a symbol that matches any run of letters, including none?", "How would you count the stored words that match a pattern instead of answering yes or no?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

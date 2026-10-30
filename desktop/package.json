@@ -15,7 +15,7 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@intervue/coding-round-ui": "workspace:^",
+    "@intervue/sections": "workspace:^",
     "@intervue/lang-java-editor": "workspace:^",
     "@intervue/local-engine-client": "workspace:^",
     "@intervue/ui": "workspace:^",

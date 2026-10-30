@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "minimum-interval-to-include-each-query",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Minimum Interval to Include Each Query",
+  "summary": "For each phone on a highway, find the size of the smallest radio zone that covers its post.",
+  "difficulty": "Hard",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting", "sweep-line", "heap", "offline-queries"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if each point had to be answered as it arrives, before the next one is known?", "How would you also say which zone serves each point?", "What changes if the zones are half-open, so that a zone covers the posts from its start up to but not including its end?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

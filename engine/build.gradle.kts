@@ -1,4 +1,7 @@
 // The local engine: HTTP API, sessions, store, runners. Layer rules are enforced by ArchitectureTest.
+// Every section package (settings.gradle.kts finds them by folder) runs in tests and ships in the dist.
+val sectionPackages = rootProject.subprojects.filter { it.path.matches(Regex(":sections:[^:]+:java")) }
+
 dependencies {
     // The language SPI exposes Variant, so packages compiled against the engine see it too.
     api(project(":shared-java:problem-format"))
@@ -9,7 +12,7 @@ dependencies {
     testImplementation(libs.archunit)
     // Session tests run real code through the real packages; main code never sees them (ArchitectureTest).
     testRuntimeOnly(project(":languages:java:runner"))
-    testRuntimeOnly(project(":sections:coding-round:java"))
+    sectionPackages.forEach { testRuntimeOnly(it) }
 }
 
 tasks.test {
@@ -24,7 +27,7 @@ tasks.test {
 val bundledPackages by configurations.creating
 dependencies {
     bundledPackages(project(":languages:java:runner"))
-    bundledPackages(project(":sections:coding-round:java"))
+    sectionPackages.forEach { bundledPackages(it) }
 }
 val engineLibs = files(configurations.runtimeClasspath, bundledPackages)
     .filter { !it.startsWith(layout.buildDirectory.get().asFile) }
@@ -34,6 +37,12 @@ val engineJar by tasks.registering(Jar::class) {
     from(sourceSets.main.get().output)
     inputs.files(engineLibs)
     doFirst {
+        // Two bundled jars with one file name would overwrite each other in lib/ (a section forgot base.archivesName).
+        val duplicates = engineLibs.files.groupBy { it.name }.filter { it.value.size > 1 }
+        check(duplicates.isEmpty()) {
+            "engineDist: lib/ would hold duplicate jar names " + duplicates.keys +
+                "; give each section project a distinct base.archivesName in its build file."
+        }
         manifest.attributes(
             "Main-Class" to "si.intervue.engine.api.EngineMain",
             "Class-Path" to engineLibs.joinToString(" ") { "lib/" + it.name },

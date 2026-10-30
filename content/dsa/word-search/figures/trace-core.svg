@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Word Search, Example 1: the trace of core in the grid cats, orem, ding, with the cells on the trace marked</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<rect x="40" y="20" width="44" height="44"/><rect x="84" y="20" width="44" height="44"/>
+<rect x="128" y="20" width="44" height="44"/><rect x="172" y="20" width="44" height="44"/>
+<rect x="40" y="64" width="44" height="44"/><rect x="84" y="64" width="44" height="44"/>
+<rect x="128" y="64" width="44" height="44"/><rect x="172" y="64" width="44" height="44"/>
+<rect x="40" y="108" width="44" height="44"/><rect x="84" y="108" width="44" height="44"/>
+<rect x="128" y="108" width="44" height="44"/><rect x="172" y="108" width="44" height="44"/>
+</g>
+<rect x="41" y="21" width="42" height="42" fill="#7c3aed"/>
+<rect x="41" y="65" width="42" height="42" fill="#7c3aed"/>
+<rect x="85" y="65" width="42" height="42" fill="#7c3aed"/>
+<rect x="129" y="65" width="42" height="42" fill="#7c3aed"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="18" fill="#83748f" text-anchor="middle">
+<text x="62" y="48" fill="#ffffff">c</text><text x="106" y="48">a</text><text x="150" y="48">t</text><text x="194" y="48">s</text>
+<text x="62" y="92" fill="#ffffff">o</text><text x="106" y="92" fill="#ffffff">r</text><text x="150" y="92" fill="#ffffff">e</text><text x="194" y="92">m</text>
+<text x="62" y="136">d</text><text x="106" y="136">i</text><text x="150" y="136">n</text><text x="194" y="136">g</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="250" y="40">c: matches word[0], mark it</text>
+<text x="250" y="62">down to o: matches, mark it</text>
+<text x="250" y="84">down to d: wrong; up to c: marked</text>
+<text x="250" y="106">right to r: matches, mark it</text>
+<text x="250" y="128">down to i, up to a: wrong, stop</text>
+<text x="250" y="150">right to e: last letter, true</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="190">Purple: the trace c, o, r, e. Each step goes up, down, left or right.</text>
+<text x="20" y="212">A wrong letter ends that branch at once; marks come off on the way back.</text>
+</g>
+</svg>

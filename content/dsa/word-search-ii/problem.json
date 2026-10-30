@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "word-search-ii",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Word Search II",
+  "summary": "Find every word from a list that can be traced through side-by-side cells of a letter grid.",
+  "difficulty": "Hard",
+  "techniques": ["tries"],
+  "tags": ["trie", "matrix", "grid", "backtracking", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why does removing a word from the trie once it is found speed the search up?", "What if the list held a million words but the grid stayed small?", "How would you also return where each word was traced?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

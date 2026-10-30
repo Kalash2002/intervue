@@ -1,7 +1,8 @@
-import { fireEvent, screen, waitFor, within } from '@testing-library/react';
+import { act, fireEvent, render as rtlRender, screen, waitFor, within } from '@testing-library/react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { describe, expect, it, vi } from 'vitest';
-import { check, fakeClient, renderApp, session, summary } from './fixtures.tsx';
+import { App } from '../src/index.ts';
+import { check, fakeClient, problem, renderApp, section, session, summary } from './fixtures.tsx';
 
 describe('theme', () => {
   it('applies the saved theme when the app starts', async () => {
@@ -86,6 +87,20 @@ describe('answer and navigation', () => {
     expect(screen.getByLabelText('This problem')).toHaveTextContent('Topic group: Graphs');
   });
 
+  it('does not load the catalogue for an answer nothing covers', async () => {
+    const client = fakeClient({ walkthrough: answer });
+    renderApp(client);
+    fireEvent.click(await screen.findByRole('button', { name: 'AI-assisted coding' }));
+    await screen.findAllByRole('button', { name: 'Answer' });
+    const before = vi.mocked(client.history).mock.calls.length;
+
+    fireEvent.click(screen.getAllByRole('button', { name: 'Answer' })[0]);
+    await screen.findByLabelText('This problem');
+    await act(async () => {});
+
+    expect(vi.mocked(client.history).mock.calls.length).toBe(before);
+  });
+
   it('goes from the result to the answer and back home', async () => {
     const finished = { ...session, id: 'a', title: 'Hold Exposure', finished: true, result: null } as SessionView;
     const client = fakeClient({
@@ -102,6 +117,54 @@ describe('answer and navigation', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Home' }));
 
     expect(await screen.findByLabelText('Recent results')).toBeInTheDocument();
+  });
+});
+
+describe('DSA links', () => {
+  const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick', phases: 1, coveredBy: ['hold-exposure', 'ghost'] });
+  const dsaSection = { ...section, id: 'dsa-quick', title: 'DSA' };
+  const render = () =>
+    rtlRender(
+      <App
+        client={fakeClient({
+          problems: vi.fn(async () => [problem('hold-exposure', 'Hold Exposure'), dsa]),
+          walkthrough: vi.fn(async () => ({ text: '## Plan', figures: {} })),
+        })}
+        sections={[section, dsaSection]}
+        languages={[]}
+      />,
+    );
+
+  it('says "1 phase" for a one-phase problem', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+    fireEvent.click(within(row).getByRole('button', { name: 'Answer' }));
+
+    expect(await screen.findByText('1 phase')).toBeInTheDocument();
+  });
+
+  it('lists coveredBy on a DSA answer under "Used in" and opens the covering answer', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+    expect(within(row).queryByRole('button', { name: 'ghost' })).toBeNull();
+    fireEvent.click(within(row).getByRole('button', { name: 'Answer' }));
+
+    const usedIn = await screen.findByLabelText('Used in');
+    fireEvent.click(within(usedIn).getByRole('button', { name: 'Hold Exposure' }));
+
+    expect(await screen.findByRole('heading', { name: 'Hold Exposure' })).toBeInTheDocument();
+  });
+
+  it('shows the covering problems as links on the DSA row', async () => {
+    render();
+    fireEvent.click(await screen.findByRole('button', { name: 'DSA' }));
+    const row = await screen.findByRole('article', { name: 'Two Sum' });
+
+    fireEvent.click(within(row).getByRole('button', { name: 'Hold Exposure' }));
+
+    expect(await screen.findByRole('heading', { name: 'Hold Exposure' })).toBeInTheDocument();
   });
 });
 
@@ -142,6 +205,18 @@ describe('start screen', () => {
 
     await screen.findByText('3 phases, 60 minutes');
     expect(client.createSession).toHaveBeenCalledWith('hold-exposure', 'INTERVIEW', true);
+  });
+
+  it('says "1 phase" on the overview of a one-phase problem', async () => {
+    const client = fakeClient({
+      createSession: vi.fn(async () => ({ ...session, phases: 1, phaseTitles: ['Solve it'] }) as never),
+    });
+    renderApp(client);
+
+    await openSetup();
+    fireEvent.click(screen.getByRole('button', { name: 'Start session' }));
+
+    expect(await screen.findByText('1 phase, 60 minutes')).toBeInTheDocument();
   });
 
   it('refuses to start when a blocking check fails and says which', async () => {

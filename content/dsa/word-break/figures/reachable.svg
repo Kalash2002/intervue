@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Word Break, Example 1: the positions of seatide that a split can reach with the words seat, sea and tide</title>
+
+<path d="M 120 110 Q 195 80 270 110" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<path d="M 120 110 Q 220 20 320 110" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<path d="M 270 110 Q 370 30 470 110" stroke="#7c3aed" stroke-width="2.5" fill="none"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="195" y="88">sea</text>
+<text x="220" y="56">seat</text>
+<text x="370" y="62">tide</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="130">letters</text>
+<text x="20" y="164">position</text>
+<text x="20" y="190">reachable</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="120" y="110" width="50" height="30"/><rect x="170" y="110" width="50" height="30"/><rect x="220" y="110" width="50" height="30"/><rect x="270" y="110" width="50" height="30"/><rect x="320" y="110" width="50" height="30"/><rect x="370" y="110" width="50" height="30"/><rect x="420" y="110" width="50" height="30"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="145" y="130">s</text><text x="195" y="130">e</text><text x="245" y="130">a</text><text x="295" y="130">t</text><text x="345" y="130">i</text><text x="395" y="130">d</text><text x="445" y="130">e</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="120" y="164">0</text><text x="170" y="164">1</text><text x="220" y="164">2</text><text x="270" y="164">3</text><text x="320" y="164">4</text><text x="370" y="164">5</text><text x="420" y="164">6</text><text x="470" y="164">7</text>
+<text x="120" y="190">yes</text><text x="170" y="190">no</text><text x="220" y="190">no</text><text x="270" y="190">yes</text><text x="320" y="190">yes</text><text x="370" y="190">no</text><text x="420" y="190">no</text>
+</g>
+<rect x="452" y="176" width="36" height="20" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="470" y="190" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#ffffff" text-anchor="middle">yes</text>
+
+<text x="20" y="228" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">From 4 no word fits ide, so only the cut at 3 leads on to the end, position 7.</text>
+</svg>

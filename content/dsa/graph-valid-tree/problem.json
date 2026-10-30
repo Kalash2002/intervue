@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "graph-valid-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Graph Valid Tree",
+  "summary": "Decide whether a list of two-way pipes joins every valve into one tree with no loop.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["graph", "union-find", "bfs", "tree"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the pipes are one-way, and you must check for a rooted tree?", "How would you report what is wrong when the answer is no?", "What if pipes arrive one at a time and you must answer after each?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

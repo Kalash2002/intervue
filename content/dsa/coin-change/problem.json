@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "coin-change",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Coin Change",
+  "summary": "Find the fewest coins of the given values that add up to an exact amount.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "unbounded-knapsack", "memoization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you had to count the different combinations of coins that make the amount instead?", "What if each coin value could be used at most once?", "What if you also had to say which coins to hand over?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

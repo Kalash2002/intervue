@@ -22,6 +22,13 @@ public final class ProblemValidator {
 
   public static final int FORMAT_VERSION = 1;
   private static final int CORRECTNESS_POINTS = 70;
+  // The DSA section is scored 80/20 and has no intro or per-phase split, so its one phase carries
+  // the whole correctness share (docs/contracts/problem-format.md, "One-phase problems").
+  private static final int DSA_CORRECTNESS_POINTS = 80;
+
+  /** The section whose problems follow the DSA statement, answer and starter rules. */
+  public static final String DSA_SECTION = "dsa-quick";
+
   private static final Set<String> DIFFICULTIES = Set.of("Easy", "Medium", "Hard");
   private static final Pattern ID = Pattern.compile("[a-z0-9]+(-[a-z0-9]+)*");
 
@@ -33,13 +40,23 @@ public final class ProblemValidator {
     checkFields(folder.problem(), errors);
     checkPhases(folder, errors);
     checkVariants(folder, errors);
-    for (String file : List.of("brief/intro.md", "walkthrough.md", "grading/NOTES.md")) {
-      requireFile(folder.dir(), file, errors);
+    boolean dsa = isDsa(folder.problem());
+    if (!dsa) {
+      requireFile(folder.dir(), "brief/intro.md", errors);
     }
+    requireFile(folder.dir(), "walkthrough.md", errors);
+    requireFile(folder.dir(), "grading/NOTES.md", errors);
     if (Files.isRegularFile(folder.dir().resolve("walkthrough.md"))) {
-      checkWalkthrough(folder.dir(), errors);
+      checkWalkthrough(folder.dir(), dsa, errors);
+    }
+    if (dsa) {
+      DsaShape.checkStatement(folder, errors);
     }
     return errors;
+  }
+
+  private static boolean isDsa(Problem p) {
+    return DSA_SECTION.equals(p.section());
   }
 
   private static void checkIdentity(ProblemFolder folder, List<String> errors) {
@@ -83,6 +100,9 @@ public final class ProblemValidator {
     if (p.minutes() < 1) {
       errors.add("minutes must be positive");
     }
+    if (p.coveredBy().stream().anyMatch(c -> c == null || !ID.matcher(c).matches())) {
+      errors.add("coveredBy must be problem ids (lowercase letters, digits and dashes)");
+    }
   }
 
   private static void checkPhases(ProblemFolder folder, List<String> errors) {
@@ -103,8 +123,9 @@ public final class ProblemValidator {
         checkHints(folder.dir().resolve(phase.hints()), phase.hints(), errors);
       }
     }
-    if (weights != CORRECTNESS_POINTS) {
-      errors.add("phase weights sum to " + weights + ", must be " + CORRECTNESS_POINTS);
+    int expected = isDsa(folder.problem()) ? DSA_CORRECTNESS_POINTS : CORRECTNESS_POINTS;
+    if (weights != expected) {
+      errors.add("phase weights sum to " + weights + ", must be " + expected);
     }
   }
 
@@ -121,18 +142,21 @@ public final class ProblemValidator {
 
   private static final Pattern FIGURE = Pattern.compile("\\]\\((figures/[^)\\s]+)\\)");
 
-  /**
-   * The DSA reference and the closing sections exist in order, and every figure it shows exists.
-   */
-  private static void checkWalkthrough(Path dir, List<String> errors) {
+  /** The reference and closing sections exist in order, and every figure it shows exists. */
+  private static void checkWalkthrough(Path dir, boolean dsa, List<String> errors) {
     String text = readString(dir.resolve("walkthrough.md"));
-    int at = 0;
-    for (String heading : WALKTHROUGH_HEADINGS) {
-      int found = text.indexOf("\n" + heading + "\n", at);
-      if (found < 0) {
-        errors.add("walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
-      } else {
-        at = found;
+    if (dsa) {
+      DsaShape.checkAnswer(text, errors);
+    } else {
+      int at = 0;
+      for (String heading : WALKTHROUGH_HEADINGS) {
+        int found = text.indexOf("\n" + heading + "\n", at);
+        if (found < 0) {
+          errors.add(
+              "walkthrough.md needs the heading \"" + heading + "\" after the previous ones");
+        } else {
+          at = found;
+        }
       }
     }
     java.util.regex.Matcher m = FIGURE.matcher(text);
@@ -176,6 +200,9 @@ public final class ProblemValidator {
       for (String path : nullToEmpty(variant.readOnly())) {
         requireFile(starter, path, errors);
       }
+      if (isDsa(folder.problem())) {
+        DsaShape.checkStarterImports(starter, variant, errors);
+      }
       for (Phase phase : nullToEmpty(folder.problem().phases())) {
         if (variant.tests() == null || !variant.tests().containsKey(String.valueOf(phase.id()))) {
           errors.add(language + " variant has no test class for phase " + phase.id());
@@ -192,7 +219,7 @@ public final class ProblemValidator {
     return true;
   }
 
-  private static String readString(Path file) {
+  static String readString(Path file) {
     try {
       return Files.readString(file, StandardCharsets.UTF_8);
     } catch (IOException e) {

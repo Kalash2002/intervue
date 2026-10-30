@@ -2,6 +2,7 @@
 // by the open file's extension.
 import type { Completion } from '@codemirror/autocomplete';
 import type { Extension } from '@codemirror/state';
+import type { ImportableType } from './completion.ts';
 
 export interface LanguageEditor {
   id: string;
@@ -10,6 +11,8 @@ export interface LanguageEditor {
   language: () => Extension;
   /** Keywords and snippets for tier 1 completion. */
   words: readonly Completion[];
+  /** Library types whose completion also adds the import. */
+  importableTypes?: readonly ImportableType[];
 }
 
 export function languageFor(languages: readonly LanguageEditor[], path: string): LanguageEditor | undefined {

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "happy-number",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Happy Number",
+  "summary": "Replace a number by the sum of the squares of its digits, again and again, and tell whether the chain reaches 1.",
+  "difficulty": "Easy",
+  "techniques": ["math-geometry"],
+  "tags": ["math", "digits", "cycle-detection", "fast-slow-pointers", "hash-set"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it with only a constant amount of extra memory, without a set?", "Why can the chain not grow forever, and how large can its values get after the first step?", "How would you answer a million such questions about numbers up to 10^9 quickly?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

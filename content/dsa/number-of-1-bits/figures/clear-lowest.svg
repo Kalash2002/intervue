@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" width="640" height="300" role="img">
+<title>Number of 1 Bits, Example 1: ANDing x with x minus 1 clears the lowest 1 bit of 1000 six times, so six bits are 1</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">after</text><text x="100" y="24">bits 9 to 0 (bits 31 to 10 are all 0)</text><text x="380" y="24">cleared</text><text x="500" y="24">count</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="54">start</text><text x="100" y="54">1 1 1 1 1 0 1 0 0 0</text><text x="500" y="54">0</text>
+<text x="20" y="84">step 1</text><text x="100" y="84">1 1 1 1 1 0 0 0 0 0</text><text x="380" y="84">bit 3</text><text x="500" y="84">1</text>
+<text x="20" y="114">step 2</text><text x="100" y="114">1 1 1 1 0 0 0 0 0 0</text><text x="380" y="114">bit 5</text><text x="500" y="114">2</text>
+<text x="20" y="144">step 3</text><text x="100" y="144">1 1 1 0 0 0 0 0 0 0</text><text x="380" y="144">bit 6</text><text x="500" y="144">3</text>
+<text x="20" y="174">step 4</text><text x="100" y="174">1 1 0 0 0 0 0 0 0 0</text><text x="380" y="174">bit 7</text><text x="500" y="174">4</text>
+<text x="20" y="204">step 5</text><text x="100" y="204">1 0 0 0 0 0 0 0 0 0</text><text x="380" y="204">bit 8</text><text x="500" y="204">5</text>
+<text x="20" y="234">step 6</text><text x="100" y="234">0 0 0 0 0 0 0 0 0 0</text><text x="380" y="234">bit 9</text>
+</g>
+
+<rect x="488" y="216" width="32" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="504" y="234" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">6</text>
+
+<text x="20" y="280" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">Six steps reach 0, one per 1 bit; the 0 bits are never visited.</text>
+</svg>

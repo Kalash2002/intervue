@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "counting-bits",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Counting Bits",
+  "summary": "Build a table of how many 1 bits each number from 0 to n has.",
+  "difficulty": "Easy",
+  "techniques": ["bit-manipulation"],
+  "tags": ["array", "popcount", "dynamic-programming"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you fill the table in O(n) time?", "How would you use a small table like this to count the 1 bits of any 32-bit value?", "How would you find the total number of 1 bits from 0 to n without building the table?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

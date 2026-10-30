@@ -1,0 +1,5 @@
+# Grader notes: Number of Recent Calls
+
+Tests cover: the sample, the first call, a window of 1, a call exactly one window old (still counted), shorter and longer gaps, a long pause that empties the window, a window of a billion with times up to a billion (the range start sits at `t - window`, so the boundary is checked at 999,999,999 and 999,999,998), two independent counters, and a large case of 200,000 calls at times 1 to 200,000 with a window of 100,000, where call `t` must return `min(t, 100001)`.
+
+The naive solution keeps every call in a list and walks back from the newest until a call is too old, so each ping costs as many steps as the window holds. Measured with a cold JVM on the large test: reference 57 ms, naive 14.4 s to 50.6 s across runs (a 1.5e10-step loop), limit 1,000 ms (reference 17x under the limit, naive at least 4.8x past the 3x line of 3,000 ms). The naive keeps boxed `Integer` values on purpose: with a plain `int[]` the same walk is vectorised by the JIT and ran in about 5 s, too close to the line, so it is not used. The reference keeps a queue with expiry from the front.

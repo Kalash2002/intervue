@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Quickselect on 12, 5, 30, 7, 19 with k = 2: the target is ascending position 3</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="24">position</text>
+<text x="20" y="74">pivot 12</text>
+<text x="20" y="154">pivot 19</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="145" y="24">0</text><text x="205" y="24">1</text><text x="265" y="24">2</text><text x="325" y="24">3</text><text x="385" y="24">4</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="120" y="54" width="50" height="30"/><rect x="180" y="54" width="50" height="30"/>
+<rect x="240" y="54" width="50" height="30"/>
+<rect x="300" y="54" width="50" height="30"/><rect x="360" y="54" width="50" height="30"/>
+<rect x="360" y="134" width="50" height="30"/>
+</g>
+<rect x="300" y="134" width="50" height="30" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle">
+<text x="145" y="74" fill="#83748f">5</text><text x="205" y="74" fill="#83748f">7</text>
+<text x="265" y="74" fill="#83748f">12</text>
+<text x="325" y="74" fill="#83748f">30</text><text x="385" y="74" fill="#83748f">19</text>
+<text x="325" y="154" fill="#ffffff">19</text><text x="385" y="154" fill="#83748f">30</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="175" y="104">smaller</text><text x="265" y="104">equal</text><text x="355" y="104">larger</text>
+<text x="325" y="184">equal</text><text x="385" y="184">larger</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="430" y="74">3 is in the larger part</text>
+<text x="430" y="154">3 holds the pivot: 19</text>
+<text x="20" y="232">Positions 0 to 2 are never looked at again after the first split.</text>
+</g>
+</svg>

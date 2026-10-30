@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "climbing-stairs",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Climbing Stairs",
+  "summary": "Count the ways to climb a staircase when each move climbs one or two steps.",
+  "difficulty": "Easy",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "recursion", "memoization", "fibonacci"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if each move could climb one, two or three steps?", "What if n could be as large as 10^18 and the count were wanted modulo 1,000,000,007?", "What if some steps were broken and could not be stood on?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

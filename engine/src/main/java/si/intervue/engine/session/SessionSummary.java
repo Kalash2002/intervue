@@ -10,6 +10,7 @@ import si.intervue.engine.sections.SessionType;
 public record SessionSummary(
     String id,
     String problemId,
+    String sectionId,
     SessionType type,
     long startedAt,
     boolean finished,

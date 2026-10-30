@@ -1,0 +1,5 @@
+# Grader notes: Min Cost to Connect All Points
+
+Tests cover: the sample (where joining every sensor to the first would cost 17, not 15); one sensor and two sensors; four sensors in a line, listed out of order (joining each to the first costs 22, and joining each to its nearest sensor listed before it costs 15, against 12); three sensors where straight-line lengths would give 10 but grid lengths give 13; three far corners at the coordinate limits; a shuffled 6 x 6 grid with different spacing across and down, whose best plan has a known cost; a staircase of 30 sensors listed in a scrambled order; and a timing case of 2,000 sensors on a shuffled 40 x 50 grid (best plan 40 x 49 x 3 + 39 x 5 = 6,075).
+
+The timing test has a limit of 600 ms (3x is 1,800 ms). The naive solution rescans every pair for the shortest crossing cable at each step, about 8 times 10^9 pair checks. Measured on a cold JVM: reference (Prim with a best-cable array) 21 to 22 ms, naive still running when stopped at a limit raised to 12,000 ms. The walkthrough's Kruskal over all pairs, sorted as packed `long` values, took 245 ms, so it also passes.

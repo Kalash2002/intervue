@@ -5,14 +5,19 @@ import { languageFor } from '@intervue/editor';
 import type { SessionView } from '@intervue/local-engine-client';
 import { TopBar, timed, useActiveMs, useApp, type SectionRoomProps } from '@intervue/ui';
 import { TimelineStrip } from '../timeline/TimelineStrip.tsx';
-import { CodeEditor } from './CodeEditor.tsx';
 import { FileTree } from './FileTree.tsx';
-import { OutputPane } from './OutputPane.tsx';
-import { ProgressDots, RoomClock } from './PhaseChips.tsx';
+import { ProgressDots } from './PhaseChips.tsx';
 import { SidePanel } from './SidePanel.tsx';
-import { Splitter } from './Splitter.tsx';
-import { useRoomActions } from './useRoomActions.ts';
-import { useWorkspace, type Workspace } from './useWorkspace.ts';
+import {
+  CodeEditor,
+  EndDialog,
+  OutputPane,
+  RoomClock,
+  Splitter,
+  useRoomActions,
+  useWorkspace,
+  type Workspace,
+} from '@intervue/room';
 
 export function SessionRoom({ session: initial }: SectionRoomProps) {
   const { go } = useApp();
@@ -25,7 +30,7 @@ export function SessionRoom({ session: initial }: SectionRoomProps) {
   const [target, setTarget] = useState('phase:1');
 
   return (
-    <div className="room">
+    <div className="room has-timeline">
       <TopBar onHome={() => go({ name: 'dashboard' })}>
         <div className="title">{view.title}</div>
         <ProgressDots view={view} />
@@ -113,23 +118,13 @@ function EndSession({ onEnd }: { onEnd: (early: boolean) => void }) {
         Finish
       </button>
       {open && (
-        <div className="modal">
-          <div className="modal-box" role="dialog" aria-modal="true" aria-label="End the session?">
-            <h3>End the session?</h3>
-            <p>The final run scores your code as it is now. End early if you are stopping with phases still open.</p>
-            <div className="modal-actions">
-              <button className="ghost" type="button" onClick={() => setOpen(false)}>
-                Cancel
-              </button>
-              <button className="ghost" type="button" onClick={() => (setOpen(false), onEnd(true))}>
-                End early
-              </button>
-              <button className="primary" type="button" onClick={() => (setOpen(false), onEnd(false))}>
-                I'm done
-              </button>
-            </div>
-          </div>
-        </div>
+        <EndDialog
+          onCancel={() => setOpen(false)}
+          onEarly={() => (setOpen(false), onEnd(true))}
+          onDone={() => (setOpen(false), onEnd(false))}
+        >
+          The final run scores your code as it is now. End early if you are stopping with phases still open.
+        </EndDialog>
       )}
     </>
   );

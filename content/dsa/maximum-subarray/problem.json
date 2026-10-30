@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "maximum-subarray",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Maximum Subarray",
+  "summary": "Find the run of consecutive days with the largest total in a ledger of gains and losses.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "running-sum", "kadane", "prefix-sums"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to say which days the best run covers?", "What if the ledger were split across several machines?", "What if the run had to be at least k days long?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

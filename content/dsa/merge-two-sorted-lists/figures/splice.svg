@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Merging [2,5,9] and [3,4,10,12] behind a dummy node into [2,3,4,5,9,10,12]</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="49">first</text>
+<text x="20" y="99">second</text>
+<text x="20" y="169">result</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="136" y="30" width="48" height="28"/><rect x="202" y="30" width="48" height="28"/><rect x="268" y="30" width="48" height="28"/>
+<rect x="136" y="80" width="48" height="28"/><rect x="202" y="80" width="48" height="28"/><rect x="268" y="80" width="48" height="28"/><rect x="334" y="80" width="48" height="28"/>
+<rect x="70" y="150" width="48" height="28" stroke-dasharray="4 3"/><rect x="136" y="150" width="48" height="28"/><rect x="202" y="150" width="48" height="28"/>
+<rect x="268" y="150" width="48" height="28"/><rect x="334" y="150" width="48" height="28"/>
+<rect x="466" y="150" width="48" height="28"/><rect x="532" y="150" width="48" height="28"/>
+</g>
+<rect x="400" y="150" width="48" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 184 44 L 198 44"/><path d="M 250 44 L 264 44"/>
+<path d="M 184 94 L 198 94"/><path d="M 250 94 L 264 94"/><path d="M 316 94 L 330 94"/>
+<path d="M 118 164 L 132 164"/><path d="M 184 164 L 198 164"/><path d="M 250 164 L 264 164"/><path d="M 316 164 L 330 164"/>
+<path d="M 382 164 L 396 164"/><path d="M 448 164 L 462 164"/><path d="M 514 164 L 528 164"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="160" y="49">2</text><text x="226" y="49">5</text><text x="292" y="49">9</text>
+<text x="160" y="99">3</text><text x="226" y="99">4</text><text x="292" y="99">10</text><text x="358" y="99">12</text>
+<text x="94" y="169">dummy</text><text x="160" y="169">2</text><text x="226" y="169">3</text><text x="292" y="169">4</text>
+<text x="358" y="169">5</text><text x="424" y="169" fill="#ffffff">9</text><text x="490" y="169">10</text><text x="556" y="169">12</text>
+</g>
+
+<path d="M 466 190 L 466 196 L 580 196 L 580 190" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="20" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">When first runs out, tail is 9; tail.next = second attaches 10, 12 at once.</text>
+</svg>

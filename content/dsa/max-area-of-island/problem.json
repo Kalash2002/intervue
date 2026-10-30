@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "max-area-of-island",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Max Area of Island",
+  "summary": "Find the number of cells in the largest island of a grid map.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["grid", "dfs", "bfs", "flood-fill"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you report the largest island after each cell of land is added?", "What is the largest island you could make by turning one water cell into land?", "How would you also count the coastline, the land edges that touch water or the map border, of the largest island?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

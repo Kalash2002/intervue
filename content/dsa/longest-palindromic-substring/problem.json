@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "longest-palindromic-substring",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Longest Palindromic Substring",
+  "summary": "Find the longest run of neighbouring characters in a string that reads the same forwards and backwards.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "string", "palindrome", "two-pointers"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you beat O(n²) time?", "What if the characters of the palindrome did not have to be next to each other?", "What if case were ignored and digits skipped when deciding what reads the same?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

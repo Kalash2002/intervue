@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" width="640" height="290" role="img">
+<title>Word Search II, Example 1: the grid plum, ears, ntok beside the trie of the five words; the trace of pear is purple in both</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<rect x="30" y="40" width="40" height="40"/><rect x="70" y="40" width="40" height="40"/><rect x="110" y="40" width="40" height="40"/><rect x="150" y="40" width="40" height="40"/>
+<rect x="30" y="80" width="40" height="40"/><rect x="70" y="80" width="40" height="40"/><rect x="110" y="80" width="40" height="40"/><rect x="150" y="80" width="40" height="40"/>
+<rect x="30" y="120" width="40" height="40"/><rect x="70" y="120" width="40" height="40"/><rect x="110" y="120" width="40" height="40"/><rect x="150" y="120" width="40" height="40"/>
+</g>
+<g fill="#7c3aed">
+<rect x="31" y="41" width="38" height="38"/><rect x="31" y="81" width="38" height="38"/><rect x="71" y="81" width="38" height="38"/><rect x="111" y="81" width="38" height="38"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="50" y="66" fill="#ffffff">p</text><text x="90" y="66">l</text><text x="130" y="66">u</text><text x="170" y="66">m</text>
+<text x="50" y="106" fill="#ffffff">e</text><text x="90" y="106" fill="#ffffff">a</text><text x="130" y="106" fill="#ffffff">r</text><text x="170" y="106">s</text>
+<text x="50" y="146">n</text><text x="90" y="146">t</text><text x="130" y="146">o</text><text x="170" y="146">k</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<line x1="290" y1="140" x2="332" y2="90"/><line x1="290" y1="140" x2="329" y2="163"/><line x1="290" y1="140" x2="333" y2="204"/>
+<line x1="350" y1="72" x2="380" y2="48"/><line x1="353" y1="80" x2="377" y2="80"/><line x1="350" y1="89" x2="380" y2="116"/>
+<line x1="403" y1="40" x2="427" y2="40"/><line x1="453" y1="40" x2="473" y2="40"/>
+<line x1="403" y1="80" x2="427" y2="80"/><line x1="453" y1="80" x2="473" y2="80"/><line x1="403" y1="125" x2="423" y2="125"/>
+<line x1="353" y1="170" x2="377" y2="170"/><line x1="403" y1="170" x2="423" y2="170"/>
+<line x1="353" y1="215" x2="377" y2="215"/><line x1="403" y1="215" x2="427" y2="215"/><line x1="453" y1="215" x2="473" y2="215"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+
+<circle cx="390" cy="40" r="13"/><circle cx="440" cy="40" r="13"/><circle cx="490" cy="40" r="13"/><circle cx="490" cy="40" r="17"/>
+<circle cx="440" cy="125" r="13"/><circle cx="440" cy="125" r="17"/><circle cx="390" cy="125" r="13"/>
+<circle cx="340" cy="170" r="13"/><circle cx="390" cy="170" r="13"/><circle cx="440" cy="170" r="13"/><circle cx="440" cy="170" r="17"/>
+<circle cx="340" cy="215" r="13"/><circle cx="390" cy="215" r="13"/><circle cx="440" cy="215" r="13"/><circle cx="490" cy="215" r="13"/><circle cx="490" cy="215" r="17"/>
+<circle cx="490" cy="80" r="17"/>
+</g>
+<circle cx="290" cy="140" r="6" fill="#83748f"/>
+<g fill="#7c3aed"><circle cx="340" cy="80" r="13"/><circle cx="390" cy="80" r="13"/><circle cx="440" cy="80" r="13"/><circle cx="490" cy="80" r="13"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="340" y="85" fill="#ffffff">p</text><text x="390" y="85" fill="#ffffff">e</text><text x="440" y="85" fill="#ffffff">a</text><text x="490" y="85" fill="#ffffff">r</text>
+<text x="390" y="45">l</text><text x="440" y="45">u</text><text x="490" y="45">m</text>
+<text x="390" y="130">a</text><text x="440" y="130">n</text>
+<text x="340" y="175">r</text><text x="390" y="175">o</text><text x="440" y="175">t</text>
+<text x="340" y="220">s</text><text x="390" y="220">o</text><text x="440" y="220">r</text><text x="490" y="220">t</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="270" y="160" text-anchor="end">root</text>
+<text x="520" y="85">pear found</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="254">Purple: the trace p, e, a, r and the trie path it follows. Double ring: a word ends.</text>
+<text x="20" y="276">From p the grid offers l and e; the trie child a is never entered, so pan is skipped.</text>
+</g>
+</svg>

@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 220" width="640" height="220" role="img">
+<title>Longest Consecutive Sequence on [41, 7, 40, 39, 8, 38, 9, 500]: the set, the three run starts and the length of each run</title>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="30" y="52" width="65" height="34"/>
+<rect x="105" y="52" width="65" height="34"/>
+<rect x="180" y="52" width="65" height="34"/>
+<rect x="555" y="52" width="65" height="34"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="255" y="52" width="65" height="34"/>
+<rect x="330" y="52" width="65" height="34"/>
+<rect x="405" y="52" width="65" height="34"/>
+<rect x="480" y="52" width="65" height="34"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="62" y="74">7</text>
+<text x="137" y="74">8</text>
+<text x="212" y="74">9</text>
+<text x="287" y="74" fill="#ffffff">38</text>
+<text x="362" y="74" fill="#ffffff">39</text>
+<text x="437" y="74" fill="#ffffff">40</text>
+<text x="512" y="74" fill="#ffffff">41</text>
+<text x="587" y="74">500</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="62" y="42">start</text>
+<text x="287" y="42">start</text>
+<text x="587" y="42">start</text>
+<text x="137" y="126">length 3</text><text x="400" y="126">length 4</text><text x="587" y="126">length 1</text>
+</g>
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 30 100 L 245 100"/><path d="M 255 100 L 545 100"/><path d="M 555 100 L 620 100"/>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="30" y="166">A start has x - 1 missing: 6, 37 and 499 are not in the set.</text>
+<text x="30" y="188">8, 9, 39, 40 and 41 are skipped. The best run is 38 to 41, length 4.</text>
+</g>
+</svg>

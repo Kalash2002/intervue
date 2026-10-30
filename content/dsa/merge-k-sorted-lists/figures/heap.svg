@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Example 1 after 1 and 4 are taken: the heap holds the fronts 5, 7 and 9; 5 is polled next</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="49">list 0</text>
+<text x="20" y="99">list 1</text>
+<text x="20" y="149">list 2</text>
+<text x="20" y="209">result</text>
+<text x="440" y="30">min-heap of fronts</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="90" y="30" width="44" height="28"/><rect x="170" y="30" width="44" height="28"/>
+<rect x="90" y="80" width="44" height="28"/>
+<rect x="90" y="130" width="44" height="28"/><rect x="170" y="130" width="44" height="28"/><rect x="250" y="130" width="44" height="28"/>
+<rect x="90" y="190" width="44" height="28"/><rect x="170" y="190" width="44" height="28"/>
+<circle cx="420" cy="170" r="20"/><circle cx="540" cy="170" r="20"/>
+<line x1="468" y1="108" x2="432" y2="152"/><line x1="492" y1="108" x2="528" y2="152"/>
+</g>
+<circle cx="480" cy="90" r="20" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 134 44 L 166 44"/>
+<path d="M 134 144 L 166 144"/><path d="M 214 144 L 246 144"/>
+<path d="M 134 204 L 166 204"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="112" y="49">7</text><text x="192" y="49">12</text>
+<text x="112" y="99">9</text>
+<text x="112" y="149">5</text><text x="192" y="149">6</text><text x="272" y="149">15</text>
+<text x="112" y="209">1</text><text x="192" y="209">4</text>
+<text x="480" y="95" fill="#ffffff">5</text>
+<text x="420" y="175">7</text><text x="540" y="175">9</text>
+</g>
+</svg>

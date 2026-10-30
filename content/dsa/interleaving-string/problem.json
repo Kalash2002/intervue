@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "interleaving-string",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Interleaving String",
+  "summary": "Decide whether a deck of cards can come out of riffling two piles together, each pile keeping its order.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "strings", "memoization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to say which pile each card of the deck came from?", "What if the deck were cut into three piles instead of two?", "How little extra memory does the check need?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

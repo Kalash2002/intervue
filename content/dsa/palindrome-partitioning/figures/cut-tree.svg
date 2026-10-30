@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 320" width="640" height="320" role="img">
+<title>Palindrome Partitioning, Example 1: the search over first pieces of noon, finding three ways to cut it</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 180 79"/>
+<path d="M 320 46 L 480 79"/>
+<path d="M 180 101 L 100 134"/>
+<path d="M 180 101 L 280 134"/>
+<path d="M 100 156 L 100 189"/>
+<path d="M 280 156 L 280 189"/>
+<path d="M 100 211 L 100 244"/>
+</g>
+<rect x="232" y="191" width="96" height="22" rx="4" fill="#7c3aed"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">| noon</text>
+<text x="180" y="95">n | oon</text>
+<text x="480" y="95">noon |  (done)</text>
+<text x="100" y="150">n,o | on</text>
+<text x="280" y="150">n,oo | n</text>
+<text x="100" y="205">n,o,o | n</text>
+<text x="280" y="205" fill="#ffffff">n,oo,n |</text>
+<text x="100" y="260">n,o,o,n |  (done)</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="380" y="150">Not tried: no, noo, oon, on.</text>
+<text x="380" y="172">The table says they are not</text>
+<text x="380" y="194">palindromes.</text>
+<text x="20" y="290">Each node: pieces chosen | letters still to cut.</text>
+<text x="20" y="312">Purple: the way n, oo, n. A node with nothing left is one way.</text>
+</g>
+</svg>

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Jump Game, Example 1: the farthest reach after each platform</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 140 118 Q 245 28 346 114"/>
+<path d="M 206 118 Q 238 88 270 114"/>
+<path d="M 288 118 Q 424 -22 556 114"/>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="116" y="120" width="48" height="28"/><rect x="186" y="120" width="48" height="28"/><rect x="326" y="120" width="48" height="28"/><rect x="396" y="120" width="48" height="28"/><rect x="466" y="120" width="48" height="28"/><rect x="536" y="120" width="48" height="28"/>
+</g>
+<rect x="256" y="120" width="48" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="140" y="139">3</text><text x="210" y="139">1</text>
+<text x="280" y="139" fill="#ffffff">4</text>
+<text x="350" y="139">0</text><text x="420" y="139">0</text><text x="490" y="139">0</text><text x="560" y="139">2</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="139">spring</text>
+<text x="20" y="168">platform</text>
+<text x="20" y="194">reach</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="140" y="168">0</text><text x="210" y="168">1</text><text x="280" y="168">2</text><text x="350" y="168">3</text><text x="420" y="168">4</text><text x="490" y="168">5</text><text x="560" y="168">6</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="140" y="194">3</text><text x="210" y="194">3</text><text x="280" y="194">6</text>
+</g>
+
+<text x="20" y="222" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">Each arc ends at the farthest platform a spring reaches; the reach is the farthest end so far.</text>
+<text x="20" y="242" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">After platform 2 the reach is 2 + 4 = 6, the last platform, so the answer is true.</text>
+</svg>

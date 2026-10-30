@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Maximum Subarray, Example 1: the best total of a run ending on each day</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="36">day</text>
+<text x="20" y="64">net</text>
+<text x="20" y="105">ending here</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="140" y="36">0</text><text x="214" y="36">1</text><text x="288" y="36">2</text><text x="362" y="36">3</text><text x="436" y="36">4</text><text x="510" y="36">5</text><text x="584" y="36">6</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="140" y="64">3</text><text x="214" y="64">-7</text><text x="288" y="64">5</text><text x="362" y="64">-2</text><text x="436" y="64">6</text><text x="510" y="64">-10</text><text x="584" y="64">4</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="114" y="86" width="52" height="28"/><rect x="188" y="86" width="52" height="28"/><rect x="262" y="86" width="52" height="28"/><rect x="336" y="86" width="52" height="28"/><rect x="484" y="86" width="52" height="28"/><rect x="558" y="86" width="52" height="28"/>
+</g>
+<rect x="410" y="86" width="52" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 167 100 L 184 100"/>
+<path d="M 315 100 L 332 100"/>
+<path d="M 389 100 L 406 100"/>
+<path d="M 463 100 L 480 100"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="140" y="105">3</text><text x="214" y="105">-4</text><text x="288" y="105">5</text><text x="362" y="105">3</text>
+<text x="436" y="105" fill="#ffffff">9</text>
+<text x="510" y="105">-1</text><text x="584" y="105">4</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="288" y="134">afresh</text><text x="584" y="134">afresh</text>
+</g>
+
+<path d="M 262 146 L 262 152 L 462 152 L 462 146" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="362" y="172" font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">days 2 to 4: 5 - 2 + 6 = 9</text>
+
+<text x="20" y="206" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">An arrow: the run before is extended. Days 2 and 6 start afresh, because the</text>
+<text x="20" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">total before them was negative. The largest value in the row, 9, is the answer.</text>
+</svg>

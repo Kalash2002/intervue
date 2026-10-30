@@ -1,0 +1,7 @@
+# Grader notes: Palindromic Substrings
+
+Tests cover: the sample; even-length palindromes (`"xyyx"` gives 6, `"mnnnm"` 9; growing only around letters gives 4 and 7); equal letters at different positions counted separately (`"pp"` gives 3, `"xxyxx"` 9; a set of distinct palindromes gives 2 and 5, and also fails the sample); single letters counting (`"qwerty"` gives 6; starting at length two gives 0); 300 seeded random strings of 1 to 30 letters over `ab` or `abc`, checked against a count in the test that reverses every substring; and three strings of 5,000 letters: one repeated letter (every substring, 12,502,500), two letters taking turns (exactly the odd-length substrings, 6,252,500), and two runs of 2,499 `a` split by `bc` (3,123,750 in each run plus the `b` and the `c`, 6,247,502).
+
+The three large tests have a limit of 1,000 ms each (3x is 3,000 ms). The reference grows from each of the 2n − 1 middles and finishes them in about 45, 15 and 20 ms. The naive solution tests every substring with two pointers; most substrings of these strings are palindromes or match from both ends for a long way, and it takes about 25, 11 and 17 seconds, so it times out at the limit and at 3x. Collecting the palindromes in a set times out on all three as well.
+
+The walkthrough's Better, a table filled row by row from the last start, is O(n²) like the reference and passes the large tests (about 50 to 70 ms each); the timed tests separate only the cubic brute force from the quadratic approaches.

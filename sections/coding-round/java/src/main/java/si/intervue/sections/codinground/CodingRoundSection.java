@@ -41,7 +41,8 @@ public final class CodingRoundSection implements SectionPackage {
   private final CodingRoundScore scoring = new CodingRoundScore();
 
   private static SectionDefinition readDefinition() {
-    try (InputStream in = CodingRoundSection.class.getResourceAsStream("/section.json")) {
+    try (InputStream in =
+        CodingRoundSection.class.getResourceAsStream("/sections/coding-round/section.json")) {
       if (in == null) {
         throw new IllegalStateException("section.json is missing from the coding-round jar");
       }
@@ -66,6 +67,12 @@ public final class CodingRoundSection implements SectionPackage {
       List<String> errors = new ArrayList<>();
       if (!definition.id().equals(folder.problem().section())) {
         errors.add("section must be " + definition.id() + " for this package");
+      }
+      // The shared validator applies its one-phase rules only to section dsa-quick (ADR 0012), so
+      // a one-phase coding-round problem would pass it; the round's phase weights, time and
+      // rhythm are built around several phases, hence this schema refuses fewer than 2.
+      if (folder.problem().phases().size() < 2) {
+        errors.add("a coding-round problem needs at least 2 phases");
       }
       return errors;
     };
@@ -96,7 +103,8 @@ public final class CodingRoundSection implements SectionPackage {
   public PromptTemplates prompts() {
     return name -> {
       try (InputStream in =
-          CodingRoundSection.class.getResourceAsStream("/prompts/" + name + ".md")) {
+          CodingRoundSection.class.getResourceAsStream(
+              "/sections/coding-round/prompts/" + name + ".md")) {
         if (in == null) {
           throw new IllegalArgumentException("No prompt template named " + name);
         }

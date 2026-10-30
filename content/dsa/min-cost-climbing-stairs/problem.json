@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "min-cost-climbing-stairs",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Min Cost Climbing Stairs",
+  "summary": "Find the cheapest way up a staircase where each step you stand on charges a fee.",
+  "difficulty": "Easy",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "recursion", "memoization"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return which steps to stand on?", "What if a move could climb up to k steps?", "Why does picking the cheaper of the next two steps each time not work?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

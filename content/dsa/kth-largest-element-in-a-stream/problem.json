@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "kth-largest-element-in-a-stream",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Kth Largest Element in a Stream",
+  "summary": "Design a class that reports the k-th largest value seen so far after each new value arrives.",
+  "difficulty": "Easy",
+  "techniques": ["heap"],
+  "tags": ["design", "heap", "min-heap", "streaming"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if values could also be removed from the stream?", "How would you report the k-th largest within only the last w values?", "What if k could change between calls?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

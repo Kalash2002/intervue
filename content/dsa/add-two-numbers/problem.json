@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "add-two-numbers",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Add Two Numbers",
+  "summary": "Add two non-negative numbers stored as linked lists of digits, lowest digit first.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "arithmetic", "carry"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the digits are stored highest digit first?", "How would you subtract the smaller number from the larger one instead?", "How would you add numbers stored in base 10^9 per node?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

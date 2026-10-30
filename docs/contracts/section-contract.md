@@ -8,7 +8,7 @@ What a section package provides: how a kind of interview round is graded, scored
 - A Java implementation of `SectionPackage`, registered in `META-INF/services/si.intervue.engine.sections.SectionPackage`. The interfaces live in `si.intervue.engine.sections`.
 - `schema/`: the JSON Schema for this section's `problem.json`.
 - `prompts/`: `system.md`, `interview-mode.md`, `helpful-mode.md`, `write-code.md`, `hint-explain.md`, `feedback.md`. Prompt text lives only here, never in code.
-- `ui/`: the pnpm package exporting one `SectionUi` (`packages/ui/src/section.ts`): `id`, `title` and `description` from `section.json`, `Room` (the session view) and `Result` (the result-page parts). The app lists every `SectionUi` it ships in menu order and looks sections up by `id`; a section's problems are those whose `problem.json.section` equals it.
+- `ui/`: the pnpm package exporting one `SectionUi` (`packages/ui/src/section.ts`): `id`, `title` and `description` from `section.json`, `Room` (the session view) and `Result` (the result-page parts). The list of `SectionUi` lives in `@intervue/sections` (`packages/sections`), not in the shell, and Gradle includes and bundles every `sections/*/java` project by discovery (ADR 0008), so a new section edits neither `desktop/` nor `engine/`. It does need, besides its own folder and one line in `packages/sections/src/index.ts`, a dependency in `packages/sections/package.json` and the root `pnpm-lock.yaml`; `.github/workflows/parts.yml` has no part label that allows both `sections/` and `packages/`, and none that allows the lockfile. The app lists every `SectionUi` in that package in menu order and looks sections up by `id`; a section's problems are those whose `problem.json.section` equals it.
 
 ## Interface
 
@@ -24,8 +24,16 @@ public interface SectionPackage {
   PromptTemplates prompts();
   Set<AssistantChannel> channels();               // ASK, WRITE_CODE
   boolean supportsHints();                        // true: hints/phaseN.md required by the schema
+  default boolean hintsInInterview() { return false; } // true: hints also in Interview sessions
 }
 ```
+
+## Channels and hints (ADR 0012)
+
+- `channels()` is enforced by the engine for every section. A session whose section lacks `ASK` gets 400 on `ask` and `hints/explain`; one that lacks `WRITE_CODE` gets 400 on `write`. A section with no channels renders no assistant panel.
+- Hints are available when the session is Practice or the section's `hintsInInterview()` is true. "Explain this hint" also needs `ASK`.
+- `SessionView` has two additive fields the rooms render from: `channels` (list of channel names) and `hintsAllowed` (boolean).
+- `SPI_VERSION` stays 1: `hintsInInterview()` is a default method, so existing packages compile and behave as before.
 
 ## The coding round (Phase 1a)
 
@@ -37,3 +45,15 @@ public interface SectionPackage {
 | Interview score | Correctness 70 by phase weights (an all-or-nothing phase scores only when all its tests pass; others in proportion), time 10, rhythm 20; the prototype's formula with weights read from `problem.json` |
 | Practice score | Correctness and phase results only, labelled Practice; never counts as solved |
 | Assisted | An Interview session with `aiEditsActive > 0` at any run or at finish; recorded and shown as an AI edit count; changes neither the label, solved nor the best score (ADR 0006) |
+
+## The DSA section (Phase 1ad)
+
+| Item | Value |
+|---|---|
+| `id` / `name` | `dsa-quick` / "DSA" |
+| `runnerKind` / `graderKind` / `uiMode` | `code-tests` / `tests` / `editor` |
+| `channels()` | none (empty; ADR 0012) |
+| `supportsHints()` / `hintsInInterview()` | `true` / `true`: hints in Interview and Practice |
+| `resultParts()` | `score`, `tests`, `time`, `walkthrough` |
+| Score | Correctness 80 x passed / total (timeouts and failures count as not passed); time 20 only when every test passed within its limit. Labelled Interview or Practice as in ADR 0006. Unlike the coding round's, a DSA Practice score keeps its Time part |
+| Problems | one-phase, from `content/dsa/` (`docs/contracts/problem-format.md`, "One-phase problems"); statement and answer shapes keyed on section id `dsa-quick` |

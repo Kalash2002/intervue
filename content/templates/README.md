@@ -9,3 +9,12 @@
 - **Code block.** `### Code` is the general routine in plain Java, outside this codebase, 10 to 20 lines, one comment per decision. The problem's reference solution is that shape with the problem's names.
 - **Practise links.** Only `dsa://<question-id>` links, ids as in `content/dsa/INDEX.md` (LeetCode slugs). No links to other sites anywhere in a walkthrough.
 - **Versions.** Any change to a problem folder bumps `version` in `problem.json`.
+
+## DSA questions
+
+`dsa-statement.md` and `dsa-walkthrough.md` are the shapes for `content/dsa/<question-id>/statement.md` and `walkthrough.md`; the validator enforces them for section `dsa-quick` (ADR 0012, `docs/contracts/problem-format.md`). The coding-round `walkthrough.md` above does not apply to DSA, and DSA has no prompts because it has no assistant.
+
+- **Statement.** Only the layout is borrowed from NeetCode and LeetCode. Wording and examples are yours: no copied text, no stock examples, no links.
+- **Answer.** Teach from the brute force up. State why each approach is correct, give its cost and say when to prefer it. Every approach has a ```java block and a complexity line. Same voice as above: an experienced developer, plain and short.
+- **Figure.** At least one, under `figures/`, showing the optimal structure on the question's own example, in the style above.
+- **Starter.** Editable files import `java.util.*`, so `Map` and `List` compile when typed.

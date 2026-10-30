@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Time Based Key-Value Store: the history of door, and the binary search for the last record at or before time 50</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">history of "door", sorted by time (index, time, value)</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="20" y="40" width="130" height="56"/>
+<rect x="160" y="40" width="130" height="56"/>
+<rect x="440" y="40" width="130" height="56"/>
+</g>
+<rect x="300" y="40" width="130" height="56" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="85" y="62">0:  t=10</text><text x="85" y="84">locked</text>
+<text x="225" y="62">1:  t=20</text><text x="225" y="84">open</text>
+<text x="365" y="62" fill="#ffffff">2:  t=45</text><text x="365" y="84" fill="#ffffff">locked</text>
+<text x="505" y="62">3:  t=70</text><text x="505" y="84">open</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" xml:space="preserve">
+<text x="20" y="130">get("door", 50)</text>
+<text x="20" y="154">low=0 high=3  middle=1  t=20 &lt;= 50: best=1, search the right half</text>
+<text x="20" y="176">low=2 high=3  middle=2  t=45 &lt;= 50: best=2, search the right half</text>
+<text x="20" y="198">low=3 high=3  middle=3  t=70 &gt;  50: search the left half</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="232">The range is empty, so the answer is the last best index: 2, which holds "locked".</text>
+</g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "partition-equal-subset-sum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Partition Equal Subset Sum",
+  "summary": "Decide whether a set of weights can be split into two groups that weigh exactly the same.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "subset-sum", "knapsack"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the packs only had to weigh as close to each other as possible?", "What if you also had to say which items go into each pack?", "What if there were three hikers instead of two?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

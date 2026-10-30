@@ -3,11 +3,13 @@ package si.intervue.engine.session;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.lang.reflect.Proxy;
 import java.nio.file.Path;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import si.intervue.engine.sections.SectionPackage;
 import si.intervue.engine.sections.SessionType;
 
 /** Hints: three authored levels per phase, Practice only (PLAN.md 2.8). */
@@ -29,12 +31,28 @@ class SessionHintsTest {
   }
 
   @Test
+  void aSectionWithoutHintsGivesNoneEvenInPractice() {
+    Sessions.Context real = sessions.context(sessions.create("tiny", SessionType.PRACTICE).id());
+    SectionPackage noHints =
+        (SectionPackage)
+            Proxy.newProxyInstance(
+                SectionPackage.class.getClassLoader(),
+                new Class<?>[] {SectionPackage.class},
+                (proxy, method, args) -> false);
+    Sessions.Context c =
+        new Sessions.Context(real.session(), real.problem(), real.language(), noHints, real.work());
+
+    assertThat(SessionHints.allowed(real)).isTrue();
+    assertThat(SessionHints.allowed(c)).isFalse();
+  }
+
+  @Test
   void anInterviewHasNoHints() {
     String id = sessions.create("tiny", SessionType.INTERVIEW).id();
 
     assertThatThrownBy(() -> sessions.hint(id, 1))
         .isInstanceOf(SessionException.class)
-        .hasMessageContaining("Practice");
+        .hasMessageContaining("not available");
   }
 
   @Test

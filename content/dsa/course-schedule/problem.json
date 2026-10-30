@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "course-schedule",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Course Schedule",
+  "summary": "Decide whether a set of courses can all be taken given which courses must come before which.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["topological-sort", "cycle-detection", "bfs"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you answer in time linear in the number of courses and pairs?", "How would you report one loop of courses that blocks the plan?", "What if a student can take at most k courses per term and you want the fewest terms?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Task Scheduler on AAABBC with gap 2: the busiest kind A sets two frames of 3 slots and a last slot, 7 slots in all</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="22">slots 1 to 7; the purple cells are the three A jobs</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="76" y="40" width="52" height="40"/>
+<rect x="132" y="40" width="52" height="40"/>
+<rect x="244" y="40" width="52" height="40"/>
+<rect x="300" y="40" width="52" height="40" stroke-dasharray="4 3" opacity="0.6"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="20" y="40" width="52" height="40"/>
+<rect x="188" y="40" width="52" height="40"/>
+<rect x="356" y="40" width="52" height="40"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="46" y="66" fill="#ffffff">A</text><text x="102" y="66">B</text><text x="158" y="66">C</text>
+<text x="214" y="66" fill="#ffffff">A</text><text x="270" y="66">B</text><text x="326" y="66" opacity="0.6" font-size="13">idle</text>
+<text x="382" y="66" fill="#ffffff">A</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="46" y="36">1</text><text x="102" y="36">2</text><text x="158" y="36">3</text><text x="214" y="36">4</text><text x="270" y="36">5</text><text x="326" y="36">6</text><text x="382" y="36">7</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<path d="M 20 96 L 184 96"/>
+<path d="M 188 96 L 352 96"/>
+<path d="M 356 96 L 408 96"/>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="102" y="118">frame 1</text><text x="270" y="118">frame 2</text><text x="382" y="118">last</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="436" y="56">most = 3</text>
+<text x="436" y="76">tied = 1</text>
+<text x="436" y="96">(3 - 1) * 3 = 6</text>
+<text x="436" y="116">6 + 1 = 7</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="166">B, B and C fill three of the four empty slots in the frames; slot 6 stays idle.</text>
+<text x="20" y="188">The 6 jobs are fewer than 7 slots, so the frame length is the answer.</text>
+</g>
+</svg>

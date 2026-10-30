@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "longest-common-subsequence",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Longest Common Subsequence",
+  "summary": "Find the length of the longest sequence of letters that appears, in order, in both of two strings.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "strings", "subsequence"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you also had to return one longest common subsequence?", "What if the strings were 100,000 letters long?", "What if there were three strings instead of two?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

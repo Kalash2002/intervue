@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "diameter-of-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Diameter of Binary Tree",
+  "summary": "Find how many edges the longest path between any two nodes of a binary tree has.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "recursion", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why is computing the height at every node slow, and on which trees?", "How would you return the two end nodes of a longest path?", "What changes if each edge has a length and you want the longest total length?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

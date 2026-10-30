@@ -21,9 +21,16 @@ const SNIPPETS: Completion[] = [
   snippetCompletion('List<${T}> ${list} = new ArrayList<>();', { label: 'arraylist', detail: 'new ArrayList' }),
 ].map((s) => ({ ...s, type: 'text' }));
 
+const JAVA_UTIL_TYPES = [
+  'List', 'ArrayList', 'LinkedList', 'Map', 'HashMap', 'LinkedHashMap', 'TreeMap', 'Set', 'HashSet',
+  'LinkedHashSet', 'TreeSet', 'Queue', 'Deque', 'ArrayDeque', 'PriorityQueue', 'Stack', 'Iterator',
+  'Arrays', 'Collections', 'Optional', 'Random', 'Scanner', 'Objects', 'BitSet', 'Comparator', 'Collection',
+]; // prettier-ignore
+
 export const javaEditor: LanguageEditor = {
   id: 'java',
   extensions: ['.java'],
   language: java,
   words: [...KEYWORDS.map((label): Completion => ({ label, type: 'keyword' })), ...SNIPPETS],
+  importableTypes: JAVA_UTIL_TYPES.map((name) => ({ name, pkg: 'java.util' })),
 };

@@ -1,5 +1,5 @@
 // A section's track: solved count, a bar and one cell per NeetCode group, the same shape on Home and
-// on the section page. A planned section with no package yet renders the placeholder text.
+// on the section page.
 import type { ProblemSummary, SessionSummary } from '@intervue/local-engine-client';
 import { dashboardStats, trackCells } from '../lib/progress.ts';
 
@@ -55,17 +55,6 @@ export function TrackCard({
           );
         })}
       </ul>
-    </article>
-  );
-}
-
-export function PlannedTrackCard({ title }: { title: string }) {
-  return (
-    <article className="card track planned" aria-label={title}>
-      <header className="track-head">
-        <h3>{title}</h3>
-      </header>
-      <p className="hint">Arrives in the next release.</p>
     </article>
   );
 }

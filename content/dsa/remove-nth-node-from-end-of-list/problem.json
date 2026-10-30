@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "remove-nth-node-from-end-of-list",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Remove Nth Node From End of List",
+  "summary": "Unlink the node that sits a given number of places from the end of a linked list.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "two-pointers", "dummy-node"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Is the one-pass version actually faster than counting first?", "How would you return the middle node of a list in one pass?", "What would you do if n could be larger than the length of the list?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

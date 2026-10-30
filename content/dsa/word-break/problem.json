@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "word-break",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Word Break",
+  "summary": "Decide whether a message typed without spaces can be cut into known words.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "string", "memoization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you had to list every way to split the message?", "What if the vocabulary held a million words?", "What if you had to use as few words as possible?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

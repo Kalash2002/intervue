@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 296" width="640" height="296" role="img">
+<title>Valid Parenthesis String, Example 1: the possible counts of open brackets after each character</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="129">open</text><text x="20" y="204">character</text><text x="20" y="228">low</text><text x="20" y="250">high</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="end">
+<text x="96" y="174">0</text><text x="96" y="144">1</text><text x="96" y="114">2</text><text x="96" y="84">3</text>
+</g>
+<g stroke="#83748f" stroke-width="1" stroke-dasharray="2 4" fill="none">
+<path d="M 106 170 L 580 170"/><path d="M 106 140 L 580 140"/><path d="M 106 110 L 580 110"/><path d="M 106 80 L 580 80"/>
+</g>
+<g stroke="#83748f" stroke-width="3" fill="none">
+<path d="M 190 170 L 190 140"/><path d="M 490 170 L 490 110"/><path d="M 550 170 L 550 80"/>
+</g>
+<g fill="#83748f">
+<circle cx="130" cy="170" r="5"/><circle cx="190" cy="170" r="5"/><circle cx="190" cy="140" r="5"/><circle cx="250" cy="170" r="5"/><circle cx="310" cy="140" r="5"/><circle cx="370" cy="110" r="5"/><circle cx="430" cy="140" r="5"/><circle cx="490" cy="170" r="5"/><circle cx="490" cy="140" r="5"/><circle cx="490" cy="110" r="5"/><circle cx="550" cy="140" r="5"/><circle cx="550" cy="110" r="5"/><circle cx="550" cy="80" r="5"/>
+</g>
+<circle cx="550" cy="170" r="8" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="130" y="204" font-size="12">start</text><text x="190" y="204">*</text><text x="250" y="204">)</text><text x="310" y="204">(</text><text x="370" y="204">(</text><text x="430" y="204">)</text><text x="490" y="204">*</text><text x="550" y="204">*</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="130" y="228">0</text><text x="190" y="228">0</text><text x="250" y="228">0</text><text x="310" y="228">1</text><text x="370" y="228">2</text><text x="430" y="228">1</text><text x="490" y="228">0</text><text x="550" y="228">0</text>
+<text x="130" y="250">0</text><text x="190" y="250">1</text><text x="250" y="250">0</text><text x="310" y="250">1</text><text x="370" y="250">2</text><text x="430" y="250">1</text><text x="490" y="250">2</text><text x="550" y="250">3</text>
+</g>
+
+<text x="20" y="272" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">Each column: every count of open brackets some reading of the stars allows there.</text>
+<text x="20" y="290" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">They always run unbroken from low to high, and 0 is possible at the end: true.</text>
+</svg>

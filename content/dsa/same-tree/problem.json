@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "same-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Same Tree",
+  "summary": "Decide whether two binary trees have the same shape and the same value at every node.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "recursion", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why does comparing the preorder value lists without markers give wrong answers?", "How would you check whether one tree is the mirror image of the other?", "How would you find out quickly whether many stored trees contain a duplicate?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

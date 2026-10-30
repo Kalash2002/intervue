@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "sum-of-two-integers",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Sum of Two Integers",
+  "summary": "Add two ints with bitwise operations only, without + or -, wrapping around as Java's int addition does.",
+  "difficulty": "Medium",
+  "techniques": ["bit-manipulation"],
+  "tags": ["xor", "carry", "twos-complement"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in the same small number of steps for every pair, even when a carry has to run through all 32 bits?", "How would you subtract b from a under the same rule?", "How would you multiply two ints without *, + or -?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

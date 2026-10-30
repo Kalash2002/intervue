@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>House Robber, Example 1: the best total for each prefix of the street, 15 after the last house</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">best(i) = max(best(i-1), best(i-2) + cash[i]): leave house i, or take it</text>
+<text x="20" y="84" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">cash</text>
+<text x="20" y="150" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">best</text>
+<rect x="110" y="62" width="60" height="34" rx="4" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+<rect x="190" y="62" width="60" height="34" rx="4" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="270" y="62" width="60" height="34" rx="4" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<rect x="350" y="62" width="60" height="34" rx="4" fill="none" stroke="#7c3aed" stroke-width="2.5"/>
+<rect x="430" y="62" width="60" height="34" rx="4" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="140" y="84" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">6</text>
+<text x="220" y="84" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">1</text>
+<text x="300" y="84" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">2</text>
+<text x="380" y="84" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">9</text>
+<text x="460" y="84" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">4</text>
+<text x="140" y="116" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="middle">house 0</text>
+<text x="220" y="116" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="middle">house 1</text>
+<text x="300" y="116" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="middle">house 2</text>
+<text x="380" y="116" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="middle">house 3</text>
+<text x="460" y="116" font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f" text-anchor="middle">house 4</text>
+<text x="140" y="150" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">6</text>
+<text x="220" y="150" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">6</text>
+<text x="300" y="150" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">8</text>
+<text x="380" y="150" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">15</text>
+<rect x="436" y="132" width="48" height="26" rx="4" fill="#7c3aed"/>
+<text x="460" y="150" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#ffffff" text-anchor="middle">15</text>
+<text x="20" y="186" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">house 3: max(8, 6 + 9) = 15, take it; house 4: max(15, 8 + 4) = 15, leave it</text>
+<text x="20" y="208" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f" text-anchor="start">outlined in purple: the houses emptied, 0 and 3</text>
+</svg>

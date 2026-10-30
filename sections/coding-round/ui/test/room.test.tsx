@@ -3,7 +3,7 @@ import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import type { EngineClient } from '@intervue/local-engine-client';
 import { timed } from '@intervue/ui';
 import { describe, expect, it, vi } from 'vitest';
-import { HintControl } from '../src/room/HintControl.tsx';
+import { HintControl } from '@intervue/room';
 import { SessionRoom } from '../src/room/SessionRoom.tsx';
 import { renderWith, view } from './fixtures.tsx';
 
@@ -158,7 +158,7 @@ describe('hints', () => {
       const level = revealHint.mock.calls.length;
       return { phase, level, text: `Level ${level} text` };
     });
-    renderWith(<HintControl sessionId="s1" phase={1} used={0} onRevealed={vi.fn()} />, {
+    renderWith(<HintControl sessionId="s1" phase={1} used={0} canExplain onRevealed={vi.fn()} />, {
       revealHint,
       revealedHints: vi.fn(async () => []),
       session: vi.fn(async () => view({ type: 'PRACTICE' })),

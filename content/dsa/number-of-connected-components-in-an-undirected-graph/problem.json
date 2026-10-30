@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "number-of-connected-components-in-an-undirected-graph",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Number of Connected Components in an Undirected Graph",
+  "summary": "Count how many separate networks a set of machines and two-way cables forms.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["graph", "union-find", "dfs", "connected-components"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Cables keep being added one at a time; how do you report the count after each one?", "What if cables can also be removed?", "How would you find the size of the largest network?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

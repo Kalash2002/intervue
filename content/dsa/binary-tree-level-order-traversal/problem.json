@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "binary-tree-level-order-traversal",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Binary Tree Level Order Traversal",
+  "summary": "Return the values of a binary tree level by level, each level from left to right.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "breadth-first-search", "queue"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the levels from the bottom up instead?", "How would you alternate the direction of every other level?", "How much memory does the queue need at most, and for which tree shape?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

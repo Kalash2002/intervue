@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "gas-station",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Gas Station",
+  "summary": "Find the stop from which a shuttle on a circular route can charge its way all the way round.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "circular", "running-sum"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you had to list every stop that works?", "What if the battery could hold only a limited amount?", "What if the shuttle had to start at stop 0 and could be charged before it leaves: how much would it need?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

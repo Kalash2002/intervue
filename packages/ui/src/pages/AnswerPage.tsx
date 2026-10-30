@@ -4,9 +4,13 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import type { ProblemSummary } from '@intervue/local-engine-client';
 import { failed, useApp } from '../app-context.ts';
+import { useCatalogue, useOpenQuestion } from '../hooks.ts';
+import { covering } from '../lib/progress.ts';
 import { Chip } from '../components/Chip.tsx';
+import { CoveringChips } from '../components/CoveringChips.tsx';
 import { Markdown } from '../components/Markdown.tsx';
 import { TagChips } from '../components/TagChips.tsx';
+import { plural } from '../lib/format.ts';
 import { trackOf } from '../lib/tracks.ts';
 
 interface Answer {
@@ -72,7 +76,7 @@ function AnswerAside({
   problem: ProblemSummary;
   practise: { id: string; title: string }[];
 }) {
-  const { notify } = useApp();
+  const openQuestion = useOpenQuestion();
   const track = trackOf(problem.techniques);
   return (
     <aside className="aside">
@@ -95,7 +99,7 @@ function AnswerAside({
         <p className="tags">
           <span className={`pill ${problem.difficulty.toLowerCase()}`}>{problem.difficulty}</span>
           <span className="pill">{problem.minutes} min</span>
-          <span className="pill">{problem.phases} phases</span>
+          <span className="pill">{plural(problem.phases, 'phase')}</span>
         </p>
         {track && <p className="summary">Topic group: {track.title}</p>}
       </div>
@@ -104,13 +108,32 @@ function AnswerAside({
           <p className="eyebrow">Practise under DSA</p>
           <p className="chips">
             {practise.map((q) => (
-              <Chip key={q.id} onClick={() => notify('DSA arrives in the next release.')}>
+              <Chip key={q.id} onClick={() => void openQuestion(q.id)}>
                 {q.title}
               </Chip>
             ))}
           </p>
         </div>
       )}
+      <UsedIn problem={problem} />
     </aside>
+  );
+}
+
+/** The coding-round problems that practise this DSA question; each opens its Answer page. */
+function UsedIn({ problem }: { problem: ProblemSummary }) {
+  return problem.coveredBy.length ? <UsedInCards problem={problem} /> : null;
+}
+
+// Split from UsedIn so the catalogue is fetched only when there is something to show.
+function UsedInCards({ problem }: { problem: ProblemSummary }) {
+  const catalogue = useCatalogue();
+  const usedIn = catalogue ? covering(problem, catalogue.problems) : [];
+  if (!usedIn.length) return null;
+  return (
+    <div className="card" aria-label="Used in">
+      <p className="eyebrow">Used in</p>
+      <CoveringChips problems={usedIn} />
+    </div>
   );
 }

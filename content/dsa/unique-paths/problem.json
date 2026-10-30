@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "unique-paths",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Unique Paths",
+  "summary": "Count the routes across a grid from the top-left cell to the bottom-right cell when every move goes right or down.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "grid", "counting", "combinatorics"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if some cells were blocked?", "Can you count the routes in O(min(rows, cols)) time?", "What if the parcel could also move one cell diagonally, down and to the right at once?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

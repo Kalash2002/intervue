@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Reversing [8,3,5,1]: after two steps 8 and 3 point backwards, then the list ends as [1,5,3,8]</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="54">start</text>
+<text x="20" y="134">after 2 steps</text>
+<text x="20" y="214">done</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="140" y="34" width="44" height="28"/><rect x="220" y="34" width="44" height="28"/>
+<rect x="300" y="34" width="44" height="28"/><rect x="380" y="34" width="44" height="28"/>
+<rect x="200" y="114" width="44" height="28"/><rect x="280" y="114" width="44" height="28"/>
+<rect x="460" y="114" width="44" height="28"/>
+<rect x="140" y="194" width="44" height="28"/><rect x="220" y="194" width="44" height="28"/>
+<rect x="300" y="194" width="44" height="28"/><rect x="380" y="194" width="44" height="28"/>
+</g>
+<rect x="380" y="114" width="44" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none" marker-end="url(#a)">
+<path d="M 184 48 L 216 48"/><path d="M 264 48 L 296 48"/><path d="M 344 48 L 376 48"/><path d="M 424 48 L 456 48"/>
+<path d="M 280 128 L 248 128"/><path d="M 200 128 L 168 128"/>
+<path d="M 424 128 L 456 128"/><path d="M 504 128 L 536 128"/>
+<path d="M 184 208 L 216 208"/><path d="M 264 208 L 296 208"/><path d="M 344 208 L 376 208"/><path d="M 424 208 L 456 208"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="162" y="53">8</text><text x="242" y="53">3</text><text x="322" y="53">5</text><text x="402" y="53">1</text>
+<text x="222" y="133">8</text><text x="302" y="133">3</text>
+<text x="402" y="133" fill="#ffffff">5</text><text x="482" y="133">1</text>
+<text x="162" y="213">1</text><text x="242" y="213">5</text><text x="322" y="213">3</text><text x="402" y="213">8</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="462" y="53">null</text>
+<text x="128" y="133">null</text><text x="542" y="133">null</text>
+<text x="462" y="213">null</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="302" y="106">prev</text><text x="402" y="106">cur</text>
+</g>
+</svg>

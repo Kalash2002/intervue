@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "copy-list-with-random-pointer",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Copy List with Random Pointer",
+  "summary": "Make a deep copy of a linked list whose nodes also carry a link to any node of the list.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "hash-map", "deep-copy"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the random links could also point into other lists?", "How would you copy the list if it could contain a cycle through next?", "Why must the map be keyed by node rather than by value?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

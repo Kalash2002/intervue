@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Missing Number, Example 1: each value of [4, 7, 1, 0, 6, 2, 3] is joined to its copy among 0 to 7, and only 5 is left without one</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="69">0 to n</text>
+<text x="20" y="169">nums</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<line x1="170" y1="150" x2="394" y2="78"/>
+<line x1="226" y1="150" x2="562" y2="78"/>
+<line x1="282" y1="150" x2="226" y2="78"/>
+<line x1="338" y1="150" x2="170" y2="78"/>
+<line x1="394" y1="150" x2="506" y2="78"/>
+<line x1="450" y1="150" x2="282" y2="78"/>
+<line x1="506" y1="150" x2="338" y2="78"/>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="150" y="50" width="40" height="28"/>
+<rect x="206" y="50" width="40" height="28"/>
+<rect x="262" y="50" width="40" height="28"/>
+<rect x="318" y="50" width="40" height="28"/>
+<rect x="374" y="50" width="40" height="28"/>
+<rect x="486" y="50" width="40" height="28"/>
+<rect x="542" y="50" width="40" height="28"/>
+<rect x="150" y="150" width="40" height="28"/>
+<rect x="206" y="150" width="40" height="28"/>
+<rect x="262" y="150" width="40" height="28"/>
+<rect x="318" y="150" width="40" height="28"/>
+<rect x="374" y="150" width="40" height="28"/>
+<rect x="430" y="150" width="40" height="28"/>
+<rect x="486" y="150" width="40" height="28"/>
+</g>
+<rect x="430" y="50" width="40" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="170" y="69">0</text>
+<text x="226" y="69">1</text>
+<text x="282" y="69">2</text>
+<text x="338" y="69">3</text>
+<text x="394" y="69">4</text>
+<text x="450" y="69" fill="#ffffff">5</text>
+<text x="506" y="69">6</text>
+<text x="562" y="69">7</text>
+<text x="170" y="169">4</text>
+<text x="226" y="169">7</text>
+<text x="282" y="169">1</text>
+<text x="338" y="169">0</text>
+<text x="394" y="169">6</text>
+<text x="450" y="169">2</text>
+<text x="506" y="169">3</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="214">Every value of nums cancels its copy among 0 to 7 in the XOR.</text>
+<text x="20" y="236">Only 5 has no partner, so the XOR of all fifteen numbers is 5.</text>
+</g>
+</svg>

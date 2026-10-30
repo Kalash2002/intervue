@@ -17,6 +17,63 @@ pnpm -C web format                                           # Prettier --write 
 ./gradlew spotlessApply                                      # format Java
 ```
 
+## Phase 1ad: DSA section
+
+### Commands added or changed
+
+```sh
+./gradlew :content:tools:verify --offline                    # now reads content/problems and content/dsa, and checks coveredBy[] and dsa:// links both ways
+./gradlew :content:tools:verify --offline -Pids=two-sum,valid-anagram   # -Pids takes DSA question ids as well as problem ids
+./gradlew :engine:engineDist --offline                       # discovers every sections/*/java project; lib/ holds one jar per section (coding-round.jar, dsa-quick.jar), named by section id
+./gradlew :sections:dsa-quick:java:test --offline            # the DSA section's own tests
+pnpm -C packages/room test && pnpm -C packages/sections test && pnpm -C sections/dsa-quick/ui test   # the new TypeScript packages
+```
+
+- The engine takes one `--content <dir>` and reads `<dir>/problems` and, when it exists, `<dir>/dsa`; a question id may not appear in both roots.
+- A new section adds its folder under `sections/` and one line in `packages/sections/src/index.ts` (`@intervue/sections`). No edit to `desktop/` or `engine/build.gradle.kts` (ADR 0008).
+- `engineDist` fails with a clear message when two bundled jars share a file name (a section without its own `base.archivesName`), so no manual duplicate check is needed. Check after `engineDist`: `unzip -l engine/build/engine/lib/dsa-quick.jar` lists the section, and the engine jar manifest `Class-Path` names both section jars.
+
+### Run a DSA session in the browser
+
+```sh
+pnpm -C desktop engine:dev                                   # terminal 1
+pnpm -C desktop dev:browser                                  # terminal 2
+# the UI is http://localhost:1420; the engine API is the same host under /engine (the Vite proxy adds the token)
+curl -X POST localhost:1420/engine/sessions -H 'content-type: application/json' -d '{"problemId":"two-sum","type":"PRACTICE","timed":false}'
+curl -X POST localhost:1420/engine/sessions/<id>/run -H 'content-type: application/json' -d '{"target":"phase:1"}'   # DSA runs only phase:1
+curl -X PUT 'localhost:1420/engine/sessions/<id>/file?path=TwoSum.java' -H 'content-type: application/json' -d '{"text":"..."}'
+curl -X POST localhost:1420/engine/sessions/<id>/finish -H 'content-type: application/json' -d '{"early":false}'      # the view carries events and result
+curl localhost:1420/engine/sessions                          # history rows, each with sectionId
+```
+
+Screenshots follow the Phase 1ac recipe below (headless Edge with `--disable-extensions`), into `docs/plans/phase-1ad-evidence/`.
+
+### Phase 1ad fixes: DSA shape, channels, low-memory verify
+
+```sh
+./gradlew :content:tools:verify --offline -Pids=two-sum,valid-anagram,group-anagrams   # a few ids at a time on a low-memory machine
+./gradlew :shared-java:problem-format:test --offline          # validator rules, incl. the DSA statement and answer cases
+./gradlew :engine:test --offline                              # channel refusals (HTTP 400)
+pnpm -C packages/editor test && pnpm -C sections/dsa-quick/ui test   # auto-import, Statement, hints/no-Assistant room
+```
+
+- Verify now checks every `dsa-quick` question's `statement.md` (Example blocks, Constraints), `walkthrough.md` (headings in order, brute force, better, optimal, one figure that exists) and starter (`import java.util.*;`). A wrong shape fails with the file and the missing heading. These rules key on the section id `dsa-quick`.
+- A section without a channel gets a real HTTP 400 before the stream opens: `POST /sessions/<id>/ask`, `/write` and `/hints/explain` on a DSA session (no ASK or WRITE), and hints where the section has none. The coding round keeps ask, write and hints. Check: `curl -i -X POST localhost:1420/engine/sessions/<id>/ask -H 'content-type: application/json' -d '{"message":"hi"}'` on a DSA session returns `400`.
+- The session view carries `channels` and `hintsAllowed`; the DSA room reads them (Hints shown, Assistant tab absent).
+- Low memory: verify runs three JVM passes per question. Do not run all 49 DSA plus the 10 coding-round problems with other builds open; pass `-Pids` with three to five ids at a time and repeat until all 59 have passed. Run `./gradlew --stop` between chunks if memory is tight.
+- Evidence recipe is unchanged (headless Edge, `--disable-extensions`), into `docs/plans/phase-1ad-fixes-evidence/`.
+
+### Phase 1ad batch 4: writing the rest of the 150
+
+```sh
+./gradlew :content:tools:verify --offline -q -Pids=single-number,missing-number   # one verify at a time: the timing checks are load-sensitive
+./gradlew --stop -q                                           # after each verify; stops only daemons of this Gradle version
+./gradlew :content:tools:verify --offline -q                  # all 173 problems; about 40 minutes on a busy machine
+```
+
+- `--offline` failing with `Plugin [id: 'com.diffplug.spotless', ...] was not found` after a long idle means the Gradle cache dropped the plugin: run once without `--offline`, then offline works again.
+- A timing miss (`needs 5x headroom`, or `finishes within 3x its limit on the naive solution`) is re-run alone once on a quiet machine before the question is changed. Check what else holds the CPU first (another project's JVM, Docker's VM).
+
 ## Phase 1ac: shell, Home, section page, theme, tags
 
 ### Gates added in this phase

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Valid Anagram on carton and contra: the letter table after adding one word and taking away the other</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="34">slot</text>
+<text x="20" y="84">after adding "carton"</text>
+<text x="20" y="144">after taking away "contra"</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="300" y="34">a</text><text x="360" y="34">c</text><text x="420" y="34">n</text><text x="480" y="34">o</text><text x="540" y="34">r</text><text x="600" y="34">t</text>
+<text x="300" y="84">1</text><text x="360" y="84">1</text><text x="420" y="84">1</text><text x="480" y="84">1</text><text x="540" y="84">1</text><text x="600" y="84">1</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="276" y="62" width="48" height="30"/><rect x="336" y="62" width="48" height="30"/><rect x="396" y="62" width="48" height="30"/>
+<rect x="456" y="62" width="48" height="30"/><rect x="516" y="62" width="48" height="30"/><rect x="576" y="62" width="48" height="30"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<rect x="276" y="122" width="48" height="30"/><rect x="336" y="122" width="48" height="30"/><rect x="396" y="122" width="48" height="30"/>
+<rect x="456" y="122" width="48" height="30"/><rect x="516" y="122" width="48" height="30"/><rect x="576" y="122" width="48" height="30"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#ffffff" text-anchor="middle">
+<text x="300" y="143">0</text><text x="360" y="143">0</text><text x="420" y="143">0</text><text x="480" y="143">0</text><text x="540" y="143">0</text><text x="600" y="143">0</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="190">No slot went below zero, so every slot ends at 0 and the words</text>
+<text x="20" y="210">are anagrams. The other 20 slots stay 0 throughout.</text>
+</g>
+</svg>

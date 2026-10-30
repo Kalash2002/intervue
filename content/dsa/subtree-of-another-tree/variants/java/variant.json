@@ -1,0 +1,7 @@
+{
+  "language": "java",
+  "minToolchain": "21",
+  "main": "Main",
+  "readOnly": ["Phase1Tests.java", "TreeNode.java"],
+  "tests": {"1": "Phase1Tests"}
+}

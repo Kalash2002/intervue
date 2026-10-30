@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reverse-linked-list",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reverse Linked List",
+  "summary": "Turn a singly linked list around by relinking its nodes and return the new head.",
+  "difficulty": "Easy",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "pointers"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you write it recursively, and what does that cost on a long list?", "How would you reverse only the nodes from position left to position right?", "How would you reverse a doubly linked list?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

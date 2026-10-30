@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reverse-nodes-in-k-group",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reverse Nodes in K-Group",
+  "summary": "Reverse a linked list k nodes at a time, leaving a shorter last group as it is.",
+  "difficulty": "Hard",
+  "techniques": ["linked-list"],
+  "tags": ["linked-list", "pointers", "in-place"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you also reverse the last group when it has fewer than k nodes?", "How would you reverse only every other group of k nodes?", "What does the recursive version cost on a long list with a small k?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

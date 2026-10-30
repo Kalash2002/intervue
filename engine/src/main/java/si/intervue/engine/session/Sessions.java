@@ -151,6 +151,8 @@ public final class Sessions {
         store.activeEdits(id),
         count(events, "aiEdit"),
         count(events, "aiEditUndo"),
+        c.section().channels().stream().sorted().map(Enum::name).toList(),
+        SessionHints.allowed(c),
         brief(c),
         s.notes(),
         events.stream().map(e -> new EventView(e.seq(), e.tMs(), e.type(), e.data())).toList(),
@@ -421,7 +423,9 @@ public final class Sessions {
   static List<String> brief(Context c) {
     List<String> parts = new ArrayList<>();
     Path dir = c.problem().dir();
-    parts.add(readString(dir.resolve("brief/intro.md")));
+    // A one-phase problem (DSA) has no intro; its statement.md is the phase brief.
+    Path intro = dir.resolve("brief/intro.md");
+    parts.add(Files.exists(intro) ? readString(intro) : "");
     for (var phase : c.problem().problem().phases()) {
       boolean open = c.session().finished() || phase.id() <= c.session().unlocked();
       parts.add(open ? readString(dir.resolve(phase.brief())) : null);

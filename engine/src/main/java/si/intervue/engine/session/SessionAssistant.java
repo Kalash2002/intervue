@@ -14,6 +14,7 @@ import si.intervue.engine.ai.AiClient;
 import si.intervue.engine.ai.AiReply;
 import si.intervue.engine.ai.AiRequest;
 import si.intervue.engine.ai.AiUnavailableException;
+import si.intervue.engine.sections.AssistantChannel;
 import si.intervue.engine.sections.SessionType;
 import si.intervue.engine.session.PromptBuilder.Rules;
 import si.intervue.engine.session.Sessions.Context;
@@ -92,7 +93,7 @@ public final class SessionAssistant {
   }
 
   public String ask(String id, String message, String rules, Consumer<String> deltas) {
-    Context c = locked(() -> sessions.requireOpen(id));
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), AssistantChannel.ASK));
     AiRequest request =
         locked(() -> PromptBuilder.ask(c, rules(c, rules), history(c, events(c)), message));
     AiReply reply = call("chat", c, () -> ai.chat(request, deltas));
@@ -105,7 +106,7 @@ public final class SessionAssistant {
     Prepared p =
         locked(
             () -> {
-              Context c = sessions.requireOpen(id);
+              Context c = requireChannel(sessions.requireOpen(id), AssistantChannel.WRITE_CODE);
               List<StoredEvent> events = events(c);
               String replyId = "w" + (count(events, "edit") + 1);
               return new Prepared(
@@ -124,12 +125,36 @@ public final class SessionAssistant {
         });
   }
 
-  /** Practice only, and only for a level the candidate has already revealed. */
-  public String explainHint(String id, int phase, Consumer<String> deltas) {
-    Context c = locked(() -> sessions.requireOpen(id));
-    if (c.session().type() != SessionType.PRACTICE) {
-      throw new SessionException("Hints are for Practice sessions.");
+  /**
+   * Route pre-check: throws before the stream opens so the refusal is a real HTTP 400. The ask,
+   * write and explain methods repeat the check as defence in depth. {@code needsHints} adds the
+   * hint gate for "explain this hint".
+   */
+  public void preflight(String id, AssistantChannel channel, boolean needsHints) {
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), channel));
+    if (needsHints) {
+      SessionHints.require(c);
     }
+  }
+
+  /**
+   * The single channel gate: a section without the channel is refused before any model call or
+   * allowance accounting (ADR 0012).
+   */
+  private static Context requireChannel(Context c, AssistantChannel channel) {
+    if (!c.section().channels().contains(channel)) {
+      throw new SessionException(
+          channel == AssistantChannel.ASK
+              ? "This section has no assistant."
+              : "This section's assistant cannot write code.");
+    }
+    return c;
+  }
+
+  /** Where hints are allowed, needs the ASK channel, and only a level already revealed. */
+  public String explainHint(String id, int phase, Consumer<String> deltas) {
+    Context c = locked(() -> requireChannel(sessions.requireOpen(id), AssistantChannel.ASK));
+    SessionHints.require(c);
     List<String> revealed = locked(() -> sessions.revealedHints(id, phase));
     if (revealed.isEmpty()) {
       throw new SessionException("Reveal a hint for phase " + phase + " first.");
@@ -144,6 +169,14 @@ public final class SessionAssistant {
     String asked = "Explain hint level " + level + " of phase " + phase + ".";
     locked(() -> remember(c, asked, reply.text(), reply));
     return reply.text();
+  }
+
+  /** Shown for a section without the ASK channel: it has no written review. */
+  static final Review NO_REVIEW =
+      new Review("unavailable", null, "This section has no written review.");
+
+  private boolean hasReview(String id) {
+    return sessions.context(id).section().channels().contains(AssistantChannel.ASK);
   }
 
   /** Ends the session; the first finish starts the written review. */
@@ -161,7 +194,7 @@ public final class SessionAssistant {
 
   /** Starts the written review in the background; at most one per session at a time. */
   public void requestReview(String id) {
-    if (!reviewing.add(id)) {
+    if (!locked(() -> hasReview(id)) || !reviewing.add(id)) {
       return;
     }
     reviews.execute(
@@ -194,6 +227,9 @@ public final class SessionAssistant {
    * before reviews existed) gets one requested here, so pending always means a review is running.
    */
   public Review review(String id) {
+    if (!locked(() -> hasReview(id))) {
+      return NO_REVIEW;
+    }
     boolean finished = locked(() -> sessions.context(id).session().finished());
     if (finished && locked(() -> records.review(id)) == null) {
       requestReview(id);

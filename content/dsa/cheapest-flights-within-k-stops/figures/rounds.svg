@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 292" width="640" height="292" role="img">
+<title>Cheapest Flights on Example 1: cheapest price to each city using at most 0, 1, 2 and 3 flights, each row built from the row above</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f"><text x="20" y="28">cheapest price from city 0, by city, using at most r flights</text></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="260" y="62">city 0</text>
+<text x="350" y="62">city 1</text>
+<text x="440" y="62">city 2</text>
+<text x="530" y="62">city 3</text>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="220" y="76" width="80" height="28"/>
+<rect x="310" y="76" width="80" height="28"/>
+<rect x="400" y="76" width="80" height="28"/>
+<rect x="490" y="76" width="80" height="28"/>
+<rect x="220" y="112" width="80" height="28"/>
+<rect x="310" y="112" width="80" height="28"/>
+<rect x="400" y="112" width="80" height="28"/>
+<rect x="490" y="112" width="80" height="28"/>
+<rect x="220" y="148" width="80" height="28"/>
+<rect x="310" y="148" width="80" height="28"/>
+<rect x="400" y="148" width="80" height="28"/>
+<rect x="220" y="184" width="80" height="28" opacity="0.45"/>
+<rect x="310" y="184" width="80" height="28" opacity="0.45"/>
+<rect x="400" y="184" width="80" height="28" opacity="0.45"/>
+<rect x="490" y="184" width="80" height="28" opacity="0.45"/>
+</g>
+<rect x="490" y="148" width="80" height="28" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="260" y="95">0</text>
+<text x="350" y="95">-</text>
+<text x="440" y="95">-</text>
+<text x="530" y="95">-</text>
+<text x="260" y="131">0</text>
+<text x="350" y="131">100</text>
+<text x="440" y="131">250</text>
+<text x="530" y="131">-</text>
+<text x="260" y="167">0</text>
+<text x="350" y="167">100</text>
+<text x="440" y="167">200</text>
+<text x="530" y="167" fill="#ffffff">350</text>
+<text x="260" y="203" opacity="0.6">0</text>
+<text x="350" y="203" opacity="0.6">100</text>
+<text x="440" y="203" opacity="0.6">200</text>
+<text x="530" y="203" opacity="0.6">300</text>
+</g><g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="95">0 flights</text>
+<text x="20" y="131">1 flight</text>
+<text x="20" y="167">2 flights (maxStops = 1)</text>
+<text x="20" y="203" opacity="0.6">3 flights (maxStops = 2)</text>
+</g><g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="236">Each row is built from the row above only.</text>
+<text x="20" y="256">Row 2: flight 2 to 3 adds 100 to 250 from row 1, not to 200.</text>
+<text x="20" y="276">With maxStops = 1 the answer is row 2, city 3: 350.</text></g>
+</svg>

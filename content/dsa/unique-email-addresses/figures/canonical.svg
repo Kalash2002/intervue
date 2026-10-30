@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 214" width="640" height="214" role="img">
+<title>Unique Email Addresses on sam.k, samk+news and sa.mk at mail.org: each address reduces to samk at mail.org, and the set keeps one entry</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">address</text><text x="270" y="24">reduced form</text><text x="430" y="24">set.add</text><text x="550" y="24">size</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="262" y="72" width="140" height="26"/><rect x="262" y="106" width="140" height="26"/>
+</g>
+<rect x="262" y="38" width="140" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="56">sam.k@mail.org</text>
+<text x="20" y="90">samk+news@mail.org</text>
+<text x="20" y="124">sa.mk@mail.org</text>
+<text x="270" y="56" fill="#ffffff">samk@mail.org</text><text x="270" y="90">samk@mail.org</text><text x="270" y="124">samk@mail.org</text>
+<text x="430" y="56">added</text><text x="430" y="90">already in</text><text x="430" y="124">already in</text>
+<text x="555" y="56">1</text><text x="555" y="90">1</text><text x="555" y="124">1</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 190 51 L 254 51"/><path d="M 190 85 L 254 85"/><path d="M 190 119 L 254 119"/>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="166">The name loses its dots and is cut at the first +; the domain stays as written.</text>
+<text x="20" y="190">Three addresses, one mailbox: the answer is 1.</text>
+</g>
+</svg>

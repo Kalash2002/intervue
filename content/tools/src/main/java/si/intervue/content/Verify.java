@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ServiceLoader;
-import java.util.stream.Stream;
+import si.intervue.engine.content.PlainFolderSource;
 import si.intervue.engine.languages.LanguagePackage;
 import si.intervue.engine.runners.Calibration;
 import si.intervue.engine.runners.ProcessControl;
@@ -26,10 +26,11 @@ public final class Verify {
       System.err.println("Run from the repository root: content/problems was not found.");
       System.exit(2);
     }
+    Path dsa = Path.of("content", "dsa");
     List<String> ids = new ArrayList<>(List.of(args));
     if (ids.isEmpty()) {
-      try (Stream<Path> dirs = Files.list(problems)) {
-        dirs.filter(Files::isDirectory).sorted().forEach(d -> ids.add(d.getFileName().toString()));
+      for (Path root : List.of(problems, dsa)) {
+        ids.addAll(PlainFolderSource.folderNames(root));
       }
     }
     ProcessControl processes = new ProcessControl();
@@ -39,15 +40,27 @@ public final class Verify {
     boolean allOk = true;
     for (String id : ids) {
       VerifyReport report =
-          new ProblemVerifier(scratch, factor, processes).verify(problems.resolve(id));
+          new ProblemVerifier(scratch, factor, processes)
+              .verify(root(id, problems, dsa).resolve(id));
       System.out.println("## " + id);
       report.lines().forEach(System.out::println);
       System.out.println((report.ok() ? "OK      " : "FAILED  ") + id + System.lineSeparator());
       allOk &= report.ok();
     }
     ProblemVerifier.deleteTree(scratch);
+    // Once per run, after the problems: links are between folders, not owned by one of them.
+    List<String> linkErrors = CrossLinks.check(problems, dsa);
+    System.out.println("## cross-links");
+    linkErrors.forEach(e -> System.out.println("  FAIL  " + e));
+    System.out.println(linkErrors.isEmpty() ? "OK      cross-links" : "FAILED  cross-links");
+    System.out.println();
+    allOk &= linkErrors.isEmpty();
     System.out.println(allOk ? "All problems verified." : "Some problems FAILED verification.");
     System.exit(allOk ? 0 : 1);
+  }
+
+  private static Path root(String id, Path problems, Path dsa) {
+    return Files.isDirectory(dsa.resolve(id)) ? dsa : problems;
   }
 
   // Limits in content are reference-machine milliseconds, so verification runs at this machine's

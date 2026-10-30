@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "decode-ways",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Decode Ways",
+  "summary": "Count the messages of letters that could have been written as a given string of digits.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "string", "counting", "memoization"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if some digits were unreadable and could stand for any digit from 1 to 9?", "What if you had to list every message, not just count them?", "What if the digit string were a million digits long?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

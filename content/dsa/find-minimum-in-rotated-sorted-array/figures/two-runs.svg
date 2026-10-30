@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 260" width="640" height="260" role="img">
+<title>Find Minimum in Rotated Sorted Array on 31, 46, 52, 8, 14, 22: the range closes on index 3, which holds 8</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="196" y="22">upper run</text><text x="376" y="22">lower run</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="110" y="32" width="52" height="32"/><rect x="170" y="32" width="52" height="32"/>
+<rect x="230" y="32" width="52" height="32"/><rect x="350" y="32" width="52" height="32"/>
+<rect x="410" y="32" width="52" height="32"/>
+</g>
+<rect x="290" y="32" width="52" height="32" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">
+<text x="136" y="54">31</text><text x="196" y="54">46</text><text x="256" y="54">52</text>
+<text x="316" y="54" fill="#ffffff">8</text><text x="376" y="54">14</text><text x="436" y="54">22</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle" opacity="0.8">
+<text x="136" y="82">0</text><text x="196" y="82">1</text><text x="256" y="82">2</text>
+<text x="316" y="82">3</text><text x="376" y="82">4</text><text x="436" y="82">5</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 110 100 L 462 100"/>
+<path d="M 290 126 L 462 126"/>
+<path d="M 290 152 L 402 152"/>
+<path d="M 290 178 L 342 178"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="11" fill="#83748f">
+<text x="14" y="104">low 0, high 5</text>
+<text x="14" y="130">low 3, high 5</text>
+<text x="14" y="156">low 3, high 4</text>
+<text x="14" y="182">low 3, high 3</text>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="476" y="104">52 &gt; 22: low 3</text>
+<text x="476" y="130">14 &lt;= 22: high 4</text>
+<text x="476" y="156">8 &lt;= 14: high 3</text>
+<text x="476" y="182">answer 8</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="226">Compare the middle with the range's last value: larger means upper run.</text>
+</g>
+</svg>

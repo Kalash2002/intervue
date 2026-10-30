@@ -67,6 +67,23 @@ export function dashboardStats(
   };
 }
 
+/** How many of a section's problems are solved. */
+export function solvedBySection(
+  problems: readonly ProblemSummary[],
+  history: readonly SessionSummary[],
+  sectionId: string,
+): number {
+  return dashboardStats(
+    problems.filter((p) => p.section === sectionId),
+    history,
+  ).solved;
+}
+
+/** The problems that list `p` in their `coveredBy`, resolved against the catalogue; unknown ids are skipped. */
+export function covering(p: ProblemSummary, all: readonly ProblemSummary[]): ProblemSummary[] {
+  return p.coveredBy.flatMap((id) => all.find((q) => q.id === id) ?? []);
+}
+
 const RANK: Record<string, number> = { Easy: 0, Medium: 1, Hard: 2 };
 const rank = (p: ProblemSummary) => RANK[p.difficulty] ?? 9;
 

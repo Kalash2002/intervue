@@ -1,4 +1,5 @@
 import { useApp } from '../app-context.ts';
+import { plural } from '../lib/format.ts';
 import type { TimedSession } from '../lib/timed.ts';
 
 /**
@@ -13,7 +14,7 @@ export function OverviewPage({ session }: { session: TimedSession }) {
       <section className="home-intro">
         <p className="eyebrow">{view.title}</p>
         <h1>
-          {view.phases} phases, {view.minutes} minutes
+          {plural(view.phases, 'phase')}, {view.minutes} minutes
         </h1>
         <p>
           {view.timed ? 'The clock is running against the limit.' : 'A stopwatch counts the time; there is no limit.'}

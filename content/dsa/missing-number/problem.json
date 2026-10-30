@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "missing-number",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Missing Number",
+  "summary": "An array holds every number from 0 to n but one, in any order; find the one that is missing.",
+  "difficulty": "Easy",
+  "techniques": ["bit-manipulation"],
+  "tags": ["array", "xor", "math"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you find it in O(n) time with only a constant amount of extra memory, without changing nums?", "If nums were sorted, how fast could you find the missing number?", "What if the array held n numbers from 0 to n + 1, so that two were missing: how would you find both?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

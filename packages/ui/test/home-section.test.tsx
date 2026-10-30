@@ -3,7 +3,7 @@
 import { fireEvent, screen, within } from '@testing-library/react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { afterEach, describe, expect, it, vi } from 'vitest';
-import { fakeClient, problem, renderApp, session, summary } from './fixtures.tsx';
+import { fakeClient, problem, renderApp, section, session, summary } from './fixtures.tsx';
 
 const today = new Date(2026, 9, 15, 15).getTime();
 const yesterday = today - 24 * 60 * 60 * 1000;
@@ -60,7 +60,6 @@ describe('home', () => {
     expect(within(coding).getAllByRole('listitem')).toHaveLength(18);
     expect(within(coding).getByTitle('Intervals: 1 of 1 solved')).toHaveClass('done');
     expect(within(coding).getByTitle('Graphs: 0 of 1 solved')).not.toHaveClass('done');
-    expect(within(tracks).getByRole('article', { name: 'DSA' })).toHaveTextContent('Arrives in the next release');
 
     const recent = screen.getByLabelText('Recent results');
     expect(within(recent).getByText('Hold Exposure')).toBeInTheDocument();
@@ -85,6 +84,26 @@ describe('home', () => {
     renderApp(client());
     fireEvent.click(await screen.findByRole('button', { name: 'Open AI-assisted coding' }));
     expect(await screen.findByRole('heading', { name: 'AI-assisted coding' })).toBeInTheDocument();
+  });
+});
+
+describe('home solved card', () => {
+  it('shows one line per section from the sections list, counted by the problem section', async () => {
+    const dsaSection = { ...section, id: 'dsa-quick', title: 'DSA quick' };
+    const third = { ...section, id: 'sql', title: 'SQL drills' };
+    const dsa = problem('two-sum', 'Two Sum', { section: 'dsa-quick' });
+    renderApp(
+      fakeClient({
+        problems: vi.fn(async () => [...problems, dsa]),
+        history: vi.fn(async () => [...history, summary({ id: 'd', problemId: 'two-sum', sectionId: 'dsa-quick' })]),
+      }),
+      [section, dsaSection, third],
+    );
+
+    const card = await screen.findByLabelText('Solved');
+    expect(within(card).getByLabelText('AI-assisted coding solved')).toHaveTextContent('1');
+    expect(within(card).getByLabelText('DSA quick solved')).toHaveTextContent('1');
+    expect(within(card).getByLabelText('SQL drills solved')).toHaveTextContent('0');
   });
 });
 

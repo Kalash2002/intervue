@@ -1,10 +1,8 @@
 import { useState } from 'react';
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown } from '@intervue/ui';
-import { AssistantPanel } from './AssistantPanel.tsx';
+import { AssistantPanel, HintControl, type RoomActions } from '@intervue/room';
 import { GuidePanel } from './GuidePanel.tsx';
-import { HintControl } from './HintControl.tsx';
-import type { RoomActions } from './useRoomActions.ts';
 
 type Tab = 'Guide' | 'Brief' | 'Hints' | 'Assistant';
 
@@ -20,9 +18,8 @@ export function SidePanel({
   const [tab, setTab] = useState<Tab>('Guide');
   // Kept here, not in the Guide tab: the tab unmounts on every switch.
   const [started, setStarted] = useState<ReadonlySet<number>>(new Set());
-  // Hints exist only in Practice (PLAN.md 2.8); an Interview room never offers the tab.
-  const tabs: Tab[] =
-    view.type === 'PRACTICE' ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
+  // The engine decides where hints exist (Practice today); the tab follows it.
+  const tabs: Tab[] = view.hintsAllowed ? ['Guide', 'Brief', 'Hints', 'Assistant'] : ['Guide', 'Brief', 'Assistant'];
   return (
     <aside className="right">
       <div className="tabs side" role="tablist">
@@ -50,7 +47,14 @@ export function SidePanel({
         )}
         {tab === 'Brief' && <Brief view={view} onSkip={actions.skip} />}
         {tab === 'Hints' && <Hints view={view} onChange={onChange} beforeExplain={actions.saveFiles} />}
-        {tab === 'Assistant' && <AssistantPanel view={view} actions={actions} onChange={onChange} />}
+        {tab === 'Assistant' && (
+          <AssistantPanel
+            view={view}
+            actions={actions}
+            canWrite={view.channels.includes('WRITE_CODE')}
+            onChange={onChange}
+          />
+        )}
       </div>
     </aside>
   );
@@ -99,6 +103,7 @@ function Hints({
             phase={phase}
             used={view.hintsUsed[String(phase)] ?? 0}
             disabled={view.finished}
+            canExplain={view.channels.includes('ASK')}
             onRevealed={onChange}
             beforeExplain={beforeExplain}
           />

@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 352" width="640" height="352" role="img">
+<title>Sum of Two Integers, Example 1: the generate and propagate bits of 19 and 45 in eight bits, generate after each doubling of the blocks, and the sum 64</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="28">row</text><text x="370" y="28" text-anchor="middle">bit 7</text><text x="510" y="28" text-anchor="middle">bit 0</text>
+<text x="20" y="60">a = 19</text>
+<text x="20" y="86">b = 45</text>
+<text x="20" y="120">propagate: a ^ b</text>
+<text x="20" y="146">generate: a &amp; b</text>
+<text x="20" y="172">generate, blocks of 2</text>
+<text x="20" y="198">generate, blocks of 4</text>
+<text x="20" y="224">generate, blocks of 8, 16 and 32</text>
+<text x="20" y="258">carries in: generate &lt;&lt; 1</text>
+<text x="20" y="284">sum: propagate ^ carries in</text>
+<text x="540" y="284">= 64</text>
+</g>
+
+<rect x="383" y="268" width="14" height="22" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="370" y="60">0</text><text x="390" y="60">0</text><text x="410" y="60">0</text><text x="430" y="60">1</text><text x="450" y="60">0</text><text x="470" y="60">0</text><text x="490" y="60">1</text><text x="510" y="60">1</text>
+<text x="370" y="86">0</text><text x="390" y="86">0</text><text x="410" y="86">1</text><text x="430" y="86">0</text><text x="450" y="86">1</text><text x="470" y="86">1</text><text x="490" y="86">0</text><text x="510" y="86">1</text>
+<text x="370" y="120">0</text><text x="390" y="120">0</text><text x="410" y="120">1</text><text x="430" y="120">1</text><text x="450" y="120">1</text><text x="470" y="120">1</text><text x="490" y="120">1</text><text x="510" y="120">0</text>
+<text x="370" y="146">0</text><text x="390" y="146">0</text><text x="410" y="146">0</text><text x="430" y="146">0</text><text x="450" y="146">0</text><text x="470" y="146">0</text><text x="490" y="146">0</text><text x="510" y="146">1</text>
+<text x="370" y="172">0</text><text x="390" y="172">0</text><text x="410" y="172">0</text><text x="430" y="172">0</text><text x="450" y="172">0</text><text x="470" y="172">0</text><text x="490" y="172">1</text><text x="510" y="172">1</text>
+<text x="370" y="198">0</text><text x="390" y="198">0</text><text x="410" y="198">0</text><text x="430" y="198">0</text><text x="450" y="198">1</text><text x="470" y="198">1</text><text x="490" y="198">1</text><text x="510" y="198">1</text>
+<text x="370" y="224">0</text><text x="390" y="224">0</text><text x="410" y="224">1</text><text x="430" y="224">1</text><text x="450" y="224">1</text><text x="470" y="224">1</text><text x="490" y="224">1</text><text x="510" y="224">1</text>
+<text x="370" y="258">0</text><text x="390" y="258">1</text><text x="410" y="258">1</text><text x="430" y="258">1</text><text x="450" y="258">1</text><text x="470" y="258">1</text><text x="490" y="258">1</text><text x="510" y="258">0</text>
+<text x="370" y="284">0</text><text x="390" y="284" fill="#ffffff">1</text><text x="410" y="284">0</text><text x="430" y="284">0</text><text x="450" y="284">0</text><text x="470" y="284">0</text><text x="490" y="284">0</text><text x="510" y="284">0</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="318">Only bit 0 makes a carry and bits 1 to 5 pass it on, so carries</text>
+<text x="20" y="338">leave bits 0 to 5 and the sum keeps one 1, in bit 6: 64.</text>
+</g>
+</svg>

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Find Median, Example 1 after adding 6, -2, 11 and 3: two heaps split the numbers at the middle</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="170" y="28">lower half: max-heap</text>
+<text x="470" y="28">upper half: min-heap</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 170 102 L 170 138"/>
+<path d="M 470 102 L 470 138"/>
+<circle cx="170" cy="160" r="22"/>
+<circle cx="470" cy="160" r="22"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<circle cx="170" cy="80" r="22"/>
+<circle cx="470" cy="80" r="22"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle">
+<text x="170" y="85" fill="#ffffff">3</text>
+<text x="470" y="85" fill="#ffffff">6</text>
+<text x="170" y="165" fill="#83748f">-2</text>
+<text x="470" y="165" fill="#83748f">11</text>
+<text x="320" y="85" fill="#83748f">≤</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="212">Equal sizes, so the median is the average of the tops: (3 + 6) / 2 = 4.5.</text>
+<text x="20" y="234">With an odd count the lower half holds one more, and its top is the median.</text>
+</g>
+</svg>

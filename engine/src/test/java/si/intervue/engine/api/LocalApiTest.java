@@ -12,11 +12,19 @@ import java.net.http.HttpResponse.BodyHandlers;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.Clock;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import si.intervue.engine.ai.AiClient;
+import si.intervue.engine.ai.AiReply;
+import si.intervue.engine.ai.AiRequest;
+import si.intervue.engine.ai.AiStatus;
+import si.intervue.engine.ai.AiUsage;
+import si.intervue.engine.ai.UnavailableAiClient;
 import tools.jackson.databind.JsonNode;
 import tools.jackson.databind.json.JsonMapper;
 
@@ -30,11 +38,49 @@ class LocalApiTest {
   private Engine engine;
   private LocalApi api;
   private final HttpClient http = HttpClient.newHttpClient();
+  private final AtomicInteger aiCalls = new AtomicInteger();
+
+  /** A model double that answers every call and counts them; no test reaches a real CLI. */
+  private final AiClient stubAi =
+      new AiClient() {
+        private AiReply answer(Consumer<String> deltas) {
+          aiCalls.incrementAndGet();
+          deltas.accept("ok");
+          return new AiReply("ok", new AiUsage("stub", "test-model", 1, 1, 0));
+        }
+
+        @Override
+        public AiReply chat(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply edit(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply hintExplain(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiReply feedback(AiRequest request, Consumer<String> deltas) {
+          return answer(deltas);
+        }
+
+        @Override
+        public AiStatus status() {
+          return new AiStatus(true, true, null);
+        }
+      };
 
   @BeforeEach
   void start() throws Exception {
     Path problems = root.resolve("problems");
     copyTree(Path.of(getClass().getResource("/problems/tiny").toURI()), problems.resolve("tiny"));
+    copyTree(
+        Path.of(getClass().getResource("/dsa/tiny-dsa").toURI()), root.resolve("dsa/tiny-dsa"));
     open(false);
   }
 
@@ -46,7 +92,11 @@ class LocalApiTest {
     }
     engine =
         Engine.open(
-            root.resolve("data"), root.resolve("problems"), Clock.systemUTC(), developerMode);
+            root.resolve("data"),
+            root.resolve("problems"),
+            Clock.systemUTC(),
+            developerMode,
+            developerMode ? stubAi : new UnavailableAiClient(AiStatus.off()));
     api = LocalApi.start(engine, TOKEN, 0);
   }
 
@@ -169,6 +219,148 @@ class LocalApiTest {
     assertThat(answer.get("figures").size()).isEqualTo(1);
     assertThat(answer.get("figures").get("figures/stack.svg").asString())
         .startsWith("data:image/svg+xml;base64,");
+  }
+
+  @Test
+  void problemsListCarriesSectionAndCoveredBy() throws Exception {
+    JsonNode problems = call("GET", "/problems", null);
+
+    JsonNode dsa = problems.get(1);
+    assertThat(dsa.get("id").asString()).isEqualTo("tiny-dsa");
+    assertThat(dsa.get("section").asString()).isEqualTo("dsa-quick");
+    assertThat(dsa.get("coveredBy").get(0).asString()).isEqualTo("tiny");
+    assertThat(problems.get(0).get("coveredBy").size()).isZero();
+  }
+
+  @Test
+  void historyRowCarriesSectionId() throws Exception {
+    JsonNode session = call("POST", "/sessions", "{\"problemId\":\"tiny\",\"type\":\"INTERVIEW\"}");
+    call("POST", "/sessions/" + session.get("id").asString() + "/finish", null);
+
+    assertThat(call("GET", "/sessions", null).get(0).get("sectionId").asString())
+        .isEqualTo("coding-round");
+  }
+
+  @Test
+  void aOnePhaseProblemHasAWalkthrough() throws Exception {
+    assertThat(call("GET", "/problems/tiny-dsa/walkthrough", null).toString()).contains("Approach");
+  }
+
+  @Test
+  void aOnePhaseDsaSessionStartsRunsAndFinishes() throws Exception {
+    JsonNode session =
+        call("POST", "/sessions", "{\"problemId\":\"tiny-dsa\",\"type\":\"PRACTICE\"}");
+    String s = "/sessions/" + session.get("id").asString();
+    call(
+        "PUT",
+        s + "/file?path=Calc.java",
+        "{\"text\":" + JSON.writeValueAsString(fixedCalc()) + "}");
+    call("POST", s + "/run", "{\"target\":\"phase:1\"}");
+    JsonNode finished = call("POST", s + "/finish", null);
+
+    assertThat(finished.get("result").get("score").get("label").asString()).isEqualTo("Practice");
+    assertThat(finished.get("result").get("score").get("total").asInt()).isEqualTo(100);
+    assertThat(call("GET", "/sessions", null).get(0).get("sectionId").asString())
+        .isEqualTo("dsa-quick");
+  }
+
+  private String start(String problem, String type) throws Exception {
+    return "/sessions/"
+        + call("POST", "/sessions", "{\"problemId\":\"" + problem + "\",\"type\":\"" + type + "\"}")
+            .get("id")
+            .asString();
+  }
+
+  @Test
+  void askOnADsaSessionIs400() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+    HttpResponse<String> response = send("POST", s + "/ask", "{\"message\":\"hi\"}", TOKEN);
+
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("no assistant");
+  }
+
+  @Test
+  void writeOnADsaSessionIs400() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+    HttpResponse<String> response = send("POST", s + "/write", "{\"message\":\"hi\"}", TOKEN);
+
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("cannot write code");
+  }
+
+  @Test
+  void hintExplainOnADsaSessionIs400() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+    call("POST", s + "/hints", "{\"phase\":1}");
+    HttpResponse<String> response = send("POST", s + "/hints/explain", "{\"phase\":1}", TOKEN);
+
+    assertThat(response.statusCode()).isEqualTo(400);
+    assertThat(response.body()).contains("no assistant");
+  }
+
+  @Test
+  void dsaInterviewSessionRevealsHints() throws Exception {
+    String s = start("tiny-dsa", "INTERVIEW");
+
+    assertThat(call("POST", s + "/hints", "{\"phase\":1}").get("level").asInt()).isEqualTo(1);
+  }
+
+  @Test
+  void codingRoundInterviewStillRefusesHints() throws Exception {
+    String s = start("tiny", "INTERVIEW");
+
+    assertThat(send("POST", s + "/hints", "{\"phase\":1}", TOKEN).statusCode()).isEqualTo(400);
+  }
+
+  @Test
+  void codingRoundAskStillWorks() throws Exception {
+    open(true);
+    HttpResponse<String> response =
+        send("POST", start("tiny", "INTERVIEW") + "/ask", "{\"message\":\"hi\"}", TOKEN);
+
+    // Past the channel check the call reaches the assistant and the stub model answers.
+    assertThat(response.statusCode()).as(response.body()).isNotEqualTo(400);
+    assertThat(aiCalls.get()).isEqualTo(1);
+  }
+
+  @Test
+  void finishingADsaSessionMakesNoModelCallAndHasNoReview() throws Exception {
+    open(true);
+    String s = start("tiny-dsa", "INTERVIEW");
+    call("POST", s + "/finish", null);
+
+    JsonNode review = call("GET", s + "/review", null);
+
+    assertThat(review.get("status").asString()).isEqualTo("unavailable");
+    assertThat(review.get("reason").asString()).contains("no written review");
+    assertThat(aiCalls.get()).isZero();
+  }
+
+  @Test
+  void finishingACodingRoundSessionStillRequestsTheReview() throws Exception {
+    open(true);
+    String s = start("tiny", "INTERVIEW");
+    call("POST", s + "/finish", null);
+
+    for (int i = 0; i < 100 && aiCalls.get() == 0; i++) {
+      Thread.sleep(50);
+    }
+    assertThat(aiCalls.get()).isEqualTo(1);
+  }
+
+  @Test
+  void sessionViewCarriesChannelsAndHintsAllowed() throws Exception {
+    JsonNode dsa = call("GET", start("tiny-dsa", "INTERVIEW"), null);
+    JsonNode coding = call("GET", start("tiny", "INTERVIEW"), null);
+    JsonNode codingPractice = call("GET", start("tiny", "PRACTICE"), null);
+
+    assertThat(dsa.get("channels").size()).isZero();
+    assertThat(dsa.get("hintsAllowed").asBoolean()).isTrue();
+    assertThat(coding.get("channels").get(0).asString()).isEqualTo("ASK");
+    assertThat(coding.get("channels").get(1).asString()).isEqualTo("WRITE_CODE");
+    assertThat(coding.get("hintsAllowed").asBoolean()).isFalse();
+    assertThat(codingPractice.get("hintsAllowed").asBoolean()).isTrue();
   }
 
   @Test

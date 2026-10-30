@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "invert-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Invert Binary Tree",
+  "summary": "Mirror a binary tree in place by swapping the two children of every node.",
+  "difficulty": "Easy",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "recursion", "depth-first-search"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you do it without recursion, and when does that matter?", "How would you check whether a tree is its own mirror image?", "What changes if the original tree must stay untouched?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Minimum Interval to Include Each Query, Example 1: the sweep over the points in order of post with a heap of open zones</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="24">point</text><text x="104" y="24">zones added</text><text x="214" y="24">thrown away</text><text x="300" y="24">open zones by size</text><text x="566" y="24">answer</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f">
+<text x="20" y="60">9</text><text x="104" y="60">none</text><text x="300" y="60">empty</text>
+<text x="20" y="100">15</text><text x="104" y="100">[10,18]</text><text x="104" y="116">[14,15]</text>
+<text x="20" y="140">17</text><text x="104" y="140">[16,30]</text><text x="214" y="140">[14,15]</text>
+<text x="20" y="180">26</text><text x="104" y="180">[25,27]</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="11" fill="#83748f">
+<text x="20" y="74">position 2</text><text x="20" y="114">position 0</text><text x="20" y="154">position 3</text><text x="20" y="194">position 1</text>
+<text x="214" y="154">ended at 15</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="300" y="86" width="76" height="22"/><rect x="382" y="86" width="76" height="22"/>
+<rect x="300" y="126" width="76" height="22"/><rect x="382" y="126" width="76" height="22"/>
+<rect x="300" y="166" width="76" height="22"/><rect x="464" y="166" width="76" height="22"/>
+</g>
+<rect x="382" y="166" width="76" height="22" fill="none" stroke="#83748f" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="12" fill="#83748f" text-anchor="middle">
+<text x="338" y="101">2 [14,15]</text><text x="420" y="101">9 [10,18]</text>
+<text x="338" y="141">9 [10,18]</text><text x="420" y="141">15 [16,30]</text>
+<text x="338" y="181">3 [25,27]</text><text x="420" y="181">9 [10,18]</text><text x="502" y="181">15 [16,30]</text>
+</g>
+
+<rect x="560" y="126" width="48" height="22" rx="4" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="584" y="61">-1</text>
+<text x="584" y="101">2</text>
+<text x="584" y="141" fill="#ffffff">9</text>
+<text x="584" y="181">3</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="12" fill="#83748f">
+<text x="20" y="222">Each box is a zone's size and stretch; the leftmost is the top. At 26, [10,18] has ended but is</text>
+<text x="20" y="240">not on top (dashed), so it waits. Put back by position, the answers are [2,3,-1,9].</text>
+</g>
+</svg>

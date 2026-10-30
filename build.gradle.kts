@@ -36,4 +36,17 @@ subprojects {
         useJUnitPlatform()
         finalizedBy("jacocoTestReport")
     }
+
+    // Every section package is a project named "java"; name its jar for the section so lib/ in
+    // :engine:engineDist keeps one jar per section. section.json and the prompts ship inside the jar
+    // under sections/<id>/: every section jar is on one classpath, so a bare /section.json would
+    // resolve to whichever jar comes first.
+    if (path.matches(Regex(":sections:[^:]+:java"))) {
+        val sectionId = parent!!.name
+        extensions.configure<BasePluginExtension> { archivesName = sectionId }
+        tasks.named<ProcessResources>("processResources") {
+            from("../section.json") { into("sections/$sectionId") }
+            from("../prompts") { into("sections/$sectionId/prompts") }
+        }
+    }
 }

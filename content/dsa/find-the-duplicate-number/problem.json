@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "find-the-duplicate-number",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Find the Duplicate Number",
+  "summary": "Find the one repeated value among n + 1 values from 1 to n without changing the array.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["array", "floyd-cycle", "fast-slow-pointers"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why does the walk from index 0 always reach a loop, and why does it enter the loop at the duplicate?", "Why does the sum of the values not give the answer?", "What would you do if the array could be changed?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

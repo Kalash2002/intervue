@@ -78,7 +78,7 @@ Both exist because the practice must run on the user's machine (decision 9) whil
 
 ### Session types and the assistant
 
-A session starts as **Interview** or **Practice** (section 2.8). Interview is the timed rehearsal: no hints, the full score, and proctoring later; the assistant follows point-and-explain rules (it names the place and the logic, writes code only for a named piece), and a passing Interview session counts as solved whether or not the assistant edited code; the written review grades how the AI was driven (ADR 0006). Practice is for learning: a stopwatch instead of a limit, three authored hint levels per phase with an online "explain further", Write code without a label, and a score shown as "Practice" that never counts as solved. In both types the assistant has two channels, **Ask** and **Write code**; Write code edits the session's copy of the files immediately with one-click undo, the problem source is never touched, and "Reset problem" recreates the copy.
+A session starts as **Interview** or **Practice** (section 2.8). Interview is the timed rehearsal: no hints unless the section allows them (ADR 0012), the full score, and proctoring later; the assistant follows point-and-explain rules (it names the place and the logic, writes code only for a named piece), and a passing Interview session counts as solved whether or not the assistant edited code; the written review grades how the AI was driven (ADR 0006). Practice is for learning: a stopwatch instead of a limit, three authored hint levels per phase with an online "explain further", Write code without a label, and a score shown as "Practice" that never counts as solved. In both types the assistant has two channels, **Ask** and **Write code**, unless the section has none (ADR 0012: `dsa-quick`, which has no assistant); Write code edits the session's copy of the files immediately with one-click undo, the problem source is never touched, and "Reset problem" recreates the copy.
 
 ### Filtering
 
@@ -92,7 +92,7 @@ Every problem carries: section, techniques (one or more from the NeetCode 150 to
 | Compile, run, phase unlock, timeline, clock | Yes | Yes |
 | Score, per-phase results, walkthrough, follow-up questions, notes | Yes, computed locally | Yes |
 | AI assistant, Ask and Write code | No. The session page shows "Offline: no assistant this session" before the clock starts, and the timeline records the session as assistant-less | Yes, through the backend |
-| Hints (Practice only) | Yes, authored levels are pack content | Yes, plus "explain this hint further" |
+| Hints (Practice; Interview where the section allows it, ADR 0012) | Yes, authored levels are pack content | Yes, plus "explain this hint further" |
 | Editor autocomplete and compiler diagnostics | Yes | Yes |
 | Language-server IntelliSense | Yes if the server was downloaded earlier | Yes |
 | Written feedback | No. The result page shows "Request feedback when online"; the request is queued | Yes, streamed; for synced offline sessions, requested later and attached |
@@ -227,7 +227,7 @@ One backend path for every model call. The app never holds an API key.
 |---|---|---|
 | `POST /v1/ai/chat` (SSE) | Assistant reply for a session | Body: `{sessionId, problemRef:{packId, problemId, lang}, mode, message, files:[{path, content, readOnly}], history:[last N turns]}`. The backend holds the brief and the rules, so the app sends only files and history |
 | `POST /v1/ai/edit` (SSE) | Write code channel | Same body as chat plus `target` (optional file or method named by the user) and per-file hashes; streams the edit protocol of section 2.8; costs three message-equivalents |
-| `POST /v1/ai/hint-explain` (SSE) | Practice only | Body: `{sessionId, problemRef, phase, level, files, history}`; the backend reads the authored hint text from the pack; Ask rules; one message-equivalent |
+| `POST /v1/ai/hint-explain` (SSE) | Wherever hints are allowed, in sections with the Ask channel | Body: `{sessionId, problemRef, phase, level, files, history}`; the backend reads the authored hint text from the pack; Ask rules; one message-equivalent |
 | `POST /v1/ai/feedback` | Written review | Body: `{sessionId}`; the backend reads the synced session including edit and hint events. Returns a job id; result delivered by SSE or by pull |
 | `GET /v1/ai/usage` | Remaining allowance | Shown in the app header |
 
@@ -342,7 +342,7 @@ Added 2026-10-14 after your request for a Hello Interview style assistant with "
 |---|---|---|
 | Purpose | Rehearse the real round | Learn the problem |
 | Clock | Enforced limit from `problem.json`, time score applies | Stopwatch by default; the user may switch the limit on; no time score |
-| Hints | None; the Hint button is hidden | Three authored levels per phase, plus "explain this hint further" online |
+| Hints | None, and the Hint button is hidden, unless the section allows hints in Interview (`hintsInInterview()`, ADR 0012: `dsa-quick`); then three authored levels, no explain | Three authored levels per phase, plus "explain this hint further" online where the section has Ask |
 | Ask channel | Point-and-explain rules (below) | Helpful by default, point-and-explain rules selectable |
 | Write code channel | Allowed for a piece the candidate names after stating the approach; every applied edit is recorded and the count is shown on the result page | Allowed |
 | Score | Full formula; shown as "Interview" | Correctness and phase results only; shown as "Practice" |
@@ -358,7 +358,7 @@ The session type is chosen on the start screen and recorded in `sessions.session
 
 - **Ask**: today's chat. Receives the brief, the files, the history and the message; replies in text.
 - **Write code**: the same context plus the section's `prompts/write-code.md`, which asks the model to return edits in the protocol below and a short note for the chat. If the user names a file or a method in the message, the prompt instructs the model to confine edits to it; otherwise every editable file is in scope. Read-only files are listed as "do not edit" and the engine enforces it regardless.
-- **Explain this hint**: Practice only, online only; the revealed hint text plus files and history, Ask rules, one message-equivalent.
+- **Explain this hint**: wherever hints are allowed, online only, and only in sections with the Ask channel; the revealed hint text plus files and history, Ask rules, one message-equivalent.
 
 #### Edit protocol
 
@@ -404,7 +404,7 @@ On the Write code channel: write only the piece the candidate named (a method, a
 
 #### Hints
 
-Each problem has `hints/phase<N>.md` with three sections: level 1 points at where to look, level 2 names the approach, level 3 gives concrete steps without code. The content tool refuses a problem that lacks any level for any phase. Hints are pack content, so they work offline. A `hint {phase, level}` event records each reveal. In Practice mode the Hint button reveals the next level; "explain further" sends the revealed text to the Ask channel online. Interview mode shows no hints at all, which also means no hint deductions exist in the score.
+Each problem has `hints/phase<N>.md` with three sections: level 1 points at where to look, level 2 names the approach, level 3 gives concrete steps without code. The content tool refuses a problem that lacks any level for any phase. Hints are pack content, so they work offline. A `hint {phase, level}` event records each reveal. In Practice mode the Hint button reveals the next level; "explain further" sends the revealed text to the Ask channel online. Interview mode shows no hints unless the section allows them (ADR 0012; the DSA section does, and has no assistant, so no explain), and hints never deduct from the score.
 
 #### Editor assistance
 

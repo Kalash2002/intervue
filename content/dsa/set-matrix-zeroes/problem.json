@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "set-matrix-zeroes",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Set Matrix Zeroes",
+  "summary": "Set to zero every cell whose row or column holds a zero, in place.",
+  "difficulty": "Medium",
+  "techniques": ["math-geometry"],
+  "tags": ["array", "matrix", "in-place"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it with only a constant amount of extra memory?", "What if the grid arrives one row at a time, as a stream?", "What if a failed sensor cleared only its four neighbours instead of its whole row and column?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

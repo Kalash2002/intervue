@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "jump-game",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Jump Game",
+  "summary": "Decide whether springs on a row of platforms can carry you from the first platform to the last.",
+  "difficulty": "Medium",
+  "techniques": ["greedy"],
+  "tags": ["array", "reachability", "farthest-reach"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you had to return the fewest jumps instead?", "What if some platforms were broken and could not be landed on?", "What if each spring threw you exactly its strength, forwards or backwards?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

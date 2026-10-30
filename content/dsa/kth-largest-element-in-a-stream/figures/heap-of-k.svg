@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" width="640" height="250" role="img">
+<title>Kth Largest Element in a Stream, Example 1 with k = 2: the min-heap holds the two largest values and its top is the answer</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="110" y="30">start: -1 is dropped</text>
+<text x="320" y="30">add(9): 5 leaves</text>
+<text x="530" y="30">add(10): 8 leaves</text>
+</g>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 110 102 L 110 138"/>
+<path d="M 320 102 L 320 138"/>
+<path d="M 530 102 L 530 138"/>
+<circle cx="110" cy="160" r="22"/>
+<circle cx="320" cy="160" r="22"/>
+<circle cx="530" cy="160" r="22"/>
+</g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5">
+<circle cx="110" cy="80" r="22"/>
+<circle cx="320" cy="80" r="22"/>
+<circle cx="530" cy="80" r="22"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle">
+<text x="110" y="85" fill="#ffffff">5</text>
+<text x="320" y="85" fill="#ffffff">8</text>
+<text x="530" y="85" fill="#ffffff">9</text>
+<text x="110" y="165" fill="#83748f">8</text>
+<text x="320" y="165" fill="#83748f">9</text>
+<text x="530" y="165" fill="#83748f">10</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="212">The top (purple) is the smallest of the two largest: the answer.</text>
+<text x="20" y="234">add(3) and add(-4) are not above the top, so they change nothing.</text>
+</g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "median-of-two-sorted-arrays",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Median of Two Sorted Arrays",
+  "summary": "Find the median of the values of two sorted arrays taken together, without merging them.",
+  "difficulty": "Hard",
+  "techniques": ["binary-search"],
+  "tags": ["array", "divide-and-conquer"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in O(log(min(m, n))) time, where m and n are the two lengths?", "How would you find the k-th smallest value of the two arrays instead of the median?", "What if there were many sorted arrays instead of two?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

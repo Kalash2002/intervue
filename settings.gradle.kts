@@ -6,4 +6,6 @@ include("shared-java:run-protocol")
 include("shared-java:problem-format")
 include("languages:java:runner")
 include("content:tools")
-include("sections:coding-round:java")
+// Every section package is found by folder, so adding a section edits no build file.
+file("sections").listFiles { f -> file("${f.path}/java").isDirectory }.orEmpty().sorted()
+    .forEach { include("sections:${it.name}:java") }

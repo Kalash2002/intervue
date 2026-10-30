@@ -17,6 +17,8 @@ export interface ProblemSummary {
   phases: number;
   /** In the free list (ADR 0001). */
   free: boolean;
+  /** Coding-round problem ids this question covers (DSA); empty otherwise. */
+  coveredBy: string[];
 }
 
 export interface PhaseResult {
@@ -99,6 +101,10 @@ export interface SessionView {
   aiEditsActive: number;
   aiEditsApplied: number;
   aiEditsUndone: number;
+  /** The assistant channels the section enables ("ASK", "WRITE_CODE"); empty means no assistant. */
+  channels: string[];
+  /** Whether this session may reveal hints (Practice, or a section that allows them in Interview). */
+  hintsAllowed: boolean;
   /** The intro, then one entry per phase; null while that phase is locked. */
   brief: (string | null)[];
   notes: string;
@@ -109,6 +115,7 @@ export interface SessionView {
 export interface SessionSummary {
   id: string;
   problemId: string;
+  sectionId: string;
   type: SessionType;
   startedAt: number;
   finished: boolean;

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "find-minimum-in-rotated-sorted-array",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Find Minimum in Rotated Sorted Array",
+  "summary": "Find the smallest value of a strictly increasing array whose leading values were moved to the end.",
+  "difficulty": "Medium",
+  "techniques": ["binary-search"],
+  "tags": ["array", "rotated-array"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you find it in O(log n) time?", "What if values could repeat?", "How would you also return how many positions the array was rotated by?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

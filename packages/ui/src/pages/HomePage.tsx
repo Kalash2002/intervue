@@ -4,14 +4,12 @@
 import type { SessionSummary } from '@intervue/local-engine-client';
 import { useApp } from '../app-context.ts';
 import { ContinueCard } from '../components/ContinueCard.tsx';
-import { PlannedTrackCard, TrackCard } from '../components/TrackCard.tsx';
+import { TrackCard } from '../components/TrackCard.tsx';
 import { titleOf, useCatalogue, useOpeners, type Catalogue } from '../hooks.ts';
 import { dateText, plural } from '../lib/format.ts';
-import { nextUp } from '../lib/progress.ts';
+import { nextUp, solvedBySection } from '../lib/progress.ts';
 import { streak, weekStrip } from '../lib/streak.ts';
 
-/** Sections the roadmap promises but no package ships yet; Home shows them as placeholders. */
-const PLANNED = [{ id: 'dsa-quick', title: 'DSA' }];
 const RECENT = 5;
 
 export function HomePage() {
@@ -31,7 +29,12 @@ export function HomePage() {
           <Recent {...data} />
         </div>
       )}
-      {data && <StreakCard history={data.history} />}
+      {data && (
+        <aside className="aside">
+          <SolvedCard {...data} />
+          <StreakCard history={data.history} />
+        </aside>
+      )}
     </main>
   );
 }
@@ -106,9 +109,6 @@ function Tracks({ problems, history }: Catalogue) {
             onCell={(track) => go({ name: 'section', sectionId: s.id, track })}
           />
         ))}
-        {PLANNED.filter((p) => !sections.some((s) => s.id === p.id)).map((p) => (
-          <PlannedTrackCard key={p.id} title={p.title} />
-        ))}
       </div>
     </section>
   );
@@ -157,26 +157,41 @@ function Recent({ problems, history }: Catalogue) {
   );
 }
 
+function SolvedCard({ problems, history }: Catalogue) {
+  const { sections } = useApp();
+  return (
+    <div className="card" aria-label="Solved">
+      <p className="eyebrow">Solved</p>
+      <dl className="stats">
+        {sections.map((s) => (
+          <div key={s.id} aria-label={`${s.title} solved`}>
+            <dd>{solvedBySection(problems, history, s.id)}</dd>
+            <dt>{s.title} solved</dt>
+          </div>
+        ))}
+      </dl>
+    </div>
+  );
+}
+
 function StreakCard({ history }: { history: SessionSummary[] }) {
   const { current, best } = streak(history);
   const days = weekStrip(history);
   return (
-    <aside className="aside">
-      <div className="card" aria-label="Streak">
-        <p className="eyebrow">Streak</p>
-        <p className="streak">
-          <b>{plural(current, 'day')}</b>
-          <span className="hint">best {best}</span>
-        </p>
-        <ol className="week" aria-label="Last seven days">
-          {days.map((d, i) => (
-            <li key={i} className={d.done ? 'done' : ''} title={d.done ? `${d.label}: a session finished` : d.label}>
-              <span className="dot" aria-hidden="true" />
-              {d.label}
-            </li>
-          ))}
-        </ol>
-      </div>
-    </aside>
+    <div className="card" aria-label="Streak">
+      <p className="eyebrow">Streak</p>
+      <p className="streak">
+        <b>{plural(current, 'day')}</b>
+        <span className="hint">best {best}</span>
+      </p>
+      <ol className="week" aria-label="Last seven days">
+        {days.map((d, i) => (
+          <li key={i} className={d.done ? 'done' : ''} title={d.done ? `${d.label}: a session finished` : d.label}>
+            <span className="dot" aria-hidden="true" />
+            {d.label}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }

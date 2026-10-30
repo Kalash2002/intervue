@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "regular-expression-matching",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Regular Expression Matching",
+  "summary": "Decide whether a pattern of letters, dots and stars matches the whole of a text.",
+  "difficulty": "Hard",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "strings", "pattern-matching", "recursion"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if the text arrived one letter at a time and was too long to keep in memory?", "What if the pattern could also use + for one or more copies and ? for at most one?", "What if the pattern only had to match some stretch of the text, not all of it?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 270" width="640" height="270" role="img">
+<title>Container With Most Water on [3, 9, 2, 8, 4, 7, 1]: the walls at positions 1 and 5 form a tank of width 4 and level 7</title>
+
+<rect x="90.0" y="92" width="200.0" height="98" fill="#7c3aed" fill-opacity="0.15" stroke="#7c3aed" stroke-width="1.5" stroke-dasharray="4 3"/>
+<g fill="none" stroke="#83748f" stroke-width="1.5"><rect x="20" y="148" width="40" height="42"/><rect x="120" y="162" width="40" height="28"/><rect x="170" y="78" width="40" height="112"/><rect x="220" y="134" width="40" height="56"/><rect x="320" y="176" width="40" height="14"/><path d="M 12 190 L 368 190"/></g>
+<g fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"><rect x="70" y="64" width="40" height="126"/><rect x="270" y="92" width="40" height="98"/></g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle"><text x="40.0" y="142">3</text><text x="40.0" y="208">0</text><text x="90.0" y="84" fill="#ffffff">9</text><text x="90.0" y="208">1</text><text x="140.0" y="156">2</text><text x="140.0" y="208">2</text><text x="190.0" y="72">8</text><text x="190.0" y="208">3</text><text x="240.0" y="128">4</text><text x="240.0" y="208">4</text><text x="290.0" y="112" fill="#ffffff">7</text><text x="290.0" y="208">5</text><text x="340.0" y="170">1</text><text x="340.0" y="208">6</text></g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f"><text x="20" y="226">Walls 1 and 5 (heights 9 and 7): level 7, width 4, volume 28.</text><text x="20" y="248">Positions are under the bars; the dashed box is the tank.</text></g>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "meeting-rooms",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Meeting Rooms",
+  "summary": "Decide whether one meeting room can hold every booking without two of them clashing.",
+  "difficulty": "Easy",
+  "techniques": ["intervals"],
+  "tags": ["array", "sorting"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if you must also say which two bookings clash?", "How many rooms would the bookings need when one is not enough?", "What if the bookings arrive one at a time, and each must be accepted or refused as it comes in?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

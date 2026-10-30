@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "lru-cache",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "LRU Cache",
+  "summary": "Design a fixed-size cache whose get and put run in constant time and evict the least recently used key.",
+  "difficulty": "Medium",
+  "techniques": ["linked-list"],
+  "tags": ["design", "hash-map", "doubly-linked-list"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Why use sentinel nodes at both ends of the list?", "How would you make the cache safe to use from several threads?", "How would you evict the least frequently used key instead?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

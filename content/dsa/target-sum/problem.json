@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "target-sum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Target Sum",
+  "summary": "Count the ways to put a plus or minus sign before each number so that the signed numbers add up to a target.",
+  "difficulty": "Medium",
+  "techniques": ["dp-2d"],
+  "tags": ["dynamic-programming", "subset-sum", "counting", "knapsack"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if each number could also be left out, so that it counted as plus, minus or nothing?", "What if the numbers could be negative?", "What if there were only 40 numbers but each could be as large as 10^9?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

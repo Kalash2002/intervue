@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" width="640" height="310" role="img">
+<title>Valid Sudoku on the first example board: when cell (2, 7) holding 5 is reached, its row, column and box records are checked</title>
+<rect x="230" y="76" width="30" height="30" fill="#7c3aed"/>
+<g stroke="#83748f" stroke-width="1" fill="none" opacity="0.6">
+<path d="M 20 16 L 20 286"/><path d="M 20 16 L 290 16"/>
+<path d="M 50 16 L 50 286"/><path d="M 20 46 L 290 46"/>
+<path d="M 80 16 L 80 286"/><path d="M 20 76 L 290 76"/>
+<path d="M 110 16 L 110 286"/><path d="M 20 106 L 290 106"/>
+<path d="M 140 16 L 140 286"/><path d="M 20 136 L 290 136"/>
+<path d="M 170 16 L 170 286"/><path d="M 20 166 L 290 166"/>
+<path d="M 200 16 L 200 286"/><path d="M 20 196 L 290 196"/>
+<path d="M 230 16 L 230 286"/><path d="M 20 226 L 290 226"/>
+<path d="M 260 16 L 260 286"/><path d="M 20 256 L 290 256"/>
+<path d="M 290 16 L 290 286"/><path d="M 20 286 L 290 286"/>
+</g>
+<g stroke="#83748f" stroke-width="2.5" fill="none">
+<path d="M 20 16 L 20 286"/><path d="M 20 16 L 290 16"/>
+<path d="M 110 16 L 110 286"/><path d="M 20 106 L 290 106"/>
+<path d="M 200 16 L 200 286"/><path d="M 20 196 L 290 196"/>
+<path d="M 290 16 L 290 286"/><path d="M 20 286 L 290 286"/>
+</g>
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="15" fill="#83748f" text-anchor="middle">
+<text x="35" y="36">1</text>
+<text x="125" y="36">4</text>
+<text x="215" y="36">7</text>
+<text x="95" y="66">6</text>
+<text x="185" y="66">9</text>
+<text x="275" y="66">3</text>
+<text x="65" y="96">8</text>
+<text x="155" y="96">2</text>
+<text x="245" y="96" fill="#ffffff">5</text>
+<text x="35" y="126">2</text>
+<text x="125" y="126">5</text>
+<text x="215" y="126">8</text>
+<text x="95" y="156">7</text>
+<text x="185" y="156">1</text>
+<text x="275" y="156">4</text>
+<text x="65" y="186">9</text>
+<text x="155" y="186">3</text>
+<text x="245" y="186">6</text>
+<text x="35" y="216">3</text>
+<text x="125" y="216">6</text>
+<text x="215" y="216">9</text>
+<text x="95" y="246">8</text>
+<text x="185" y="246">2</text>
+<text x="275" y="246">5</text>
+<text x="65" y="276">1</text>
+<text x="155" y="276">4</text>
+<text x="245" y="276">7</text>
+</g>
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="330" y="40">Cell (row 2, column 7) holds 5.</text>
+<text x="330" y="80">row 2 has seen: 8, 2</text>
+<text x="330" y="106">column 7 has seen: nothing</text>
+<text x="330" y="132">box 2 has seen: 7, 3</text>
+<text x="330" y="152" font-size="12">box = 2 / 3 * 3 + 7 / 3 = 2</text>
+<text x="330" y="196">5 is in none of the three, so the</text>
+<text x="330" y="216">cell is fine. Mark 5 in row 2,</text>
+<text x="330" y="236">column 7 and box 2, then go on.</text>
+</g>
+</svg>

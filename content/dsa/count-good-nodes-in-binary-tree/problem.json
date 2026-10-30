@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "count-good-nodes-in-binary-tree",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Count Good Nodes in Binary Tree",
+  "summary": "Count the nodes of a binary tree whose value is at least every value on the path from the root down to them.",
+  "difficulty": "Medium",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "depth-first-search", "recursion"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if a tie no longer counts as good?", "How would you do it without recursion?", "How would you return the good nodes themselves rather than their number?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

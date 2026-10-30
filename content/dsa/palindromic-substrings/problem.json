@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "palindromic-substrings",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Palindromic Substrings",
+  "summary": "Count the runs of neighbouring letters in a string that read the same forwards and backwards.",
+  "difficulty": "Medium",
+  "techniques": ["dp-1d"],
+  "tags": ["dynamic-programming", "string", "palindrome", "counting"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you count them in O(n) time?", "What if equal substrings at different positions were counted only once?", "What if only palindromes of at least k letters counted?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

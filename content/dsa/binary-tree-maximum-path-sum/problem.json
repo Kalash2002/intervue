@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "binary-tree-maximum-path-sum",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Binary Tree Maximum Path Sum",
+  "summary": "Return the largest sum of values along any path between two nodes of a binary tree.",
+  "difficulty": "Hard",
+  "techniques": ["trees"],
+  "tags": ["binary-tree", "depth-first-search", "post-order", "dynamic-programming"],
+  "domain": "dsa",
+  "minutes": 45,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["How would you return the path itself, not only its sum?", "What changes if a path must run from one leaf to another leaf?", "How would you find the path with the most nodes instead of the largest sum?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" width="640" height="280" role="img">
+<title>Subsets, Example 1: the in-or-out tree for 4, -2 and 7, whose eight leaves are the eight subsets</title>
+
+<g stroke="#83748f" stroke-width="1.5" fill="none">
+<path d="M 320 46 L 160 79"/>
+<path d="M 320 46 L 480 79"/>
+<path d="M 160 101 L 80 134"/>
+<path d="M 160 101 L 240 134"/>
+<path d="M 480 101 L 400 134"/>
+<path d="M 480 101 L 560 134"/>
+<path d="M 80 156 L 40 189"/>
+<path d="M 80 156 L 120 189"/>
+<path d="M 240 156 L 200 189"/>
+<path d="M 240 156 L 280 189"/>
+<path d="M 400 156 L 360 189"/>
+<path d="M 400 156 L 440 189"/>
+<path d="M 560 156 L 520 189"/>
+<path d="M 560 156 L 600 189"/>
+</g>
+<rect x="168" y="191" width="64" height="22" rx="4" fill="#7c3aed"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="320" y="40">[]</text>
+<text x="160" y="95">[4]</text>
+<text x="480" y="95">[]</text>
+<text x="80" y="150">[4,-2]</text>
+<text x="240" y="150">[4]</text>
+<text x="400" y="150">[-2]</text>
+<text x="560" y="150">[]</text>
+<text x="40" y="207">[4,-2,7]</text>
+<text x="120" y="207">[4,-2]</text>
+<text x="200" y="207" fill="#ffffff">[4,7]</text>
+<text x="280" y="207">[4]</text>
+<text x="360" y="207">[-2,7]</text>
+<text x="440" y="207">[-2]</text>
+<text x="520" y="207">[7]</text>
+<text x="600" y="207">[]</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="246">Rows decide 4, then -2, then 7: left is in, right is out.</text>
+<text x="20" y="268">Purple: 4 in, -2 out, 7 in. The 8 leaves are the 8 subsets.</text>
+</g>
+</svg>

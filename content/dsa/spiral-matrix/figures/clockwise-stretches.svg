@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 280" width="640" height="280" role="img">
+<title>Spiral Matrix, Example 1: the robot's path over the 4 x 5 floor, with the length of every straight stretch</title>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<rect x="41" y="41" width="54" height="42" fill="#7c3aed" stroke="#7c3aed" stroke-width="1"/>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="40" y="40" width="280" height="176"/>
+</g>
+<g fill="none" stroke="#83748f" stroke-width="0.75">
+<path d="M 96 40 L 96 216 M 152 40 L 152 216 M 208 40 L 208 216 M 264 40 L 264 216"/>
+<path d="M 40 84 L 320 84 M 40 128 L 320 128 M 40 172 L 320 172"/>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="68" y="58" fill="#ffffff">12</text><text x="124" y="58">7</text><text x="180" y="58">30</text><text x="236" y="58">4</text><text x="292" y="58">18</text>
+<text x="68" y="102">25</text><text x="124" y="102">9</text><text x="180" y="102">41</text><text x="236" y="102">16</text><text x="292" y="102">2</text>
+<text x="68" y="146">6</text><text x="124" y="146">33</text><text x="180" y="146">14</text><text x="236" y="146">27</text><text x="292" y="146">11</text>
+<text x="68" y="190">19</text><text x="124" y="190">1</text><text x="180" y="190">22</text><text x="236" y="190">8</text><text x="292" y="190">35</text>
+</g>
+
+<polyline points="86,74 310,74 310,206 86,206 86,118 254,118 254,162 146,162" fill="none" stroke="#83748f" stroke-width="1.5" marker-end="url(#a)"/>
+<circle cx="86" cy="74" r="3" fill="#ffffff"/>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="350" y="56">The stretches, in order:</text>
+<text x="350" y="80">right 5: 12, 7, 30, 4, 18</text>
+<text x="350" y="100">down 3: 2, 11, 35</text>
+<text x="350" y="120">left 4: 8, 22, 1, 19</text>
+<text x="350" y="140">up 2: 6, 25</text>
+<text x="350" y="160">right 3: 9, 41, 16</text>
+<text x="350" y="180">down 1: 27</text>
+<text x="350" y="200">left 2: 14, 33</text>
+<text x="350" y="220">up 0: stop</text>
+<text x="20" y="252">Across: 5, 4, 3, 2 tiles; down or up: 3, 2, 1, 0. Each stretch is one shorter than the last</text>
+<text x="20" y="270">one along the same axis, so two counters tell the robot when to turn and when to stop.</text>
+</g>
+</svg>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 230" width="640" height="230" role="img">
+<title>Group Anagrams on tide, diet, edit, rain, iran: a map from the letter-count key to its group</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="28">key: letter counts</text><text x="260" y="28">group (words in the order they arrive)</text>
+</g>
+
+<rect x="20" y="46" width="200" height="30" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="20" y="106" width="200" height="30"/>
+<rect x="260" y="46" width="90" height="30"/><rect x="360" y="46" width="90" height="30"/><rect x="460" y="46" width="90" height="30"/>
+<rect x="260" y="106" width="90" height="30"/><rect x="360" y="106" width="90" height="30"/>
+<path d="M 220 61 L 252 61" marker-end="url(#a)"/><path d="M 220 121 L 252 121" marker-end="url(#a)"/>
+</g>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#83748f"/></marker></defs>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">
+<text x="120" y="66" fill="#ffffff">d1 e1 i1 t1</text><text x="120" y="126">a1 i1 n1 r1</text>
+<text x="305" y="66">tide</text><text x="405" y="66">diet</text><text x="505" y="66">edit</text>
+<text x="305" y="126">rain</text><text x="405" y="126">iran</text>
+</g>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">
+<text x="20" y="180">Each key really holds 26 counts; the other 22 are 0 and are not drawn.</text>
+<text x="20" y="202">The map values are the answer: two groups.</text>
+</g>
+</svg>

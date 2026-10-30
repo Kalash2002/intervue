@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 240" width="640" height="240" role="img">
+<title>Permutation in String, word "lap" on "xpalq": the three windows of length 3 and the match at pal</title>
+<text x="20" y="26" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="start">word = lap  ->  l 1, a 1, p 1</text>
+<rect x="40" y="44" width="56" height="36" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="68" y="68" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">x</text>
+<rect x="96" y="44" width="56" height="36" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="124" y="68" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">p</text>
+<rect x="152" y="44" width="56" height="36" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="180" y="68" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">a</text>
+<rect x="208" y="44" width="56" height="36" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="236" y="68" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">l</text>
+<rect x="264" y="44" width="56" height="36" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="292" y="68" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">q</text>
+<path d="M 44 112 L 204 112" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="344" y="117" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">xpa:  l missing, x extra</text>
+<path d="M 100 140 L 260 140" stroke="#7c3aed" stroke-width="3" fill="none"/>
+<text x="344" y="145" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">pal:  a 1, l 1, p 1  =  lap</text>
+<path d="M 156 168 L 316 168" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="344" y="173" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">alq:  p missing, q extra</text>
+<text x="20" y="218" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">From xpa to pal, x leaves and l enters: the counts now equal lap's.</text>
+</svg>

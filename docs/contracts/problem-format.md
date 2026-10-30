@@ -15,8 +15,10 @@ content/problems/<problem-id>/
     ├── variant.json
     ├── starter/      the project the candidate gets, plus data/
     ├── reference/    files that overlay starter/ so every phase passes
-    └── naive/        files that overlay starter/: every phase but the last passes, the last times out
+    └── naive/        files that overlay starter/: every phase but the last passes, the last times out (one-phase problems: see "One-phase problems")
 ```
+
+DSA questions live in `content/dsa/<question-id>/` with the same shape and one phase (below). The engine reads both roots, `content/dsa/` being optional; ids are unique across them (ADR 0008).
 
 ## problem.json
 
@@ -25,18 +27,38 @@ content/problems/<problem-id>/
 | `formatVersion` | integer | `1` |
 | `id` | string | equals the folder name; lowercase letters, digits and `-` |
 | `version` | integer | bumped on every change to the problem |
-| `section` | string | `coding-round` in Phase 1a |
+| `section` | string | `coding-round` or `dsa-quick` |
 | `title`, `summary`, `difficulty`, `domain` | string | non-empty; `difficulty` is `Easy`, `Medium` or `Hard` |
 | `techniques` | string array | track ids, at least one |
 | `tags` | string array, optional (added 2026-10-15, additive) | free-text tags shown as chips and used by the section page's filters; each `[a-z0-9]+(-[a-z0-9]+)*`, no repeats; absent means empty |
 | `minutes` | integer | Interview time limit |
 | `phases` | array | ids `1..N` in order, N at least 1 |
 | `phases[].title`, `.brief`, `.hints` | string | `brief` and `hints` are paths that exist |
-| `phases[].weight` | integer | phase weights sum to 70 (the correctness share) |
+| `phases[].weight` | integer | phase weights sum to 70 (the correctness share; 80 for a one-phase problem) |
 | `phases[].allOrNothing` | boolean | |
 | `phases[].timeoutRefMs` | integer | whole-run cap for that phase on the reference machine |
+| `coveredBy` | string array, optional (added 2026-10-15, additive) | DSA questions only: ids of coding-round problems that exercise this question; each exists in `content/problems/` |
 | `followUps` | string array | |
 | `languages` | string array | each has a `variants/<language>/` folder |
+
+## One-phase problems (DSA, added 2026-10-15, additive, no `formatVersion` bump)
+
+The DSA rules are keyed on the section id `dsa-quick` (ADR 0012; ADR 0008 keyed them on phase count). A `dsa-quick` problem has exactly one phase and differs from the multi-phase rules in this file:
+
+| Item | Rule |
+|---|---|
+| Phase | one, weight `80` (not 70); its brief is `statement.md`; hints are `hints/phase1.md` |
+| `brief/intro.md` | not present |
+| `grading/NOTES.md` | still required |
+| Statement | `statement.md`, in order: `# <Title>`; description; `## Example 1` to `## Example N` (N at least 1), each with three lines starting `**Input:**`, `**Output:**` and `**Explanation:**`, each with text after the label; `## Constraints` followed by a list with at least one `- ` item; optional `## Follow-up`. Shape: `content/templates/dsa-statement.md` |
+| Walkthrough headings, in order | `## The question`, `## How to think about it`, `## Brute force`, one or more `## Better: <name>`, `## Optimal: <name>`, `## Complexity` (one table over every approach), `## Where it shows up`, `## Follow-up answers`. Shape: `content/templates/dsa-walkthrough.md` |
+| Approach sections | each Brute force, Better and Optimal section has a ```java block and a line starting `**Complexity:**` |
+| Figure | at least one `![caption](figures/<file>.svg)` showing the optimal structure on the question's own example |
+| Starter | every editable file imports `java.util.*`; `variant.json` `main` is `Main` |
+| `naive/` | optional. Without it time is not graded separately and `grading/NOTES.md` says so. With it, the naive solution passes every test that did not time out, times out at least once, and still times out at 3x the limits (`NAIVE_MARGIN`) |
+| Reference | keeps the 5x headroom rule |
+
+Problems of other sections keep every other rule, and a one-phase problem of another section is refused by its schema. The shape for a new question is `content/templates/dsa-question.md`.
 
 ## variant.json
 
@@ -52,13 +74,14 @@ content/problems/<problem-id>/
 
 ## walkthrough.md
 
-The answer the app shows after a session and from every problem card. Its shape is `content/templates/walkthrough.md`; the validator enforces the part that holds the structure (added 2026-10-15, additive):
+The answer the app shows after a session and from every problem card. The coding round uses `content/templates/walkthrough.md` and the closing sections below; a `dsa-quick` problem uses `content/templates/dsa-walkthrough.md` and the headings in "One-phase problems" above, and none of the closing sections below. The validator enforces the part that holds the structure (added 2026-10-15, additive):
 
 | Rule | Detail |
 |---|---|
 | Closing sections, in this order | `## DSA reference` with `### Theory`, `### Code`, `### Complexity`, `### Practise the technique`; then `## Time budget`; then `## Follow-up answers` |
 | Figures | `![caption](figures/<name>.svg)` (or `.png`) refers to a file under the problem's `figures/`; the engine inlines them for the Answer page |
-| Practise links | `dsa://<question-id>` only; ids as in `content/dsa/INDEX.md` |
+| Practise links | `dsa://<question-id>` only; ids as in `content/dsa/INDEX.md`; each exists in `content/dsa/` |
+| Other sites | no `neetcode.io` or `leetcode.com` link anywhere under `content/` |
 | Prompts | ```text fences are what the candidate types; the voice rules are in `content/templates/README.md` (not validated) |
 
 ## Hints
@@ -67,4 +90,4 @@ The answer the app shows after a session and from every problem card. Its shape 
 
 ## Time limits
 
-Per-test `timeoutMs` in the test files and `timeoutRefMs` are milliseconds on the reference machine, scaled by the calibration factor at run time. The verify tool enforces: limit at least 5 times the reference solution's time, and the naive solution at least 3 times over the limit.
+Per-test `timeoutMs` in the test files and `timeoutRefMs` are milliseconds on the reference machine, scaled by the calibration factor at run time. The verify tool enforces: limit at least 5 times the reference solution's time, and the naive solution at least 3 times over the limit. A one-phase problem's naive solution is optional and follows its own rule (see "One-phase problems").

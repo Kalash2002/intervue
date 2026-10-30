@@ -1,0 +1,7 @@
+# Grader notes: Reconstruct Itinerary
+
+Routes are compared by size and then airport by airport, each code quoted, never by `List.toString()` alone.
+
+Tests cover: the sample (two loops taken in alphabetical order, and a smallest first flight to an airport no ticket leaves, which the greedy rule without undoing gets wrong); the same ticket twice, in two cases (a solution that keeps destinations in a set drops a flight and returns a short route); a single ticket; a dead end away from the start, at an airport in the middle of the trip; codes that differ only in their second letter; sixty seeded random trips over four airports, up to eight tickets each, shuffled and checked against an exhaustive search inside the test; a ring of 10,000 airports flown ten times round, 100,000 tickets in one chain (the recursive Hierholzer of the walkthrough overflows the stack here); and a timing case where the alphabetically smallest first flight leads into eleven loops with no way back.
+
+The timing test has a limit of 600 ms (3x is 1,800 ms). The naive solution tries destinations in alphabetical order and undoes a flight when stuck; here it flies every one of the 11! orders of the loops before it gives up on the first flight. Measured on a cold JVM: reference 1 ms, naive 8.8 s. With ten loops the naive took under a second, too close to the line, hence eleven. The ring test has a limit of 3,000 ms; the reference took about 220 ms there, most of it building and checking the 100,000-entry route, and the naive passes it in about 250 ms because the ring forces every choice.

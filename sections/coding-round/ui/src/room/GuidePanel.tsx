@@ -1,6 +1,6 @@
 import type { SessionView } from '@intervue/local-engine-client';
 import { Markdown } from '@intervue/ui';
-import type { RoomActions } from './useRoomActions.ts';
+import type { RoomActions } from '@intervue/room';
 
 /** The phase being worked on: the first open phase not yet passed, else the last one. */
 export function currentPhase(view: SessionView): number {

@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 268" width="640" height="268" role="img">
+<title>Minimum Window Substring on "xaybzcaby" with need abc: the covering windows found, shortest cab</title>
+<text x="20" y="26" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="start">need = abc</text>
+<rect x="40" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="62" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">x</text>
+<rect x="84" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="106" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">a</text>
+<rect x="128" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="150" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">y</text>
+<rect x="172" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="194" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">b</text>
+<rect x="216" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="238" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">z</text>
+<rect x="260" y="44" width="44" height="34" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="282" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">c</text>
+<rect x="304" y="44" width="44" height="34" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="326" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">a</text>
+<rect x="348" y="44" width="44" height="34" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="370" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#ffffff" text-anchor="middle">b</text>
+<rect x="392" y="44" width="44" height="34" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="414" y="67" font-family="JetBrains Mono, Consolas, monospace" font-size="16" fill="#83748f" text-anchor="middle">y</text>
+<path d="M 44 106 L 300 106" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="456" y="111" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">[0..5]  length 6</text>
+<path d="M 88 130 L 300 130" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="456" y="135" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">[1..5]  length 5</text>
+<path d="M 176 154 L 344 154" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<text x="456" y="159" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">[3..6]  length 4</text>
+<path d="M 264 178 L 388 178" stroke="#7c3aed" stroke-width="3" fill="none"/>
+<text x="456" y="183" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">[5..7]  length 3  best</text>
+<text x="20" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">The right edge grows until abc is covered, then the left edge shrinks.</text>
+<text x="20" y="248" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Each line is a covering window shorter than the one before; the last wins.</text>
+</svg>

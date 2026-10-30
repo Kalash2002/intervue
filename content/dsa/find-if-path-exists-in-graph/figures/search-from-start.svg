@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 266" width="640" height="266" role="img">
+<title>Find if Path Exists, Example 1: a breadth-first search from station 0 reaches 1 then 2</title>
+<text x="20" y="24" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="start">5 stations; connectors 0-1, 1-2 and 3-4; from 0 to 2</text>
+<path d="M 120 110 L 210 110" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<path d="M 250 110 L 340 110" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<path d="M 497 100 L 563 140" stroke="#83748f" stroke-width="1.5" fill="none"/>
+<circle cx="100" cy="110" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="100" y="115" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">0</text>
+<circle cx="230" cy="110" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="230" y="115" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">1</text>
+<circle cx="360" cy="110" r="20" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="360" y="115" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#ffffff" text-anchor="middle">2</text>
+<circle cx="480" cy="90" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="480" y="95" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">3</text>
+<circle cx="580" cy="150" r="20" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="580" y="155" font-family="JetBrains Mono, Consolas, monospace" font-size="14" fill="#83748f" text-anchor="middle">4</text>
+<text x="100" y="68" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">from</text>
+<text x="360" y="68" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">to</text>
+<text x="530" y="56" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">never queued</text>
+<text x="20" y="200" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="start">queue: 0, then 1, then 2</text>
+<text x="20" y="226" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Station 2 is taken off the queue, so the answer is true.</text>
+<text x="20" y="248" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f" text-anchor="start">Stations 3 and 4 form a separate island.</text>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "design-twitter",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Design Twitter",
+  "summary": "Design a small social feed where users post, follow each other and read the ten newest posts they can see.",
+  "difficulty": "Medium",
+  "techniques": ["heap"],
+  "tags": ["design", "heap", "k-way-merge", "hash-map"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What if some users had millions of followers and feeds had to load instantly?", "How would you let a user page further back, ten posts at a time?", "How would you add deleting a post?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

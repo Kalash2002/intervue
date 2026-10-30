@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 275" width="640" height="275" role="img">
+<title>Example 1 read level by level: 7, then 3 and 11, then 5, 9 and 2, then 8; the queue holds exactly one level at a time</title>
+<line x1="211.6" y1="48.7" x2="145.9" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="238.4" y1="48.7" x2="304.1" y2="91.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="142.3" y1="112.7" x2="169.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="307.7" y1="112.7" x2="281.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="327.3" y1="112.7" x2="354.0" y2="147.3" stroke="#83748f" stroke-width="1.5"/>
+<line x1="173.0" y1="174.9" x2="161.4" y2="205.1" stroke="#83748f" stroke-width="1.5"/>
+<circle cx="225.0" cy="40" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="225.0" y="45" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">7</text>
+<circle cx="132.5" cy="100" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="132.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">3</text>
+<circle cx="317.5" cy="100" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="317.5" y="105" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">11</text>
+<circle cx="178.8" cy="160" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="178.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">5</text>
+<circle cx="271.2" cy="160" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="271.2" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">9</text>
+<circle cx="363.8" cy="160" r="16" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="363.8" y="165" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#ffffff">2</text>
+<circle cx="155.6" cy="220" r="16" fill="none" stroke="#83748f" stroke-width="1.5"/>
+<text x="155.6" y="225" font-family="JetBrains Mono, Consolas, monospace" font-size="14" text-anchor="middle" fill="#83748f">8</text>
+<text x="420" y="45" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 0: [7]</text>
+<text x="420" y="105" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 1: [3, 11]</text>
+<text x="420" y="165" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 2: [5, 9, 2]</text>
+<text x="420" y="225" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">level 3: [8]</text>
+<text x="420" y="262" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">filled: the queue after level 1 is done</text>
+</svg>

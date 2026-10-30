@@ -1,0 +1,10 @@
+{
+  "id": "dsa-quick",
+  "name": "DSA",
+  "description": "Short data-structure and algorithm questions: one statement, one file to edit, graded by tests. Interview sessions run against the clock; Practice sessions use a stopwatch and authored hints.",
+  "version": 1,
+  "spiVersion": 1,
+  "runnerKind": "code-tests",
+  "graderKind": "tests",
+  "uiMode": "editor"
+}

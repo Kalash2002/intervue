@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "redundant-connection",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Redundant Connection",
+  "summary": "Find the one cable that can be removed from a network with a single loop so that it becomes a tree.",
+  "difficulty": "Medium",
+  "techniques": ["graphs"],
+  "tags": ["graph", "union-find", "cycle"],
+  "domain": "dsa",
+  "minutes": 30,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["What changes if the cables were one-way, so the network was a rooted tree plus one extra link?", "How would you list every building on the loop?", "What if more than one extra cable had been added?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

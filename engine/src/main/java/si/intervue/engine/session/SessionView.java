@@ -9,7 +9,8 @@ import si.intervue.engine.sections.SessionType;
  * then one entry per phase, null while that phase is locked; {@code result} is null until finish.
  * {@code timed} is true when the limit applies (always for Interview); {@code phaseTitles} name
  * every phase for the overview. {@code aiEditsApplied} and {@code aiEditsUndone} count the edit
- * events (ADR 0006 shows them).
+ * events (ADR 0006 shows them). {@code channels} names the assistant channels the section enables
+ * (empty: no assistant panel); {@code hintsAllowed} is whether this session may reveal hints.
  */
 public record SessionView(
     String id,
@@ -31,6 +32,8 @@ public record SessionView(
     int aiEditsActive,
     int aiEditsApplied,
     int aiEditsUndone,
+    List<String> channels,
+    boolean hintsAllowed,
     List<String> brief,
     String notes,
     List<EventView> events,

@@ -20,14 +20,25 @@ final class SessionHints {
   }
 
   /**
-   * Reveals the next authored hint level of an unlocked phase. Practice only: Interview mode has no
-   * hints at all, so no hint deductions exist in its score (PLAN.md 2.8).
+   * The one rule for hint availability, shared by reveal, explain and the session view: Practice
+   * always, Interview only when the section opts in (ADR 0012); a section without hints has none.
    */
+  static boolean allowed(Context c) {
+    return c.section().supportsHints()
+        && (c.session().type() == SessionType.PRACTICE || c.section().hintsInInterview());
+  }
+
+  /** Throws where {@link #allowed} says no; one message for reveal, explain and preflight. */
+  static void require(Context c) {
+    if (!allowed(c)) {
+      throw new SessionException("Hints are not available in this Interview session.");
+    }
+  }
+
+  /** Reveals the next authored hint level of an unlocked phase, where {@link #allowed} says so. */
   HintView reveal(Context c, int phase) {
     String id = c.session().id();
-    if (c.session().type() != SessionType.PRACTICE) {
-      throw new SessionException("Hints are available in Practice sessions only.");
-    }
+    require(c);
     if (phase < 1 || phase > c.session().unlocked()) {
       throw new SessionException("Phase " + phase + " is not open yet.");
     }
