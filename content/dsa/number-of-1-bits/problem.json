@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "number-of-1-bits",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Number of 1 Bits",
+  "summary": "Count how many of the 32 bits of an int are 1, including patterns whose top bit is set.",
+  "difficulty": "Easy",
+  "techniques": ["bit-manipulation"],
+  "tags": ["popcount", "twos-complement", "bit-shifts"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you make the work depend on the number of 1 bits instead of on all 32 positions?", "If you must count the bits of millions of values, how would you make it faster?", "How would you find how many bits differ between two patterns?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

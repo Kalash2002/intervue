@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" width="640" height="290" role="img">
+<title>Single Number, Example 1: the running XOR of 12, 5, 10, 12 and 10 in four bits ends at 0101, which is 5</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f">
+<text x="20" y="28">read</text><text x="110" y="28">its bits</text><text x="230" y="28">running XOR after it</text><text x="420" y="28">as a number</text>
+</g>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f">
+<text x="20" y="62">start</text>
+<text x="20" y="96">12</text><text x="110" y="96">1100</text>
+<text x="20" y="130">5</text><text x="110" y="130">0101</text>
+<text x="20" y="164">10</text><text x="110" y="164">1010</text>
+<text x="20" y="198">12</text><text x="110" y="198">1100</text>
+<text x="20" y="232">10</text><text x="110" y="232">1010</text>
+<text x="420" y="62">0</text>
+<text x="420" y="96">12</text>
+<text x="420" y="130">9</text>
+<text x="420" y="164">3</text>
+<text x="420" y="198">15</text>
+<text x="420" y="232">5</text>
+</g>
+
+<g fill="none" stroke="#83748f" stroke-width="1.5">
+<rect x="230" y="44" width="80" height="26"/>
+<rect x="230" y="78" width="80" height="26"/>
+<rect x="230" y="112" width="80" height="26"/>
+<rect x="230" y="146" width="80" height="26"/>
+<rect x="230" y="180" width="80" height="26"/>
+</g>
+<rect x="230" y="214" width="80" height="26" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="270" y="62">0000</text>
+<text x="270" y="96">1100</text>
+<text x="270" y="130">1001</text>
+<text x="270" y="164">0011</text>
+<text x="270" y="198">1111</text>
+<text x="270" y="232" fill="#ffffff">0101</text>
+</g>
+
+<text x="20" y="274" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">The two 12s cancel, the two 10s cancel, and only 5 is left at the end.</text>
+</svg>

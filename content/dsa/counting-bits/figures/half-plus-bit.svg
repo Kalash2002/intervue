@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" width="640" height="330" role="img">
+<title>Counting Bits, Example 1: each count from 1 to 10 is the count of i shifted right by one plus the lowest bit of i</title>
+
+<g font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="40" y="26">i</text><text x="120" y="26">binary</text><text x="220" y="26">i &gt;&gt; 1</text><text x="320" y="26">its count</text><text x="430" y="26">+ lowest bit</text><text x="540" y="26">= count of i</text>
+</g>
+<path d="M 16 36 L 620 36" stroke="#83748f" stroke-width="1" fill="none"/>
+
+<g font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#83748f" text-anchor="middle">
+<text x="40" y="56">0</text><text x="120" y="56">0</text><text x="540" y="56">0</text>
+<text x="40" y="78">1</text><text x="120" y="78">1</text><text x="220" y="78">0</text><text x="320" y="78">0</text><text x="430" y="78">1</text><text x="540" y="78">1</text>
+<text x="40" y="100">2</text><text x="120" y="100">10</text><text x="220" y="100">1</text><text x="320" y="100">1</text><text x="430" y="100">0</text><text x="540" y="100">1</text>
+<text x="40" y="122">3</text><text x="120" y="122">11</text><text x="220" y="122">1</text><text x="320" y="122">1</text><text x="430" y="122">1</text><text x="540" y="122">2</text>
+<text x="40" y="144">4</text><text x="120" y="144">100</text><text x="220" y="144">2</text><text x="320" y="144">1</text><text x="430" y="144">0</text><text x="540" y="144">1</text>
+<text x="40" y="166">5</text><text x="120" y="166">101</text><text x="220" y="166">2</text><text x="320" y="166">1</text><text x="430" y="166">1</text><text x="540" y="166">2</text>
+<text x="40" y="188">6</text><text x="120" y="188">110</text><text x="220" y="188">3</text><text x="320" y="188">2</text><text x="430" y="188">0</text><text x="540" y="188">2</text>
+<text x="40" y="210">7</text><text x="120" y="210">111</text><text x="220" y="210">3</text><text x="320" y="210">2</text><text x="430" y="210">1</text><text x="540" y="210">3</text>
+<text x="40" y="232">8</text><text x="120" y="232">1000</text><text x="220" y="232">4</text><text x="320" y="232">1</text><text x="430" y="232">0</text><text x="540" y="232">1</text>
+<text x="40" y="254">9</text><text x="120" y="254">1001</text><text x="220" y="254">4</text><text x="320" y="254">1</text><text x="430" y="254">1</text><text x="540" y="254">2</text>
+<text x="40" y="276">10</text><text x="120" y="276">1010</text><text x="220" y="276">5</text><text x="320" y="276">2</text><text x="430" y="276">0</text>
+</g>
+
+<rect x="526" y="261" width="28" height="21" fill="#7c3aed" stroke="#7c3aed" stroke-width="1.5"/>
+<text x="540" y="276" font-family="JetBrains Mono, Consolas, monospace" font-size="13" fill="#ffffff" text-anchor="middle">2</text>
+
+<text x="16" y="314" font-family="Hanken Grotesk, Segoe UI, sans-serif" font-size="14" fill="#83748f">10 is 1010: half of it is 5, already counted as 2, and its lowest bit is 0.</text>
+</svg>

@@ -1,0 +1,19 @@
+{
+  "formatVersion": 1,
+  "id": "reverse-bits",
+  "version": 1,
+  "section": "dsa-quick",
+  "title": "Reverse Bits",
+  "summary": "Return a 32-bit word with its bits in the opposite order, all 32 positions included.",
+  "difficulty": "Easy",
+  "techniques": ["bit-manipulation"],
+  "tags": ["twos-complement", "bit-shifts", "bit-masks"],
+  "domain": "dsa",
+  "minutes": 20,
+  "phases": [
+    {"id": 1, "title": "Solve it", "brief": "statement.md", "hints": "hints/phase1.md", "weight": 80, "allOrNothing": false, "timeoutRefMs": 30000}
+  ],
+  "followUps": ["Can you do it in fewer than 32 steps, without a loop over the bits?", "If the method is called on millions of words, how would you speed it up?", "How would you mirror only the lowest k bits of a word, leaving the bits above them as they are?"],
+  "languages": ["java"],
+  "coveredBy": []
+}

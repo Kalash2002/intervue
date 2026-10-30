@@ -147,10 +147,10 @@ Phases 1ad and 1ae both walk this list top to bottom. 1ad writes the DSA questio
 | 141 | Math and geometry | Pow(x, n) | `powx-n` | ✓ | |
 | 142 | Math and geometry | Multiply Strings | `multiply-strings` | ✓ | |
 | 143 | Math and geometry | Detect Squares | `detect-squares` | ✓ | |
-| 144 | Bit manipulation | Single Number | `single-number` | | |
-| 145 | Bit manipulation | Number of 1 Bits | `number-of-1-bits` | | |
-| 146 | Bit manipulation | Counting Bits | `counting-bits` | | |
-| 147 | Bit manipulation | Reverse Bits | `reverse-bits` | | |
+| 144 | Bit manipulation | Single Number | `single-number` | ✓ | |
+| 145 | Bit manipulation | Number of 1 Bits | `number-of-1-bits` | ✓ | |
+| 146 | Bit manipulation | Counting Bits | `counting-bits` | ✓ | |
+| 147 | Bit manipulation | Reverse Bits | `reverse-bits` | ✓ | |
 | 148 | Bit manipulation | Missing Number | `missing-number` | | |
 | 149 | Bit manipulation | Sum of Two Integers | `sum-of-two-integers` | | |
 | 150 | Bit manipulation | Reverse Integer | `reverse-integer` | | |
