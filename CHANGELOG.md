@@ -4,6 +4,9 @@ All notable changes, grouped by deployable. Unreleased entries move under a vers
 
 ## Unreleased
 
+- content: the rest of the NeetCode 150 under `content/dsa/`, 114 questions in 24 reviewed batches (4a to 16b): binary search, linked list, trees, heap, backtracking, tries, graphs, advanced graphs, 1-D and 2-D DP, greedy, intervals, math and geometry, bit manipulation; each with statement, three-level hints, tests, starter, reference, grading notes, walkthrough and one figure, and a naive solution wherever a slower approach can be timed (where none can, NOTES say time is not graded); `content/dsa/NEETCODE-150.md` has all 150 rows ticked (2026-10-30)
+- content: six coding-round figures had duplicate SVG attributes and failed to load as `<img>`; fixed (2026-10-17)
+
 - docs: ADR 0012 (DSA statement and answer shapes, hints without the assistant; supersedes ADR 0008 in part), `content/templates/dsa-statement.md` and `dsa-walkthrough.md` (2026-10-16)
 - shared-java: the problem validator applies DSA statement (Example blocks, Constraints), answer (brute force, better, optimal, complexity table, one figure) and `java.util.*` starter-import rules, keyed on section `dsa-quick`; this closes the one-phase coding-round Later note (2026-10-16)
 - engine, shared-java: a section's channels are enforced for every section: a missing channel gets an HTTP 400 on ask, write and hints/explain, before the stream opens; Interview hints come from the new SPI default `hintsInInterview()`; `SessionView` carries `channels` and `hintsAllowed` (2026-10-16)

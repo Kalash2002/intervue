@@ -63,6 +63,17 @@ pnpm -C packages/editor test && pnpm -C sections/dsa-quick/ui test   # auto-impo
 - Low memory: verify runs three JVM passes per question. Do not run all 49 DSA plus the 10 coding-round problems with other builds open; pass `-Pids` with three to five ids at a time and repeat until all 59 have passed. Run `./gradlew --stop` between chunks if memory is tight.
 - Evidence recipe is unchanged (headless Edge, `--disable-extensions`), into `docs/plans/phase-1ad-fixes-evidence/`.
 
+### Phase 1ad batch 4: writing the rest of the 150
+
+```sh
+./gradlew :content:tools:verify --offline -q -Pids=single-number,missing-number   # one verify at a time: the timing checks are load-sensitive
+./gradlew --stop -q                                           # after each verify; stops only daemons of this Gradle version
+./gradlew :content:tools:verify --offline -q                  # all 173 problems; about 40 minutes on a busy machine
+```
+
+- `--offline` failing with `Plugin [id: 'com.diffplug.spotless', ...] was not found` after a long idle means the Gradle cache dropped the plugin: run once without `--offline`, then offline works again.
+- A timing miss (`needs 5x headroom`, or `finishes within 3x its limit on the naive solution`) is re-run alone once on a quiet machine before the question is changed. Check what else holds the CPU first (another project's JVM, Docker's VM).
+
 ## Phase 1ac: shell, Home, section page, theme, tags
 
 ### Gates added in this phase
